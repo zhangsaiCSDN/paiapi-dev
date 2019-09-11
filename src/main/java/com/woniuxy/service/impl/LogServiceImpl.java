@@ -14,7 +14,7 @@ import com.woniuxy.service.ILogService;
 @Transactional
 public class LogServiceImpl implements ILogService {
 	
-	@Autowired
+	@Autowired 
 	private LogMapper mapper;
 
 	@Override

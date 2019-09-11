@@ -9,5 +9,5 @@ public interface ILogService {
 	void delete(Integer lig);
 	void update(Log log);
 	Log findOne(Integer lig);
-	List<Log> find();
+	List<Log> find(); 
 }

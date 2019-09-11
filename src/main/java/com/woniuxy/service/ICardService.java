@@ -9,5 +9,5 @@ public interface ICardService {
 	void delete(Integer cid);
 	void update(Card card);
 	Card findOne(Integer cid);
-	List<Card> find();
+	List<Card> find(); 
 }

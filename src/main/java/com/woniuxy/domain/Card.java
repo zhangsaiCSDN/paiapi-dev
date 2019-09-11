@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Card implements Serializable{
     /**
-	 * 
+	 *  
 	 */
 
 	private Integer cid;

@@ -14,7 +14,7 @@ import com.woniuxy.service.ICardService;
 @Transactional
 public class CardServiceImpl implements ICardService  {
 	
-	@Autowired
+	@Autowired 
 	private CardMapper mapper;
 
 	@Override
