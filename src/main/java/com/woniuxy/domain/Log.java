@@ -18,5 +18,5 @@ public class Log {
     private Date ltime;
 
     private String loption;
-
+ 
 }
