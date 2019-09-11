@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.woniuxy.domain.Address;
 
-
 public interface IAddressService {
 
 	void save(Address address);

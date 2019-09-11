@@ -15,5 +15,6 @@ public class Orders implements Serializable {
     private Double odfee;
     private Integer uid;
     private Integer gid;
+    
 
 }

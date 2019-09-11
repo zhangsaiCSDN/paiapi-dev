@@ -11,5 +11,4 @@ public interface IOrdersService {
 	void update(Orders orders);
 	Orders findOne(Integer odid);
 	List<Orders> find();
-	
 }

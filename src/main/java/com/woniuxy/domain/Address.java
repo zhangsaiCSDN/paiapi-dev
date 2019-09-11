@@ -11,4 +11,5 @@ public class Address implements Serializable {
     private String ainfo;
     private String apost;
     private String aphone;
+    
 }
