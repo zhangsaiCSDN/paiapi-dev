@@ -17,5 +17,5 @@ public class Card {
     private String cback;
 
     private Integer cstate;
-     
+    
 }
