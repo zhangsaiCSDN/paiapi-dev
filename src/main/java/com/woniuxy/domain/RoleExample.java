@@ -233,6 +233,76 @@ public class RoleExample {
             addCriterion("rname not between", value1, value2, "rname");
             return (Criteria) this;
         }
+
+        public Criteria andRdesIsNull() {
+            addCriterion("rdes is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesIsNotNull() {
+            addCriterion("rdes is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesEqualTo(String value) {
+            addCriterion("rdes =", value, "rdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesNotEqualTo(String value) {
+            addCriterion("rdes <>", value, "rdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesGreaterThan(String value) {
+            addCriterion("rdes >", value, "rdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesGreaterThanOrEqualTo(String value) {
+            addCriterion("rdes >=", value, "rdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesLessThan(String value) {
+            addCriterion("rdes <", value, "rdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesLessThanOrEqualTo(String value) {
+            addCriterion("rdes <=", value, "rdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesLike(String value) {
+            addCriterion("rdes like", value, "rdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesNotLike(String value) {
+            addCriterion("rdes not like", value, "rdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesIn(List<String> values) {
+            addCriterion("rdes in", values, "rdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesNotIn(List<String> values) {
+            addCriterion("rdes not in", values, "rdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesBetween(String value1, String value2) {
+            addCriterion("rdes between", value1, value2, "rdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andRdesNotBetween(String value1, String value2) {
+            addCriterion("rdes not between", value1, value2, "rdes");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

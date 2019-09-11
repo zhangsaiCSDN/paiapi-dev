@@ -16,21 +16,15 @@ public interface ImageMapper {
 
     int insertSelective(Image record);
 
-    List<Image> selectByExampleWithBLOBs(ImageExample example);
-
     List<Image> selectByExample(ImageExample example);
 
     Image selectByPrimaryKey(Integer imgid);
 
     int updateByExampleSelective(@Param("record") Image record, @Param("example") ImageExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") Image record, @Param("example") ImageExample example);
-
     int updateByExample(@Param("record") Image record, @Param("example") ImageExample example);
 
     int updateByPrimaryKeySelective(Image record);
-
-    int updateByPrimaryKeyWithBLOBs(Image record);
 
     int updateByPrimaryKey(Image record);
 }

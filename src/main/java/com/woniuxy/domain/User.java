@@ -5,6 +5,10 @@ public class User {
 
     private Integer cid;
 
+    private String uname;
+
+    private String upwd;
+
     private Integer ustate;
 
     public Integer getUid() {
@@ -21,6 +25,22 @@ public class User {
 
     public void setCid(Integer cid) {
         this.cid = cid;
+    }
+
+    public String getUname() {
+        return uname;
+    }
+
+    public void setUname(String uname) {
+        this.uname = uname;
+    }
+
+    public String getUpwd() {
+        return upwd;
+    }
+
+    public void setUpwd(String upwd) {
+        this.upwd = upwd;
     }
 
     public Integer getUstate() {

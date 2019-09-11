@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woniuxy.dao.UserstestMapper">
-  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Userstest">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="birthday" jdbcType="DATE" property="birthday" />
-    <result column="money" jdbcType="DOUBLE" property="money" />
+<mapper namespace="com.woniuxy.dao.PermissionMapper">
+  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Permission">
+    <id column="pmsid" jdbcType="INTEGER" property="pmsid" />
+    <result column="pmsname" jdbcType="CHAR" property="pmsname" />
+    <result column="pmsdes" jdbcType="VARCHAR" property="pmsdes" />
   </resultMap>
-  <!-- mybatis 逆向工程测试 -->
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -67,15 +65,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, birthday, money
+    pmsid, pmsname, pmsdes
   </sql>
-  <select id="selectByExample" parameterType="com.woniuxy.domain.UserstestExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.woniuxy.domain.PermissionExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from userstest
+    from permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,76 +84,67 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from userstest
-    where id = #{id,jdbcType=INTEGER}
+    from permission
+    where pmsid = #{pmsid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from userstest
-    where id = #{id,jdbcType=INTEGER}
+    delete from permission
+    where pmsid = #{pmsid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.woniuxy.domain.UserstestExample">
-    delete from userstest
+  <delete id="deleteByExample" parameterType="com.woniuxy.domain.PermissionExample">
+    delete from permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.woniuxy.domain.Userstest">
-    insert into userstest (id, name, birthday, 
-      money)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
-      #{money,jdbcType=DOUBLE})
+  <insert id="insert" parameterType="com.woniuxy.domain.Permission">
+    insert into permission (pmsid, pmsname, pmsdes
+      )
+    values (#{pmsid,jdbcType=INTEGER}, #{pmsname,jdbcType=CHAR}, #{pmsdes,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.woniuxy.domain.Userstest">
-    insert into userstest
+  <insert id="insertSelective" parameterType="com.woniuxy.domain.Permission">
+    insert into permission
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
+      <if test="pmsid != null">
+        pmsid,
       </if>
-      <if test="name != null">
-        name,
+      <if test="pmsname != null">
+        pmsname,
       </if>
-      <if test="birthday != null">
-        birthday,
-      </if>
-      <if test="money != null">
-        money,
+      <if test="pmsdes != null">
+        pmsdes,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
+      <if test="pmsid != null">
+        #{pmsid,jdbcType=INTEGER},
       </if>
-      <if test="name != null">
-        #{name,jdbcType=VARCHAR},
+      <if test="pmsname != null">
+        #{pmsname,jdbcType=CHAR},
       </if>
-      <if test="birthday != null">
-        #{birthday,jdbcType=DATE},
-      </if>
-      <if test="money != null">
-        #{money,jdbcType=DOUBLE},
+      <if test="pmsdes != null">
+        #{pmsdes,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.woniuxy.domain.UserstestExample" resultType="java.lang.Long">
-    select count(*) from userstest
+  <select id="countByExample" parameterType="com.woniuxy.domain.PermissionExample" resultType="java.lang.Long">
+    select count(*) from permission
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update userstest
+    update permission
     <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
+      <if test="record.pmsid != null">
+        pmsid = #{record.pmsid,jdbcType=INTEGER},
       </if>
-      <if test="record.name != null">
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.pmsname != null">
+        pmsname = #{record.pmsname,jdbcType=CHAR},
       </if>
-      <if test="record.birthday != null">
-        birthday = #{record.birthday,jdbcType=DATE},
-      </if>
-      <if test="record.money != null">
-        money = #{record.money,jdbcType=DOUBLE},
+      <if test="record.pmsdes != null">
+        pmsdes = #{record.pmsdes,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -163,35 +152,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update userstest
-    set id = #{record.id,jdbcType=INTEGER},
-      name = #{record.name,jdbcType=VARCHAR},
-      birthday = #{record.birthday,jdbcType=DATE},
-      money = #{record.money,jdbcType=DOUBLE}
+    update permission
+    set pmsid = #{record.pmsid,jdbcType=INTEGER},
+      pmsname = #{record.pmsname,jdbcType=CHAR},
+      pmsdes = #{record.pmsdes,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Userstest">
-    update userstest
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Permission">
+    update permission
     <set>
-      <if test="name != null">
-        name = #{name,jdbcType=VARCHAR},
+      <if test="pmsname != null">
+        pmsname = #{pmsname,jdbcType=CHAR},
       </if>
-      <if test="birthday != null">
-        birthday = #{birthday,jdbcType=DATE},
-      </if>
-      <if test="money != null">
-        money = #{money,jdbcType=DOUBLE},
+      <if test="pmsdes != null">
+        pmsdes = #{pmsdes,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where pmsid = #{pmsid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Userstest">
-    update userstest
-    set name = #{name,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=DATE},
-      money = #{money,jdbcType=DOUBLE}
-    where id = #{id,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Permission">
+    update permission
+    set pmsname = #{pmsname,jdbcType=CHAR},
+      pmsdes = #{pmsdes,jdbcType=VARCHAR}
+    where pmsid = #{pmsid,jdbcType=INTEGER}
   </update>
 </mapper>

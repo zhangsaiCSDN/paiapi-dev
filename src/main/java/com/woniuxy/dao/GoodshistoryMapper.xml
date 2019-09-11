@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.dao.GoodshistoryMapper">
+  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Goodshistory">
+    <id column="ghid" jdbcType="INTEGER" property="ghid" />
+    <result column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="ghmoney" jdbcType="DOUBLE" property="ghmoney" />
+    <result column="ghtime" jdbcType="TIMESTAMP" property="ghtime" />
+    <result column="buyerid" jdbcType="INTEGER" property="buyerid" />
+    <result column="ghdes" jdbcType="VARCHAR" property="ghdes" />
+    <result column="ghdeadline" jdbcType="TIMESTAMP" property="ghdeadline" />
+    <result column="paystate" jdbcType="INTEGER" property="paystate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ghid, gid, ghmoney, ghtime, buyerid, ghdes, ghdeadline, paystate
+  </sql>
+  <select id="selectByExample" parameterType="com.woniuxy.domain.GoodshistoryExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goodshistory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from goodshistory
+    where ghid = #{ghid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goodshistory
+    where ghid = #{ghid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.domain.GoodshistoryExample">
+    delete from goodshistory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.domain.Goodshistory">
+    insert into goodshistory (ghid, gid, ghmoney, 
+      ghtime, buyerid, ghdes, 
+      ghdeadline, paystate)
+    values (#{ghid,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}, #{ghmoney,jdbcType=DOUBLE}, 
+      #{ghtime,jdbcType=TIMESTAMP}, #{buyerid,jdbcType=INTEGER}, #{ghdes,jdbcType=VARCHAR}, 
+      #{ghdeadline,jdbcType=TIMESTAMP}, #{paystate,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.domain.Goodshistory">
+    insert into goodshistory
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ghid != null">
+        ghid,
+      </if>
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="ghmoney != null">
+        ghmoney,
+      </if>
+      <if test="ghtime != null">
+        ghtime,
+      </if>
+      <if test="buyerid != null">
+        buyerid,
+      </if>
+      <if test="ghdes != null">
+        ghdes,
+      </if>
+      <if test="ghdeadline != null">
+        ghdeadline,
+      </if>
+      <if test="paystate != null">
+        paystate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ghid != null">
+        #{ghid,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="ghmoney != null">
+        #{ghmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ghtime != null">
+        #{ghtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyerid != null">
+        #{buyerid,jdbcType=INTEGER},
+      </if>
+      <if test="ghdes != null">
+        #{ghdes,jdbcType=VARCHAR},
+      </if>
+      <if test="ghdeadline != null">
+        #{ghdeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paystate != null">
+        #{paystate,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.domain.GoodshistoryExample" resultType="java.lang.Long">
+    select count(*) from goodshistory
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goodshistory
+    <set>
+      <if test="record.ghid != null">
+        ghid = #{record.ghid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gid != null">
+        gid = #{record.gid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ghmoney != null">
+        ghmoney = #{record.ghmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.ghtime != null">
+        ghtime = #{record.ghtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.buyerid != null">
+        buyerid = #{record.buyerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ghdes != null">
+        ghdes = #{record.ghdes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ghdeadline != null">
+        ghdeadline = #{record.ghdeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.paystate != null">
+        paystate = #{record.paystate,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goodshistory
+    set ghid = #{record.ghid,jdbcType=INTEGER},
+      gid = #{record.gid,jdbcType=INTEGER},
+      ghmoney = #{record.ghmoney,jdbcType=DOUBLE},
+      ghtime = #{record.ghtime,jdbcType=TIMESTAMP},
+      buyerid = #{record.buyerid,jdbcType=INTEGER},
+      ghdes = #{record.ghdes,jdbcType=VARCHAR},
+      ghdeadline = #{record.ghdeadline,jdbcType=TIMESTAMP},
+      paystate = #{record.paystate,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Goodshistory">
+    update goodshistory
+    <set>
+      <if test="gid != null">
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="ghmoney != null">
+        ghmoney = #{ghmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="ghtime != null">
+        ghtime = #{ghtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyerid != null">
+        buyerid = #{buyerid,jdbcType=INTEGER},
+      </if>
+      <if test="ghdes != null">
+        ghdes = #{ghdes,jdbcType=VARCHAR},
+      </if>
+      <if test="ghdeadline != null">
+        ghdeadline = #{ghdeadline,jdbcType=TIMESTAMP},
+      </if>
+      <if test="paystate != null">
+        paystate = #{paystate,jdbcType=INTEGER},
+      </if>
+    </set>
+    where ghid = #{ghid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Goodshistory">
+    update goodshistory
+    set gid = #{gid,jdbcType=INTEGER},
+      ghmoney = #{ghmoney,jdbcType=DOUBLE},
+      ghtime = #{ghtime,jdbcType=TIMESTAMP},
+      buyerid = #{buyerid,jdbcType=INTEGER},
+      ghdes = #{ghdes,jdbcType=VARCHAR},
+      ghdeadline = #{ghdeadline,jdbcType=TIMESTAMP},
+      paystate = #{paystate,jdbcType=INTEGER}
+    where ghid = #{ghid,jdbcType=INTEGER}
+  </update>
+</mapper>

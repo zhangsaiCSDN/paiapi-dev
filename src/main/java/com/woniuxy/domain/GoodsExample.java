@@ -1,6 +1,5 @@
 package com.woniuxy.domain;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -486,52 +485,52 @@ public class GoodsExample {
             return (Criteria) this;
         }
 
-        public Criteria andGpriceEqualTo(BigDecimal value) {
+        public Criteria andGpriceEqualTo(Double value) {
             addCriterion("gprice =", value, "gprice");
             return (Criteria) this;
         }
 
-        public Criteria andGpriceNotEqualTo(BigDecimal value) {
+        public Criteria andGpriceNotEqualTo(Double value) {
             addCriterion("gprice <>", value, "gprice");
             return (Criteria) this;
         }
 
-        public Criteria andGpriceGreaterThan(BigDecimal value) {
+        public Criteria andGpriceGreaterThan(Double value) {
             addCriterion("gprice >", value, "gprice");
             return (Criteria) this;
         }
 
-        public Criteria andGpriceGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andGpriceGreaterThanOrEqualTo(Double value) {
             addCriterion("gprice >=", value, "gprice");
             return (Criteria) this;
         }
 
-        public Criteria andGpriceLessThan(BigDecimal value) {
+        public Criteria andGpriceLessThan(Double value) {
             addCriterion("gprice <", value, "gprice");
             return (Criteria) this;
         }
 
-        public Criteria andGpriceLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andGpriceLessThanOrEqualTo(Double value) {
             addCriterion("gprice <=", value, "gprice");
             return (Criteria) this;
         }
 
-        public Criteria andGpriceIn(List<BigDecimal> values) {
+        public Criteria andGpriceIn(List<Double> values) {
             addCriterion("gprice in", values, "gprice");
             return (Criteria) this;
         }
 
-        public Criteria andGpriceNotIn(List<BigDecimal> values) {
+        public Criteria andGpriceNotIn(List<Double> values) {
             addCriterion("gprice not in", values, "gprice");
             return (Criteria) this;
         }
 
-        public Criteria andGpriceBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andGpriceBetween(Double value1, Double value2) {
             addCriterion("gprice between", value1, value2, "gprice");
             return (Criteria) this;
         }
 
-        public Criteria andGpriceNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andGpriceNotBetween(Double value1, Double value2) {
             addCriterion("gprice not between", value1, value2, "gprice");
             return (Criteria) this;
         }
@@ -726,52 +725,52 @@ public class GoodsExample {
             return (Criteria) this;
         }
 
-        public Criteria andGgapEqualTo(BigDecimal value) {
+        public Criteria andGgapEqualTo(Double value) {
             addCriterion("ggap =", value, "ggap");
             return (Criteria) this;
         }
 
-        public Criteria andGgapNotEqualTo(BigDecimal value) {
+        public Criteria andGgapNotEqualTo(Double value) {
             addCriterion("ggap <>", value, "ggap");
             return (Criteria) this;
         }
 
-        public Criteria andGgapGreaterThan(BigDecimal value) {
+        public Criteria andGgapGreaterThan(Double value) {
             addCriterion("ggap >", value, "ggap");
             return (Criteria) this;
         }
 
-        public Criteria andGgapGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andGgapGreaterThanOrEqualTo(Double value) {
             addCriterion("ggap >=", value, "ggap");
             return (Criteria) this;
         }
 
-        public Criteria andGgapLessThan(BigDecimal value) {
+        public Criteria andGgapLessThan(Double value) {
             addCriterion("ggap <", value, "ggap");
             return (Criteria) this;
         }
 
-        public Criteria andGgapLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andGgapLessThanOrEqualTo(Double value) {
             addCriterion("ggap <=", value, "ggap");
             return (Criteria) this;
         }
 
-        public Criteria andGgapIn(List<BigDecimal> values) {
+        public Criteria andGgapIn(List<Double> values) {
             addCriterion("ggap in", values, "ggap");
             return (Criteria) this;
         }
 
-        public Criteria andGgapNotIn(List<BigDecimal> values) {
+        public Criteria andGgapNotIn(List<Double> values) {
             addCriterion("ggap not in", values, "ggap");
             return (Criteria) this;
         }
 
-        public Criteria andGgapBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andGgapBetween(Double value1, Double value2) {
             addCriterion("ggap between", value1, value2, "ggap");
             return (Criteria) this;
         }
 
-        public Criteria andGgapNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andGgapNotBetween(Double value1, Double value2) {
             addCriterion("ggap not between", value1, value2, "ggap");
             return (Criteria) this;
         }

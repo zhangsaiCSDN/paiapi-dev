@@ -1,15 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
-<generatorConfiguration >
-  <context id="context1" >
-  	<commentGenerator>
-		<property name="suppressAllComments" value="true" />
-	</commentGenerator>
-    <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://39.106.170.86:3306/xiaoxitest?characterEncoding=utf-8" userId="root" password="paipai16" />
-    <javaModelGenerator targetPackage="com.woniuxy.domain" targetProject=".\src\main\java" ></javaModelGenerator>
-    <sqlMapGenerator targetPackage="com.woniuxy.dao" targetProject=".\src\main\java" ></sqlMapGenerator>
-    <javaClientGenerator targetPackage="com.woniuxy.dao" targetProject=".\src\main\java" type="XMLMAPPER" />
-    
-    <table schema="" tableName="userstest" ></table>
-  </context>
+<generatorConfiguration>
+	<context id="context1">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://39.106.170.86:3306/paipai?characterEncoding=utf-8"
+			userId="root" password="paipai16" />
+		<javaModelGenerator
+			targetPackage="com.woniuxy.domain" targetProject=".\src\main\java"></javaModelGenerator>
+		<sqlMapGenerator targetPackage="com.woniuxy.dao"
+			targetProject=".\src\main\java"></sqlMapGenerator>
+		<javaClientGenerator
+			targetPackage="com.woniuxy.dao" targetProject=".\src\main\java"
+			type="XMLMAPPER" />
+
+		<table schema="" tableName="address"></table>
+		<table schema="" tableName="announce"></table>
+		<table schema="" tableName="apply"></table>
+		<table schema="" tableName="card"></table>
+		<table schema="" tableName="collect"></table>
+		<table schema="" tableName="deposit"></table>
+		<table schema="" tableName="goods"></table>
+		<table schema="" tableName="goodshistory"></table>
+		<table schema="" tableName="pricehistory"></table>
+		<table schema="" tableName="goodstype"></table>
+		<table schema="" tableName="image"></table>
+		<table schema="" tableName="log"></table>
+		<table schema="" tableName="orders"></table>
+		<table schema="" tableName="permission"></table>
+		<table schema="" tableName="role"></table>
+		<table schema="" tableName="room"></table>
+		<table schema="" tableName="user"></table>
+	</context>
 </generatorConfiguration>

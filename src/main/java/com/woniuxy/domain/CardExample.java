@@ -224,6 +224,146 @@ public class CardExample {
             return (Criteria) this;
         }
 
+        public Criteria andCfrontIsNull() {
+            addCriterion("cfront is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontIsNotNull() {
+            addCriterion("cfront is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontEqualTo(String value) {
+            addCriterion("cfront =", value, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontNotEqualTo(String value) {
+            addCriterion("cfront <>", value, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontGreaterThan(String value) {
+            addCriterion("cfront >", value, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontGreaterThanOrEqualTo(String value) {
+            addCriterion("cfront >=", value, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontLessThan(String value) {
+            addCriterion("cfront <", value, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontLessThanOrEqualTo(String value) {
+            addCriterion("cfront <=", value, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontLike(String value) {
+            addCriterion("cfront like", value, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontNotLike(String value) {
+            addCriterion("cfront not like", value, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontIn(List<String> values) {
+            addCriterion("cfront in", values, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontNotIn(List<String> values) {
+            addCriterion("cfront not in", values, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontBetween(String value1, String value2) {
+            addCriterion("cfront between", value1, value2, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCfrontNotBetween(String value1, String value2) {
+            addCriterion("cfront not between", value1, value2, "cfront");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackIsNull() {
+            addCriterion("cback is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackIsNotNull() {
+            addCriterion("cback is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackEqualTo(String value) {
+            addCriterion("cback =", value, "cback");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackNotEqualTo(String value) {
+            addCriterion("cback <>", value, "cback");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackGreaterThan(String value) {
+            addCriterion("cback >", value, "cback");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackGreaterThanOrEqualTo(String value) {
+            addCriterion("cback >=", value, "cback");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackLessThan(String value) {
+            addCriterion("cback <", value, "cback");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackLessThanOrEqualTo(String value) {
+            addCriterion("cback <=", value, "cback");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackLike(String value) {
+            addCriterion("cback like", value, "cback");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackNotLike(String value) {
+            addCriterion("cback not like", value, "cback");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackIn(List<String> values) {
+            addCriterion("cback in", values, "cback");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackNotIn(List<String> values) {
+            addCriterion("cback not in", values, "cback");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackBetween(String value1, String value2) {
+            addCriterion("cback between", value1, value2, "cback");
+            return (Criteria) this;
+        }
+
+        public Criteria andCbackNotBetween(String value1, String value2) {
+            addCriterion("cback not between", value1, value2, "cback");
+            return (Criteria) this;
+        }
+
         public Criteria andCstateIsNull() {
             addCriterion("cstate is null");
             return (Criteria) this;

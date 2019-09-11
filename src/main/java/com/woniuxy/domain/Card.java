@@ -5,6 +5,10 @@ public class Card {
 
     private Integer uid;
 
+    private String cfront;
+
+    private String cback;
+
     private Integer cstate;
 
     public Integer getCid() {
@@ -21,6 +25,22 @@ public class Card {
 
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+    public String getCfront() {
+        return cfront;
+    }
+
+    public void setCfront(String cfront) {
+        this.cfront = cfront;
+    }
+
+    public String getCback() {
+        return cback;
+    }
+
+    public void setCback(String cback) {
+        this.cback = cback;
     }
 
     public Integer getCstate() {

@@ -1,6 +1,5 @@
 package com.woniuxy.domain;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class Goods {
@@ -16,7 +15,7 @@ public class Goods {
 
     private String gname;
 
-    private BigDecimal gprice;
+    private Double gprice;
 
     private Date gstart;
 
@@ -24,7 +23,7 @@ public class Goods {
 
     private Integer gcount;
 
-    private BigDecimal ggap;
+    private Double ggap;
 
     private Date gpasstime;
 
@@ -76,11 +75,11 @@ public class Goods {
         this.gname = gname;
     }
 
-    public BigDecimal getGprice() {
+    public Double getGprice() {
         return gprice;
     }
 
-    public void setGprice(BigDecimal gprice) {
+    public void setGprice(Double gprice) {
         this.gprice = gprice;
     }
 
@@ -108,11 +107,11 @@ public class Goods {
         this.gcount = gcount;
     }
 
-    public BigDecimal getGgap() {
+    public Double getGgap() {
         return ggap;
     }
 
-    public void setGgap(BigDecimal ggap) {
+    public void setGgap(Double ggap) {
         this.ggap = ggap;
     }
 

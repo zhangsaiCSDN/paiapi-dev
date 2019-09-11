@@ -1,7 +1,5 @@
 package com.woniuxy.domain;
 
-import java.math.BigDecimal;
-
 public class Deposit {
     private Integer did;
 
@@ -9,7 +7,7 @@ public class Deposit {
 
     private Integer uid;
 
-    private BigDecimal dmoney;
+    private Double dmoney;
 
     private Integer gstate;
 
@@ -37,11 +35,11 @@ public class Deposit {
         this.uid = uid;
     }
 
-    public BigDecimal getDmoney() {
+    public Double getDmoney() {
         return dmoney;
     }
 
-    public void setDmoney(BigDecimal dmoney) {
+    public void setDmoney(Double dmoney) {
         this.dmoney = dmoney;
     }
 

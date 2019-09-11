@@ -5,11 +5,11 @@ public class Address {
 
     private Integer uid;
 
+    private String ainfo;
+
     private String apost;
 
     private String aphone;
-
-    private String ainfo;
 
     public Integer getAid() {
         return aid;
@@ -27,6 +27,14 @@ public class Address {
         this.uid = uid;
     }
 
+    public String getAinfo() {
+        return ainfo;
+    }
+
+    public void setAinfo(String ainfo) {
+        this.ainfo = ainfo;
+    }
+
     public String getApost() {
         return apost;
     }
@@ -41,13 +49,5 @@ public class Address {
 
     public void setAphone(String aphone) {
         this.aphone = aphone;
-    }
-
-    public String getAinfo() {
-        return ainfo;
-    }
-
-    public void setAinfo(String ainfo) {
-        this.ainfo = ainfo;
     }
 }

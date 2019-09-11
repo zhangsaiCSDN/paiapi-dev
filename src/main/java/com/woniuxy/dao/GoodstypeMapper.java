@@ -2,7 +2,6 @@ package com.woniuxy.dao;
 
 import com.woniuxy.domain.Goodstype;
 import com.woniuxy.domain.GoodstypeExample;
-import com.woniuxy.domain.GoodstypeWithBLOBs;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,25 +12,19 @@ public interface GoodstypeMapper {
 
     int deleteByPrimaryKey(Integer gtid);
 
-    int insert(GoodstypeWithBLOBs record);
+    int insert(Goodstype record);
 
-    int insertSelective(GoodstypeWithBLOBs record);
-
-    List<GoodstypeWithBLOBs> selectByExampleWithBLOBs(GoodstypeExample example);
+    int insertSelective(Goodstype record);
 
     List<Goodstype> selectByExample(GoodstypeExample example);
 
-    GoodstypeWithBLOBs selectByPrimaryKey(Integer gtid);
+    Goodstype selectByPrimaryKey(Integer gtid);
 
-    int updateByExampleSelective(@Param("record") GoodstypeWithBLOBs record, @Param("example") GoodstypeExample example);
-
-    int updateByExampleWithBLOBs(@Param("record") GoodstypeWithBLOBs record, @Param("example") GoodstypeExample example);
+    int updateByExampleSelective(@Param("record") Goodstype record, @Param("example") GoodstypeExample example);
 
     int updateByExample(@Param("record") Goodstype record, @Param("example") GoodstypeExample example);
 
-    int updateByPrimaryKeySelective(GoodstypeWithBLOBs record);
-
-    int updateByPrimaryKeyWithBLOBs(GoodstypeWithBLOBs record);
+    int updateByPrimaryKeySelective(Goodstype record);
 
     int updateByPrimaryKey(Goodstype record);
 }

@@ -2,7 +2,6 @@ package com.woniuxy.dao;
 
 import com.woniuxy.domain.Card;
 import com.woniuxy.domain.CardExample;
-import com.woniuxy.domain.CardWithBLOBs;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -13,25 +12,19 @@ public interface CardMapper {
 
     int deleteByPrimaryKey(Integer cid);
 
-    int insert(CardWithBLOBs record);
+    int insert(Card record);
 
-    int insertSelective(CardWithBLOBs record);
-
-    List<CardWithBLOBs> selectByExampleWithBLOBs(CardExample example);
+    int insertSelective(Card record);
 
     List<Card> selectByExample(CardExample example);
 
-    CardWithBLOBs selectByPrimaryKey(Integer cid);
+    Card selectByPrimaryKey(Integer cid);
 
-    int updateByExampleSelective(@Param("record") CardWithBLOBs record, @Param("example") CardExample example);
-
-    int updateByExampleWithBLOBs(@Param("record") CardWithBLOBs record, @Param("example") CardExample example);
+    int updateByExampleSelective(@Param("record") Card record, @Param("example") CardExample example);
 
     int updateByExample(@Param("record") Card record, @Param("example") CardExample example);
 
-    int updateByPrimaryKeySelective(CardWithBLOBs record);
-
-    int updateByPrimaryKeyWithBLOBs(CardWithBLOBs record);
+    int updateByPrimaryKeySelective(Card record);
 
     int updateByPrimaryKey(Card record);
 }

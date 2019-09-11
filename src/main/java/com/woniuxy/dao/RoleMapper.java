@@ -16,21 +16,15 @@ public interface RoleMapper {
 
     int insertSelective(Role record);
 
-    List<Role> selectByExampleWithBLOBs(RoleExample example);
-
     List<Role> selectByExample(RoleExample example);
 
     Role selectByPrimaryKey(Integer rid);
 
     int updateByExampleSelective(@Param("record") Role record, @Param("example") RoleExample example);
 
-    int updateByExampleWithBLOBs(@Param("record") Role record, @Param("example") RoleExample example);
-
     int updateByExample(@Param("record") Role record, @Param("example") RoleExample example);
 
     int updateByPrimaryKeySelective(Role record);
-
-    int updateByPrimaryKeyWithBLOBs(Role record);
 
     int updateByPrimaryKey(Role record);
 }

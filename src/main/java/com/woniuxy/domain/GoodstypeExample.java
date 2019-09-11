@@ -233,6 +233,146 @@ public class GoodstypeExample {
             addCriterion("gtname not between", value1, value2, "gtname");
             return (Criteria) this;
         }
+
+        public Criteria andImgIsNull() {
+            addCriterion("img is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgIsNotNull() {
+            addCriterion("img is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgEqualTo(String value) {
+            addCriterion("img =", value, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgNotEqualTo(String value) {
+            addCriterion("img <>", value, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgGreaterThan(String value) {
+            addCriterion("img >", value, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgGreaterThanOrEqualTo(String value) {
+            addCriterion("img >=", value, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgLessThan(String value) {
+            addCriterion("img <", value, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgLessThanOrEqualTo(String value) {
+            addCriterion("img <=", value, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgLike(String value) {
+            addCriterion("img like", value, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgNotLike(String value) {
+            addCriterion("img not like", value, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgIn(List<String> values) {
+            addCriterion("img in", values, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgNotIn(List<String> values) {
+            addCriterion("img not in", values, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgBetween(String value1, String value2) {
+            addCriterion("img between", value1, value2, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andImgNotBetween(String value1, String value2) {
+            addCriterion("img not between", value1, value2, "img");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesIsNull() {
+            addCriterion("gtdes is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesIsNotNull() {
+            addCriterion("gtdes is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesEqualTo(String value) {
+            addCriterion("gtdes =", value, "gtdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesNotEqualTo(String value) {
+            addCriterion("gtdes <>", value, "gtdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesGreaterThan(String value) {
+            addCriterion("gtdes >", value, "gtdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesGreaterThanOrEqualTo(String value) {
+            addCriterion("gtdes >=", value, "gtdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesLessThan(String value) {
+            addCriterion("gtdes <", value, "gtdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesLessThanOrEqualTo(String value) {
+            addCriterion("gtdes <=", value, "gtdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesLike(String value) {
+            addCriterion("gtdes like", value, "gtdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesNotLike(String value) {
+            addCriterion("gtdes not like", value, "gtdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesIn(List<String> values) {
+            addCriterion("gtdes in", values, "gtdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesNotIn(List<String> values) {
+            addCriterion("gtdes not in", values, "gtdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesBetween(String value1, String value2) {
+            addCriterion("gtdes between", value1, value2, "gtdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andGtdesNotBetween(String value1, String value2) {
+            addCriterion("gtdes not between", value1, value2, "gtdes");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

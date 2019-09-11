@@ -5,6 +5,10 @@ public class Goodstype {
 
     private String gtname;
 
+    private String img;
+
+    private String gtdes;
+
     public Integer getGtid() {
         return gtid;
     }
@@ -19,5 +23,21 @@ public class Goodstype {
 
     public void setGtname(String gtname) {
         this.gtname = gtname;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public String getGtdes() {
+        return gtdes;
+    }
+
+    public void setGtdes(String gtdes) {
+        this.gtdes = gtdes;
     }
 }

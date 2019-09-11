@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.woniuxy.dao.PermissionMapper">
-  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Permission">
-    <id column="pmsid" jdbcType="INTEGER" property="pmsid" />
-    <result column="pmsname" jdbcType="CHAR" property="pmsname" />
-    <result column="pmsdes" jdbcType="VARCHAR" property="pmsdes" />
+<mapper namespace="com.woniuxy.dao.RoomMapper">
+  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Room">
+    <id column="rmid" jdbcType="INTEGER" property="rmid" />
+    <result column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="salerid" jdbcType="INTEGER" property="salerid" />
+    <result column="rmtitle" jdbcType="CHAR" property="rmtitle" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -65,15 +66,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    pmsid, pmsname, pmsdes
+    rmid, gid, salerid, rmtitle
   </sql>
-  <select id="selectByExample" parameterType="com.woniuxy.domain.PermissionExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.woniuxy.domain.RoomExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from permission
+    from room
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,67 +85,76 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from permission
-    where pmsid = #{pmsid,jdbcType=INTEGER}
+    from room
+    where rmid = #{rmid,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from permission
-    where pmsid = #{pmsid,jdbcType=INTEGER}
+    delete from room
+    where rmid = #{rmid,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.woniuxy.domain.PermissionExample">
-    delete from permission
+  <delete id="deleteByExample" parameterType="com.woniuxy.domain.RoomExample">
+    delete from room
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.woniuxy.domain.Permission">
-    insert into permission (pmsid, pmsname, pmsdes
-      )
-    values (#{pmsid,jdbcType=INTEGER}, #{pmsname,jdbcType=CHAR}, #{pmsdes,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.woniuxy.domain.Room">
+    insert into room (rmid, gid, salerid, 
+      rmtitle)
+    values (#{rmid,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}, #{salerid,jdbcType=INTEGER}, 
+      #{rmtitle,jdbcType=CHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.woniuxy.domain.Permission">
-    insert into permission
+  <insert id="insertSelective" parameterType="com.woniuxy.domain.Room">
+    insert into room
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="pmsid != null">
-        pmsid,
+      <if test="rmid != null">
+        rmid,
       </if>
-      <if test="pmsname != null">
-        pmsname,
+      <if test="gid != null">
+        gid,
       </if>
-      <if test="pmsdes != null">
-        pmsdes,
+      <if test="salerid != null">
+        salerid,
+      </if>
+      <if test="rmtitle != null">
+        rmtitle,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="pmsid != null">
-        #{pmsid,jdbcType=INTEGER},
+      <if test="rmid != null">
+        #{rmid,jdbcType=INTEGER},
       </if>
-      <if test="pmsname != null">
-        #{pmsname,jdbcType=CHAR},
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
       </if>
-      <if test="pmsdes != null">
-        #{pmsdes,jdbcType=VARCHAR},
+      <if test="salerid != null">
+        #{salerid,jdbcType=INTEGER},
+      </if>
+      <if test="rmtitle != null">
+        #{rmtitle,jdbcType=CHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.woniuxy.domain.PermissionExample" resultType="java.lang.Long">
-    select count(*) from permission
+  <select id="countByExample" parameterType="com.woniuxy.domain.RoomExample" resultType="java.lang.Long">
+    select count(*) from room
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update permission
+    update room
     <set>
-      <if test="record.pmsid != null">
-        pmsid = #{record.pmsid,jdbcType=INTEGER},
+      <if test="record.rmid != null">
+        rmid = #{record.rmid,jdbcType=INTEGER},
       </if>
-      <if test="record.pmsname != null">
-        pmsname = #{record.pmsname,jdbcType=CHAR},
+      <if test="record.gid != null">
+        gid = #{record.gid,jdbcType=INTEGER},
       </if>
-      <if test="record.pmsdes != null">
-        pmsdes = #{record.pmsdes,jdbcType=VARCHAR},
+      <if test="record.salerid != null">
+        salerid = #{record.salerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.rmtitle != null">
+        rmtitle = #{record.rmtitle,jdbcType=CHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -152,30 +162,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update permission
-    set pmsid = #{record.pmsid,jdbcType=INTEGER},
-      pmsname = #{record.pmsname,jdbcType=CHAR},
-      pmsdes = #{record.pmsdes,jdbcType=VARCHAR}
+    update room
+    set rmid = #{record.rmid,jdbcType=INTEGER},
+      gid = #{record.gid,jdbcType=INTEGER},
+      salerid = #{record.salerid,jdbcType=INTEGER},
+      rmtitle = #{record.rmtitle,jdbcType=CHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Permission">
-    update permission
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Room">
+    update room
     <set>
-      <if test="pmsname != null">
-        pmsname = #{pmsname,jdbcType=CHAR},
+      <if test="gid != null">
+        gid = #{gid,jdbcType=INTEGER},
       </if>
-      <if test="pmsdes != null">
-        pmsdes = #{pmsdes,jdbcType=VARCHAR},
+      <if test="salerid != null">
+        salerid = #{salerid,jdbcType=INTEGER},
+      </if>
+      <if test="rmtitle != null">
+        rmtitle = #{rmtitle,jdbcType=CHAR},
       </if>
     </set>
-    where pmsid = #{pmsid,jdbcType=INTEGER}
+    where rmid = #{rmid,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Permission">
-    update permission
-    set pmsname = #{pmsname,jdbcType=CHAR},
-      pmsdes = #{pmsdes,jdbcType=VARCHAR}
-    where pmsid = #{pmsid,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Room">
+    update room
+    set gid = #{gid,jdbcType=INTEGER},
+      salerid = #{salerid,jdbcType=INTEGER},
+      rmtitle = #{rmtitle,jdbcType=CHAR}
+    where rmid = #{rmid,jdbcType=INTEGER}
   </update>
 </mapper>

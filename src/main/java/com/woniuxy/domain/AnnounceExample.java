@@ -225,6 +225,76 @@ public class AnnounceExample {
             return (Criteria) this;
         }
 
+        public Criteria andAncontentIsNull() {
+            addCriterion("ancontent is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentIsNotNull() {
+            addCriterion("ancontent is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentEqualTo(String value) {
+            addCriterion("ancontent =", value, "ancontent");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentNotEqualTo(String value) {
+            addCriterion("ancontent <>", value, "ancontent");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentGreaterThan(String value) {
+            addCriterion("ancontent >", value, "ancontent");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentGreaterThanOrEqualTo(String value) {
+            addCriterion("ancontent >=", value, "ancontent");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentLessThan(String value) {
+            addCriterion("ancontent <", value, "ancontent");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentLessThanOrEqualTo(String value) {
+            addCriterion("ancontent <=", value, "ancontent");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentLike(String value) {
+            addCriterion("ancontent like", value, "ancontent");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentNotLike(String value) {
+            addCriterion("ancontent not like", value, "ancontent");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentIn(List<String> values) {
+            addCriterion("ancontent in", values, "ancontent");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentNotIn(List<String> values) {
+            addCriterion("ancontent not in", values, "ancontent");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentBetween(String value1, String value2) {
+            addCriterion("ancontent between", value1, value2, "ancontent");
+            return (Criteria) this;
+        }
+
+        public Criteria andAncontentNotBetween(String value1, String value2) {
+            addCriterion("ancontent not between", value1, value2, "ancontent");
+            return (Criteria) this;
+        }
+
         public Criteria andAnstartIsNull() {
             addCriterion("anstart is null");
             return (Criteria) this;

@@ -1,12 +1,11 @@
 package com.woniuxy.domain;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class Orders {
     private Integer odid;
 
-    private BigDecimal odmoney;
+    private Double odmoney;
 
     private Date odtime;
 
@@ -14,7 +13,11 @@ public class Orders {
 
     private Integer salerid;
 
-    private BigDecimal odfee;
+    private Double odfee;
+
+    private Integer uid;
+
+    private Integer gid;
 
     public Integer getOdid() {
         return odid;
@@ -24,11 +27,11 @@ public class Orders {
         this.odid = odid;
     }
 
-    public BigDecimal getOdmoney() {
+    public Double getOdmoney() {
         return odmoney;
     }
 
-    public void setOdmoney(BigDecimal odmoney) {
+    public void setOdmoney(Double odmoney) {
         this.odmoney = odmoney;
     }
 
@@ -56,11 +59,27 @@ public class Orders {
         this.salerid = salerid;
     }
 
-    public BigDecimal getOdfee() {
+    public Double getOdfee() {
         return odfee;
     }
 
-    public void setOdfee(BigDecimal odfee) {
+    public void setOdfee(Double odfee) {
         this.odfee = odfee;
+    }
+
+    public Integer getUid() {
+        return uid;
+    }
+
+    public void setUid(Integer uid) {
+        this.uid = uid;
+    }
+
+    public Integer getGid() {
+        return gid;
+    }
+
+    public void setGid(Integer gid) {
+        this.gid = gid;
     }
 }

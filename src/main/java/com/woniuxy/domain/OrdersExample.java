@@ -1,6 +1,5 @@
 package com.woniuxy.domain;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -176,52 +175,52 @@ public class OrdersExample {
             return (Criteria) this;
         }
 
-        public Criteria andOdmoneyEqualTo(BigDecimal value) {
+        public Criteria andOdmoneyEqualTo(Double value) {
             addCriterion("odmoney =", value, "odmoney");
             return (Criteria) this;
         }
 
-        public Criteria andOdmoneyNotEqualTo(BigDecimal value) {
+        public Criteria andOdmoneyNotEqualTo(Double value) {
             addCriterion("odmoney <>", value, "odmoney");
             return (Criteria) this;
         }
 
-        public Criteria andOdmoneyGreaterThan(BigDecimal value) {
+        public Criteria andOdmoneyGreaterThan(Double value) {
             addCriterion("odmoney >", value, "odmoney");
             return (Criteria) this;
         }
 
-        public Criteria andOdmoneyGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andOdmoneyGreaterThanOrEqualTo(Double value) {
             addCriterion("odmoney >=", value, "odmoney");
             return (Criteria) this;
         }
 
-        public Criteria andOdmoneyLessThan(BigDecimal value) {
+        public Criteria andOdmoneyLessThan(Double value) {
             addCriterion("odmoney <", value, "odmoney");
             return (Criteria) this;
         }
 
-        public Criteria andOdmoneyLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andOdmoneyLessThanOrEqualTo(Double value) {
             addCriterion("odmoney <=", value, "odmoney");
             return (Criteria) this;
         }
 
-        public Criteria andOdmoneyIn(List<BigDecimal> values) {
+        public Criteria andOdmoneyIn(List<Double> values) {
             addCriterion("odmoney in", values, "odmoney");
             return (Criteria) this;
         }
 
-        public Criteria andOdmoneyNotIn(List<BigDecimal> values) {
+        public Criteria andOdmoneyNotIn(List<Double> values) {
             addCriterion("odmoney not in", values, "odmoney");
             return (Criteria) this;
         }
 
-        public Criteria andOdmoneyBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andOdmoneyBetween(Double value1, Double value2) {
             addCriterion("odmoney between", value1, value2, "odmoney");
             return (Criteria) this;
         }
 
-        public Criteria andOdmoneyNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andOdmoneyNotBetween(Double value1, Double value2) {
             addCriterion("odmoney not between", value1, value2, "odmoney");
             return (Criteria) this;
         }
@@ -416,53 +415,173 @@ public class OrdersExample {
             return (Criteria) this;
         }
 
-        public Criteria andOdfeeEqualTo(BigDecimal value) {
+        public Criteria andOdfeeEqualTo(Double value) {
             addCriterion("odfee =", value, "odfee");
             return (Criteria) this;
         }
 
-        public Criteria andOdfeeNotEqualTo(BigDecimal value) {
+        public Criteria andOdfeeNotEqualTo(Double value) {
             addCriterion("odfee <>", value, "odfee");
             return (Criteria) this;
         }
 
-        public Criteria andOdfeeGreaterThan(BigDecimal value) {
+        public Criteria andOdfeeGreaterThan(Double value) {
             addCriterion("odfee >", value, "odfee");
             return (Criteria) this;
         }
 
-        public Criteria andOdfeeGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andOdfeeGreaterThanOrEqualTo(Double value) {
             addCriterion("odfee >=", value, "odfee");
             return (Criteria) this;
         }
 
-        public Criteria andOdfeeLessThan(BigDecimal value) {
+        public Criteria andOdfeeLessThan(Double value) {
             addCriterion("odfee <", value, "odfee");
             return (Criteria) this;
         }
 
-        public Criteria andOdfeeLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andOdfeeLessThanOrEqualTo(Double value) {
             addCriterion("odfee <=", value, "odfee");
             return (Criteria) this;
         }
 
-        public Criteria andOdfeeIn(List<BigDecimal> values) {
+        public Criteria andOdfeeIn(List<Double> values) {
             addCriterion("odfee in", values, "odfee");
             return (Criteria) this;
         }
 
-        public Criteria andOdfeeNotIn(List<BigDecimal> values) {
+        public Criteria andOdfeeNotIn(List<Double> values) {
             addCriterion("odfee not in", values, "odfee");
             return (Criteria) this;
         }
 
-        public Criteria andOdfeeBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andOdfeeBetween(Double value1, Double value2) {
             addCriterion("odfee between", value1, value2, "odfee");
             return (Criteria) this;
         }
 
-        public Criteria andOdfeeNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andOdfeeNotBetween(Double value1, Double value2) {
             addCriterion("odfee not between", value1, value2, "odfee");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidIsNull() {
+            addCriterion("uid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidIsNotNull() {
+            addCriterion("uid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidEqualTo(Integer value) {
+            addCriterion("uid =", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidNotEqualTo(Integer value) {
+            addCriterion("uid <>", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidGreaterThan(Integer value) {
+            addCriterion("uid >", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("uid >=", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidLessThan(Integer value) {
+            addCriterion("uid <", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidLessThanOrEqualTo(Integer value) {
+            addCriterion("uid <=", value, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidIn(List<Integer> values) {
+            addCriterion("uid in", values, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidNotIn(List<Integer> values) {
+            addCriterion("uid not in", values, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidBetween(Integer value1, Integer value2) {
+            addCriterion("uid between", value1, value2, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andUidNotBetween(Integer value1, Integer value2) {
+            addCriterion("uid not between", value1, value2, "uid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidIsNull() {
+            addCriterion("gid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidIsNotNull() {
+            addCriterion("gid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidEqualTo(Integer value) {
+            addCriterion("gid =", value, "gid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidNotEqualTo(Integer value) {
+            addCriterion("gid <>", value, "gid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidGreaterThan(Integer value) {
+            addCriterion("gid >", value, "gid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidGreaterThanOrEqualTo(Integer value) {
+            addCriterion("gid >=", value, "gid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidLessThan(Integer value) {
+            addCriterion("gid <", value, "gid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidLessThanOrEqualTo(Integer value) {
+            addCriterion("gid <=", value, "gid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidIn(List<Integer> values) {
+            addCriterion("gid in", values, "gid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidNotIn(List<Integer> values) {
+            addCriterion("gid not in", values, "gid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidBetween(Integer value1, Integer value2) {
+            addCriterion("gid between", value1, value2, "gid");
+            return (Criteria) this;
+        }
+
+        public Criteria andGidNotBetween(Integer value1, Integer value2) {
+            addCriterion("gid not between", value1, value2, "gid");
             return (Criteria) this;
         }
     }

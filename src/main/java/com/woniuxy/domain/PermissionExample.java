@@ -233,6 +233,76 @@ public class PermissionExample {
             addCriterion("pmsname not between", value1, value2, "pmsname");
             return (Criteria) this;
         }
+
+        public Criteria andPmsdesIsNull() {
+            addCriterion("pmsdes is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesIsNotNull() {
+            addCriterion("pmsdes is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesEqualTo(String value) {
+            addCriterion("pmsdes =", value, "pmsdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesNotEqualTo(String value) {
+            addCriterion("pmsdes <>", value, "pmsdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesGreaterThan(String value) {
+            addCriterion("pmsdes >", value, "pmsdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesGreaterThanOrEqualTo(String value) {
+            addCriterion("pmsdes >=", value, "pmsdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesLessThan(String value) {
+            addCriterion("pmsdes <", value, "pmsdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesLessThanOrEqualTo(String value) {
+            addCriterion("pmsdes <=", value, "pmsdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesLike(String value) {
+            addCriterion("pmsdes like", value, "pmsdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesNotLike(String value) {
+            addCriterion("pmsdes not like", value, "pmsdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesIn(List<String> values) {
+            addCriterion("pmsdes in", values, "pmsdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesNotIn(List<String> values) {
+            addCriterion("pmsdes not in", values, "pmsdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesBetween(String value1, String value2) {
+            addCriterion("pmsdes between", value1, value2, "pmsdes");
+            return (Criteria) this;
+        }
+
+        public Criteria andPmsdesNotBetween(String value1, String value2) {
+            addCriterion("pmsdes not between", value1, value2, "pmsdes");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

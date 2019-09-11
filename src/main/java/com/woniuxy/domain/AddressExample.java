@@ -224,6 +224,76 @@ public class AddressExample {
             return (Criteria) this;
         }
 
+        public Criteria andAinfoIsNull() {
+            addCriterion("ainfo is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoIsNotNull() {
+            addCriterion("ainfo is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoEqualTo(String value) {
+            addCriterion("ainfo =", value, "ainfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoNotEqualTo(String value) {
+            addCriterion("ainfo <>", value, "ainfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoGreaterThan(String value) {
+            addCriterion("ainfo >", value, "ainfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoGreaterThanOrEqualTo(String value) {
+            addCriterion("ainfo >=", value, "ainfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoLessThan(String value) {
+            addCriterion("ainfo <", value, "ainfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoLessThanOrEqualTo(String value) {
+            addCriterion("ainfo <=", value, "ainfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoLike(String value) {
+            addCriterion("ainfo like", value, "ainfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoNotLike(String value) {
+            addCriterion("ainfo not like", value, "ainfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoIn(List<String> values) {
+            addCriterion("ainfo in", values, "ainfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoNotIn(List<String> values) {
+            addCriterion("ainfo not in", values, "ainfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoBetween(String value1, String value2) {
+            addCriterion("ainfo between", value1, value2, "ainfo");
+            return (Criteria) this;
+        }
+
+        public Criteria andAinfoNotBetween(String value1, String value2) {
+            addCriterion("ainfo not between", value1, value2, "ainfo");
+            return (Criteria) this;
+        }
+
         public Criteria andApostIsNull() {
             addCriterion("apost is null");
             return (Criteria) this;

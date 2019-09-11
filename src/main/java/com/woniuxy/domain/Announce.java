@@ -7,11 +7,11 @@ public class Announce {
 
     private Integer gid;
 
+    private String ancontent;
+
     private Date anstart;
 
     private Date anend;
-
-    private String ancontent;
 
     public Integer getAnid() {
         return anid;
@@ -29,6 +29,14 @@ public class Announce {
         this.gid = gid;
     }
 
+    public String getAncontent() {
+        return ancontent;
+    }
+
+    public void setAncontent(String ancontent) {
+        this.ancontent = ancontent;
+    }
+
     public Date getAnstart() {
         return anstart;
     }
@@ -43,13 +51,5 @@ public class Announce {
 
     public void setAnend(Date anend) {
         this.anend = anend;
-    }
-
-    public String getAncontent() {
-        return ancontent;
-    }
-
-    public void setAncontent(String ancontent) {
-        this.ancontent = ancontent;
     }
 }

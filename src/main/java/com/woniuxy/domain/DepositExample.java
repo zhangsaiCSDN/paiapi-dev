@@ -1,6 +1,5 @@
 package com.woniuxy.domain;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -295,52 +294,52 @@ public class DepositExample {
             return (Criteria) this;
         }
 
-        public Criteria andDmoneyEqualTo(BigDecimal value) {
+        public Criteria andDmoneyEqualTo(Double value) {
             addCriterion("dmoney =", value, "dmoney");
             return (Criteria) this;
         }
 
-        public Criteria andDmoneyNotEqualTo(BigDecimal value) {
+        public Criteria andDmoneyNotEqualTo(Double value) {
             addCriterion("dmoney <>", value, "dmoney");
             return (Criteria) this;
         }
 
-        public Criteria andDmoneyGreaterThan(BigDecimal value) {
+        public Criteria andDmoneyGreaterThan(Double value) {
             addCriterion("dmoney >", value, "dmoney");
             return (Criteria) this;
         }
 
-        public Criteria andDmoneyGreaterThanOrEqualTo(BigDecimal value) {
+        public Criteria andDmoneyGreaterThanOrEqualTo(Double value) {
             addCriterion("dmoney >=", value, "dmoney");
             return (Criteria) this;
         }
 
-        public Criteria andDmoneyLessThan(BigDecimal value) {
+        public Criteria andDmoneyLessThan(Double value) {
             addCriterion("dmoney <", value, "dmoney");
             return (Criteria) this;
         }
 
-        public Criteria andDmoneyLessThanOrEqualTo(BigDecimal value) {
+        public Criteria andDmoneyLessThanOrEqualTo(Double value) {
             addCriterion("dmoney <=", value, "dmoney");
             return (Criteria) this;
         }
 
-        public Criteria andDmoneyIn(List<BigDecimal> values) {
+        public Criteria andDmoneyIn(List<Double> values) {
             addCriterion("dmoney in", values, "dmoney");
             return (Criteria) this;
         }
 
-        public Criteria andDmoneyNotIn(List<BigDecimal> values) {
+        public Criteria andDmoneyNotIn(List<Double> values) {
             addCriterion("dmoney not in", values, "dmoney");
             return (Criteria) this;
         }
 
-        public Criteria andDmoneyBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andDmoneyBetween(Double value1, Double value2) {
             addCriterion("dmoney between", value1, value2, "dmoney");
             return (Criteria) this;
         }
 
-        public Criteria andDmoneyNotBetween(BigDecimal value1, BigDecimal value2) {
+        public Criteria andDmoneyNotBetween(Double value1, Double value2) {
             addCriterion("dmoney not between", value1, value2, "dmoney");
             return (Criteria) this;
         }
