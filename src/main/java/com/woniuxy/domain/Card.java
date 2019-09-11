@@ -1,5 +1,7 @@
 package com.woniuxy.domain;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,8 +9,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Card {
-    private Integer cid;
+public class Card implements Serializable{
+    /**
+	 * 
+	 */
+
+	private Integer cid;
 
     private Integer uid;
 

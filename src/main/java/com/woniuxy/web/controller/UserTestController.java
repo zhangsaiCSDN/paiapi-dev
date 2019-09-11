@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.woniuxy.service.IUserTestService;
+import com.woniuxy.service.ICardService;
 
 @Controller
 @RequestMapping("usertests")
 public class UserTestController {
 	
 	@Autowired
-	private IUserTestService service;
+	private ICardService service;
 	
 	@GetMapping
 	@ResponseBody
