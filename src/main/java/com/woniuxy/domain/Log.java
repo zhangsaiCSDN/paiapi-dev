@@ -2,6 +2,14 @@ package com.woniuxy.domain;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Log {
     private Integer lig;
 
@@ -11,35 +19,4 @@ public class Log {
 
     private String loption;
 
-    public Integer getLig() {
-        return lig;
-    }
-
-    public void setLig(Integer lig) {
-        this.lig = lig;
-    }
-
-    public Integer getUid() {
-        return uid;
-    }
-
-    public void setUid(Integer uid) {
-        this.uid = uid;
-    }
-
-    public Date getLtime() {
-        return ltime;
-    }
-
-    public void setLtime(Date ltime) {
-        this.ltime = ltime;
-    }
-
-    public String getLoption() {
-        return loption;
-    }
-
-    public void setLoption(String loption) {
-        this.loption = loption;
-    }
 }
