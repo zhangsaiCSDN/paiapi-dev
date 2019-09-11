@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.dao.AnnounceMapper">
+  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Announce">
+    <id column="anid" jdbcType="INTEGER" property="anid" />
+    <result column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="anstart" jdbcType="TIMESTAMP" property="anstart" />
+    <result column="anend" jdbcType="TIMESTAMP" property="anend" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.woniuxy.domain.Announce">
+    <result column="ancontent" jdbcType="LONGVARCHAR" property="ancontent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    anid, gid, anstart, anend
+  </sql>
+  <sql id="Blob_Column_List">
+    ancontent
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.woniuxy.domain.AnnounceExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from announce
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.woniuxy.domain.AnnounceExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from announce
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from announce
+    where anid = #{anid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from announce
+    where anid = #{anid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.domain.AnnounceExample">
+    delete from announce
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.domain.Announce">
+    insert into announce (anid, gid, anstart, 
+      anend, ancontent)
+    values (#{anid,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}, #{anstart,jdbcType=TIMESTAMP}, 
+      #{anend,jdbcType=TIMESTAMP}, #{ancontent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.domain.Announce">
+    insert into announce
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="anid != null">
+        anid,
+      </if>
+      <if test="gid != null">
+        gid,
+      </if>
+      <if test="anstart != null">
+        anstart,
+      </if>
+      <if test="anend != null">
+        anend,
+      </if>
+      <if test="ancontent != null">
+        ancontent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="anid != null">
+        #{anid,jdbcType=INTEGER},
+      </if>
+      <if test="gid != null">
+        #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="anstart != null">
+        #{anstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="anend != null">
+        #{anend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ancontent != null">
+        #{ancontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.domain.AnnounceExample" resultType="java.lang.Long">
+    select count(*) from announce
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update announce
+    <set>
+      <if test="record.anid != null">
+        anid = #{record.anid,jdbcType=INTEGER},
+      </if>
+      <if test="record.gid != null">
+        gid = #{record.gid,jdbcType=INTEGER},
+      </if>
+      <if test="record.anstart != null">
+        anstart = #{record.anstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.anend != null">
+        anend = #{record.anend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.ancontent != null">
+        ancontent = #{record.ancontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update announce
+    set anid = #{record.anid,jdbcType=INTEGER},
+      gid = #{record.gid,jdbcType=INTEGER},
+      anstart = #{record.anstart,jdbcType=TIMESTAMP},
+      anend = #{record.anend,jdbcType=TIMESTAMP},
+      ancontent = #{record.ancontent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update announce
+    set anid = #{record.anid,jdbcType=INTEGER},
+      gid = #{record.gid,jdbcType=INTEGER},
+      anstart = #{record.anstart,jdbcType=TIMESTAMP},
+      anend = #{record.anend,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Announce">
+    update announce
+    <set>
+      <if test="gid != null">
+        gid = #{gid,jdbcType=INTEGER},
+      </if>
+      <if test="anstart != null">
+        anstart = #{anstart,jdbcType=TIMESTAMP},
+      </if>
+      <if test="anend != null">
+        anend = #{anend,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ancontent != null">
+        ancontent = #{ancontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where anid = #{anid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.woniuxy.domain.Announce">
+    update announce
+    set gid = #{gid,jdbcType=INTEGER},
+      anstart = #{anstart,jdbcType=TIMESTAMP},
+      anend = #{anend,jdbcType=TIMESTAMP},
+      ancontent = #{ancontent,jdbcType=LONGVARCHAR}
+    where anid = #{anid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Announce">
+    update announce
+    set gid = #{gid,jdbcType=INTEGER},
+      anstart = #{anstart,jdbcType=TIMESTAMP},
+      anend = #{anend,jdbcType=TIMESTAMP}
+    where anid = #{anid,jdbcType=INTEGER}
+  </update>
+</mapper>

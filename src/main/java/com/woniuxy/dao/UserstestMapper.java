@@ -4,7 +4,7 @@ import com.woniuxy.domain.Userstest;
 import com.woniuxy.domain.UserstestExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-//mybatis 逆向工程测试
+
 public interface UserstestMapper {
     long countByExample(UserstestExample example);
 

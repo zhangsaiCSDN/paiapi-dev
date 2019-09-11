@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.dao.OrdersMapper">
+  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Orders">
+    <id column="odid" jdbcType="INTEGER" property="odid" />
+    <result column="odmoney" jdbcType="DECIMAL" property="odmoney" />
+    <result column="odtime" jdbcType="TIMESTAMP" property="odtime" />
+    <result column="buyerid" jdbcType="INTEGER" property="buyerid" />
+    <result column="salerid" jdbcType="INTEGER" property="salerid" />
+    <result column="odfee" jdbcType="DECIMAL" property="odfee" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    odid, odmoney, odtime, buyerid, salerid, odfee
+  </sql>
+  <select id="selectByExample" parameterType="com.woniuxy.domain.OrdersExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where odid = #{odid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orders
+    where odid = #{odid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.woniuxy.domain.OrdersExample">
+    delete from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.woniuxy.domain.Orders">
+    insert into orders (odid, odmoney, odtime, 
+      buyerid, salerid, odfee
+      )
+    values (#{odid,jdbcType=INTEGER}, #{odmoney,jdbcType=DECIMAL}, #{odtime,jdbcType=TIMESTAMP}, 
+      #{buyerid,jdbcType=INTEGER}, #{salerid,jdbcType=INTEGER}, #{odfee,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.woniuxy.domain.Orders">
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="odid != null">
+        odid,
+      </if>
+      <if test="odmoney != null">
+        odmoney,
+      </if>
+      <if test="odtime != null">
+        odtime,
+      </if>
+      <if test="buyerid != null">
+        buyerid,
+      </if>
+      <if test="salerid != null">
+        salerid,
+      </if>
+      <if test="odfee != null">
+        odfee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="odid != null">
+        #{odid,jdbcType=INTEGER},
+      </if>
+      <if test="odmoney != null">
+        #{odmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="odtime != null">
+        #{odtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyerid != null">
+        #{buyerid,jdbcType=INTEGER},
+      </if>
+      <if test="salerid != null">
+        #{salerid,jdbcType=INTEGER},
+      </if>
+      <if test="odfee != null">
+        #{odfee,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.woniuxy.domain.OrdersExample" resultType="java.lang.Long">
+    select count(*) from orders
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update orders
+    <set>
+      <if test="record.odid != null">
+        odid = #{record.odid,jdbcType=INTEGER},
+      </if>
+      <if test="record.odmoney != null">
+        odmoney = #{record.odmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="record.odtime != null">
+        odtime = #{record.odtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.buyerid != null">
+        buyerid = #{record.buyerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.salerid != null">
+        salerid = #{record.salerid,jdbcType=INTEGER},
+      </if>
+      <if test="record.odfee != null">
+        odfee = #{record.odfee,jdbcType=DECIMAL},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update orders
+    set odid = #{record.odid,jdbcType=INTEGER},
+      odmoney = #{record.odmoney,jdbcType=DECIMAL},
+      odtime = #{record.odtime,jdbcType=TIMESTAMP},
+      buyerid = #{record.buyerid,jdbcType=INTEGER},
+      salerid = #{record.salerid,jdbcType=INTEGER},
+      odfee = #{record.odfee,jdbcType=DECIMAL}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Orders">
+    update orders
+    <set>
+      <if test="odmoney != null">
+        odmoney = #{odmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="odtime != null">
+        odtime = #{odtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="buyerid != null">
+        buyerid = #{buyerid,jdbcType=INTEGER},
+      </if>
+      <if test="salerid != null">
+        salerid = #{salerid,jdbcType=INTEGER},
+      </if>
+      <if test="odfee != null">
+        odfee = #{odfee,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where odid = #{odid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Orders">
+    update orders
+    set odmoney = #{odmoney,jdbcType=DECIMAL},
+      odtime = #{odtime,jdbcType=TIMESTAMP},
+      buyerid = #{buyerid,jdbcType=INTEGER},
+      salerid = #{salerid,jdbcType=INTEGER},
+      odfee = #{odfee,jdbcType=DECIMAL}
+    where odid = #{odid,jdbcType=INTEGER}
+  </update>
+</mapper>
