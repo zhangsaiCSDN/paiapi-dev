@@ -1,11 +1,12 @@
 package com.woniuxy.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class Goodshistory {
+public class Goodshistory implements Serializable {
     private Integer ghid;
 
     private Integer gid;

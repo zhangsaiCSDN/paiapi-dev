@@ -1,9 +1,11 @@
 package com.woniuxy.domain;
 
+import java.io.Serializable;
+
 import lombok.Data;
 
 @Data
-public class Apply {
+public class Apply implements Serializable{
     private Integer apid;
 
     private String apno;
@@ -17,6 +19,6 @@ public class Apply {
     private String apreason;
 
     private Integer uid;
-
+ 
  
 }
