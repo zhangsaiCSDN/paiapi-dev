@@ -4,15 +4,15 @@ import com.woniuxy.domain.Goods;
 import com.woniuxy.domain.GoodsExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+ 
 public interface GoodsMapper {
-    long countByExample(GoodsExample example);
+    long countByExample(GoodsExample example); 
 
     int deleteByExample(GoodsExample example);
 
     int deleteByPrimaryKey(Integer gid);
 
-    int insert(Goods record);
+    int insert(Goods record); 
 
     int insertSelective(Goods record);
 
