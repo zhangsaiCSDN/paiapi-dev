@@ -11,7 +11,7 @@ import com.woniuxy.domain.Image;
 import com.woniuxy.service.IImageService;
 
 @Service
-@Transactional
+@Transactional 
 public class ImageServiceImpl implements IImageService {
 	
 	@Autowired

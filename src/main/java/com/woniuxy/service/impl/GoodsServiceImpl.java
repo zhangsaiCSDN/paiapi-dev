@@ -10,7 +10,7 @@ import com.woniuxy.dao.GoodsMapper;
 import com.woniuxy.domain.Goods;
 import com.woniuxy.service.IGoodsService;
 
-@Service
+@Service 
 @Transactional
 public class GoodsServiceImpl implements IGoodsService {
 	
