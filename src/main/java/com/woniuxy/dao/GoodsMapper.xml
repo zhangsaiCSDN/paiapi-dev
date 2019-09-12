@@ -317,7 +317,7 @@
         gtid = #{gtid,jdbcType=INTEGER},
       </if>
     </set>
-    where gid = #{gid,jdbcType=INTEGER}
+    where gid = #{gid,jdbcType=INTEGER} 
   </update>
   <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Goods">
     update goods

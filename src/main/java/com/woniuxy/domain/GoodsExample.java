@@ -992,7 +992,7 @@ public class GoodsExample {
         }
 
         protected Criterion(String condition, Object value) {
-            this(condition, value, null);
+            this(condition, value, null); 
         }
 
         protected Criterion(String condition, Object value, Object secondValue, String typeHandler) {

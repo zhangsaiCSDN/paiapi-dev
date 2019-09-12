@@ -16,7 +16,7 @@ public class Goods {
 
     private Date gend;
 
-    private Integer gcount;
+    private Integer gcount; 
 
     private Double ggap;
 

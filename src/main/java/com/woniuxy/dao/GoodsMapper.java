@@ -12,7 +12,7 @@ public interface GoodsMapper {
 
     int deleteByPrimaryKey(Integer gid);
 
-    int insert(Goods record);
+    int insert(Goods record); 
 
     int insertSelective(Goods record);
 
