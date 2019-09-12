@@ -16,24 +16,37 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Autowired  
 	private RoleMapper mapper;
+
 	@Override
 	public void save(Role record) {
+		// TODO Auto-generated method stub
 		mapper.insert(record);
 	}
+
 	@Override
-	public void delete(Role record) {
-		mapper.deleteByPrimaryKey(record.getRid());
+	public void delete(Integer rid) {
+		// TODO Auto-generated method stub
+		mapper.deleteByPrimaryKey(rid);
 	}
+
 	@Override
 	public void update(Role record) {
+		// TODO Auto-generated method stub
 		mapper.updateByPrimaryKeySelective(record);
 	}
+
 	@Override
 	public List<Role> find() {
+		// TODO Auto-generated method stub
+		
 		return mapper.selectByExample(null);
 	}
+
 	@Override
-	public Role findOne(Role record) {
-		return mapper.selectByPrimaryKey(record.getRid());
+	public Role findOne(Integer rid) {
+		// TODO Auto-generated method stub
+		
+		return mapper.selectByPrimaryKey(rid);
 	}
+
 }

@@ -5,15 +5,9 @@ import java.util.List;
 import com.woniuxy.domain.Role;
 
 public interface IRoleService {
-
 	public void save(Role record);
-
-	public void delete(Role record);
-
+	public void delete(Integer rid);
 	public void update(Role record);
-
 	public List<Role> find(); 
-
-	public Role findOne(Role record);
-
+	public Role findOne(Integer rid);
 }
