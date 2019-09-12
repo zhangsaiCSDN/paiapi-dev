@@ -12,5 +12,5 @@ public interface IUserService {
 	User findOne(Integer uid);
 	List<User> find();
 	
-
+ 
 }

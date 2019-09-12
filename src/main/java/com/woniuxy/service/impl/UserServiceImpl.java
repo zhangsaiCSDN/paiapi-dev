@@ -20,7 +20,7 @@ public class UserServiceImpl implements IUserService {
 	public void save(User user) {
 		mapper.insert(user);
 	}
-
+ 
 	@Override
 	public void delete(Integer uid) {
 		mapper.deleteByPrimaryKey(uid);
