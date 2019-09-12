@@ -1,11 +1,12 @@
 package com.woniuxy.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
 
 @Data
-public class Goods {
+public class Goods implements Serializable {
     private Integer gid;
  
     private String gname;
