@@ -1,12 +1,13 @@
 package com.woniuxy.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import lombok.Data;
 
 
 @Data
-public class Collect {
+public class Collect implements Serializable{
     private Integer clid;
 
     private Date cltime;
