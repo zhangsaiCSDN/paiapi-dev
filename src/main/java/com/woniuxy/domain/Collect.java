@@ -16,5 +16,5 @@ public class Collect implements Serializable{
 
     private Integer gid;
 
-  
+   
 }

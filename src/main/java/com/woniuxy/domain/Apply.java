@@ -19,6 +19,6 @@ public class Apply implements Serializable{
     private String apreason;
 
     private Integer uid;
-
+ 
  
 }
