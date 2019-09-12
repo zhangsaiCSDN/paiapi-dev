@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.PermissionMapper;
 import com.woniuxy.domain.Permission;
+import com.woniuxy.service.IPermissionService;
 @Service
 @Transactional
 public class PermissionServiceImpl implements IPermissionService{
