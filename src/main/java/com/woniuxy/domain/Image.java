@@ -1,5 +1,8 @@
 package com.woniuxy.domain;
 
+import lombok.Data;
+
+@Data
 public class Image {
     private Integer imgid;
 
@@ -7,27 +10,5 @@ public class Image {
 
     private String img;
 
-    public Integer getImgid() {
-        return imgid;
-    }
-
-    public void setImgid(Integer imgid) {
-        this.imgid = imgid;
-    }
-
-    public Integer getGid() {
-        return gid;
-    }
-
-    public void setGid(Integer gid) {
-        this.gid = gid;
-    }
-
-    public String getImg() {
-        return img;
-    }
-
-    public void setImg(String img) {
-        this.img = img;
-    }
+  
 }
