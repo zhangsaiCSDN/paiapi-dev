@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class User {
     private Integer uid;
- 
+
     private Integer cid;
 
     private String uname;
@@ -14,4 +14,7 @@ public class User {
 
     private Integer ustate;
 
+    private String avatar;
+
+    private String salt;
 }
