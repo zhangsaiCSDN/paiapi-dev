@@ -208,4 +208,86 @@
       phtime = #{phtime,jdbcType=TIMESTAMP}
     where phid = #{phid,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <resultMap id="sh" type="com.woniuxy.domain.Pricehistory">
+    <id column="phid" jdbcType="INTEGER" property="phid" />
+    <result column="phmoney" jdbcType="DOUBLE" property="phmoney" />
+    <result column="phtime" jdbcType="TIMESTAMP" property="phtime" />
+    <association property="user" javaType="User">
+    	<id column="uid" jdbcType="INTEGER" property="uid" />
+	     <result column="cid" jdbcType="INTEGER" property="cid" />
+	     <result column="uname" jdbcType="VARCHAR" property="uname" />
+	     <result column="upwd" jdbcType="VARCHAR" property="upwd" />
+	     <result column="ustate" jdbcType="INTEGER" property="ustate" />
+    </association>
+    
+    <association property="goods" javaType="Goods">
+    	 <id column="gid" jdbcType="INTEGER" property="gid" />
+	  	 <result column="gname" jdbcType="CHAR" property="gname" />
+	   	 <result column="gprice" jdbcType="DOUBLE" property="gprice" /> 
+	   	 <result column="gstart" jdbcType="TIMESTAMP" property="gstart" />
+	   	 <result column="gend" jdbcType="TIMESTAMP" property="gend" />
+	     <result column="gcount" jdbcType="INTEGER" property="gcount" />
+	     <result column="ggap" jdbcType="DOUBLE" property="ggap" />
+	     <result column="gpasstime" jdbcType="TIMESTAMP" property="gpasstime" />
+	     <result column="gstate" jdbcType="INTEGER" property="gstate" />
+	     <result column="garea" jdbcType="VARCHAR" property="garea" />
+	     <result column="ginfo" jdbcType="VARCHAR" property="ginfo" />
+	     <result column="salerid" jdbcType="INTEGER" property="salerid" />
+	     <result column="gtid" jdbcType="INTEGER" property="gtid" />
+    </association>
+    
+  </resultMap>
+  
+  
+  
+  <select id="find" parameterType="Pricehistory" resultMap="sh">
+	  		SELECT * FROM pricehistory JOIN
+		user ON  user.`uid` = pricehistory.`uid` 
+		JOIN goods ON goods.`gid` = pricehistory.`gid`
+	
+		<where>
+			<if test="user.uid != null">
+				and user.uid = #{user.uid}
+			</if>
+			<if test="goods.gid != null">
+				and goods.gid = #{goods.gid}
+			</if>
+			<if test="phid != null">
+				and phid = #{phid}
+			</if>
+		</where>
+  </select>
+  
 </mapper>

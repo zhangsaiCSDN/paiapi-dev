@@ -10,6 +10,6 @@ public interface IPriceHistoryService {
 	void update(Pricehistory ph);
 	void delete(Integer phid);
 	Pricehistory findOne(Integer phid);
-	List<Pricehistory> find();
-
+	List<Pricehistory> find(Pricehistory ph);
+ 
 }
