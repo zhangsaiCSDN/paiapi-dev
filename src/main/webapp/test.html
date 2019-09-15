@@ -3,8 +3,52 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 	<h3>开工大吉 永无BUG</h3>	
+	<table id="ta">
+		<tr>
+			<td>did</td>
+			<td>gid</td>
+			<td>uid</td>
+			<td>dmoney</td>
+			<td>gstate</td>
+		</tr>
+	</table>
 </body>
+	<script type="text/javascript">
+		$(function(){
+			$.ajax({
+				type:"get",
+				url:"/deposits",
+				header:{
+					Accept:"application/json"
+				},
+				success:function(data){
+					var ta=$("#ta");
+					for ( var i in data) {
+					var tr=$("<tr>");
+					var td1=$("<td>");
+					var td2=$("<td>");
+					var td3=$("<td>");
+					var td4=$("<td>");
+					var td5=$("<td>");
+					 td1.append(data[i].did);
+					 td2.append(data[i].gid);
+					 td3.append(data[i].uid);
+					 td4.append(data[i].dmoney);
+					 td5.append(data[i].gstate);
+					 tr.append(td1);
+					 tr.append(td2);
+					 tr.append(td3);
+					 tr.append(td4);
+					 tr.append(td5);
+					 ta.append(tr);
+					}
+				}
+			});
+			
+		});
+	</script>
 </html>

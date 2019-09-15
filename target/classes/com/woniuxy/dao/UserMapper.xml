@@ -7,6 +7,8 @@
     <result column="uname" jdbcType="VARCHAR" property="uname" />
     <result column="upwd" jdbcType="VARCHAR" property="upwd" />
     <result column="ustate" jdbcType="INTEGER" property="ustate" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    uid, cid, uname, upwd, ustate
+    uid, cid, uname, upwd, ustate, avatar, salt
   </sql>
   <select id="selectByExample" parameterType="com.woniuxy.domain.UserExample" resultMap="BaseResultMap">
     select
@@ -101,9 +103,11 @@
   </delete>
   <insert id="insert" parameterType="com.woniuxy.domain.User">
     insert into user (uid, cid, uname, 
-      upwd, ustate)
+      upwd, ustate, avatar, 
+      salt)
     values (#{uid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER}, #{uname,jdbcType=VARCHAR}, 
-      #{upwd,jdbcType=VARCHAR}, #{ustate,jdbcType=INTEGER})
+      #{upwd,jdbcType=VARCHAR}, #{ustate,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.woniuxy.domain.User">
     insert into user
@@ -123,6 +127,12 @@
       <if test="ustate != null">
         ustate,
       </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="uid != null">
@@ -139,6 +149,12 @@
       </if>
       <if test="ustate != null">
         #{ustate,jdbcType=INTEGER},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -166,6 +182,12 @@
       <if test="record.ustate != null">
         ustate = #{record.ustate,jdbcType=INTEGER},
       </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null">
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +199,9 @@
       cid = #{record.cid,jdbcType=INTEGER},
       uname = #{record.uname,jdbcType=VARCHAR},
       upwd = #{record.upwd,jdbcType=VARCHAR},
-      ustate = #{record.ustate,jdbcType=INTEGER}
+      ustate = #{record.ustate,jdbcType=INTEGER},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +221,12 @@
       <if test="ustate != null">
         ustate = #{ustate,jdbcType=INTEGER},
       </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
     </set>
     where uid = #{uid,jdbcType=INTEGER}
   </update>
@@ -205,7 +235,9 @@
     set cid = #{cid,jdbcType=INTEGER},
       uname = #{uname,jdbcType=VARCHAR},
       upwd = #{upwd,jdbcType=VARCHAR},
-      ustate = #{ustate,jdbcType=INTEGER}
+      ustate = #{ustate,jdbcType=INTEGER},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR}
     where uid = #{uid,jdbcType=INTEGER}
   </update>
 </mapper>
