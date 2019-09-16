@@ -42,4 +42,9 @@ public class UserServiceImpl implements IUserService {
 		return mapper.selectByExample(null);
 	}
 
+	@Override
+	public List<User> findInfo() {
+		return mapper.findInfo();
+	}
+
 }

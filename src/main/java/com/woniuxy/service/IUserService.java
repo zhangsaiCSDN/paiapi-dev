@@ -11,6 +11,6 @@ public interface IUserService {
 	void update(User user);
 	User findOne(Integer uid);
 	List<User> find();
-	
+	List<User> findInfo();
  
 }
