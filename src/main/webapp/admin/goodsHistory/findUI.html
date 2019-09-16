@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>拍品历史记录管理</title>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+</head>
+<body>
+
+<script>
+$(function(){
+	
+	//三表联查，查询所有竞价历史纪录有关数据
+	function init(){
+		$("table:eq(0) tr:not(:eq(0))").remove();
+		$.ajax({
+			type:"get",
+			url:"/ghistorys",
+			Headers:{
+				"accept":"application/json"
+			},
+			success:function(data){
+				var tbObj = $("table:eq(0)");
+				for( var key in data){
+					var trObj = $("<tr>");
+					var thObj1 = $("<td>");
+					thObj1.append(data[key].ghid);
+					
+					var thObj2 = $("<td>");
+					thObj2.append(data[key].user.uname);
+					
+					var thObj3 = $("<td>");
+					thObj3.append(data[key].goods.gname);
+					
+					var thObj4 = $("<td>");
+					thObj4.append(data[key].ghmoney);
+					
+					var thObj5 = $("<td>");
+					thObj5.append(data[key].ghtime);
+					
+					
+					var thObj6 = $("<td>");
+					thObj6.append(data[key].ghdes);
+					
+					var thObj7 = $("<td>");
+					thObj7.append(data[key].ghdeadline);
+					
+					var thObj8 = $("<td>");
+					var val ="";
+					if(data[key].paystate==0){
+						val = "待付款";
+					}else if(data[key].paystate==1){
+						val = "已付款";
+					}
+					
+					thObj8.append(val);
+					
+					var thObj9 = $("<td>");
+					
+					//修改收数据
+					var upd = $("<button>修改</button>");
+					upd.click(function(){
+						
+						if($(this).html()=="确认修改"){
+							var tr = $(this).parent().parent().children().eq(0).html();
+							$.ajax({
+								type:"put",
+								url:"/ghistorys",
+								data:{
+									"ghid":tr,
+									"buyerid":$("#uid").val(),
+									"gid":$("#gid").val(),
+									"ghmoney":$("#ghmoney").val(),
+									"ghtime":$("#ghtime").val(),
+									"ghdes":$("#ghdes").val(),
+									"ghdeadline":$("#ghdeadline").val(),
+									"paystate":$("#paystate").val()
+								},
+								//请求成功后刷新页面显示数据
+								success:function(){
+									init();
+								}
+								
+							});
+							
+						}else{
+							
+						
+						//获取要修改的所有数据对象
+						var uidObj = $(this).parent().parent().children().eq(1);
+						var gidObj = $(this).parent().parent().children().eq(2);
+						var moneyObj = $(this).parent().parent().children().eq(3);
+						var timeObj = $(this).parent().parent().children().eq(4);
+						var xsObj = $(this).parent().parent().children().eq(5);
+						var oldTimeObj = $(this).parent().parent().children().eq(6);
+						var zfObj = $(this).parent().parent().children().eq(7);
+					
+						//取出jquery对象中的数据
+						var uname = uidObj.html();
+						var gname = gidObj.html();
+						var money = moneyObj.html();
+						var time = timeObj.html();
+						var miaoshu = xsObj.html();
+						var oldtime = oldTimeObj.html();
+						var zhifu = zfObj.html();
+						
+						//将数据重新填充进表格，数据回显
+						uidObj.replaceWith("<td><select id='uid' name='uid'></select></td>");
+						gidObj.replaceWith("<td><select id='gid' name='gid'></select></td>");
+						moneyObj.replaceWith("<td><input id='ghmoney' name='phmoney' value="+money+ " ></td>");
+						timeObj.replaceWith("<td><input id='ghtime'  value='"+time+"' pattern='yyyy-MM-dd HH:mm:ss'  /></td>");
+						xsObj.replaceWith("<td><textarea id='ghdes' name='ghdes' value='"+miaoshu+"' >"+miaoshu+"</textarea></td>");
+						oldTimeObj.replaceWith("<td><input id='ghdeadline' name='ghdeadline'  value='"+oldtime+"'  /></td>");
+						zfObj.replaceWith("<td><select id='paystate' name='paystate'></select></td>");
+						
+						//将外键的数据设置为下拉菜单，直接勾选
+						var usel = $("#uid") 
+						for(var p in data){
+							var op ;
+							
+							if(data[p].user.uname == uname){
+								op = $("<option  selected='selected' value='"+data[p].user.uid+"'>"+data[p].user.uname +"</option>");
+							}else{
+								op = $("<option value='"+data[p].user.uid+"'>"+data[p].user.uname +"</option>");
+							}
+							usel.append(op);
+						}
+						
+						var gsel = $("#gid") 
+						for(var p in data){
+							if(data[p].goods.gname == gname){
+								op = $("<option  selected='selected' value='"+data[p].goods.gid+"'>"+data[p].goods.gname +"</option>");
+							}else{
+								var op = $("<option value='"+data[p].goods.gid+"'>"+data[p].goods.gname +"</option>");
+							}
+							gsel.append(op);
+						}
+						
+						
+						//将支付情况转为下拉框
+						var paysel = $("#paystate") 
+						for(var p in data){
+							if(data[p].paystate == 0){
+								op = $("<option  selected='selected' value='"+data[p].paystate+"'>待付款</option>");
+							}else if(data[p].paystate == 1){
+								var op = $("<option value='"+data[p].paystate+"'>已付款</option>");
+							}
+							paysel.append(op);
+						}
+						
+						
+						
+						$(this).html("确认修改");
+							
+						}
+						
+					});;
+					
+					//删除选中的数据
+					var del = $("<button>删除</button>");
+					del.click(function(){
+							var id = $(this).parent().parent().children().eq(0).html();
+							$.ajax({
+									type:"delete",
+									url:"/ghistorys",
+									data:{"ghid":id},
+									success:function(){
+										init();
+										alert("删除成功");
+									}
+								
+								});
+						});
+					
+					thObj9.append(upd);
+					thObj9.append(del);
+					
+					trObj.append(thObj1);
+					trObj.append(thObj2);
+					trObj.append(thObj3);
+					trObj.append(thObj4);
+					trObj.append(thObj5);
+					trObj.append(thObj6);
+					trObj.append(thObj7);
+					trObj.append(thObj8);
+					trObj.append(thObj9);
+					
+					tbObj.append(trObj);
+				}
+			}
+			
+		});
+		
+	};
+	
+	init();
+	
+});
+
+</script>
+
+
+<table width="1024"  border="1" align="center">
+<tr>
+	<th>id</th>
+	<th>用户名称</th>
+	<th>拍品名称</th>
+	<th>拍下金额</th>
+	<th>拍下时间</th>
+	<th>描述</th>
+	<th>最后期限时间</th>
+	<th>支付情况</th>
+	<th>操作</th>
+</tr>
+
+</table>
+
+
+</script>
+	
+</body>
+</html>
