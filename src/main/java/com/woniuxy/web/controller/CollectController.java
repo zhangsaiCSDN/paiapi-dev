@@ -30,7 +30,7 @@ public class CollectController {
 	public List<Collect> find() {
 		return service.find();
 	}
-
+  
 	@GetMapping(value = "/{clid}")
 	@ResponseBody
 	public Collect findOne(@PathVariable Integer clid) {

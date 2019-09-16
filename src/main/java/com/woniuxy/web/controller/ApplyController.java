@@ -45,8 +45,7 @@ public class ApplyController {
 
 		service.delete(apid);
 
-	}
-
+	} 
 	@PutMapping
 	@ResponseBody
 	public void update(Apply apply) {
