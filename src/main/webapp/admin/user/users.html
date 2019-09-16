@@ -38,7 +38,7 @@
 				<td><span v-for='role in user.roles'>{{role.rname}} </span></td>
 				<td>
 					<button @click=''>修改</button>
-					<button @click=''>删除</button>
+					<button @click='del(user.uid)'>删除</button>
 				</td>
 			</tr>
 		</table>
@@ -47,15 +47,16 @@
 		var vue = new Vue({
 			el: "#app",
 			data: {
-				users: []
+				users: [],
 			},
 			methods: {
-				delete() {
-					alert('呵呵');
-					// var self = this;
-					// axios.delete("http://localhost:8080/users").then(function(response) {
-					// 	alert(response.data);
-					// })
+				del(uid) {
+					var self = this;
+					axios.delete("http://localhost:8080/users?uid=" + uid).then(function(response) {
+						axios.get("http://localhost:8080/users").then(function(response2) {
+							self.users = response2.data; //此时还是字符串
+						})
+					})
 				}
 			},
 			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
