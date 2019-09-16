@@ -42,4 +42,9 @@ public class ImageServiceImpl implements IImageService {
 		return dao.selectByPrimaryKey(imgid);
 	}
 
+	@Override
+	public List<Image> findByGoods() {
+		return dao.find();
+	} 
+
 }

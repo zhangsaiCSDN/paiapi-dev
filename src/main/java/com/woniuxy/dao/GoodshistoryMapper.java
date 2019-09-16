@@ -27,4 +27,6 @@ public interface GoodshistoryMapper {
     int updateByPrimaryKeySelective(Goodshistory record);
 
     int updateByPrimaryKey(Goodshistory record);
+   
+    List<Goodshistory> find();
 }

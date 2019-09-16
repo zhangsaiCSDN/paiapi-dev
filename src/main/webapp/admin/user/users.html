@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			table {
+				margin: auto;
+				width: 100%;
+			}
+		</style>
+	</head>
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+	<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<body>
+
+		<table id="app" class="table table-hover table-striped table-bordered table-dark">
+			<tr>
+				<th>用户ID</th>
+				<th>身份证信息</th>
+				<th>用户名</th>
+				<th>密码</th>
+				<th>状态</th>
+				<th>头像</th>
+				<th>SALT</th>
+				<th>用户角色</th>
+				<th>操作</th>
+			</tr>
+			<tr v-for="user in users">
+				<td>{{user.uid}}</td>
+				<td>{{user.cid}}</td>
+				<td>{{user.uname}}</td>
+				<td>{{user.upwd}}</td>
+				<td>{{user.ustate}}</td>
+				<td>{{user.avatar}}</td>
+				<td>{{user.salt}}</td>
+				<td><span v-for='role in user.roles'>{{role.rname}} </span></td>
+				<td>
+					<button @click=''>修改</button>
+					<button @click=''>删除</button>
+				</td>
+			</tr>
+		</table>
+	</body>
+	<script>
+		var vue = new Vue({
+			el: "#app",
+			data: {
+				users: []
+			},
+			methods: {
+				delete() {
+					alert('呵呵');
+					// var self = this;
+					// axios.delete("http://localhost:8080/users").then(function(response) {
+					// 	alert(response.data);
+					// })
+				}
+			},
+			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
+				var self = this;
+				axios.get("http://localhost:8080/users").then(function(response) {
+					self.users = response.data; //此时还是字符串
+				})
+			}
+
+
+		});
+	</script>
+</html>
