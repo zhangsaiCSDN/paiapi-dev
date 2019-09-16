@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+  
+  <link
+	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css"
+	rel="stylesheet">
+  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+  <style type="text/css">
+#update, #del {
+	width: 50%;
+}
+
+th {
+	text-align: center;
+}
+</style>
+</head>
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">ID</label>
+            <div class="layui-input-block">
+              <input type="text" name="apid" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">用户名</label>
+            <div class="layui-input-block">
+              <input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">邮箱</label>
+            <div class="layui-input-block">
+              <input type="text" name="email" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">性别</label>
+            <div class="layui-input-block">
+              <select name="sex">
+                <option value="0">不限</option>
+                <option value="1">男</option>
+                <option value="2">女</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
+              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="layui-card-body">
+        <div style="padding-bottom: 10px;">
+          <button class="layui-btn layuiadmin-btn-useradmin" data-type="batchdel">删除</button>
+          <button class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>
+        </div>
+        
+        <table id="LAY-user-manage" lay-filter="LAY-user-manage" class="table table-hover table-striped table-bordered table-dark">
+        <tr>
+			<th>申请ID</th>
+			<th>编号</th>
+			<th>用户ID</th>
+			<th>业务</th>
+			<th>详细信息</th>
+			<th>申请状态</th>
+			<th>没有通过的原因</th>
+			<th>修改</th>
+
+		</tr>
+        
+        
+        
+        
+        
+        </table>
+
+</body>
+</html>
+<script type="text/javascript">
+	$(function() {
+		
+		
+		$("#add").click(function(){
+			
+		layer.alert("添加成功!!");
+		});		
+		
+
+		function updateTable() {
+			$
+					.ajax({
+						type : "get",
+						url : "/applys",
+						headers : {
+							"Accept" : "application/json"
+						},
+						success : function(data) {
+							var tab = $("table:eq(0)");
+							for (p in data) {
+								/*  alert(data[p].eid+" "+data[p].ename+" "+data[p].birthday+" "+data[p].money);  */
+								var tr = $("<tr>");
+								var th = $("<th>");
+								var th2 = $("<th>");
+								var th3 = $("<th>");
+								var th4 = $("<th>");
+								var th5 = $("<th>");
+								var th6 = $("<th>");
+								var th7 = $("<th>");
+								var th8 = $("<th>");
+								th.append(data[p].apid);
+								th2.append(data[p].apno);
+								th3.append(data[p].uid);
+								th4.append(data[p].apbusi);
+								th5.append(data[p].apinfo);
+								th6.append(data[p].apstate);
+								th7.append(data[p].apreason);
+
+								var update = $("<button id='update' type='button' class='btn btn-warning'>修改</button>");
+								var del = $("<button  id='del' type='button' onclick='return confirm('确定要删除吗？')' class='btn btn-danger'>删除 </button>");
+
+								del.click(function() {
+
+									var apid = $(this).parent().parent()
+											.children().eq(0).html();
+									$.ajax({
+
+										type : "post",
+										url : "/applys",
+										data : {
+											"apid" : apid,
+											"_method" : "delete"
+										},
+										success : function() {
+
+											updataTable();
+										}
+
+									});
+
+								});
+
+								th8.append(update, del);
+
+								tr.append(th);
+								tr.append(th2);
+								tr.append(th3);
+								tr.append(th4);
+								tr.append(th5);
+								tr.append(th6);
+								tr.append(th7);
+								tr.append(th8);
+								tab.append(tr);
+
+							}
+						}
+					});
+
+		}
+
+		updateTable();
+
+	});
+</script>
