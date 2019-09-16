@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>拍拍网拍品管理</title>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+	<h3>拍品管理</h3>
+	<button id="add">增加拍品</button>
+	<form>
+		<table id="addtab" hidden="true">
+			<tr>
+				<td>拍品名</td>
+				<td>起拍价格</td>
+				<td>起拍时间</td>
+				<td>结束时间</td>
+				<td>围观次数</td>
+				<td>加价幅度</td>
+				<td>审核通过时间</td>
+
+			</tr>
+				<td><input name="gname" /></td>
+				<td><input name="gprice"/></td>
+				<td><input name="gstart"/></td>
+				<td><input name="gend"/></td>
+				<td><input name="gcount"/></td>
+				<td><input name="ggap"/></td>
+				<td><input name="gpasstime"/></td>
+
+			</tr>
+			<tr>			
+				<td>状态</td>
+				<td>区域</td>
+				<td>详细信息</td>
+				<td>卖家id</td>
+				<td>拍品类型id</td>
+				<td>操作</td></tr>
+			<tr>
+			<tr>
+				<td><input name="gstate"/></td>
+				<td><input name="garea"/></td>
+				<td><input name="ginfo"/></td>
+				<td><input name="salerid"/></td>
+				<td><input name="gtid"/></td>
+				<td><button id="addbtn">确定</button></td>
+			</tr>
+		</table>
+	</form>
+	
+		<table  border="1px" width="1200px">
+		<h4>拍品表</h4>
+		<thead>
+			<tr>
+				<td>id</td>
+				<td>拍品名</td>
+				<td>起拍价格</td>
+				<td>起拍时间</td>
+				<td>结束时间</td>
+				<td>围观次数</td>
+				<td>加价幅度</td>
+				<td>审核通过时间</td>
+				<td>状态</td>
+				<td>区域</td>
+				<td>详细信息</td>
+				<td>卖家id</td>
+				<td>拍品类型id</td>
+				<td>操作</td>
+			</tr>
+		</thead>
+		<tbody id="goods">		
+		</tbody>
+	</table>
+</body>
+<script type="text/javascript">
+	//获取所有商品类型
+	$(function(){
+		function find(){
+			$.ajax({
+				type:"get",
+				url:"/goods",
+				success:function(data){
+					$("#goods").empty();
+					for(var i=0;i<data.length;i++){
+						var tr=$("<tr></tr>");
+						
+						var td1=$("<td></td>");
+						var td2=$("<td></td>");
+						var td3=$("<td></td>");
+						var td4=$("<td></td>");
+						var td5=$("<td></td>");
+						var td6=$("<td></td>");
+						var td7=$("<td></td>");
+						var td8=$("<td></td>");
+						var td9=$("<td></td>");
+						var td10=$("<td></td>");
+						var td11=$("<td></td>");
+						var td12=$("<td></td>");
+						var td13=$("<td></td>");
+						var td14=$("<td></td>");
+						
+						td1.html(data[i].gid);
+						td2.html(data[i].gname);
+						td3.html(data[i].gprice);
+						td4.html(data[i].gstart);
+						td5.html(data[i].gend);
+						td6.html(data[i].gcount);
+						td7.html(data[i].ggap);
+						td8.html(data[i].gpasstime);
+						td9.html(data[i].gstate);
+						td10.html(data[i].garea);
+						td11.html(data[i].ginfo);
+						td12.html(data[i].salerid);
+						td13.html(data[i].gtid);
+
+						//删除选中的数据
+						var del = $("<button>删除</button>");
+						del.click(function(){
+								var id = $(this).parent().parent().children().eq(0).html();
+								$.ajax({
+										type:"delete",
+										url:"/goods",
+										data:{"gid":id},
+										success:function(){
+											find();
+											alert("删除成功");											
+										}
+									
+									});
+						});
+						//修改收数据
+						var upd = $("<button>修改</button>");
+						upd.click(function(){
+							
+							if($(this).html()=="确认修改"){
+								var tr = $(this).parent().parent().children().eq(0).html();
+								$.ajax({
+									type:"put",
+									url:"/goods",
+									data:{
+										"gid":tr,
+										"gname":$("#gname").val(),
+										"gprice":$("#gprice").val(),
+										"gstart":$("#gstart").val(),
+										"gend":$("#gend").val(),
+										"gcount":$("#gcount").val(),
+										"ggap":$("#ggap").val(),
+										"gpasstime":$("#gpasstime").val(),
+										"gstate":$("#gstate").val(),
+										"garea":$("#garea").val(),
+										"ginfo":$("#ginfo").val(),
+										"salerid":$("#salerid").val(),
+										"gtid":$("#gtid").val()
+									},
+									//请求成功后刷新页面显示数据
+									success:function(){
+										find();
+									}
+									
+								});
+								
+							}else{
+								
+							
+							//获取要修改的所有数据对象
+							var ogname = $(this).parent().parent().children().eq(1);
+							var ogprice = $(this).parent().parent().children().eq(2);
+							var ogstart = $(this).parent().parent().children().eq(3);
+							var ogend = $(this).parent().parent().children().eq(4);
+							var ogcount = $(this).parent().parent().children().eq(5);
+							var oggap = $(this).parent().parent().children().eq(6);
+							var ogpasstime = $(this).parent().parent().children().eq(7);
+							var ogstate = $(this).parent().parent().children().eq(8);
+							var ogarea = $(this).parent().parent().children().eq(9);
+							var oginfo = $(this).parent().parent().children().eq(10);
+							var osalerid = $(this).parent().parent().children().eq(11);
+							var ogtid = $(this).parent().parent().children().eq(12);
+						
+							//取出jquery对象中的数据
+							var gname = ogname.html();
+							var gprice = ogprice.html();
+							var gstart = ogstart.html();
+							var gend = ogend.html();
+							var gcount = ogcount.html();
+							var ggap = oggap.html();
+							var gpasstime = ogpasstime.html();
+							var gstate = ogstate.html();
+							var garea = ogarea.html();
+							var ginfo = oginfo.html();
+							var salerid = osalerid.html();
+							var gtid = ogtid.html();
+							
+							//将数据重新填充进表格，数据回显
+							ogname.replaceWith    ("<td><input id='gname' name='gname' value="+gname+ " ></td>");
+							ogprice.replaceWith   ("<td><input id='gprice' name='gprice' value="+gprice+ " ></td>");
+							ogstart.replaceWith   ("<td><input id='gstart'  value='"+gstart+"' pattern='yyyy-MM-dd HH:mm:ss'  /></td>");
+							ogend.replaceWith	  ("<td><input id='gend'  value='"+gend+"' pattern='yyyy-MM-dd HH:mm:ss'  /></td>");
+							ogcount.replaceWith   ("<td><input id='gcount' name='gcount' value="+gcount+ " ></td>");
+							oggap.replaceWith	  ("<td><input id='ggap' name='ggap' value="+ggap+ " ></td>");
+							ogpasstime.replaceWith("<td><input id='gpasstime'  value='"+gpasstime+"' pattern='yyyy-MM-dd HH:mm:ss'  /></td>");
+							ogstate.replaceWith	  ("<td><input id='gstate' name='gstate' value="+gstate+ " ></td>");
+							ogarea.replaceWith	  ("<td><input id='garea' name='garea' value="+garea+ " ></td>");
+							oginfo.replaceWith	  ("<td><input id='ginfo' name='ginfo' value="+ginfo+ " ></td>");
+							osalerid.replaceWith  ("<td><input id='salerid' name='salerid' value="+salerid+ " ></td>");
+							ogtid.replaceWith	  ("<td><input id='gtid' name='gtid' value="+gtid+ " ></td>");
+							
+							
+							$(this).html("确认修改");
+							
+							}
+							
+						});
+						
+						td14.append(del);
+						td14.append(upd);
+						tr.append(td1);
+						tr.append(td2);
+						tr.append(td3);
+						tr.append(td4);
+						tr.append(td5);
+						tr.append(td6);
+						tr.append(td7);
+						tr.append(td8);
+						tr.append(td9);
+						tr.append(td10);
+						tr.append(td11);
+						tr.append(td12);
+						tr.append(td13);
+						tr.append(td14);
+						
+						$("#goods").append(tr);
+					}							
+				}
+			});
+		}
+		
+		find();
+		//显示增加表单
+		$("#add").click(function(){	
+			$("#addtab").toggle();
+		});
+		//添加商品类型
+		$("#addbtn").click(function(){
+			var params=$("form").serialize();
+			$.ajax({
+				type:"post",
+				url:"/goods",
+				data:params,
+				success:function(){
+					find();
+				}
+			});		
+		});
+
+	})
+</script>
+</html>

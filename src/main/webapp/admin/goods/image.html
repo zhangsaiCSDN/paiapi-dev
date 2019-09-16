@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>拍拍网拍品图片管理</title>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+
+ 
+	
+	<h3>拍品图片管理</h3>
+	<button id="add">增加图片</button>
+	<form id="form" method="post" enctype="multipart/form-data">
+		<table id="addtab" hidden="true">
+			<tr>
+				<td>拍品id</td>
+				<td>图片</td>
+				<td>操作</td>
+			</tr>
+			<tr>
+				<td><input name="gid" /></td>
+				<td>       
+					<input id="file" name="file" type="file" multiple="multiple"/></td>
+				<td><input id="upload" name="upload" type="button" value="上传"></td>
+			</tr>
+		</table>
+	</form>
+	
+
+	<table  border="1px">
+		<h4>拍品图片表</h4>
+		<thead>
+			<tr>
+				<td>图片id</td>
+				<td>拍品id</td>
+				<td>图片</td>
+				<td>操作</td>
+			</tr>
+		</thead>
+		<tbody id="image">		
+		</tbody>
+	</table>
+</body>
+<script type="text/javascript">
+	//获取所有商品类型
+	$(function(){
+		function find(){
+			$.ajax({
+				type:"get",
+				url:"/images",
+				success:function(data){
+					$("#image").empty();
+					for(var i=0;i<data.length;i++){
+						var tr=$("<tr></tr>");
+						
+						var td1=$("<td></td>");
+						var td2=$("<td></td>");
+						var td3=$("<td></td>");
+						var td4=$("<td></td>");
+						
+						
+						td1.html(data[i].imgid);
+						td2.html(data[i].goods.gid); //外鍵gid
+
+						td3.html( "<img width='100px' src='/admin/goods/goodsImg/"+data[i].img+"'>  "  );
+	
+						
+						var del = $("<button>删除</button>");
+						del.click(function(){
+							
+								var imgid = $(this).parent().parent().children().eq(0).html();
+
+								$.ajax({
+										type:"delete",
+										url:"/images",
+										data:{"imgid":imgid},
+										success:function(){
+											find();
+											alert("删除成功");											
+										}
+									
+									});
+							});
+						
+						td4.append(del);
+						tr.append(td1);
+						tr.append(td2);
+						tr.append(td3);
+						tr.append(td4);
+						
+						$("#image").append(tr);
+					}							
+				}
+			});
+		}
+		
+		find();
+		//显示增加表单
+		$("#add").click(function(){	
+			$("#addtab").toggle();
+		});
+		
+		//添加拍品
+        $("#upload").click(function () {
+    
+        	var gid=$("form").serialize();//获取表单中的拍品id
+
+           var formData = new FormData($('#form')[0]);//获取表单中的文件
+           //ajax请求
+           $.ajax({
+               url:"/images",//后台的接口地址
+               type:"post",//post请求方式
+               data:formData,gid,//参数
+               cache: false,
+               processData: false,
+               contentType: false,
+               success:function (data) {
+                   alert(data);
+                   find();
+               },error:function () {
+                   alert("操作失败~");
+               }
+           })
+        });
+
+
+	})
+</script>
+</html>
