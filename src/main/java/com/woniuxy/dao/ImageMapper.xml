@@ -179,7 +179,7 @@
     where imgid = #{imgid,jdbcType=INTEGER}
   </update>
 
-
+ 
 
 
 

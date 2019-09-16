@@ -63,7 +63,7 @@ public class ImageController {
             File dirFile = new File(dir,newName);
             if (!dirFile.exists()){
                 dirFile.mkdirs();
-            }
+            } 
             try {
                 //将文件写入创建的路径
                 file.transferTo(dirFile);

@@ -12,3 +12,4 @@ public interface IImageService {
 	Image findOne(Integer imgid);
 	List<Image> findByGoods();
 }
+ 

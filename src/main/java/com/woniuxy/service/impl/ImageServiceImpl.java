@@ -45,6 +45,6 @@ public class ImageServiceImpl implements IImageService {
 	@Override
 	public List<Image> findByGoods() {
 		return dao.find();
-	}
+	} 
 
 }

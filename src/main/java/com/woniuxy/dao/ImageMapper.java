@@ -11,7 +11,7 @@ public interface ImageMapper {
     int deleteByExample(ImageExample example);
 
     int deleteByPrimaryKey(Integer imgid);
-
+  
     int insert(Image record);
 
     int insertSelective(Image record);
