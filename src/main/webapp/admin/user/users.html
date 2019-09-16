@@ -9,21 +9,35 @@
 				width: 100%;
 				border: 1px solid black;
 				text-align: center;
-			}
+			} 
 		</style>
 	</head>
 	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
 	<body>
-		
+
 		<table id="app">
 			<tr>
-				<th v-for="(v,k,i) in users[0]">{{k}}</th>
-				<th>operation</th>
+				<th>用户ID</th>
+				<th>身份证信息</th>
+				<th>用户名</th>
+				<th>密码</th>
+				<th>状态</th>
+				<th>头像</th>
+				<th>SALT</th>
+				<th>用户角色</th>
+				<th>操作</th>
 			</tr>
 			<tr v-for="user in users">
-				<td v-for="(v,k,i) in user">{{v}}</td>
-				<td>edit|delete</td>
+				<td>{{user.uid}}</td>
+				<td>{{user.cid}}</td>
+				<td>{{user.uname}}</td>
+				<td>{{user.upwd}}</td>
+				<td>{{user.ustate}}</td>
+				<td>{{user.avatar}}</td>
+				<td>{{user.salt}}</td>
+				<td><span v-for='role in user.roles'>{{role.rname}} </span></td>
+				<td><a @on=''>修改</a>|<a @on=''>删除</a></td>
 			</tr>
 		</table>
 	</body>
@@ -34,12 +48,12 @@
 				users: []
 			},
 			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
-				var self = this
+				var self = this;
 				axios.get("http://localhost:8080/users").then(function(response) {
 					self.users = response.data; //此时还是字符串
-					self.users = eval("(" + self.users + ")"); //字符串转换为数组对象
+					// self.users = eval("(" + self.users + ")"); //字符串转换为数组对象
 				})
-			}  
+			}
 		});
 	</script>
 </html>
