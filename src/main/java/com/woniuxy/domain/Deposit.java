@@ -15,6 +15,10 @@ public class Deposit implements Serializable{
     private Double dmoney;
 
     private Integer gstate;
+    
+    private User user;
+    
+    private Goods goods;
 
  
 }
