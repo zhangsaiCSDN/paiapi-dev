@@ -9,7 +9,7 @@ import lombok.Data;
 
 @Data
 public class Pricehistory implements Serializable {
-	
+	 
 	
     private Integer phid;
 
