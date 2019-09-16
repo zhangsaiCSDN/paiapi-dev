@@ -50,7 +50,7 @@ public class ImageController {
     public String upload(@RequestParam("file") MultipartFile[] files,Integer gid,HttpServletRequest request){//支持多个文件的上传
     	
         //实例化一个文件存放的目录地址
-        String dir = request.getServletContext().getRealPath("/goodsImg");
+        String dir = request.getServletContext().getRealPath("/admin/goods/goodsImg");
         for (MultipartFile file : files){
             System.out.println("文件类型:"+file.getContentType());
 
