@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.Orders;
+import com.woniuxy.domain.User;
 import com.woniuxy.service.impl.OrdersServiceImpl;
 
 @Controller
@@ -51,6 +53,12 @@ public class OrdersController {
 			System.out.println(orders);
 		} 
 		return find;
+	}
+	
+	@GetMapping(value = "/{odid}")
+	@ResponseBody
+	public Orders findOne(@PathVariable Integer odid) {
+		return service.findOne(odid);
 	}
 	
 	
