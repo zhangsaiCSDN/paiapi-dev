@@ -7,16 +7,15 @@
 			table {
 				margin: auto;
 				width: 100%;
-				border: 1px solid black;
-				text-align: center;
 			}
 		</style>
 	</head>
 	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
-		<table id="app">
+		<table id="app" class="table table-hover table-striped table-bordered table-dark">
 			<tr>
 				<th>用户ID</th>
 				<th>身份证信息</th>
@@ -38,7 +37,7 @@
 				<td>{{user.salt}}</td>
 				<td><span v-for='role in user.roles'>{{role.rname}} </span></td>
 				<td>
-					<button @click='delete'>修改</button>
+					<button @click=''>修改</button>
 					<button @click=''>删除</button>
 				</td>
 			</tr>
