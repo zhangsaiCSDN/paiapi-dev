@@ -13,7 +13,7 @@ import com.woniuxy.service.ILogService;
 @Service
 @Transactional
 public class LogServiceImpl implements ILogService {
-	
+	 
 	@Autowired 
 	private LogMapper mapper;
 
@@ -40,6 +40,11 @@ public class LogServiceImpl implements ILogService {
 	@Override
 	public List<Log> find() {
 		return mapper.selectByExample(null);
+	}
+	 
+	@Override
+	public List<Log> findByUid(Integer uid) {
+		return mapper.selectLogByUid(uid);
 	}
 
 }

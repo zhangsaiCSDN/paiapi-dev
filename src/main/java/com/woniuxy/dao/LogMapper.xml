@@ -7,6 +7,33 @@
     <result column="ltime" jdbcType="TIMESTAMP" property="ltime" />
     <result column="loption" jdbcType="CHAR" property="loption" />
   </resultMap>
+  
+  
+  
+  <select id="selectLogByUid" parameterType="Integer" resultMap="rm">
+  	select * from user u JOIN log l on u.uid=l.lid where l.uid=#{uid}
+  </select>
+  <resultMap type="Log" id="rm">
+  	<id property="lid" column="lid"/>
+  	<result property="ltime" column="ltime"/>
+  	<result property="loption=" column="loption"/>
+  	<association property="user" javaType="User">
+  		<id column="uid" property="uid" />
+	    <result column="cid" property="cid" />
+	    <result column="uname" property="uname" />
+	    <result column="upwd" property="upwd" />
+	    <result column="ustate" property="ustate" />
+	    <result column="avatar" property="avatar" />
+	    <result column="salt" property="salt" />
+  	</association>
+  </resultMap>
+  
+  
+  
+  
+  
+  
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

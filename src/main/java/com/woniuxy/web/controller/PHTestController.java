@@ -19,7 +19,7 @@ import com.woniuxy.service.IPriceHistoryService;
 public class PHTestController {
 	@Autowired
 	private IPriceHistoryService service;
-	 
+	
 	@PostMapping
 	@ResponseBody
 	public void save(Pricehistory ph) {

@@ -9,5 +9,6 @@ public interface ILogService {
 	void delete(Integer lig);
 	void update(Log log);
 	Log findOne(Integer lig);
+	List<Log> findByUid(Integer uid);
 	List<Log> find(); 
-}
+} 
