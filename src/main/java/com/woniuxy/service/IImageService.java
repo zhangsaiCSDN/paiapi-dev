@@ -10,4 +10,5 @@ public interface IImageService {
 	void update(Image image);
 	List<Image> find();
 	Image findOne(Integer imgid);
+	List<Image> findByGoods();
 }

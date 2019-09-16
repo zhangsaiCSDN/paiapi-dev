@@ -27,4 +27,6 @@ public interface ImageMapper {
     int updateByPrimaryKeySelective(Image record);
 
     int updateByPrimaryKey(Image record);
+    
+    List<Image> find();//联合查询goods
 }

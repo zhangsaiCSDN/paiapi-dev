@@ -12,5 +12,5 @@ public class Image implements Serializable {
 
     private String img;
 
-  
+    private Goods goods;//外键 的实体
 }
