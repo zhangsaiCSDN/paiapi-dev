@@ -8,7 +8,7 @@
     <result column="upwd" jdbcType="VARCHAR" property="upwd" />
     <result column="ustate" jdbcType="INTEGER" property="ustate" />
     <result column="avatar" jdbcType="VARCHAR" property="avatar" />
-    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" /> 
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>

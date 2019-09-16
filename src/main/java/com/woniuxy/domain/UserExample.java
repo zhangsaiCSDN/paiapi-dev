@@ -60,7 +60,7 @@ public class UserExample {
     public void clear() {
         oredCriteria.clear();
         orderByClause = null;
-        distinct = false;
+        distinct = false; 
     }
 
     protected abstract static class GeneratedCriteria {
