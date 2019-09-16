@@ -12,12 +12,13 @@
   
   
   <select id="selectLogByUid" parameterType="Integer" resultMap="rm">
-  	select * from user u JOIN log l on u.uid=l.lid where l.uid=#{uid}
+  	select * from log l JOIN user u on u.uid=l.uid where l.uid=#{uid}
   </select>
   <resultMap type="Log" id="rm">
-  	<id property="lid" column="lid"/>
+  	<id property="lig" column="lig"/>
+  	<result property="uid" column="uid"/>
   	<result property="ltime" column="ltime"/>
-  	<result property="loption=" column="loption"/>
+  	<result property="loption" column="loption"/>
   	<association property="user" javaType="User">
   		<id column="uid" property="uid" />
 	    <result column="cid" property="cid" />
