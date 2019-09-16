@@ -27,7 +27,6 @@ public class GoodsController {
 	@ResponseBody
 	public List<Goods> find() {
 		List<Goods> list = service.find();
-		System.out.println(list);
 		return list;
 	}
 	
