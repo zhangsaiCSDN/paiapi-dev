@@ -106,7 +106,7 @@
 				orders: []
 			},
 			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
-				var self = this
+		 		var self = this
 				axios.get("http://localhost:8080/orders").then(function(response) {
 					self.orders = response.data; //此时还是字符串
 					/* self.orders = eval("(" + self.orders + ")"); //字符串转换为数组对象 */

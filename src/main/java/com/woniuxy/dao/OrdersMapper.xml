@@ -344,5 +344,5 @@
 		INNER JOIN goods g ON o.gid=g.gid
 		INNER JOIN address a ON o.aid=a.aid
   </select>
-  
+   
 </mapper>
