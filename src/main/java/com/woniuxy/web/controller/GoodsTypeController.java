@@ -57,7 +57,7 @@ public class GoodsTypeController {
 	@ResponseBody
 	public String save(@RequestParam("file") MultipartFile[] files, Integer gtid,String gtname,String gtdes, HttpServletRequest request) {// 支持多个文件的上传
 
-		// 实例化一个文件存放的目录地址
+		// 实例化一个文件存放的目录地址 
 		String dir = request.getServletContext().getRealPath("/admin/goods/goodsTypeImg");
 		for (MultipartFile file : files) {
 			System.out.println("文件类型:" + file.getContentType());

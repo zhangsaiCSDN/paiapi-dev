@@ -53,7 +53,7 @@ public class ImageController {
         String dir = request.getServletContext().getRealPath("/admin/goods/goodsImg");
         for (MultipartFile file : files){
             System.out.println("文件类型:"+file.getContentType());
-
+ 
           
             String oldName = file.getOriginalFilename();		//文件名
             int lastDot = oldName.lastIndexOf(".");
