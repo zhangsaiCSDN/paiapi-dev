@@ -11,7 +11,7 @@ public interface ImageMapper {
     int deleteByExample(ImageExample example);
 
     int deleteByPrimaryKey(Integer imgid);
-
+  
     int insert(Image record);
 
     int insertSelective(Image record);
@@ -27,4 +27,6 @@ public interface ImageMapper {
     int updateByPrimaryKeySelective(Image record);
 
     int updateByPrimaryKey(Image record);
+    
+    List<Image> find();//联合查询goods
 }

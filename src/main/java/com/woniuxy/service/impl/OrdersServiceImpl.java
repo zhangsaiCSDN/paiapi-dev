@@ -39,7 +39,7 @@ public class OrdersServiceImpl implements IOrdersService {
 
 	@Override
 	public List<Orders> find() {
-		return mapper.selectByExample(null);
+		return mapper.find();
 	}
 
 }

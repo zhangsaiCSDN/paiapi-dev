@@ -178,4 +178,28 @@
       img = #{img,jdbcType=VARCHAR}
     where imgid = #{imgid,jdbcType=INTEGER}
   </update>
-</mapper>
+
+ 
+
+
+
+
+
+  <resultMap id="bt" type="com.woniuxy.domain.Image">
+    <id column="imgid" jdbcType="INTEGER" property="imgid" />
+
+    <result column="img" jdbcType="VARCHAR" property="img" />
+
+  
+    <association property="goods">
+    	<id property="gid" column="gid"/>
+   		<result column="gname"  property="gname" />
+    </association>
+  </resultMap>
+  
+    <select id="find" parameterType="com.woniuxy.domain.Image" resultMap="bt">
+		SELECT * FROM image i
+		INNER JOIN goods g ON i.gid=g.gid
+  	</select>
+  	
+ </mapper>
