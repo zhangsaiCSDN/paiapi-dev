@@ -23,7 +23,7 @@ public class Log implements Serializable{
     private Date ltime;
 
     private String loption;
-     
+    
     private User user;
  
 }

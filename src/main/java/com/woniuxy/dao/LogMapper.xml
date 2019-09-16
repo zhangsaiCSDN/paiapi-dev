@@ -10,6 +10,7 @@
   
   
   
+  
   <select id="selectLogByUid" parameterType="Integer" resultMap="rm">
   	select * from user u JOIN log l on u.uid=l.lid where l.uid=#{uid}
   </select>

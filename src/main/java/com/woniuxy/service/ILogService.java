@@ -11,4 +11,4 @@ public interface ILogService {
 	Log findOne(Integer lig);
 	List<Log> findByUid(Integer uid);
 	List<Log> find(); 
-} 
+}

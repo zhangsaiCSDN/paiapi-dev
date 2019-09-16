@@ -13,7 +13,7 @@ import com.woniuxy.service.ILogService;
 @Service
 @Transactional
 public class LogServiceImpl implements ILogService {
-	 
+	
 	@Autowired 
 	private LogMapper mapper;
 
