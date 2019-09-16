@@ -45,9 +45,9 @@ public class PriceHistoryServiceImpl implements IPriceHistoryService {
 	}
 
 	@Override
-	public List<Pricehistory> find() {
+	public List<Pricehistory> find(Pricehistory ph) {
 		// TODO Auto-generated method stub
-		return phmapper.selectByExample(null);
+		return phmapper.find(ph);
 	}
 
 }

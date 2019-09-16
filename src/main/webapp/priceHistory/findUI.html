@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>竞价历史记录管理</title>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+<script >
+	$(function(){
+		
+		//三表联查，查询所有竞价历史纪录有关数据
+		function init(){
+			$("table:eq(0) tr:not(:eq(0))").remove();
+			$.ajax({
+				type:"get",
+				url:"/phistorys",
+				Headers:{
+					"accept":"application/json"
+				},
+				success:function(data){
+					var tbObj = $("table:eq(0)");
+					for( var key in data){
+						var trObj = $("<tr>");
+						var thObj1 = $("<td>");
+						thObj1.append(data[key].phid);
+						
+						var thObj2 = $("<td>");
+						thObj2.append(data[key].user.uname);
+						
+						var thObj3 = $("<td>");
+						thObj3.append(data[key].goods.gname);
+						
+						var thObj4 = $("<td>");
+						thObj4.append(data[key].phmoney);
+						
+						var thObj5 = $("<td>");
+						thObj5.append(data[key].phtime);
+						
+						
+						var thObj6 = $("<td>");
+						
+						//修改收数据
+						var upd = $("<button>修改</button>");
+						upd.click(function(){
+							
+							if($(this).html()=="确认修改"){
+								var tr = $(this).parent().parent().children().eq(0).html();
+								$.ajax({
+									type:"put",
+									url:"/phistorys",
+									data:{
+										"phid":tr,
+										"uid":$("#uid").val(),
+										"gid":$("#gid").val(),
+										"phmoney":$("#phmoney").val(),
+										"phtime":$("#phtime").val()
+									},
+									//请求成功后刷新页面显示数据
+									success:function(){
+										init();
+									}
+									
+								});
+								
+							}else{
+								
+							
+							//获取要修改的所有数据对象
+							var uidObj = $(this).parent().parent().children().eq(1);
+							var gidObj = $(this).parent().parent().children().eq(2);
+							var moneyObj = $(this).parent().parent().children().eq(3);
+							var timeObj = $(this).parent().parent().children().eq(4);
+						
+							//取出jquery对象中的数据
+							var uname = uidObj.html();
+							var gname = gidObj.html();
+							var money = moneyObj.html();
+							var time = timeObj.html();
+							
+							//将数据重新填充进表格，数据回显
+							uidObj.replaceWith("<td><select id='uid' name='uid'></select></td>");
+							gidObj.replaceWith("<td><select id='gid' name='gid'></select></td>");
+							moneyObj.replaceWith("<td><input id='phmoney' name='phmoney' value="+money+ " ></td>");
+							timeObj.replaceWith("<td><input id='phtime'  value='"+time+"' pattern='yyyy-MM-dd HH:mm:ss'  /></td>");
+							
+							
+							//将外键的数据设置为下拉菜单，直接勾选
+							var usel = $("#uid") 
+							for(var p in data){
+								var op ;
+								
+								if(data[p].user.uname == uname){
+									op = $("<option  selected='selected' value='"+data[p].user.uid+"'>"+data[p].user.uname +"</option>");
+								}else{
+									op = $("<option value='"+data[p].user.uid+"'>"+data[p].user.uname +"</option>");
+								}
+								usel.append(op);
+							}
+							
+							var gsel = $("#gid") 
+							for(var p in data){
+								if(data[p].goods.gname == gname){
+									op = $("<option  selected='selected' value='"+data[p].goods.gid+"'>"+data[p].goods.gname +"</option>");
+								}else{
+									var op = $("<option value='"+data[p].goods.gid+"'>"+data[p].goods.gname +"</option>");
+								}
+								gsel.append(op);
+							}
+							
+							$(this).html("确认修改");
+							
+							}
+							
+						});;
+						
+						//删除选中的数据
+						var del = $("<button>删除</button>");
+						del.click(function(){
+								var id = $(this).parent().parent().children().eq(0).html();
+								$.ajax({
+										type:"delete",
+										url:"/phistorys",
+										data:{"phid":id},
+										success:function(){
+											init();
+											alert("删除成功");
+										}
+									
+									});
+							});
+						
+						thObj6.append(upd);
+						thObj6.append(del);
+						
+						trObj.append(thObj1);
+						trObj.append(thObj2);
+						trObj.append(thObj3);
+						trObj.append(thObj4);
+						trObj.append(thObj5);
+						trObj.append(thObj6);
+						
+						tbObj.append(trObj);
+					}
+				}
+				
+			});
+			
+		};
+		
+		init();
+		
+	});
+	
+</script>
+
+
+<table width="800"  border="1" align="center">
+	<tr>
+		<th>id</th>
+		<th>用户名称</th>
+		<th>拍品名称</th>
+		<th>竞拍金额</th>
+		<th>竞拍时间</th>
+		<th>操作</th>
+	</tr>
+	
+</table>
+
+</body>
+</html>

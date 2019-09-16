@@ -27,4 +27,6 @@ public interface PricehistoryMapper {
     int updateByPrimaryKeySelective(Pricehistory record);
 
     int updateByPrimaryKey(Pricehistory record);
+    
+    List<Pricehistory> find(Pricehistory ph);
 }

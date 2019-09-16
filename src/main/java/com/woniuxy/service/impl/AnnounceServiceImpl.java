@@ -2,44 +2,43 @@ package com.woniuxy.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.woniuxy.dao.AnnounceMapper;
 import com.woniuxy.domain.Announce;
 import com.woniuxy.service.IAnnounceService;
 
 @Service
 @Transactional
-public class AnnounceService implements IAnnounceService {
-
+public class AnnounceServiceImpl implements IAnnounceService {
+	@Autowired
+	private AnnounceMapper mapper;
+	
 	@Override
 	public void save(Announce announce) {
-		// TODO Auto-generated method stub
-
+		mapper.insert(announce);
 	}
 
 	@Override
 	public void delete(Integer anid) {
-		// TODO Auto-generated method stub
-
+		mapper.deleteByPrimaryKey(anid);
 	}
 
 	@Override
 	public void update(Announce announce) {
-		// TODO Auto-generated method stub
-
+		mapper.updateByPrimaryKey(announce);
 	}
 
 	@Override
 	public Announce findOne(Integer anid) {
-		// TODO Auto-generated method stub
-		return null;
+		return mapper.selectByPrimaryKey(anid);
 	}
 
 	@Override
-	public List<Announce> find() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Announce> find() {	
+		return mapper.selectByExample(null);
 	}
 
 }
