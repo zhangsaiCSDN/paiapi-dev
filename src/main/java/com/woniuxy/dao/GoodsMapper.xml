@@ -335,4 +335,36 @@
       gtid = #{gtid,jdbcType=INTEGER}
     where gid = #{gid,jdbcType=INTEGER}
   </update>
+  
+     <resultMap id="bt" type="com.woniuxy.domain.Goods">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="gname" jdbcType="CHAR" property="gname" />
+    <result column="gprice" jdbcType="DOUBLE" property="gprice" /> 
+    <result column="gstart" jdbcType="TIMESTAMP" property="gstart" />
+    <result column="gend" jdbcType="TIMESTAMP" property="gend" />
+    <result column="gcount" jdbcType="INTEGER" property="gcount" />
+    <result column="ggap" jdbcType="DOUBLE" property="ggap" />
+    <result column="gpasstime" jdbcType="TIMESTAMP" property="gpasstime" />
+    <result column="gstate" jdbcType="INTEGER" property="gstate" />
+    <result column="garea" jdbcType="VARCHAR" property="garea" />
+    <result column="ginfo" jdbcType="VARCHAR" property="ginfo" />
+    <result column="salerid" jdbcType="INTEGER" property="salerid" />
+    <result column="gtid" jdbcType="INTEGER" property="gtid" />
+
+	    <association property="user">
+	    	<id property="uid" column="uid"/>
+	   		<result column="uname"  property="uname" />
+	    </association>
+       <association property="goodstype">
+    	<id property="gtid" column="gtid"/>
+   		<result column="gtname"  property="gtname" />
+       </association>
+  </resultMap>
+   
+    <select id="find" parameterType="com.woniuxy.domain.Image" resultMap="bt">
+		SELECT * FROM goods g
+		INNER JOIN goodstype gt ON g.gtid=gt.gtid
+		INNER JOIN user u ON g.salerid=u.uid
+
+  	</select>
 </mapper>

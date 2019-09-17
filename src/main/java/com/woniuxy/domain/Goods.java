@@ -35,5 +35,10 @@ public class Goods implements Serializable {
 
     private Integer gtid;
 
+    private Goodstype goodstype;
+    
+    private User user; 
+
+
     
 }

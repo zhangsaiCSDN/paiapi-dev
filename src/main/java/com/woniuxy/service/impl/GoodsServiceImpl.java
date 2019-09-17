@@ -35,7 +35,7 @@ public class GoodsServiceImpl implements IGoodsService {
 
 	@Override
 	public List<Goods> find() {
-		return dao.selectByExample(null);
+		return dao.find();
 	}
 
 	@Override
