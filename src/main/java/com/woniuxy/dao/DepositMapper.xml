@@ -208,4 +208,30 @@
       gstate = #{gstate,jdbcType=INTEGER}
     where did = #{did,jdbcType=INTEGER}
   </update>
+  
+  <select id="findAll" resultMap="sd">
+  	SELECT  * FROM 
+  	deposit d 
+  	 JOIN 
+  	goods g 
+  	ON 
+  	d.gid=g.gid 
+  	 JOIN user u 
+  	ON d.uid=u.uid
+  </select>
+  
+  <resultMap type="Deposit" id="sd">
+  	<id property="did" column="did"/>
+  	<result property="dname" column="dname"/>
+  	<result property="dmoney" column="dmoney"/>
+  	<result property="gstate" column="gstate"/>
+  	<association property="user" javaType="user">
+  		<id property="uid" column="uid"/>
+  		<result property="uname" column="uname"/>
+  	</association>
+  	<association property="goods" javaType="goods">
+  		<id property="gid" column="gid"/>
+  		<result property="gname" column="gname"/>
+  	</association>
+  </resultMap>
 </mapper>

@@ -1,52 +1,76 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="utf-8">
-<title></title>
-<style type="text/css">
-table {
-	margin: auto;
-	width: 100%;
-}
-</style>
-</head>
-<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
-<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
-<link
-	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
-	rel="stylesheet">
-<body>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			table {
+				margin: auto;
+				width: 100%;
+			}
 
-	<table id="app"
-		class="table table-hover table-striped table-bordered table-dark">
-		<tr>
-			<th>用户ID</th>
-			<th>身份证信息</th>
-			<th>用户名</th>
-			<th>密码</th>
-			<th>状态</th>
-			<th>头像</th>
-			<th>SALT</th>
-			<th>用户角色</th>
-			<th>操作</th>
-		</tr>
-		<tr v-for="user in users">
-			<td>{{user.uid}}</td>
-			<td>{{user.cid}}</td>
-			<td>{{user.uname}}</td>
-			<td>{{user.upwd}}</td>
-			<td>{{user.ustate}}</td>
-			<td>{{user.avatar}}</td>
-			<td>{{user.salt}}</td>
-			<td><span v-for='role in user.roles'>{{role.rname}} </span></td>
-			<td>
-				<button @click=''>修改</button>
-				<button @click='del(user.uid)'>删除</button>
-			</td>
-		</tr>
-	</table>
-</body>
-<script>
+			/* input {
+				width: 130px;
+			} */
+			.textInput {
+				width: 130px;
+				vertical-align: middle;
+			}
+		</style>
+	</head>
+	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+	<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<body>
+
+		<table id="app" class="table table-hover table-striped table-bordered table-dark">
+			<tr>
+				<th>用户ID</th>
+				<th>身份证信息</th>
+				<th>用户名</th>
+				<th>密码</th>
+				<th>状态</th>
+				<th>头像</th>
+				<th>SALT</th>
+				<th>用户角色</th>
+				<th>操作</th>
+			</tr>
+			<tr v-for="user in users">
+				<td>{{user.uid}}</td>
+				<td>{{user.cid}}</td>
+				<td>{{user.uname}}</td>
+				<td>{{user.upwd}}</td>
+				<td>{{user.ustate}}</td>
+				<td>{{user.avatar}}</td>
+				<td>{{user.salt}}</td>
+				<td><span v-for='role in user.roles'>{{role.rname}} </span></td>
+				<td>
+					<button @click=''>修改</button>
+					<button @click='del(user.uid)'>删除</button>
+				</td>
+			</tr>
+			<tr>
+				<td><input class="textInput" type="text" name="uid" /></td>
+				<td><input class="textInput" type="text" name="cid" /></td>
+				<td><input class="textInput" type="text" name="uname" /></td>
+				<td><input class="textInput" type="text" name="upwd" /></td>
+				<td><input class="textInput" type="text" name="ustate" /></td>
+				<td><input class="textInput" type="text" name="avatar" /></td>
+				<td><input class="textInput" type="text" name="salt" /></td>
+				<td>
+					<table border="0">
+						<tr><td>管理员</td><td><input type="checkbox" name="role" value="1" /></td></tr>
+						<tr><td>买家</td><td><input type="checkbox" name="role" value="4" /></td></tr>
+						<tr><td>卖家</td><td><input type="checkbox" name="role" value="3" /></td></tr>
+					</table>
+				</td>
+				<td>
+					<button @click='save'>增加用户</button>
+				</td>
+			</tr>
+		</table>
+	</body>
+	<script>
 		var vue = new Vue({
 			el: "#app",
 			data: {
@@ -61,6 +85,9 @@ table {
 							self.users = response2.data; //此时还是字符串
 						})
 					})
+				},
+				save(){
+					alert('hihihi');
 				}
 			},
 			mounted: function() { //mounted　表示这个 Vue 对象加载成功了

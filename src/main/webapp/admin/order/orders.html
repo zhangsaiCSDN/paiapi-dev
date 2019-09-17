@@ -5,212 +5,131 @@
 <title>Insert title here</title>
 <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
 </head>
 <body>
-	<h3>订单管理</h3>
-	<table class="table">
+
+	 <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">文章ID</label>
+            <div class="layui-input-inline">
+              <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">作者</label>
+            <div class="layui-input-inline">
+              <input type="text" name="author" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">标题</label>
+            <div class="layui-input-inline">
+              <input type="text" name="title" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">文章标签</label>
+            <div class="layui-input-inline">
+              <select name="label">
+                <option value="">请选择标签</option>
+                <option value="0">美食</option>
+                <option value="1">新闻</option>
+                <option value="2">八卦</option>
+                <option value="3">体育</option>
+                <option value="4">音乐</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
+              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="layui-card-body">
+        <div style="padding-bottom: 10px;">
+          <button class="layui-btn layuiadmin-btn-list" data-type="batchdel">删除</button>
+          <button @click='add()' class="layui-btn layuiadmin-btn-list">添加</button>
+        </div>
+      </div>
+    </div>
+  </div>
+	
+	
+	
+	
+	
+	<table id="app" class="table table-hover table-striped table-bordered table-dark">
 		<tr>
 			<th>订单id</th>
-			<th>用户名称</th>
-			<th>拍品名称</th>
 			<th>成交金额</th>
 			<th>成交时间</th>
 			<th>买家名称</th>
 			<th>卖家名称</th>
 			<th>手续费</th>
+			<th>用户名称</th>
+			<th>拍品名称</th>
 			<th>地址</th>
 			<th>操作</th>
 		</tr>
+		<tr v-for="order in orders">
+			<td>{{order.odid}}</td>
+			<td>{{order.odmoney}}</td>
+			<td>{{order.odtime}}</td>
+			<td>{{order.user.uname}}</td>
+			<td>{{order.user.uname}}</td>
+			<td>{{order.odfee}}</td>
+			<td>{{order.user.uname}}</td>
+			<td>{{order.goods.gname}}</td>
+			<td>{{order.address.ainfo}}</td>
+			<td>
+			<button @click='edit(order.odid)' id='update' type='button' class='btn btn-warning'>修改</button>
+			<button @click='del(order.odid)' id='update' type='button' class='btn btn-danger'>删除</button>
+			</td>
+		</tr>
 	</table>
-	
-	<script type="text/javascript">
-	$(function(){
-		
-		//三表联查，查询所有竞价历史纪录有关数据
-		function init(){
-			$("table:eq(0) tr:not(:eq(0))").remove();
-			$.ajax({
-				type:"get",
-				url:"/orders",
-				Headers:{
-					"accept":"application/json"
-				},
-				success:function(data){
-					var tbObj = $("table:eq(0)");
-					for( var key in data){
-						var trObj = $("<tr>");
-						
-						var thObj1 = $("<td>");
-						thObj1.append(data[key].odid);
-						
-						var thObj2 = $("<td>");
-						thObj2.append(data[key].user.uname);
-						
-						var thObj3 = $("<td>");
-						thObj3.append(data[key].goods.gname);
-						
-						var thObj4 = $("<td>");
-						thObj4.append(data[key].odmoney);
-						
-						var thObj5 = $("<td>");
-						thObj5.append(data[key].odtime);
-						
-						var thObj6 = $("<td>");
-						thObj6.append(data[key].user.uname);
-						
-						var thObj7 = $("<td>");
-						thObj7.append(data[key].user.uname);
-						
-						var thObj8 = $("<td>");
-						thObj8.append(data[key].odfee);
-						
-						var thObj9 = $("<td>");
-						thObj9.append(data[key].address.ainfo);
-						
-						var thObj10 = $("<td>");
-						
-						//修改数据
-						var upd = $("<button>修改</button>");
-						upd.click(function(){
-							
-							if($(this).html()=="确认修改"){
-								alert(123);
-								var tr = $(this).parent().parent().children().eq(0).html();
-								$.ajax({
-									type:"put",
-									url:"/orders",
-									data:{
-										"odid":tr,
-										"uid":$("#uid").val(),
-										"gid":$("#gid").val(),
-										"odmoney":$("#odmoney").val(),
-										"odtime":$("#odtime").val(),
-										"buyerid":$("#buyerid").val(),
-										"salerid":$("#salerid").val(),
-										"odfee":$("#odfee").val(),
-										"aid":$("#aid").val()
-									},
-									//请求成功后刷新页面显示数据
-									success:function(){
-										init();
-									}
-									
-								});
-								
-							}else{
-								
-							
-							//获取要修改的所有数据对象
-							var uidObj = $(this).parent().parent().children().eq(1);
-							var gidObj = $(this).parent().parent().children().eq(2);
-							var moneyObj = $(this).parent().parent().children().eq(3);
-							var timeObj = $(this).parent().parent().children().eq(4);
-							var buyeridObj = $(this).parent().parent().children().eq(5);
-							var saleridObj = $(this).parent().parent().children().eq(6);
-							var odfeeObj = $(this).parent().parent().children().eq(7);
-							var aidObj = $(this).parent().parent().children().eq(8);
-						
-							//取出jquery对象中的数据
-							var uname = uidObj.html();
-							var gname = gidObj.html();
-							var money = moneyObj.html();
-							var time = timeObj.html();
-							var buyername = buyeridObj.html();
-							var salername = saleridObj.html();
-							var odfee = odfeeObj.html();
-							var aid = aidObj.html();
-							
-							//将数据重新填充进表格，数据回显
-							uidObj.replaceWith("<td><select id='uid' name='uid'></select></td>");
-							gidObj.replaceWith("<td><select id='gid' name='gid'></select></td>");
-							moneyObj.replaceWith("<td><input id='phmoney' name='phmoney' value="+money+ " ></td>");
-							timeObj.replaceWith("<td><input id='phtime'  value='"+time+"' pattern='yyyy-MM-dd HH:mm:ss'  /></td>");
-							buyeridObj.replaceWith("<td><input id='buyerid' name='buyerid' value="+buyername+ " ></td>");
-							saleridObj.replaceWith("<td><input id='salerid' name='salerid' value="+salername+ " ></td>");
-							odfeeObj.replaceWith("<td><input id='odfee' name='odfee' value="+odfee+ " ></td>");
-							aidObj.replaceWith("<td><select id='aid' name='aid'></select></td>");
-							
-							//将外键的数据设置为下拉菜单，直接勾选
-							var usel = $("#uid") 
-							for(var p in data){
-								var op ;
-								
-								if(data[p].user.uname == uname){
-									op = $("<option  selected='selected' value='"+data[p].user.uid+"'>"+data[p].user.uname +"</option>");
-								}else{
-									op = $("<option value='"+data[p].user.uid+"'>"+data[p].user.uname +"</option>");
-								}
-								usel.append(op);
-							}
-							
-							var gsel = $("#gid") 
-							for(var p in data){
-								if(data[p].goods.gname == gname){
-									op = $("<option  selected='selected' value='"+data[p].goods.gid+"'>"+data[p].goods.gname +"</option>");
-								}else{
-									var op = $("<option value='"+data[p].goods.gid+"'>"+data[p].goods.gname +"</option>");
-								}
-								gsel.append(op);
-							}
-							
-							var asel = $("#aid") 
-							for(var p in data){
-								if(data[p].address.aid == aid){
-									op = $("<option  selected='selected' value='"+data[p].address.aid+"'>"+data[p].address.ainfo +"</option>");
-								}else{
-									var op = $("<option value='"+data[p].address.aid+"'>"+data[p].address.ainfo +"</option>");
-								}
-								asel.append(op);
-							}
-							
-							$(this).html("确认修改");
-							
-							}
-							
-						});;
-						
-						//删除选中的数据
-						var del = $("<button>删除</button>");
-						del.click(function(){
-								var id = $(this).parent().parent().children().eq(0).html();
-								$.ajax({
-										type:"delete",
-										url:"/orders",
-										data:{"odid":id},
-										success:function(){
-											init();
-											alert("删除成功");
-										}
-									
-									});
-							});
-						
-						thObj10.append(upd);
-						thObj10.append(del);
-						
-						trObj.append(thObj1);
-						trObj.append(thObj2);
-						trObj.append(thObj3);
-						trObj.append(thObj4);
-						trObj.append(thObj5);
-						trObj.append(thObj6);
-						trObj.append(thObj7);
-						trObj.append(thObj8);
-						trObj.append(thObj9);
-						trObj.append(thObj10);
-						
-						
-						tbObj.append(trObj);
-					}
-				}
-				
-			});
-			
-		};
-		
-		init();
-		
-	});
-	</script>
 </body>
+ <script src="../../../layuiadmin/layui/layui.js"></script>  
+	<script>
+		var vue = new Vue({
+			el: "#app",
+			data: {
+				orders: []
+			},
+			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
+		 		var self = this
+				axios.get("http://localhost:8080/orders").then(function(response) {
+					self.orders = response.data; //此时还是字符串
+					/* self.orders = eval("(" + self.orders + ")"); //字符串转换为数组对象 */
+				})
+			},
+			 
+			methods: {
+				del(odid) {
+					if(!confirm('是否要删除当前数据')){
+						return;
+	                }
+					 this.orders.splice(odid,1);
+				},
+				
+				edit(odid) {
+					alert(odid);
+				},
+				
+				add() {
+					alert(123);
+				}
+			}
+			
+		});
+	</script>
 </html>

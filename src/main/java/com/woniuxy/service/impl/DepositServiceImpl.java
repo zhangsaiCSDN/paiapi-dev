@@ -43,7 +43,7 @@ public class DepositServiceImpl implements IDepositService {
 	@Override
 	public List<Deposit> find() {
 
-		return mapper.selectByExample(null);
+		return mapper.findAll();
 	}
 
 }

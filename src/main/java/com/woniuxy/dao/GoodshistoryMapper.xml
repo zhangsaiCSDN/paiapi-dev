@@ -255,4 +255,83 @@
       paystate = #{paystate,jdbcType=INTEGER}
     where ghid = #{ghid,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+   
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <resultMap id="rm" type="com.woniuxy.domain.Goodshistory">
+    <id column="ghid" jdbcType="INTEGER" property="ghid" />
+    <result column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="ghmoney" jdbcType="DOUBLE" property="ghmoney" />
+    <result column="ghtime" jdbcType="TIMESTAMP" property="ghtime" />
+    <result column="buyerid" jdbcType="INTEGER" property="buyerid" />
+    <result column="ghdes" jdbcType="VARCHAR" property="ghdes" />
+    <result column="ghdeadline" jdbcType="TIMESTAMP" property="ghdeadline" />
+    <result column="paystate" jdbcType="INTEGER" property="paystate" />
+ 	
+ 	<association property="goods" javaType="Goods">
+ 		<id column="gid" jdbcType="INTEGER" property="gid" />
+	    <result column="gname" jdbcType="CHAR" property="gname" />
+	    <result column="gprice" jdbcType="DOUBLE" property="gprice" /> 
+	    <result column="gstart" jdbcType="TIMESTAMP" property="gstart" />
+	    <result column="gend" jdbcType="TIMESTAMP" property="gend" />
+	    <result column="gcount" jdbcType="INTEGER" property="gcount" />
+	    <result column="ggap" jdbcType="DOUBLE" property="ggap" />
+	    <result column="gpasstime" jdbcType="TIMESTAMP" property="gpasstime" />
+	    <result column="gstate" jdbcType="INTEGER" property="gstate" />
+	    <result column="garea" jdbcType="VARCHAR" property="garea" />
+	    <result column="ginfo" jdbcType="VARCHAR" property="ginfo" />
+	    <result column="salerid" jdbcType="INTEGER" property="salerid" />
+	    <result column="gtid" jdbcType="INTEGER" property="gtid" />
+ 	
+ 	</association>
+ 	
+ 	<association property="user" javaType="User">
+ 		<id column="uid" jdbcType="INTEGER" property="uid" />
+	     <result column="cid" jdbcType="INTEGER" property="cid" />
+	     <result column="uname" jdbcType="VARCHAR" property="uname" />
+	     <result column="upwd" jdbcType="VARCHAR" property="upwd" />
+	     <result column="ustate" jdbcType="INTEGER" property="ustate" />
+ 	</association>
+  </resultMap>
+  
+  
+  <select id="find" resultMap="rm">
+  	SELECT * FROM goodshistory JOIN goods ON
+	goodshistory.`gid` = goods.`gid` JOIN user ON
+	goodshistory.`buyerid` = user.`uid`
+  </select>
+  
+  
 </mapper>

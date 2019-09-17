@@ -6,54 +6,48 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.woniuxy.domain.Log;
-import com.woniuxy.service.ILogService;
+import com.woniuxy.domain.Goodshistory;
+import com.woniuxy.service.IGoodsHistoryService;
+
+//拍品历史记录表
 
 @Controller
-@RequestMapping("logs")
-public class LogController {
-	
+@RequestMapping("ghistorys")
+public class GHTestController {
+
 	@Autowired
-	private ILogService logService;
+	private IGoodsHistoryService service; 
 	
 	@PostMapping
 	@ResponseBody
-	public void save(Log log) {
-		logService.save(log);
+	public void save(Goodshistory gh) {
+		service.save(gh);
 	}
+	
 	
 	@DeleteMapping
 	@ResponseBody
-	public void delete(Integer lig) {
-		logService.delete(lig);
+	public void delete(Integer ghid) {
+		service.delete(ghid);
 	}
 	
 	@PutMapping
 	@ResponseBody
-	public void update(Log log) {
-		logService.update(log);
+	public void update(Goodshistory gh) {
+		System.out.println("GHTestController.update()");
+		System.out.println(gh);
+		service.update(gh);;
 	}
 	
-	
-	@GetMapping(value = "/{uid}")
-	@ResponseBody
-	public List<Log> findByUid(@PathVariable Integer uid){
-		System.out.println(uid);
-		return logService.findByUid(uid);
-	}
 	
 	@GetMapping
 	@ResponseBody
-	public List<Log> find() {
-		return logService.find();
+	public List<Goodshistory> find() {
+		return service.find();
 	}
-	
-
 }

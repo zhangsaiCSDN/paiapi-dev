@@ -106,15 +106,15 @@
                   <a lay-href="home/console.html">权限管理</a>
                 </dd>
                 <dd data-name="console">
-                  <a lay-href="home/homepage2.html">保证金管理</a>
+                  <a lay-href="deposit/findUI.html">保证金管理</a>
                 </dd>
                 <dd data-name="console">
-                  <a lay-href="home/homepage2.html">用户申请管理</a>
+                  <a lay-href="apply/applys.html">用户申请管理</a>
                 </dd>
                 <dd data-name="console">
-                  <a lay-href="home/homepage2.html">用户收藏管理</a>
+                  <a lay-href="collect/collects.html">用户收藏管理</a>
                 </dd>   
-              </dl>
+              </dl>   
             </li>
             <li data-name="component" class="layui-nav-item">
               <a href="javascript:;" lay-tips="历史记录管理" lay-direction="2">
@@ -123,12 +123,13 @@
               </a>
                <dl class="layui-nav-child">
 	               <dd data-name="nav">
-	                  <a lay-href="component/nav/index.html">拍品历史记录</a>
+	              
+	                  <a lay-href="/admin/goodsHistory/findUI.html">拍品历史记录</a>
 	                </dd>
 	                <dd data-name="tabs">
-	                  <a lay-href="component/tabs/index.html">竞价历史记录</a>
+	                  <a lay-href="/admin/priceHistory/findUI.html">竞价历史记录</a>
 	                </dd>
-              </dl>
+              </dl>  
             </li>
             <li data-name="template" class="layui-nav-item">
               <a href="javascript:;" lay-tips="产品管理" lay-direction="2">
@@ -147,8 +148,8 @@
                 <cite>平台管理</cite>
               </a>
               <dl class="layui-nav-child">
-                   <dd data-name="list"><a lay-href="app/content/list.html">日志管理</a></dd>
-                   <dd data-name="tags"><a lay-href="app/content/tags.html">竞价室管理</a></dd>
+                   <dd data-name="log"><a lay-href="/admin/log/findUI.html">日志管理</a></dd>
+                   <dd data-name="room"><a lay-href="/admin/room/findUI.html">竞价室管理</a></dd>
               </dl>
             </li>
             <li data-name="senior" class="layui-nav-item">
@@ -158,7 +159,7 @@
               </a>
               <dl class="layui-nav-child">
                 <dd>
-                  <a layadmin-event="im">订单管理</a>  
+                 <a lay-href="order/orders.html">订单管理</a> 
                 </dd>
               </dl>
             </li>
@@ -227,7 +228,7 @@
           </ul>
         </div>
       </div>
-      
+     
       
       <!-- 主体内容 -->
       <div class="layui-body" id="LAY_app_body">
@@ -235,7 +236,7 @@
           <iframe name="mainUI" src="user/users.html" frameborder="0" class="layadmin-iframe"></iframe>
         </div>
       </div>
-      
+   
       <!-- 辅助元素，一般用于移动设备下遮罩 -->
       <div class="layadmin-body-shade" layadmin-event="shade"></div>
     </div>
