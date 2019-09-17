@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,7 +25,8 @@ public class UserController {
 
 	@PostMapping
 	@ResponseBody
-	public void save(User user) {
+	public void save(@RequestBody User user) {
+		System.out.println("UserController.save()"+user);
 		service.save(user);
 	}
 

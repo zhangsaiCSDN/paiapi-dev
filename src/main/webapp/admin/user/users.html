@@ -20,6 +20,7 @@
 	</head>
 	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+
 	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<body>
 
@@ -50,18 +51,27 @@
 				</td>
 			</tr>
 			<tr>
-				<td><input class="textInput" type="text" name="uid" /></td>
-				<td><input class="textInput" type="text" name="cid" /></td>
-				<td><input class="textInput" type="text" name="uname" /></td>
-				<td><input class="textInput" type="text" name="upwd" /></td>
-				<td><input class="textInput" type="text" name="ustate" /></td>
-				<td><input class="textInput" type="text" name="avatar" /></td>
-				<td><input class="textInput" type="text" name="salt" /></td>
+				<td><input class="textInput" type="text" name="uid" v-model="uid"/></td>
+				<td><input class="textInput" type="text" name="cid" v-model="cid"/></td>
+				<td><input class="textInput" type="text" name="uname" v-model="uname"/></td>
+				<td><input class="textInput" type="text" name="upwd" v-model="upwd"/></td>
+				<td><input class="textInput" type="text" name="ustate" v-model="ustate"/></td>
+				<td><input class="textInput" type="text" name="avatar" v-model="avatar"/></td>
+				<td><input class="textInput" type="text" name="salt" v-model="salt"/></td>
 				<td>
 					<table border="0">
-						<tr><td>管理员</td><td><input type="checkbox" name="role" value="1" /></td></tr>
-						<tr><td>买家</td><td><input type="checkbox" name="role" value="4" /></td></tr>
-						<tr><td>卖家</td><td><input type="checkbox" name="role" value="3" /></td></tr>
+						<tr>
+							<td>管理员</td>
+							<td><input type="checkbox" name="role" value="1" /></td>
+						</tr>
+						<tr>
+							<td>买家</td>
+							<td><input type="checkbox" name="role" value="4" /></td>
+						</tr>
+						<tr>
+							<td>卖家</td>
+							<td><input type="checkbox" name="role" value="3" /></td>
+						</tr>
 					</table>
 				</td>
 				<td>
@@ -75,26 +85,47 @@
 			el: "#app",
 			data: {
 				users: [],
-
+				uid: 0,
+				cid: 0,
+				uname: '',
+				upwd: '',
+				ustate: '',
+				avatar: '',
+				salt:''
 			},
 			methods: {
+				findAll() {
+					var self = this;
+					axios.get("http://localhost:8080/users").then(function(response) {
+						self.users = response.data; //此时还是字符串
+					})
+				},
 				del(uid) {
 					var self = this;
 					axios.delete("http://localhost:8080/users?uid=" + uid).then(function(response) {
-						axios.get("http://localhost:8080/users").then(function(response2) {
-							self.users = response2.data; //此时还是字符串
-						})
+						alert('删除成功');
+						self.findAll();
 					})
 				},
-				save(){
-					alert('hihihi');
+				//增加
+				save() {
+					var self = this;
+					axios.post("http://localhost:8080/users", {
+						uid:self.uid,
+						// cid: self.cid, FK
+						uname: self.uname,
+						upwd: self.upwd,
+						ustate: self.ustate,
+						avatar: self.avatar,
+						salt:self.salt
+					}).then(function(response) {
+						self.findAll();
+						alert('添加成功!');
+					})
 				}
 			},
 			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
-				var self = this;
-				axios.get("http://localhost:8080/users").then(function(response) {
-					self.users = response.data; //此时还是字符串
-				})
+				this.findAll();
 			}
 		});
 	</script>
