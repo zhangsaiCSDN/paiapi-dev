@@ -49,6 +49,7 @@ public class OrdersController {
 	public List<Orders> find(){
 		System.out.println(111);
 		List<Orders> find = service.find();
+		System.out.println(find);
 		for (Orders orders : find) {
 			System.out.println(orders);
 		} 

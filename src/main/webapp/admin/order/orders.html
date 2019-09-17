@@ -3,72 +3,123 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link
+	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
-<link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
-<link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="../../layer/layer.js"></script>
+
+<link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css"
+	media="all">
+<link rel="stylesheet" href="../../layuiadmin/style/admin.css"
+	media="all">
 </head>
 <body>
 
-	 <div class="layui-fluid">
-    <div class="layui-card">
-      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item">
-          <div class="layui-inline">
-            <label class="layui-form-label">文章ID</label>
-            <div class="layui-input-inline">
-              <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">作者</label>
-            <div class="layui-input-inline">
-              <input type="text" name="author" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">标题</label>
-            <div class="layui-input-inline">
-              <input type="text" name="title" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">文章标签</label>
-            <div class="layui-input-inline">
-              <select name="label">
-                <option value="">请选择标签</option>
-                <option value="0">美食</option>
-                <option value="1">新闻</option>
-                <option value="2">八卦</option>
-                <option value="3">体育</option>
-                <option value="4">音乐</option>
-              </select>
-            </div>
-          </div>
-          <div class="layui-inline">
-            <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
-              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-            </button>
-          </div>
-        </div>
-      </div>
+	<div class="layui-fluid">
+		<div class="layui-card">
+			<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">成交时间</label>
+						<div class="layui-input-inline">
+							<input type="text" name="id" placeholder="请输入" autocomplete="off"
+								class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">买家名称</label>
+						<div class="layui-input-inline">
+							<input type="text" name="author" placeholder="请输入"
+								autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">卖家名称</label>
+						<div class="layui-input-inline">
+							<input type="text" name="title" placeholder="请输入"
+								autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">拍品名称</label>
+						<div class="layui-input-inline">
+							<input type="text" name="title" placeholder="请输入"
+								autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<button class="layui-btn layuiadmin-btn-list" lay-submit
+							lay-filter="LAY-app-contlist-search">
+							<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+						</button>
+					</div>
+				</div>
+			</div>
 
-      <div class="layui-card-body">
-        <div style="padding-bottom: 10px;">
-          <button class="layui-btn layuiadmin-btn-list" data-type="batchdel">删除</button>
-          <button @click='add()' class="layui-btn layuiadmin-btn-list">添加</button>
-        </div>
-      </div>
-    </div>
-  </div>
+			<div class="layui-card-body">
+				<div style="padding-bottom: 10px;">
+					<button class="layui-btn layuiadmin-btn-list" data-type="batchdel">删除</button>
+					<button @click='add()' class="layui-btn layuiadmin-btn-list">添加</button>
+				</div>
+			</div>
+		</div>
+	</div>
 	
 	
+
+
+<div id="app">
 	
+<div id="update" v-show="flag">
+
+	<form role="form" class="form-horizontal">
+		<input v-model="o_odid" type="hidden" class="form-control">
+		<div class="form-group">
+			<label for="name" >成交金额</label>
+			<div class="col-lg-2">
+				<input v-model="o_odmoney" type="text" class="form-control"  placeholder=".col-lg-2">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" >成交时间</label>
+			<div class="col-lg-2">
+				<input v-model="o_odtime" type="text" class="form-control"  placeholder=".col-lg-2">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" >买家id</label>
+			<div class="col-lg-2">
+				<input v-model="o_buyerid" type="text" class="form-control"  placeholder=".col-lg-2">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" >卖家id</label>
+			<div class="col-lg-2">
+				<input v-model="o_salerid" type="text" class="form-control"  placeholder=".col-lg-2">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" >保证金</label>
+			<div class="col-lg-2">
+				<input v-model="o_odfee" type="text" class="form-control"  placeholder=".col-lg-2">
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="name" >用户名称</label>
+			<div class="col-lg-2">
+				<input v-model="o_user.uname" type="text" class="form-control"  placeholder=".col-lg-2">
+			</div>
+		</div>
+		
+ 	</form>
+</div>	
 	
-	
-	<table id="app" class="table table-hover table-striped table-bordered table-dark">
+	<table 
+		class="table table-hover table-striped table-bordered table-dark">
 		<tr>
 			<th>订单id</th>
 			<th>成交金额</th>
@@ -92,42 +143,112 @@
 			<td>{{order.goods.gname}}</td>
 			<td>{{order.address.ainfo}}</td>
 			<td>
-			<button @click='edit(order.odid)' id='update' type='button' class='btn btn-warning'>修改</button>
-			<button @click='del(order.odid)' id='update' type='button' class='btn btn-danger'>删除</button>
+				<button @click='updateUI(order)' id='update' type='button'
+					class='btn btn-warning'>修改</button>
+				<button @click='del(order.odid)' id='update' type='button'
+					class='btn btn-danger'>删除</button>
 			</td>
 		</tr>
 	</table>
+	
+</div>	
+	
 </body>
- <script src="../../../layuiadmin/layui/layui.js"></script>  
-	<script>
+<script src="../../../layuiadmin/layui/layui.js"></script>
+<script>
 		var vue = new Vue({
 			el: "#app",
 			data: {
-				orders: []
+				orders: [],
+				flag:false,
+				o_odid:'',
+				o_odmoney:'',
+				o_odtime:'',
+				o_buyerid:'',
+				o_salerid:'',
+				o_odfee:'',
+				o_uid:'',
+				o_gid:'',
+				o_aid:'' 
 			},
 			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
-		 		var self = this
+		 		var self = this;
 				axios.get("http://localhost:8080/orders").then(function(response) {
-					self.orders = response.data; //此时还是字符串
-					/* self.orders = eval("(" + self.orders + ")"); //字符串转换为数组对象 */
+					self.orders = response.data; 
 				})
 			},
 			 
 			methods: {
+				//删除
 				del(odid) {
-					if(!confirm('是否要删除当前数据')){
-						return;
-	                }
-					 this.orders.splice(odid,1);
+					var self = this;
+					 layer.confirm('此操作将永久删除订单,是否确定？', {
+						  btn: ['确定','取消'] //按钮
+						}, function(){
+							axios.delete("http://localhost:8080/orders?odid=" + odid)
+								.then(function(response) {
+								axios.get("http://localhost:8080/orders")
+								.then(function(response2) {
+									self.orders = response2.data;
+								})
+							});
+			                layer.msg('删除成功', {icon: 1},{anim: 1});
+					},
+						
+					);
 				},
 				
-				edit(odid) {
-					alert(odid);
+				updateUI(order) {
+					this.flag = true;
+					layer.open({
+						type: 1,
+						skin: 'layui-layer-rim', //加上边框
+						area: ['500px', '600px'], //宽高
+						content:$("#update"),
+
+					});
+					this.o_odid = order.odid;
+					this.o_odmoney=order.odmoney;
+					this.o_odtime=order.odtime;
+					this.o_buyerid=order.buyerid;
+					this.o_salerid=order.salerid;
+					this.o_odfee=order.odfee;
+					this.o_user.uname=order.user.uname;
+					this.o_goods.gname=order.goods.gname;
+					this.o_address.ainfo=order.address.ainfo;
 				},
 				
-				add() {
-					alert(123);
+		
+				
+				update() {
+					
+					axios.update("http://localhost:8080/orders",{
+						params: {
+							odid:o_odid,
+							odmoney:o_odmoney,
+							odtime:o_odtime,
+							buyerid:o_buyerid,
+							salerid:o_salerid,
+							odfee:o_odfee,
+							uid:o_user.uname,
+							gid:o_goods.gname,
+							aid:o_address.ainfo
+						}
+					})
+					.then(function(response) {
+					axios.get("http://localhost:8080/orders")
+					.then(function(response2) {
+						self.orders = response2.data;
+					})
+				});
 				}
+				
+		
+				
+			
+				
+				
+				
 			}
 			
 		});
