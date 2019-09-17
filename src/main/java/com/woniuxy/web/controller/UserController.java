@@ -45,7 +45,7 @@ public class UserController {
 	@GetMapping(value = "/{uid}")
 	@ResponseBody
 	public User findOne(@PathVariable Integer uid) {
-		return service.findOne(uid);
+		return service.findOne(uid); 
 	}
 
 	@GetMapping
