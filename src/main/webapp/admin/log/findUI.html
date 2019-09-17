@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>日志管理</title>
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -12,7 +12,7 @@
 			function load(){
 				$.ajax({
 					type:"get",
-					url:"/logs/2",
+					url:"/logs",
 					Header:{
 						"Accept":"application/json"
 					},
@@ -25,9 +25,9 @@
 							var td3 = $("<td>");
 							var td4 = $("<td>");
 							var td5 = $("<td>");
-							var button1 = $("<button type='button'  class='btn btn-danger'>删除</button>");
-							var button2 = $("<button type='button'  class='btn btn-warning'>修改</button>");
-							td1.append(data[key].user.uname);
+							var button1 = $("<button type='button'  class='btn btn-warning'>修改</button>");
+							var button2 = $("<button type='button'  class='btn btn-danger'>删除</button>");
+							td1.append(data[key].uid);
 							td2.append(data[key].lig);
 							td3.append(data[key].ltime);
 							td4.append(data[key].loption);

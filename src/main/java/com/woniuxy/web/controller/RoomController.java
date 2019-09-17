@@ -13,46 +13,47 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.woniuxy.domain.Log;
-import com.woniuxy.service.ILogService;
+import com.woniuxy.domain.Room;
+import com.woniuxy.service.IRoomService;
 
 @Controller
-@RequestMapping("logs")
-public class LogController {
-	
+@RequestMapping("rooms")
+public class RoomController {
+		
 	@Autowired
-	private ILogService logService;
-	
+	private IRoomService roomService;
+		
 	@PostMapping
 	@ResponseBody
-	public void save(Log log) {
-		logService.save(log);
+	public void save(@RequestBody Room room) {
+		roomService.save(room);
 	}
 	
 	@DeleteMapping
 	@ResponseBody
-	public void delete(Integer lig) {
-		logService.delete(lig);
+	public void delete(Integer rmid) {
+		roomService.delete(rmid);
 	}
-	
+		
 	@PutMapping
 	@ResponseBody
-	public void update(Log log) {
-		logService.update(log);
+	public void update(Room room) {
+		roomService.update(room);
 	}
-	
-	
-	@GetMapping(value = "/{uid}")
+		
+		
+	@GetMapping(value = "/{rmid}")
 	@ResponseBody
-	public List<Log> findByUid(@PathVariable Integer uid){
-		return logService.findByUid(uid);
+	public Room findOne(@PathVariable Integer rmid){
+		return roomService.findOne(rmid);
 	}
-	
+		
 	@GetMapping
 	@ResponseBody
-	public List<Log> find() {
-		return logService.find();
+	public List<Room> find() {
+		System.out.println("RoomController.LogController.find()");
+		return roomService.find();
 	}
-	
-
 }
+
+

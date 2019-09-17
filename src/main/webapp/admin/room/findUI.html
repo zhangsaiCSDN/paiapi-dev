@@ -2,9 +2,89 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>竞价室管理</title>
+<link
+	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
 </head>
 <body>
+	<div id="room">
+		<div>
+			拍品编号:<input type="text" v-model="gid" />
+			卖家编号:<input type="text" v-model="salerid" />
+			标题:<input type="text" v-model="rmtitle" />
+			<button @click="save()" type='button' class='btn btn-danger'>添加</button>
+		</div>
+		<table class="table table-hover table-striped table-bordered table-dark">
+			<tr>
+				<th>竞价室编号</th>
+				<th>拍品编号</th>
+				<th>卖家编号</th>
+				<th>标题</th>
+				<th>操作</th>
+			</tr>
+			<tr v-for="item in rooms">
+				<td>{{item.rmid}}</td>
+				<td>{{item.gid}}</td>
+				<td>{{item.salerid}}</td>
+				<td>{{item.rmtitle}}</td>
+				<td>
+					<button @click="update(item)" type='button' class='btn btn-warning'>修改</button>
+					<button @click="del(item.rmid)" type='button' class='btn btn-danger'>删除</button>
+				</td>
+			</tr>
+
+		</table>
+	</div>
+	<script>
+		var vue = new Vue({
+			el:"#room",
+			data:{
+				gid:"",
+				salerid:"",
+				rmtitle:"",
+				rooms:[]
+			},
+			created() {
+				this.findAll();
+			},
+			methods: {
+				findAll() {
+					this.$http.get("http://localhost:8080/rooms").then(function(data){
+						this.rooms = data.body;
+					});
+				},
+				del(rmid) {
+					this.$http.post("http://localhost:8080/rooms",{"rmid":rmid,"_method":"delete"},{emulateJSON:true}).then(function(){
+						this.findAll();		
+					});
+				},
+				update(item) {
+					
+					layer.open({
+						type: 1,
+						area: ['600px', '360px'],
+						shadeClose: true, //点击遮罩关闭
+					 	content: '\<\div style="padding:20px;">拜拜了您嘞<input  />\<\/div>'
+					});
+				},
+				save() {
+					var json = {"gid":this.gid,"salerid":this.salerid,"rmtitle":this.rmtitle}
+					this.$http.post("http://localhost:8080/rooms",json).then(function(){
+						this.findAll();
+						this.gid=this.salerid=this.rmtitle="";
+					});
+				}
+			}
+			
+		});
+	
+	</script>
 
 </body>
 </html>
