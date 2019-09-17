@@ -209,7 +209,7 @@
     where did = #{did,jdbcType=INTEGER}
   </update>
   
-  <select id="findAll" resultMap="sd">
+  <select id="findAll" parameterType="Page" resultMap="sd">
   	SELECT  * FROM 
   	deposit d 
   	 JOIN 
@@ -217,7 +217,7 @@
   	ON 
   	d.gid=g.gid 
   	 JOIN user u 
-  	ON d.uid=u.uid
+  	ON d.uid=u.uid limit #{startLine},#{size}
   </select>
   
   <resultMap type="Deposit" id="sd">

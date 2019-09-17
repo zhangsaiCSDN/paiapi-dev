@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.Deposit;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.IDepositService;
 
 @Controller
@@ -25,8 +26,14 @@ public class DepositController {
 	
 	@GetMapping
 	@ResponseBody
-	public List<Deposit> find(){
-		return service.find();
+	public Page<Deposit> find(Integer p){
+		System.out.println("DepositController.find()");
+		if(p==null)p=1;
+		int count=service.count();
+		Page<Deposit> page=new Page<>(p,count,5);
+		List<Deposit> list=service.find(page);
+		page.setList(list);
+		return page;
 	}
 	
 	@GetMapping(value ="/{did}")
@@ -39,6 +46,7 @@ public class DepositController {
 	@DeleteMapping
 	@ResponseBody
 	public void delete(Integer did) {
+		System.out.println("DepositController.delete()"+did);
 		service.delete(did);
 	} 
 	

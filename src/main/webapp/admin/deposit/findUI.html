@@ -25,16 +25,26 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="deposit in deposits">
+			<tr v-for="deposit in deposits.list">
 			
 				<td>{{deposit.user.uname}}</td>
 				<td>{{deposit.dmoney}}</td>
 				<td>{{deposit.gstate}}</td>
 				<td>{{deposit.goods.gname}}</td>
 				<td>
-					<button @click='del' type="button" class="btn btn-warning">删除</button>
+					<button @click='del(deposit.did)' type="button" class="btn btn-warning" >删除</button> 
 					<button @click='edit' type="button" class="btn btn-danger">编辑</button>
 				</td> 
+			</tr>
+			<tr>
+				<th colspan="5">
+				{{deposits.p}}/{{deposits.maxPage}}
+				<button @click='find(1)' class="btn btn-outline-info">首页</button>
+				<button @click='find(deposits.prev)' class="btn btn-outline-info">上一页</button>
+				
+				<button @click='find(deposits.next)' class="btn btn-outline-info">下一页</button>
+				<button @click='find(deposits.maxPage)' class="btn btn-outline-info">末页</button>
+				</th>
 			</tr>
 		</tbody>
 	</table>
@@ -43,22 +53,38 @@
 	var vue = new Vue({
 		el : "#app",
 		data : {
-			deposits : []
+			deposits : [],
+			
 		},
-		mounted : function() { //mounted　表示这个 Vue 对象加载成功了
-			var self = this
-			axios.get("http://localhost:8080/deposits").then(
-					function(response) {
-						self.deposits = response.data; //此时还是字符串
-						// self.deposits = eval("(" + self.deposits + ")"); //字符串转换为数组对象
-						 
-			})
+		created: function(){ 
+			this.find(1);
 		},
 		methods:{
-			del(){
-				
+			find(page){
+				var self = this
+				axios.get("http://localhost:8080/deposits",{
+						params:{
+							p:page
+						}
+				}	
+				).then(
+						function(response) {
+							self.deposits = response.data; //此时还是字符串
+							// self.deposits = eval("(" + self.deposits + ")"); //字符串转换为数组对象
+				})
 			},
-			edit(){}
+			
+			del(did1){
+				var self=this
+				axios.delete("http://localhost:8080/deposits",{
+					params:{
+						did:did1
+					}
+				}).then(function(){
+					self.find(self.deposits.p)
+				})
+			},
+			edit(){} 
 		}
 	});
 </script>

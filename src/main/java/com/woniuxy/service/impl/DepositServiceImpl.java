@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.DepositMapper;
 import com.woniuxy.domain.Deposit;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.IDepositService;
   
 @Service
@@ -41,9 +42,15 @@ public class DepositServiceImpl implements IDepositService {
 	}
 
 	@Override
-	public List<Deposit> find() {
-
-		return mapper.findAll();
+	public List<Deposit> find(Page<Deposit> page) {
+		
+		return mapper.findAll(page);
 	}
 
+	@Override
+	public Integer count() {
+		
+		return  (int) mapper.countByExample(null);
+	}
+	
 }

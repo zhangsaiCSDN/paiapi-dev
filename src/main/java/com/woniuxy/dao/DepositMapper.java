@@ -1,9 +1,12 @@
 package com.woniuxy.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.woniuxy.domain.Deposit;
 import com.woniuxy.domain.DepositExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.woniuxy.domain.Page;
 
 public interface DepositMapper {
     long countByExample(DepositExample example);
@@ -28,5 +31,5 @@ public interface DepositMapper {
 
     int updateByPrimaryKey(Deposit record);
     
-    List<Deposit> findAll();
+    List<Deposit> findAll(Page<Deposit> page);
 }
