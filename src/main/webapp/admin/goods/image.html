@@ -25,6 +25,7 @@
 			<tr>
 				<td>图片id</td>
 				<td>拍品id</td>
+				<td>拍品名</td>
 				<td>图片</td>
 				<td>操作</td>
 			</tr>
@@ -36,7 +37,7 @@
 
 				<tr>
 					<td>添加</td>
-					<td><input name="gid" /></td>
+					<td colspan="2">拍品id:<input name="gid" /></td>
 					<td>       
 						<input id="file" name="file" type="file" multiple="multiple"/></td>
 					<td><input id="upload" name="upload" type="button" value="上传"></td>
@@ -66,7 +67,9 @@
 						var td2=$("<td></td>");
 						var td3=$("<td></td>");
 						var td4=$("<td></td>");
+						var td5=$("<td></td>");
 						
+						td5.html(data[i].goods.gname);
 						
 						td1.html(data[i].imgid);
 						td2.html(data[i].goods.gid); //外鍵gid
@@ -94,6 +97,7 @@
 						td4.append(del);
 						tr.append(td1);
 						tr.append(td2);
+						tr.append(td5);//gname
 						tr.append(td3);
 						tr.append(td4);
 						
