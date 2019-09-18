@@ -48,4 +48,10 @@ public class RoleServiceImpl implements IRoleService {
 		return mapper.selectByPrimaryKey(rid);
 	}
 
+	public List<Role> findInfo() {
+		// TODO Auto-generated method stub
+		return mapper.findInfo();
+	}
+
+
 }

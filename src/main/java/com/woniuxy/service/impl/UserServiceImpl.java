@@ -38,7 +38,11 @@ public class UserServiceImpl implements IUserService {
  
 	@Override
 	public void delete(Integer uid) {
+		User userdb = mapper.selectByPrimaryKey(uid);
 		mapper.deleteByPrimaryKey(uid);
+		Map<String,Integer> map = new HashMap<>();
+		map.put("uid", userdb.getUid());
+		mapper.deleteUserRole(map);
 	}
 
 	@Override

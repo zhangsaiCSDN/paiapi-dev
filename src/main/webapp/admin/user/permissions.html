@@ -10,9 +10,6 @@
 				font-size: 10px;
 			}
 
-			/* input {
-				width: 130px;
-			} */
 			.textInput {
 				width: 130px;
 				vertical-align: middle;
@@ -27,34 +24,26 @@
 
 		<table id="app" class="table table-hover table-striped table-bordered table-dark">
 			<tr>
-				<th>用户ID</th>
-				<th>身份证信息</th>
-				<th>用户名</th>
-				<th>密码</th>
-				<th>状态</th>
-				<th>头像</th>
-				<th>SALT</th>
-				<th>用户角色</th>
+				<th>角色ID</th>
+				<th>角色名称</th>
+				<th>角色描述</th>
+				<th>角色权限</th>
 				<th>操作</th>
 			</tr>
-			<tr v-for="user in users">
-				<td>{{user.uid}}</td>
-				<td>{{user.cid}}</td>
-				<td>{{user.uname}}</td>
-				<td>{{user.upwd}}</td>
-				<td>{{user.ustate}}</td>
-				<td>{{user.avatar}}</td>
-				<td>{{user.salt}}</td>
-				<td><span v-for='role in user.roles'>{{role.rname}} </span></td>
+			<tr v-for="role in roles">
+				<td>{{role.rid}}</td>
+				<td>{{role.rname}}</td>
+				<td>{{role.rdes}}</td>
+				<td><span v-for='permission in role.permissions'>{{permission.pmsname}} </span></td>
 				<td>
-					<button @click='update(user.uid)'>修改</button>
-					<button @click='del(user.uid)'>删除</button>
+					<button @click=''>修改</button>
+					<button @click=''>删除</button>
 				</td>
 			</tr>
-			<tr>
-				<td><input class="textInput" type="hidden" name="uid" v-model="uid" /></td>
+<!-- 			<tr>
+				<td><input class="textInput" type="hidden" name="rid" v-model="rid" /></td>
 				<td><input class="textInput" type="text" name="cid" v-model="cid" /></td>
-				<td><input class="textInput" type="text" name="uname" v-model="uname" placeholder="用户名" /></td>
+				<td><input class="textInput" type="text" name="uname" v-model="uname" placeholder="角色名" /></td>
 				<td><input class="textInput" type="text" name="upwd" v-model="upwd" /></td>
 				<td><input class="textInput" type="text" name="ustate" v-model="ustate" /></td>
 				<td><input class="textInput" type="text" name="avatar" v-model="avatar" /></td>
@@ -68,39 +57,35 @@
 					</table>
 				</td>
 				<td>
-					<button @click='save'>增加用户</button>
-					<!-- <button @click='test'>test</button> -->
+					<button @click='save'>增加角色</button>
+					<button @click='test'>test</button>
 				</td>
-			</tr>
+			</tr> -->
 		</table>
 	</body>
 	<script>
 		var vue = new Vue({
 			el: "#app",
 			data: {
-				users: [],
-				allRoles: [],
-				selectRoles: [],
-				uid: '',
-				cid: '',
-				uname: '',
-				upwd: '',
-				ustate: '',
-				avatar: '',
-				salt: ''
+				roles: [],
+				permissions: [],
+				selectPermissions: [],
+				rid:'',
+				rname:'',
+				rdesc:''
 			},
 			methods: {
-				//查询所有用户
+				//查询所有角色
 				findAll() {
 					var self = this;
-					axios.get("http://localhost:8080/users").then(function(response) {
-						self.users = response.data; //此时还是字符串
+					axios.get("http://localhost:8080/roles").then(function(response) {
+						self.roles = response.data;
 					})
 				},
-				//删除用户
-				del(uid) {
+				//删除角色
+				del(rid) {
 					var self = this;
-					axios.delete("http://localhost:8080/users?uid=" + uid).then(function(response) {
+					axios.delete("http://localhost:8080/roles?rid=" + rid).then(function(response) {
 						alert('删除成功');
 						self.findAll();
 					})
@@ -108,27 +93,22 @@
 				//增加
 				save() {
 					var self = this;
-					axios.post("http://localhost:8080/users", {
-						//uid: self.uid,
-						// cid: self.cid, FK
-						uname: self.uname,
-						upwd: self.upwd,
-						ustate: self.ustate,
-						avatar: self.avatar,
-						salt: self.salt,
-						roles: self.selectRoles
+					axios.post("http://localhost:8080/roles", {
+
+
+
 					}).then(function(response) {
 						self.findAll();
 						alert('添加成功!');
 					})
 				},
-				update(uid) {
+				update(rid) {
 				},
-				//查询所有角色供用户选择
-				findAllRoles() {
+				//查询所有权限供角色选择
+				findAllPermissions() {
 					var self = this;
-					axios.get("http://localhost:8080/roles").then(function(response) {
-						self.allRoles = response.data; //此时还是字符串
+					axios.get("http://localhost:8080/permissions").then(function(response) {
+						self.permissions = response.data; //此时还是字符串
 					})
 				},
 				test() {
@@ -138,7 +118,7 @@
 			},
 			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
 				this.findAll();
-				this.findAllRoles();
+				this.findAllPermissions();
 			}
 		});
 	</script>

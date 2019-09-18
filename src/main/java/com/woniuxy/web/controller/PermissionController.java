@@ -1,5 +1,6 @@
 package com.woniuxy.web.controller;
 
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,44 +14,45 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.woniuxy.domain.Role;
-import com.woniuxy.service.impl.RoleServiceImpl;
+import com.woniuxy.domain.Permission;
+import com.woniuxy.service.impl.PermissionServiceImpl;
 
 @Controller
-@RequestMapping("roles")
-public class RoleController {
+@RequestMapping("permissions")
+public class PermissionController {
 
 	@Autowired
-	private RoleServiceImpl service;
+	private PermissionServiceImpl service;
 
 	@PostMapping
 	@ResponseBody
-	public void save(@RequestBody Role role) {
-		service.save(role);
+	public void save(@RequestBody Permission permission) {
+		System.out.println("UserController.save()"+permission);
+		service.save(permission);
 	}
 
 	@DeleteMapping
 	@ResponseBody
-	public void delete(Integer rid) {
-		service.delete(rid);
+	public void delete(Integer pmsid) {
+		service.delete(pmsid);
 	}
 
 	@PutMapping
 	@ResponseBody
-	public void update(@RequestBody Role role) {
-		service.update(role);
+	public void update(Permission permission) {
+		service.update(permission);
 	}
 
-	@GetMapping(value = "/{rid}")
+	@GetMapping(value = "/{pmsid}")
 	@ResponseBody
-	public Role find(@PathVariable Integer rid) {
-		return service.findOne(rid);
+	public Permission findOne(@PathVariable Integer pmsid) {
+		return service.findOne(pmsid); 
 	}
 
 	@GetMapping
 	@ResponseBody
-	public List<Role> find() {
-		return service.findInfo();
+	public List<Permission> find() {
+		return service.find();
 	}
 
 }

@@ -1,181 +1,207 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.woniuxy.dao.PermissionMapper">
-  <resultMap id="BaseResultMap" type="com.woniuxy.domain.Permission">
-    <id column="pmsid" jdbcType="INTEGER" property="pmsid" />
-    <result column="pmsname" jdbcType="CHAR" property="pmsname" />
-    <result column="pmsdes" jdbcType="VARCHAR" property="pmsdes" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    pmsid, pmsname, pmsdes
-  </sql>
-  <select id="selectByExample" parameterType="com.woniuxy.domain.PermissionExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from permission
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from permission
-    where pmsid = #{pmsid,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from permission
-    where pmsid = #{pmsid,jdbcType=INTEGER}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.woniuxy.domain.PermissionExample">
-    delete from permission
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.woniuxy.domain.Permission">
-    insert into permission (pmsid, pmsname, pmsdes
-      )
-    values (#{pmsid,jdbcType=INTEGER}, #{pmsname,jdbcType=CHAR}, #{pmsdes,jdbcType=VARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.woniuxy.domain.Permission">
-    insert into permission
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="pmsid != null">
-        pmsid,
-      </if>
-      <if test="pmsname != null">
-        pmsname,
-      </if>
-      <if test="pmsdes != null">
-        pmsdes,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="pmsid != null">
-        #{pmsid,jdbcType=INTEGER},
-      </if>
-      <if test="pmsname != null">
-        #{pmsname,jdbcType=CHAR},
-      </if>
-      <if test="pmsdes != null">
-        #{pmsdes,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.woniuxy.domain.PermissionExample" resultType="java.lang.Long">
-    select count(*) from permission
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update permission
-    <set>
-      <if test="record.pmsid != null">
-        pmsid = #{record.pmsid,jdbcType=INTEGER},
-      </if>
-      <if test="record.pmsname != null">
-        pmsname = #{record.pmsname,jdbcType=CHAR},
-      </if>
-      <if test="record.pmsdes != null">
-        pmsdes = #{record.pmsdes,jdbcType=VARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update permission
-    set pmsid = #{record.pmsid,jdbcType=INTEGER},
-      pmsname = #{record.pmsname,jdbcType=CHAR},
-      pmsdes = #{record.pmsdes,jdbcType=VARCHAR}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.woniuxy.domain.Permission">
-    update permission
-    <set>
-      <if test="pmsname != null">
-        pmsname = #{pmsname,jdbcType=CHAR},
-      </if>
-      <if test="pmsdes != null">
-        pmsdes = #{pmsdes,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where pmsid = #{pmsid,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.woniuxy.domain.Permission">
-    update permission
-    set pmsname = #{pmsname,jdbcType=CHAR},
-      pmsdes = #{pmsdes,jdbcType=VARCHAR}
-    where pmsid = #{pmsid,jdbcType=INTEGER}
-  </update>
+	<resultMap id="BaseResultMap"
+		type="com.woniuxy.domain.Permission">
+		<id column="pmsid" jdbcType="INTEGER" property="pmsid" />
+		<result column="pmsname" jdbcType="CHAR" property="pmsname" />
+		<result column="pmsdes" jdbcType="VARCHAR" property="pmsdes" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" prefixOverrides="and" suffix=")">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach close=")" collection="criterion.value"
+										item="listItem" open="(" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		pmsid, pmsname, pmsdes
+	</sql>
+	<select id="selectByExample"
+		parameterType="com.woniuxy.domain.PermissionExample"
+		resultMap="BaseResultMap">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		<include refid="Base_Column_List" />
+		from permission
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey"
+		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from permission
+		where pmsid = #{pmsid,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey"
+		parameterType="java.lang.Integer">
+		delete from permission
+		where pmsid =
+		#{pmsid,jdbcType=INTEGER}
+	</delete>
+	<delete id="deleteByExample"
+		parameterType="com.woniuxy.domain.PermissionExample">
+		delete from permission
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert"
+		parameterType="com.woniuxy.domain.Permission">
+		insert into permission (pmsid, pmsname, pmsdes
+		)
+		values
+		(#{pmsid,jdbcType=INTEGER}, #{pmsname,jdbcType=CHAR},
+		#{pmsdes,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="insertSelective"
+		parameterType="com.woniuxy.domain.Permission">
+		insert into permission
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="pmsid != null">
+				pmsid,
+			</if>
+			<if test="pmsname != null">
+				pmsname,
+			</if>
+			<if test="pmsdes != null">
+				pmsdes,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="pmsid != null">
+				#{pmsid,jdbcType=INTEGER},
+			</if>
+			<if test="pmsname != null">
+				#{pmsname,jdbcType=CHAR},
+			</if>
+			<if test="pmsdes != null">
+				#{pmsdes,jdbcType=VARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample"
+		parameterType="com.woniuxy.domain.PermissionExample"
+		resultType="java.lang.Long">
+		select count(*) from permission
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update permission
+		<set>
+			<if test="record.pmsid != null">
+				pmsid = #{record.pmsid,jdbcType=INTEGER},
+			</if>
+			<if test="record.pmsname != null">
+				pmsname = #{record.pmsname,jdbcType=CHAR},
+			</if>
+			<if test="record.pmsdes != null">
+				pmsdes = #{record.pmsdes,jdbcType=VARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update permission
+		set pmsid = #{record.pmsid,jdbcType=INTEGER},
+		pmsname
+		= #{record.pmsname,jdbcType=CHAR},
+		pmsdes =
+		#{record.pmsdes,jdbcType=VARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective"
+		parameterType="com.woniuxy.domain.Permission">
+		update permission
+		<set>
+			<if test="pmsname != null">
+				pmsname = #{pmsname,jdbcType=CHAR},
+			</if>
+			<if test="pmsdes != null">
+				pmsdes = #{pmsdes,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where pmsid = #{pmsid,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey"
+		parameterType="com.woniuxy.domain.Permission">
+		update permission
+		set pmsname = #{pmsname,jdbcType=CHAR},
+		pmsdes = #{pmsdes,jdbcType=VARCHAR}
+		where pmsid =
+		#{pmsid,jdbcType=INTEGER}
+	</update>
 </mapper>
