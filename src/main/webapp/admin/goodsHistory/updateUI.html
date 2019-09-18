@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>添加记录</title>
+<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/layuiadmin/layui/css/layui.css"
+	media="all">
+<script src="/layuiadmin/layui/layui.all.js"></script>
+<link
+	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<div id="updateUI" style=" margin-left:20px;" >
+
+		<div class="input-group col-xs-12" style=" text-align:center; margin-top:5px;" >
+			<label class="col-sm-2 control-label" >
+				用户名称 :
+			</label>
+			<!-- 样式1 -->
+			<div class="col-sm-5 input-group-btn">
+				<select class=" form-control" v-model="buyerid">
+					<option v-for="item in list" :value="item.user.uid">
+						{{item.user.uname}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="input-group col-xs-12" style=" text-align:center; margin-top:5px;">
+			<label class="col-sm-2 control-label">拍品名称:</label>
+			<div class="col-sm-5 input-group-btn">
+				<!-- 样式1 -->
+				<select class="form-control" v-model="gid">
+					<option v-for="item in list" :value="item.goods.gid">
+						{{item.goods.gname}}</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="row" style=" text-align:center; margin-top:5px; margin-left:20px;">
+            <div>
+                <label class="form-inline" />拍下金额：
+                <input  v-model="up.ghmoney" style=" margin-left:22px;" type="text" class="form-control" /></label>
+            </div>
+		</div>
+		
+		<div class="row" style=" text-align:center; margin-top:5px; margin-left:20px;">
+            <div>
+                <label class="form-inline" />拍下时间：
+                <input v-model="up.ghtime" type="text" class="form-control"  style=" margin-left:22px;"/></label>
+            </div>
+		</div>
+	
+		<div class="row" style=" text-align:center; margin-top:5px; margin-left:20px;">
+			  <div >
+                    <label class="form-inline" >描述:
+                    <textarea  v-model="up.ghdes" class="form-control" style=" margin-left:65px;" ></textarea></label>
+               </div>
+        </div>
+        
+        <div class="row" style=" text-align:center; margin-top:5px; margin-left:3px;">
+            <div>
+                <label class="form-inline" />最后期限时间：
+                <input v-model="up.ghdeadline" type="text" class="form-control"  style=" margin-left:10px;"/></label>
+            </div>
+		</div>
+		
+		<div class="input-group col-xs-12" style=" text-align:center; margin-top:5px;" >
+			<label class="col-sm-3 control-label" >
+				支付情况 :
+			</label>
+			<!-- 样式1 -->
+			<div class="col-sm-3 input-group-btn">
+				<select  v-model="up.paystate" class=" form-control" name="uid">
+					<option value="0">待支付</option>
+					<option value="1">已支付</option>
+				</select>
+			</div>
+		</div>
+		
+
+		<button class="btn btn-success btn-sm" @click="upd">确认修改</button>
+	</div>
+
+	<script>
+	
+function child(item,d,index) {
+	var vue = new Vue({
+		el:"#updateUI",
+		data:{
+			list:[],
+			gid:'',
+			buyerid:'',
+			index:'',
+			up:''
+		},
+		methods:{
+			upd(){
+			    var self = this;
+				
+				axios.put("http://localhost:8080/ghistorys",{
+					'ghid':self.up.ghid,
+					'gid': self.gid,
+					'buyerid': self.buyerid,
+					'ghmoney': self.up.ghmoney,
+					'ghtime': self.up.ghtime,
+					'ghdes':self.up.ghdes,
+					'ghdeadline': self.up.ghdeadline,
+					'paystate':self.up.paystate
+				}).then(function(response){
+					
+					layer.alert('修改成功！！', {
+						  icon: 1,
+						  skin: 'layer-ext-moon' ,
+						  time: 20000
+						}, function(){
+							
+							parent.layer.close(self.index);
+							setTimeout(parent.location.reload(), 3000);
+							
+						});
+					
+				});
+			}
+		},
+		
+		mounted:function(){
+			this.list=d;
+			this.index=index;
+			this.up = item;
+			this.gid=item.goods.gid;
+			this.buyerid = item.user.uid;
+		},
+		
+	});
+	
+	 }
+	</script>
+</body>
+</html>

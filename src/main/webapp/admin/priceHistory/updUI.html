@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>修改记录</title>
+<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css"  media="all">
+  <script src="/layuiadmin/layui/layui.all.js"></script>
+<link
+	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<div id="updApp">
+
+		<div class="form-group">
+			<label for="email" class="col-sm-2 control-label">用户名称</label>
+			<div class="col-sm-4">
+				<!-- 样式1 -->
+				<select class="form-control" name="uid" v-model="uid">
+					<option v-for="item in list" :value="item.user.uid">
+						{{item.user.uname}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="email" class="col-sm-2 control-label">拍品名称</label>
+			<div class="col-sm-4">
+				<!-- 样式1 -->
+				<select class="form-control" name="gid" v-model="gid">
+					<option v-for="item in list" :value="item.goods.gid">
+						{{item.goods.gname}}</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="name1" class="control-label label1 col-sm-4">竞拍金额</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" v-model="up.phmoney"
+					name="phmoney">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="name1" class="control-label label1 col-sm-4">竞拍时间</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" v-model="up.phtime"
+					name="phtime">
+			</div>
+		</div>
+
+		<button class="btn btn-success btn-sm" @click="upd">确认修改</button>
+		
+	</div>
+
+<script>
+	
+function child(item,d,index) {
+	var vue = new Vue({
+		el:"#updApp",
+		data:{
+			list:[],
+			gid:'',
+			uid:'',
+			index:'',
+			up:''
+		},
+		methods:{
+			upd(){
+				
+				
+				
+				var self = this;
+				axios.put("http://localhost:8080/phistorys",{
+					'phid':self.up.phid,
+					'gid': self.gid,
+					'uid': self.uid,
+					'phmoney': self.up.phmoney,
+					'phtime': self.up.phtime
+				}).then(function(response){
+					
+					parent.layer.close(self.index);
+					parent.layer.alert("修改成功");
+					
+				});
+			}
+		},
+		
+		mounted:function(){
+			
+			this.list=d;
+			this.index=index;
+			this.up = item;
+			this.gid=item.goods.gid;
+			this.uid = item.user.uid;
+		},
+		
+	});
+	
+	 }
+	</script>
+</body>
+</html>

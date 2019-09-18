@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -22,7 +23,7 @@ public class PHTestController {
 	
 	@PostMapping
 	@ResponseBody
-	public void save(Pricehistory ph) {
+	public void save(@RequestBody Pricehistory ph) {
 		service.save(ph);
 	}
 	
@@ -41,12 +42,7 @@ public class PHTestController {
 	@GetMapping
 	@ResponseBody
 	public List<Pricehistory> find(Pricehistory ph){
-		System.out.println(ph);
 		List<Pricehistory> list = service.find(ph);
-	
-		for (Pricehistory p : list) {
-			System.out.println(p);
-		}
 		return list;
 	}
 	
