@@ -274,7 +274,8 @@
 
 	<select id="findInfo" resultMap="findInfo">
 		SELECT * FROM `user` u
-		INNER JOIN user_role ur
+		INNER JOIN
+		user_role ur
 		ON u.uid=ur.uid
 		INNER JOIN role r
 		ON r.rid = ur.rid
@@ -293,4 +294,12 @@
 			<result property="rdesc" column="rdesc" />
 		</collection>
 	</resultMap>
+
+	<select id="findUserByUname"
+		resultType="com.woniuxy.domain.User">
+		select * from user where uname = #{uname}
+	</select>
+	<insert id="insertUserRole">
+		insert into user_role (uid,rid) values (#{uid},#{rid})
+	</insert>
 </mapper>
