@@ -2,7 +2,11 @@ package com.woniuxy.dao;
 
 import com.woniuxy.domain.User;
 import com.woniuxy.domain.UserExample;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
@@ -32,5 +36,9 @@ public interface UserMapper {
     List<User> findInfo();
     
     User findInfoById(Integer uid);
+    
+    User findUserByUname(String uname);
+    
+    int insertUserRole(Map<String, Integer> map);
 
 }

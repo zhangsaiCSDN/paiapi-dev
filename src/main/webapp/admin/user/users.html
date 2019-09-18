@@ -63,7 +63,7 @@
 					<table border="0">
 						<tr v-for="role in allRoles">
 							<td>{{role.rname}}</td>
-							<td><input type="checkbox" :value="role.rid" v-model="selectRoles"/></td>
+							<td><input type="checkbox" :value="role" v-model="selectRoles"/></td>
 						</tr>
 					</table>
 				</td>
@@ -115,7 +115,8 @@
 						upwd: self.upwd,
 						ustate: self.ustate,
 						avatar: self.avatar,
-						salt: self.salt
+						salt: self.salt,
+						roles:self.selectRoles
 					}).then(function(response) {
 						self.findAll();
 						alert('添加成功!');
