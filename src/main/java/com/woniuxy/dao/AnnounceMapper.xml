@@ -221,7 +221,7 @@
   	<result property="ancontent" column="ancontent" />
   	<result property="anstart" column="anstart" />
   	<result property="anend" column="anend" />
-  	<collection property="goods" ofType="Goods">
+  	<association property="goods" javaType="Goods">
   		<id column="gid" jdbcType="INTEGER" property="gid" />
 	    <result column="gname" jdbcType="CHAR" property="gname" />
 	    <result column="gprice" jdbcType="DOUBLE" property="gprice" /> 
@@ -235,6 +235,6 @@
 	    <result column="ginfo" jdbcType="VARCHAR" property="ginfo" />
 	    <result column="salerid" jdbcType="INTEGER" property="salerid" />
 	    <result column="gtid" jdbcType="INTEGER" property="gtid" />
-  	</collection>
+  	</association>
   </resultMap>
 </mapper>
