@@ -43,6 +43,6 @@ public class GoodsController {
 	@PutMapping
 	@ResponseBody
 	public void update(@RequestBody Goods goods) {
-		service.update(goods);
+		service.update(goods); 
 	}
 }
