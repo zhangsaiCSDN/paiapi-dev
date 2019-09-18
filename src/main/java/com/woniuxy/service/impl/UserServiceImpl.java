@@ -1,13 +1,19 @@
 package com.woniuxy.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.woniuxy.dao.RoleMapper;
 import com.woniuxy.dao.UserMapper;
+import com.woniuxy.domain.Role;
 import com.woniuxy.domain.User;
+import com.woniuxy.domain.UserExample;
 import com.woniuxy.service.IUserService;
 @Service
 @Transactional
@@ -16,9 +22,18 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private UserMapper mapper;
 	
+	
 	@Override
 	public void save(User user) {
 		mapper.insert(user);
+		User user2 = mapper.findUserByUname(user.getUname());
+		Set<Role> roles = user.getRoles();
+		Map<String, Integer> map = new HashMap<>();	
+		map.put("uid", user2.getUid());
+		for (Role role : roles) {
+			map.put("rid", role.getRid());
+			mapper.insertUserRole(map);
+		}
 	}
  
 	@Override
@@ -45,6 +60,11 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public List<User> findInfo() {
 		return mapper.findInfo();
+	}
+	
+	public User findUserByUname(String uname) {
+		
+		return mapper.findUserByUname(uname);
 	}
 
 }
