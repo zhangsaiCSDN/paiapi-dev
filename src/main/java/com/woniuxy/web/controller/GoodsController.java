@@ -32,18 +32,17 @@ public class GoodsController {
 	
 	@PostMapping
 	@ResponseBody
-	public void save(Goods goods) {
+	public void save(@RequestBody Goods goods) {
 		service.save(goods);
-		System.out.println(goods);
 	}
 	@DeleteMapping
-	@ResponseBody
+	@ResponseBody 
 	public void delete(Integer gid) {
 		service.delete(gid);
 	}
 	@PutMapping
 	@ResponseBody
-	public void update(Goods goods) {
-		service.update(goods);
+	public void update(@RequestBody Goods goods) {
+		service.update(goods); 
 	}
 }

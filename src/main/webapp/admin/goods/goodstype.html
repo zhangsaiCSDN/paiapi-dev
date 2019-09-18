@@ -2,30 +2,22 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>拍拍网商品类型管理</title>
+<title>Insert title here</title>
+<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
 </head>
 <body>
-	<h3>商品类型管理</h3>
-	<button id="add">增加类型</button>
-	<form id="form" method="post" enctype="multipart/form-data">
-		<table id="addtab" hidden="true">
-			<tr>
-				<td>类型名</td>
-				<td>图片</td>
-				<td>类型描述</td>
-				<td>操作</td>
-			</tr>
-			<tr>
-				<td><input name="gtname" /></td>
-				<td><input id="file" name="file" type="file" multiple="multiple"/></td>
-				<td><input name="gtdes"/></td>
-				<td><input id="upload" name="upload" type="button" value="上传"></td>
-			</tr>
-		</table>
-	</form>
-	<table  border="1px">
-		<h4>商品类型表</h4>
+
+	
+	
+
+	
+	
+	<table id="app" class="table table-hover table-striped table-bordered table-dark">
 		<thead>
 			<tr>
 				<td>类型id</td>
@@ -37,6 +29,19 @@
 		</thead>
 		<tbody id="goodstype">		
 		</tbody>
+		<tfoot>
+			<form id="form" method="post" enctype="multipart/form-data">
+
+				<tr>
+					<td>添加</td>
+					<td><input name="gtname" /></td>
+					<td><input id="file" name="file" type="file" multiple="multiple"/></td>
+					<td><input name="gtdes"/></td>
+					<td><input id="upload" name="upload" type="button" value="上传"></td>
+				</tr>
+	
+		</form>
+		</tfoot>
 	</table>
 </body>
 <script type="text/javascript">
@@ -142,10 +147,7 @@
 		}
 		
 		find();
-		//显示增加表单
-		$("#add").click(function(){	
-			$("#addtab").toggle();
-		});
+
 		//添加商品类型
 		$("#addbtn").click(function(){
 			var params=$("form").serialize();
