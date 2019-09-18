@@ -21,7 +21,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -53,7 +54,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -109,7 +111,8 @@
 		</if>
 	</delete>
 	<insert id="insert" parameterType="com.woniuxy.domain.Role">
-		insert into role (rid, rname, rdes
+		insert into role (rid, rname,
+		rdes
 		)
 		values (#{rid,jdbcType=INTEGER}, #{rname,jdbcType=CHAR},
 		#{rdes,jdbcType=VARCHAR}
@@ -169,7 +172,8 @@
 	<update id="updateByExample" parameterType="map">
 		update role
 		set rid = #{record.rid,jdbcType=INTEGER},
-		rname = #{record.rname,jdbcType=CHAR},
+		rname =
+		#{record.rname,jdbcType=CHAR},
 		rdes = #{record.rdes,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
@@ -192,7 +196,8 @@
 		parameterType="com.woniuxy.domain.Role">
 		update role
 		set rname = #{rname,jdbcType=CHAR},
-		rdes = #{rdes,jdbcType=VARCHAR}
+		rdes =
+		#{rdes,jdbcType=VARCHAR}
 		where rid = #{rid,jdbcType=INTEGER}
 	</update>
 	<select id="findInfo" resultMap="findInfo">
@@ -210,11 +215,23 @@
 	<resultMap type="Role" id="findInfo">
 		<id property="rid" column="rid" />
 		<result property="rname" column="rname" />
-		<result property="rdesc" column="rdesc" />
+		<result property="rdes" column="rdes" />
 		<collection property="permissions" ofType="Permission">
 			<id property="pmsid" column="pmsid" />
 			<result property="pmsname" column="pmsname" />
-			<result property="pmsdesc" column="pmsdesc" />
+			<result property="pmsdes" column="pmsdes" />
 		</collection>
 	</resultMap>
+
+	<select id="findRoleByRname"
+		resultType="com.woniuxy.domain.Role">
+		select * from role where rname = #{rname}
+	</select>
+	<insert id="insertRolePermission">
+		insert into role_permission (pmsid,rid) values
+		(#{pmsid},#{rid})
+	</insert>
+	<delete id="deleteRolePermission">
+		delete from role_permission where rid = #{rid}
+	</delete>
 </mapper>

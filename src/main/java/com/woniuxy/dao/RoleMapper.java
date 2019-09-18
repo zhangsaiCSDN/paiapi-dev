@@ -3,6 +3,8 @@ package com.woniuxy.dao;
 import com.woniuxy.domain.Role;
 import com.woniuxy.domain.RoleExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RoleMapper {
@@ -28,5 +30,13 @@ public interface RoleMapper {
 
     int updateByPrimaryKey(Role record);
 
+    /////////////////////
 	List<Role> findInfo();
+	
+	Role findRoleByRname(String rname);
+	
+	int insertRolePermission(Map<String,Integer> map);
+	
+	int deleteRolePermission(Map<String,Integer> map);
+	
 }

@@ -1,12 +1,16 @@
 package com.woniuxy.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.RoleMapper;
+import com.woniuxy.domain.Permission;
 import com.woniuxy.domain.Role;
 import com.woniuxy.service.IRoleService;
 
@@ -19,14 +23,28 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public void save(Role record) {
-		// TODO Auto-generated method stub
 		mapper.insert(record);
+		Role roleDB = mapper.findRoleByRname(record.getRname());
+		Map<String,Integer> map = new HashMap<>();
+		map.put("rid", roleDB.getRid());
+		Set<Permission> pms = record.getPermissions();
+		for (Permission p : pms) {
+			map.put("pmsid", p.getPmsid());
+			mapper.insertRolePermission(map);
+		}
 	}
 
 	@Override
 	public void delete(Integer rid) {
-		// TODO Auto-generated method stub
+		Role roleDB = mapper.selectByPrimaryKey(rid);
 		mapper.deleteByPrimaryKey(rid);
+		Set<Permission> pmss = roleDB.getPermissions();
+		Map<String,Integer> map = new HashMap<>();
+		map.put("rid", roleDB.getRid());
+		for (Permission pms : pmss) {
+			map.put("pmsid", pms.getPmsid());
+			mapper.deleteRolePermission(map);
+		}
 	}
 
 	@Override
