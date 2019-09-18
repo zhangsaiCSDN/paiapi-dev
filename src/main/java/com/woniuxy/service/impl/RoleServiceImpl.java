@@ -68,7 +68,7 @@ public class RoleServiceImpl implements IRoleService {
 
 	public List<Role> findInfo() {
 		// TODO Auto-generated method stub
-		return mapper.findInfo();
+		return mapper.findInfo(); 
 	}
 
 
