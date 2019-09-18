@@ -222,21 +222,30 @@
 					this.u_gtid=g.gtid
 
 				},
-				update(g) {
-					alert(g);
-					this.u_gid=g.gid,
-					this.u_gname=g.gname,
-					this.u_gprice=g.gprice,
-					this.u_gstart=g.gstart,
-					this.u_gend=g.gend,
-					this.u_gcount=g.gcount,
-					this.u_ggap=g.ggap,
-					this.u_gpasstime=g.gpasstime,
-					this.u_gstate=g.gstate,
-					this.u_garea=g.garea,
-					this.u_ginfo=g.ginfo,
-					this.u_salerid=g.salerid,
-					this.u_gtid=g.gtid
+				update() {
+					alert(1);
+					var self = this; 
+					axios.put("http://localhost:8080/goods", {
+
+						gid:this.u_gid,
+						gname:this.u_gname,
+						gprice:this.u_gprice,
+						gstart:this.u_gstart,
+						gend:this.u_gend,
+						gcount:this.u_gcount,
+						ggap:this.u_ggap,
+						gpasstime:this.u_gpasstime,
+						gstate:this.u_gstate,
+						garea:this.u_garea,
+						ginfo:this.u_ginfo,
+						salerid:this.u_salerid,
+						gtid:this.u_gtid
+
+	
+					}).then(function(response) {
+						self.findAll();
+						alert('更改成功!');
+					})
 
 				},
 				save() {

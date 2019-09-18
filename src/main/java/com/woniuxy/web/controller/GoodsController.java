@@ -42,8 +42,7 @@ public class GoodsController {
 	}
 	@PutMapping
 	@ResponseBody
-	public void update(Goods goods) {
-		System.out.println(goods);
-		//service.update(goods);
+	public void update(@RequestBody Goods goods) {
+		service.update(goods);
 	}
 }
