@@ -99,7 +99,7 @@
 					</div>
 					<!-- 主体内容 -->
 					<table
-						class="table table-hover table-striped table-bordered table-dark"
+						class="table table-hover table-striped table-bordered table-light"
 						lay-skin="line">
 						<thead>
 							<tr>
@@ -119,18 +119,23 @@
 								<td>{{deposit.goods.gname}}</td>
 								<td>
 									<button @click='del(deposit.did)' type="button"
-										class="btn btn-warning">删除</button>
+										class="btn btn-outline-info">删除</button>
 
-									<button type="button" class="btn btn-primary"
+									<button type="button" class="btn btn-outline-info"
 										data-toggle="modal" data-target="#myModal"
 										@click='getEdit(deposit)'>编辑</button> <!-- <button @click='edit' type="button" class="btn btn-danger">编辑</button> -->
 								</td>
 							</tr>
 							<tr>
-								<th colspan="5">{{deposits.p}}/{{deposits.maxPage}}
+								<th colspan="5"  style="vertical-align: middle !important;text-align: center;">
+								{{deposits.p}}/{{deposits.maxPage}}
 									<button @click='find(1)' class="btn btn-outline-info">首页</button>
 									<button @click='find(deposits.prev)'
-										class="btn btn-outline-info">上一页</button> <span></span>
+										class="btn btn-outline-info">上一页</button> 
+									<span v-for="i in vpages">
+										<span v-if="i==deposits.p" class="btn"><font  color="red">{{i}}</font></span>
+										<span @click='find(i)' v-if="!(i==deposits.p)" class="btn"><font >{{i}}</font></span>
+									</span>
 									<button @click='find(deposits.next)'
 										class="btn btn-outline-info">下一页</button>
 									<button @click='find(deposits.maxPage)'
@@ -150,20 +155,20 @@
 		el : "#app",
 		data : {
 			deposits : [],
-			deposit : [],
+			vpages:[],
 			vdid:"",
 			vgid:"",
 			vuid:"",
 			vdmoney:"",
 			vgstate:""
-			
 		},
 		created: function(){ 
 			this.find(1);
 		},
 		methods:{
+			/*查询  */
 			find(page){
-				var self = this
+				var self = this;
 				axios.get("http://localhost:8080/deposits",{
 						params:{
 							p:page
@@ -172,9 +177,12 @@
 				).then(
 						function(response) {
 							self.deposits = response.data; //此时还是字符串
-							// self.deposits = eval("(" + self.deposits + ")"); //字符串转换为数组对象
-				})
+							self.vpages=[];
+							self.pages(self.deposits.startPage,self .deposits.endPage);
+				});
+				
 			},
+			/*删除  */
 			del(did1){
 				var self=this
 				axios.delete("http://localhost:8080/deposits",{
@@ -185,6 +193,7 @@
 					self.find(self.deposits.p)
 				})
 			},
+			/* 编辑时的数据回显 */
 			getEdit(deposit){
 						this.vdid=deposit.did;
 						this.vgid=deposit.goods.gid;
@@ -192,6 +201,7 @@
 						this.vdmoney=deposit.dmoney;
 						this.vgstate=deposit.gstate;
 		},
+		/* 编辑 */
 			edit(){
 				var self=this;
 				axios.put("http://localhost:8080/deposits",{
@@ -204,6 +214,13 @@
 				}).then(function(){
 					self.find(self.deposits.p)
 				})
+			},
+			/*分页页码数据  */
+			pages(startPage,endPage){
+				var self=this;
+				for(i=startPage;i<=endPage;i++){
+					self.vpages.push(i);
+				};
 			}
 		}
 	});
