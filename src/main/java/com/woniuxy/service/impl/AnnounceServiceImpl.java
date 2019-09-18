@@ -38,7 +38,7 @@ public class AnnounceServiceImpl implements IAnnounceService {
 
 	@Override
 	public List<Announce> find() {	
-		return mapper.selectByExample(null);
+		return mapper.findInfo();
 	}
 
 }

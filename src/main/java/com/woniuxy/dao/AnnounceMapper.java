@@ -27,4 +27,6 @@ public interface AnnounceMapper {
     int updateByPrimaryKeySelective(Announce record);
 
     int updateByPrimaryKey(Announce record);
+
+	List<Announce> findInfo();
 }
