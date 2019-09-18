@@ -36,7 +36,7 @@ public class GoodsController {
 		service.save(goods);
 	}
 	@DeleteMapping
-	@ResponseBody
+	@ResponseBody 
 	public void delete(Integer gid) {
 		service.delete(gid);
 	}
