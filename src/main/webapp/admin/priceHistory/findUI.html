@@ -39,24 +39,47 @@
 			</tr>
 		</table>
 		
-		<save-div></save-div>
+		<div id="demo7"></div>
 	</div>
 	
 <script>
 	var form = layui.form;
+	var laypage = layui.laypage;
 	form.render();
 	
 	var vue  = new Vue({
 		el:"#app",
 		data:{
 			list:[],
-			flag:true
+			page:''
 		},
 		methods:{
 			findAll(){
 				var self = this;
 				axios.get("http://localhost:8080/phistorys").then(function(response){
-					self.list = response.data;
+					self.list = response.data.list;
+					self.page = response.data;
+					<!--分页layui -->
+					laypage.render({
+					    elem: 'demo7',
+					    count: response.data.rowCount,
+					    curr: response.data.p,
+					    limit:response.data.size,
+					    	limits:[2,5,10,20],
+					    first: '首页',
+					    last: '尾页',
+					    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
+					    jump: function(obj,first){
+						    if(!first){
+						      var param ={"p":obj.curr,"size":obj.limit};
+						      axios.get("http://localhost:8080/phistorys" , {params: param}).then(function(response){
+						    		self.list = response.data.list;
+									self.page = response.data
+						      });
+						    }
+					    }
+					  });
+					
 				});
 			},
 			updateUI(item){
@@ -120,6 +143,9 @@
 
 	});
 
+	
+
+	
 </script>
 </body>
 </html>

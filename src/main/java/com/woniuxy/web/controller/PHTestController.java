@@ -1,6 +1,6 @@
 package com.woniuxy.web.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.woniuxy.domain.Page;
 import com.woniuxy.domain.Pricehistory;
 import com.woniuxy.service.IPriceHistoryService;
 
@@ -41,9 +43,19 @@ public class PHTestController {
 	
 	@GetMapping
 	@ResponseBody
-	public List<Pricehistory> find(Pricehistory ph){
-		List<Pricehistory> list = service.find(ph);
-		return list;
+	public Page<Pricehistory> find(@RequestParam Map<String,Object> map){
+		
+		if(map.get("p")==null ) {
+			map.put("p", 1);
+		}
+		
+		if(map.get("size")==null) {
+			map.put("size", 5);
+		}
+	
+		Page<Pricehistory> page = service.find(map);
+		
+		return page;
 	}
 	
 }
