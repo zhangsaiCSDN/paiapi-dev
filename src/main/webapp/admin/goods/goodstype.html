@@ -16,7 +16,7 @@
 
 
 <div id="app">
-	<button type="button"  class="layui-btn layuiadmin-btn-list"
+	<button type="button"   class="btn btn-success btn-block"
 				data-toggle="modal" data-target="#myModal2">添加</button>  
 
 <!--编辑  修改模态框-->
@@ -40,6 +40,10 @@
 						</div>
 						<div>
 							<label for="pwd">类型描述:</label> <input type="text" class="form-control" v-model="u_gtdes" />
+						</div>
+						<div>
+							<label for="pwd">修改图片:</label><input  class="form-control" ref='photoUdp' name="file" type="file" multiple="multiple"/>
+													<button @click='updImg(u_gtid)' id='update' type='button' class='btn btn-warning'>更换图片</button>
 						</div>
 					</div>
 					<!-- 模态框底部 -->
@@ -173,7 +177,22 @@
 				
 					})
 				},
-				
+				/* 修改图片 */
+				updImg(gtid) {
+					
+		            var formData = new FormData();
+		            
+		            var photoInput = this.$refs.photoUdp;
+					formData.append("photo",photoInput.files[0]);
+					formData.append("gtid",gtid);
+
+					
+		            var self = this; 
+					axios.post("http://localhost:8080/goodsType/updImg", formData).then(function(response) {
+						self.findAll();
+						alert('修改图片成功!');
+					})   
+				},
 				add() {
 		            var formData = new FormData();//获取表单中的文件
 		            
