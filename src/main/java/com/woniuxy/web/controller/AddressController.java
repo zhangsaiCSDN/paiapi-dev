@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.woniuxy.domain.Address;
 import com.woniuxy.domain.Page;
 import com.woniuxy.service.IAddressService;
+import com.woniuxy.service.impl.UserServiceImpl;
 
 @Controller
 @RequestMapping("addresses")
@@ -25,9 +26,13 @@ public class AddressController {
 	@Autowired
 	private IAddressService service;
 	
+	@Autowired
+	private UserServiceImpl userService;
+	
 	@PostMapping
 	@ResponseBody
 	public void save(@RequestBody Address address) {
+		address.setUser(userService.findOne(address.getUid()));
 		service.save(address);
 	}
 	
@@ -58,6 +63,7 @@ public class AddressController {
 		int count = service.count();
 		Page<Address> page=new Page<Address>(p, count, 5);
 		List<Address> list = service.find(page);
+		
 		page.setList(list);
  		return page;
 	}

@@ -1,9 +1,12 @@
 package com.woniuxy.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.woniuxy.domain.Card;
 import com.woniuxy.domain.CardExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.woniuxy.domain.Page;
 
 public interface CardMapper {
     long countByExample(CardExample example);
@@ -27,4 +30,6 @@ public interface CardMapper {
     int updateByPrimaryKeySelective(Card record);
 
     int updateByPrimaryKey(Card record);
+    
+    List<Card> findAll(Page<Card> page);
 }

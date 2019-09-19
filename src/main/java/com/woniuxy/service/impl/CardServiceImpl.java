@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.CardMapper;
 import com.woniuxy.domain.Card;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.ICardService;
 
 @Service
@@ -39,9 +40,15 @@ public class CardServiceImpl implements ICardService  {
 	}
 
 	@Override
-	public List<Card> find() {
-		List<Card> list = mapper.selectByExample(null);
-		return list;
+	public List<Card> find(Page<Card> page) {
+		return mapper.findAll(page);
 	}
+
+	@Override
+	public Integer count() {
+		return (int) mapper.countByExample(null);
+	}
+
+	
 
 }
