@@ -19,8 +19,8 @@
 			<label for="email" class="col-sm-2 control-label">用户名称</label>
 			<div class="col-sm-4">
 				<select class="form-control" name="uid" v-model="uid">
-					<option v-for="item in list" :value="item.user.uid">
-						{{item.user.uname}}</option>
+					<option v-for="item in userslist" :value="item.uid">
+						{{item.uname}}</option>
 				</select>
 			</div>
 		</div>
@@ -29,8 +29,8 @@
 			<div class="col-sm-4">
 			拍品名称：
 				<select class="form-control" name="gid" v-model="gid">
-					<option v-for="item in list" :value="item.goods.gid">
-						{{item.goods.gname}}</option>
+					<option v-for="item in goodslist" :value="item.gid">
+						{{item.gname}}</option>
 				</select>
 			</div>
 		</div>
@@ -56,11 +56,12 @@
 
 <script>
 	
-function child(d,index) {
+function child(index) {
 	var vue = new Vue({
 		el:"#saveApp",
 		data:{
-			list:[],
+			goodslist:[],
+			userslist:[],
 			gid:'',
 			uid:'',
 			phmoney:'',
@@ -95,8 +96,14 @@ function child(d,index) {
 		},
 		
 		mounted:function(){
-			this.list=d;
 			this.index=index;
+			var self = this;
+			axios.get("http://localhost:8080/goods").then(function(response) {
+				self.goodslist = response.data; //此时还是字符串
+			});
+			axios.get("http://localhost:8080/users").then(function(response) {
+				self.userslist = response.data; //此时还是字符串
+			});
 		},
 		
 	});

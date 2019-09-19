@@ -1,6 +1,7 @@
 package com.woniuxy.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.GoodshistoryMapper;
 import com.woniuxy.domain.Goodshistory;
+import com.woniuxy.domain.Page;
+import com.woniuxy.domain.Pricehistory;
 import com.woniuxy.service.IGoodsHistoryService;
 
 @Service
@@ -44,9 +47,21 @@ public class GoodsHistoryServiceImpl implements IGoodsHistoryService {
 	}
 
 	@Override
-	public List<Goodshistory> find() {
-		// TODO Auto-generated method stub
-		return ghmapper.find();
+	public Page<Goodshistory> find(Map<String , Object> map) {
+		//获取前端传来的当前页，每页行数，查出当前查询条件的总行数
+		int rc = ghmapper.findCount();
+		Integer p = Integer.parseInt(map.get("p").toString()) ;
+		Integer size = Integer.parseInt( map.get("size").toString()) ;
+		
+		//封装成page放入查询条件map中查询
+		Page<Goodshistory> page = new Page<>(p,rc,size);
+		map.put("page", page);
+		
+		//将查询的结果再放到page对象中，返回页面
+		List<Goodshistory> list = ghmapper.find(map);
+		page.setList(list);
+		
+		return page;
 	}
 
 }

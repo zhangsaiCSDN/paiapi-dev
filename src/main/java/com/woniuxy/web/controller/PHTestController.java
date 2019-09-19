@@ -37,7 +37,7 @@ public class PHTestController {
 	
 	@PutMapping
 	@ResponseBody
-	public void update(Pricehistory ph) {
+	public void update(@RequestBody Pricehistory ph) {
 		service.update(ph);
 	}
 	

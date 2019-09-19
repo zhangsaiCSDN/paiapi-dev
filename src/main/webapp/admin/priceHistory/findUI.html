@@ -56,9 +56,11 @@
 		methods:{
 			findAll(){
 				var self = this;
-				axios.get("http://localhost:8080/phistorys").then(function(response){
+				var par = {"p":self.page.p , "size":self.page.size};
+				axios.get("http://localhost:8080/phistorys" , {params: par}).then(function(response){
 					self.list = response.data.list;
 					self.page = response.data;
+					
 					<!--分页layui -->
 					laypage.render({
 					    elem: 'demo7',
@@ -88,15 +90,21 @@
 					type : 2,
 					title : "添加竞价记录",
 					area : ['650px' , '450px'],
-					content : 'updUI.html',
+					content : 'updateUI.html',
 					  success: function (layero, index) {
 		                    // 获取子页面的iframe
 		                    var iframe = window['layui-layer-iframe' + index];
 		                    // 向子页面的全局函数child传参
-		                    iframe.child(item,self.list,index);
+		                    iframe.child(item,index);
 		                    
-		                  
-		                }
+		                    //父页面设置一个方法，将其定为window属性，在子页面可以调用
+		                    var _tools = {
+		                    	    func1: function(){
+		                    	      self.findAll();
+		                    	    }
+		               		 }
+					 		 window.tools = _tools;
+					  }
 				});
 			},
 			
@@ -111,7 +119,7 @@
 		                    // 获取子页面的iframe
 		                    var iframe = window['layui-layer-iframe' + index];
 		                    // 向子页面的全局函数child传参
-		                    iframe.child(self.list,index);
+		                    iframe.child(index);
 		                    
 		                  
 		                }

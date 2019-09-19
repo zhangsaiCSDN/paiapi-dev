@@ -1,8 +1,10 @@
 package com.woniuxy.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.woniuxy.domain.Goodshistory;
+import com.woniuxy.domain.Page;
 
 public interface IGoodsHistoryService {
 	
@@ -10,6 +12,6 @@ public interface IGoodsHistoryService {
 	void update(Goodshistory gh);
 	void delete(Integer ghid);
 	Goodshistory findOne(Integer ghid);
-	List<Goodshistory> find();
+	Page<Goodshistory> find(Map<String , Object> map);
 
 }

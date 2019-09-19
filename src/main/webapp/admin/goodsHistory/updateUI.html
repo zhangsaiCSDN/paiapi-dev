@@ -23,8 +23,8 @@
 			<!-- 样式1 -->
 			<div class="col-sm-5 input-group-btn">
 				<select class=" form-control" v-model="buyerid">
-					<option v-for="item in list" :value="item.user.uid">
-						{{item.user.uname}}</option>
+					<option v-for="item in userslist" :value="item.uid">
+						{{item.uname}}</option>
 				</select>
 			</div>
 		</div>
@@ -33,8 +33,8 @@
 			<div class="col-sm-5 input-group-btn">
 				<!-- 样式1 -->
 				<select class="form-control" v-model="gid">
-					<option v-for="item in list" :value="item.goods.gid">
-						{{item.goods.gname}}</option>
+					<option v-for="item in goodslist" :value="item.gid">
+						{{item.gname}}</option>
 				</select>
 			</div>
 		</div>
@@ -86,11 +86,12 @@
 
 	<script>
 	
-function child(item,d,index) {
+function child(item,index) {
 	var vue = new Vue({
 		el:"#updateUI",
 		data:{
-			list:[],
+			goodslist:[],
+			userslist:[],
 			gid:'',
 			buyerid:'',
 			index:'',
@@ -114,12 +115,9 @@ function child(item,d,index) {
 					layer.alert('修改成功！！', {
 						  icon: 1,
 						  skin: 'layer-ext-moon' ,
-						  time: 20000
 						}, function(){
 							
 							parent.layer.close(self.index);
-							setTimeout(parent.location.reload(), 3000);
-							
 						});
 					
 				});
@@ -127,11 +125,19 @@ function child(item,d,index) {
 		},
 		
 		mounted:function(){
-			this.list=d;
+
 			this.index=index;
 			this.up = item;
 			this.gid=item.goods.gid;
 			this.buyerid = item.user.uid;
+			
+			var self = this;
+			axios.get("http://localhost:8080/goods").then(function(response) {
+				self.goodslist = response.data; //此时还是字符串
+			});
+			axios.get("http://localhost:8080/users").then(function(response) {
+				self.userslist = response.data; //此时还是字符串
+			});
 		},
 		
 	});
