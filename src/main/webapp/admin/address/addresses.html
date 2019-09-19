@@ -29,6 +29,9 @@
 		#LAY-user-manage tr:nth-child(odd){
 			background: #efefef;
 	 	 }
+	 	 th{
+	 	 text-align:center
+	 	 }
   </style>
 </head>
 <body>
@@ -75,12 +78,12 @@
         <table id="LAY-user-manage" class="table"  font-size=“300px” >
         	
         	<tr>
-        		<th>aid</th>
-        		<th>username</th>
-        		<th>ainfo</th>
-        		<th>apost</th>
-        		<th>aphone</th>
-        		<th>option</th>
+        		<b><th>用户ID</th>   </b>
+        		<b><th>用户名</th>   </b>
+        		<b><th>地址信息</th> </b>
+        		<b><th>邮政编码</th> </b>
+        		<b><th>手机号码</th> </b>
+        		<b><th>操作</th>     </b>
         	</tr>
         	
         	
@@ -96,13 +99,21 @@
         		</th>
         	</tr>
         	
-        	<tr>
-        		<th colspan="6">
+        	<tr >
+        		<th colspan="6" >
 	        			
 	 					 <button class="btn btn-info" @click="find(1)">首页</button>
 	 					 <button class="btn btn-info" @click="find(address.prev)">上页</button>
+	 					 <span v-for="i in mypage">
+	 					 	<span v-if="i==address.p" class="btn"><font  color="red">{{i}}</font></span>
+							<span @click='find(i)' v-if="!(i==address.p)" class="btn"><font >{{i}}</font></span>
+	 					 </span>
+	 					  <a>第{{address.p}}页 / 共{{address.maxPage}}页</a>
+	 					 <a >共{{address.rowCount}}条记录</a>
 	 					 <button class="btn btn-info" @click="find(address.next)">下页</button>
 	 					 <button class="btn btn-info" @click="find(address.maxPage)">末页</button>
+	 					
+	 					 
 	 					 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
 	   						 添加
 	 					 </button>
@@ -206,7 +217,8 @@
 				u_apost:"",
 				u_aphone:"",
 				list:[],
-				address:""
+				address:"",
+				mypage:[]
 			},
 			created(){
 				this.find(1);
@@ -221,6 +233,8 @@
 						var array = data.body;
 						this.address = array;
 						this.list = array.list;
+						this.mypage = [];
+						this.pages(this.address.startPage,this.address.endPage);
 					});
 				},
 				del(aid){
@@ -257,6 +271,12 @@
 						this.find(1);
 						
 					});
+				},
+				pages(startPage,endPage){
+					for(var i = startPage;i<=endPage;i++){
+						this.mypage.push(i);
+					}
+					
 				}
 				
 			}
