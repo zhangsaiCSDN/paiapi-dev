@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.AddressMapper;
 import com.woniuxy.domain.Address;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.IAddressService;
 
 
@@ -38,9 +39,16 @@ public class AddressServiceImpl implements IAddressService {
 		return mapper.selectByPrimaryKey(aid);
 	}
 
+
 	@Override
-	public List<Address> find() {
-		return mapper.selectByExample(null);
+	public List<Address> find(Page<Address> page) {
+		return mapper.findAll(page);
+	}
+
+	@Override
+	public Integer count() {
+		// TODO Auto-generated method stub
+		return (int) mapper.countByExample(null);
 	}
 
 }

@@ -208,4 +208,23 @@
       aphone = #{aphone,jdbcType=CHAR}
     where aid = #{aid,jdbcType=INTEGER}
   </update>
+  
+  <select id="findAll" parameterType="Page" resultMap="ad">
+	select * from address a
+	JOIN `user` u
+	on a.uid = u.uid
+	limit #{startLine},#{size}
+  </select>
+  
+  <resultMap type="Address" id="ad">
+  	<id property="aid" column="aid"/>
+  	<result property="apost" column="apost"/>
+  	<result property="ainfo" column="ainfo"/>
+  	<result property="aphone" column="aphone"/>
+  	<association property="user" javaType="user">
+  		<id property="uid" column="uid"/>
+  		<result property="uname" column="uname"/>
+  	</association>
+  </resultMap>
+  
 </mapper>

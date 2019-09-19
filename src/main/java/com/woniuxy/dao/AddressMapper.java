@@ -2,6 +2,8 @@ package com.woniuxy.dao;
 
 import com.woniuxy.domain.Address;
 import com.woniuxy.domain.AddressExample;
+import com.woniuxy.domain.Page;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,6 @@ public interface AddressMapper {
     int updateByPrimaryKeySelective(Address record);
 
     int updateByPrimaryKey(Address record);
+    
+    List<Address> findAll(Page<Address> page);
 }
