@@ -7,6 +7,34 @@
     <result column="salerid" jdbcType="INTEGER" property="salerid" />
     <result column="rmtitle" jdbcType="CHAR" property="rmtitle" />
   </resultMap>
+  
+  
+  
+  <select id="findByPage" parameterType="Page" resultMap="fbp">
+  	select * from room limit #{startLine},#{size}
+  </select>
+  <resultMap type="Room" id="fbp">
+  	<id property="rmid" column="rmid"/>
+  	<result property="gid" column="gid"/>
+  	<result property="salerid" column="salerid"/>
+  	<result property="rmtitle" column="rmtitle"/>
+  </resultMap>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">

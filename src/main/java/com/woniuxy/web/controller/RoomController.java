@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.woniuxy.domain.Deposit;
+import com.woniuxy.domain.Page;
 import com.woniuxy.domain.Room;
 import com.woniuxy.service.IRoomService;
 
@@ -48,11 +50,20 @@ public class RoomController {
 		return roomService.findOne(rmid);
 	}
 		
+//	@GetMapping
+//	@ResponseBody
+//	public List<Room> find() {
+//		return roomService.find();
+//	}
 	@GetMapping
 	@ResponseBody
-	public List<Room> find() {
-		System.out.println("RoomController.LogController.find()");
-		return roomService.find();
+	public Page<Room> findByPage(Integer p){
+		if(p==null)p=1;
+		int count=(int) roomService.count();
+		Page<Room> page=new Page<>(p,count,8);
+		List<Room> list=roomService.findByPage(page);
+		page.setList(list);
+		return page;
 	}
 }
 
