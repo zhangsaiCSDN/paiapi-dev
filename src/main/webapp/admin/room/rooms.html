@@ -16,10 +16,16 @@
 	src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 <script
 	src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<style>
+	.pointer {cursor:pointer}
+</style>	
+	
+	
 </head>
 <body>
 	<div id="room">
-
+		
 		<!-- //模态框开始 -->
 		<div class="container">
 			<!-- 模态框 -->
@@ -61,7 +67,6 @@
 							<button @click="update()" type="button" class="btn btn-secondary"
 								data-dismiss="modal">修改</button>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -99,9 +104,15 @@
 			</tr>
 			<tr>
 				<th colspan="5">
+					<font color=red>{{page.p}}</font>/{{page.maxPage}}
 					<button @click='findByPage(1)' class="btn btn-outline-info">首页</button>
 					<button @click='findByPage(page.prev)' class="btn btn-outline-info">上一页</button>
-					{{page.p}}/{{page.maxPage}}
+					<scan v-for="i in ps">	
+						<span>
+							<span v-if="i==page.p" class="btn"><font  color="red" class="pointer">{{i}}</font></span>
+							<span @click='findByPage(i)' v-if="!(i==page.p)" class="btn"  class="cursor:pointer"><font class="pointer">{{i}}</font></span>
+						</span>
+					</scan>
 					<button @click='findByPage(page.next)' class="btn btn-outline-info">下一页</button>
 					<button @click='findByPage(page.maxPage)'
 						class="btn btn-outline-info">末页</button>
@@ -121,6 +132,7 @@
 				r_gid:"",
 				r_salerid:"",
 				r_rmtitle:"",
+				ps:[],
 				page:[]
 			},
 			created() {
@@ -130,6 +142,8 @@
 				findByPage(pg) {
 					this.$http.get("http://localhost:8080/rooms",{params:{"p":pg}}).then(function(data){
 						this.page = data.body;
+						this.ps=[];
+						this.pages(this.page.startPage,this.page.endPage);
 					});
 				},
 				del(rmid) {
@@ -155,12 +169,14 @@
 						this.findByPage(this.page.p);
 						this.gid=this.salerid=this.rmtitle="";
 					});
+				},
+				pages(startPage,endPage){
+					for(var i=startPage;i<=endPage;i++){
+						this.ps.push(i);
+					}
 				}
 			}
-			
 		});
-	
 	</script>
-
 </body>
 </html>
