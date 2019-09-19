@@ -3,140 +3,208 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link
-	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
-	rel="stylesheet">
-<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
 <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script src="../../layer/layer.js"></script>
-
-<link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css"
-	media="all">
-<link rel="stylesheet" href="../../layuiadmin/style/admin.css"
-	media="all">
+<link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
+
+
+<div id="app">
+	<button type="button"  class="btn btn-success btn-block"
+				data-toggle="modal" data-target="#myModal2">添加</button>  
+				
+
+<!--编辑  修改模态框-->
+	<div class="container">
+		<!-- 模态框 -->
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<!-- 模态框头部 -->
+					<div class="modal-header">
+						<h4 class="modal-title">修改图片</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- 模态框主体 -->
+					<div class="modal-body">
+						<div >
+							<label for="pwd">图片id:</label> <input type="text" class="form-control" v-model="u_imgid" disabled="disabled"  />
+						</div>
+						<div>
+							<label for="pwd">拍品id:</label> <input type="text" class="form-control" v-model="u_gid" />
+						</div>
+						<div>
+							<label for="pwd">修改图片:</label><input  class="form-control" ref='photoUdp' name="file" type="file" multiple="multiple"/>
+													<button @click='updImg(u_imgid)' id='update' type='button' class='btn btn-warning'>更换图片</button>
+						</div>
+
+					</div>
+					<!-- 模态框底部 -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal"  @click='update'>提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+<!--添加  添加模态框-->
+	<div class="container">
+		<!-- 模态框 -->
+		<div class="modal fade" id="myModal2">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<!-- 模态框头部 -->
+					<div class="modal-header">
+						<h4 class="modal-title">添加图片</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- 模态框主体 -->
+					<div class="modal-body">
+						<div>
+							<label for="pwd">拍品id:</label> <input type="text" class="form-control" v-model="gid" />
+						</div>
+						<div>
+							<label for="pwd">增加图片:</label> <input  class="form-control" ref='photo' name="file" type="file" multiple="multiple"/>
+						</div>
+
+					</div>
+					<!-- 模态框底部 -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal"  @click='add' >提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		
 	
-	<table 
-		class="table table-hover table-striped table-bordered table-dark">
-		<thead>
-			<tr>
-				<td>图片id</td>
-				<td>拍品id</td>
-				<td>拍品名</td>
-				<td>图片</td>
-				<td>操作</td>
-			</tr>
-		</thead>
-		<tbody id="image">		
-		</tbody>
-		<tfoot>
-			<form id="form" method="post" enctype="multipart/form-data">
+	<table class="table table-hover table-striped table-bordered table-dark">
+		<tr>
+			<th>图片id</th>
+			<th>拍品id</th>
+			<th>拍品名称</th>
+			<th>图片</th>
+			<th>类型描述</th>
+			<th>操作</th>
+		</tr>
+		<tr v-for="i in images">
+			<td>{{i.imgid}}</td>
+			<td>{{i.gid}}</td>
+			<td>{{i.goods.gname}}</td>
+			<td><img  :src='"goodsImg/"+i.img' width="150px"/></td>
+			
 
-				<tr>
-					<td>添加</td>
-					<td colspan="2">拍品id:<input name="gid" /></td>
-					<td>       
-						<input id="file" name="file" type="file" multiple="multiple"/></td>
-					<td><input id="upload" name="upload" type="button" value="上传"></td>
-				</tr>
-
-			</form>
-		</tfoot>
+			<td>
+			<button type="button" class="btn btn-outline-info"
+				data-toggle="modal" data-target="#myModal"
+				@click='getEdit(i)'>编辑</button>  
+	
+			<button @click='del(i.imgid)' id='update' type='button' class='btn btn-danger'>删除</button>
+			</td>
+		</tr>
 	</table>
-	
-</div>	
-	
+	</div>
 </body>
-<script src="../../../layuiadmin/layui/layui.js"></script>
-<script type="text/javascript">
-	//获取所有商品类型
-	$(function(){
-		function find(){
-			$.ajax({
-				type:"get",
-				url:"/images",
-				success:function(data){
-					$("#image").empty();
-					for(var i=0;i<data.length;i++){
-						var tr=$("<tr></tr>");
-						
-						var td1=$("<td></td>");
-						var td2=$("<td></td>");
-						var td3=$("<td></td>");
-						var td4=$("<td></td>");
-						var td5=$("<td></td>");
-						
-						td5.html(data[i].goods.gname);
-						
-						td1.html(data[i].imgid);
-						td2.html(data[i].goods.gid); //外鍵gid
+ <script src="../../../layuiadmin/layui/layui.js"></script>  
+	<script>
+		var vue = new Vue({
+			el: "#app",
+			data: {
+				images: [],
+				imgid:'',
+				gid:'',
+				
+				u_imgid:'',
+				u_gid:''							
 
-						td3.html( "<img width='100px' src='/admin/goods/goodsImg/"+data[i].img+"'>  "  );
+			},
+			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
+		 		var self = this
+				axios.get("http://localhost:8080/images").then(function(response) {
+					self.images = response.data; //此时还是字符串
+			
+				})
+			},
+			 
+			methods: {
+				findAll() {
+					var self = this;
+					axios.get("http://localhost:8080/images").then(function(response) {
+						self.images = response.data; //此时还是字符串
+					})
+				},
+				del(imgid) {
+					if(!confirm('是否要删除当前数据')){
+						return;
+	                }
+					
+					var self = this;
+					axios.delete("http://localhost:8080/images?imgid=" + imgid).then(function(response) {
+						alert('删除成功');
+						self.findAll();
+					})
+				},
+				/* 编辑时的数据回显 */
+				getEdit(i){
+					this.u_imgid=i.imgid,
+					this.u_gid=i.gid				
+				},
+				/* 修改数据 */
+				update() {
+					
+					var self = this; 
+					axios.put("http://localhost:8080/images", {
+						
+						imgid:this.u_imgid,
+						gid:this.u_gid
 	
-						
-						var del = $("<button>删除</button>");
-						del.click(function(){
-							
-								var imgid = $(this).parent().parent().children().eq(0).html();
+					}).then(function(response) {
+						alert('更改成功!');
+						self.findAll();
+				
+					})
+				},
+				/* 修改图片 */
+				updImg(imgid) {
+					
+		            var formData = new FormData();
+		            
+		            var photoInput = this.$refs.photoUdp;
+					formData.append("photo",photoInput.files[0]);
+					formData.append("imgid",imgid);
 
-								$.ajax({
-										type:"delete",
-										url:"/images",
-										data:{"imgid":imgid},
-										success:function(){
-											find();
-											alert("删除成功");											
-										}
-									
-									});
-							});
-						
-						td4.append(del);
-						tr.append(td1);
-						tr.append(td2);
-						tr.append(td5);//gname
-						tr.append(td3);
-						tr.append(td4);
-						
-						$("#image").append(tr);
-					}							
+					
+		            var self = this; 
+					axios.post("http://localhost:8080/images/updImg", formData).then(function(response) {
+						self.findAll();
+						alert('修改图片成功!');
+					})   
+				},
+				
+				add() {
+		            var formData = new FormData();
+		            
+		            var photoInput = this.$refs.photo;
+					formData.append("photo",photoInput.files[0]);
+					formData.append("gid",this.gid);
+
+					
+		            var self = this; 
+					axios.post("http://localhost:8080/images", formData).then(function(response) {
+						self.findAll();
+						alert('添加成功!');
+					})   
 				}
-			});
-		}
-		
-		find();
-		//显示增加表单
-		$("#add").click(function(){	
-			$("#addtab").toggle();
+			}
+			
 		});
-		
-		//添加拍品
-        $("#upload").click(function () {
-    
-        	var gid=$("form").serialize();//获取表单中的拍品id
-
-           var formData = new FormData($('#form')[0]);//获取表单中的文件
-           //ajax请求
-           $.ajax({
-               url:"/images",//后台的接口地址
-               type:"post",//post请求方式
-               data:formData,gid,//参数
-               cache: false,
-               processData: false,
-               contentType: false,
-               success:function (data) {
-                   alert(data);
-                   find();
-               },error:function () {
-                   alert("操作失败~");
-               }
-           })
-        });
-
-
-	})
-</script>
+	</script>
 </html>
