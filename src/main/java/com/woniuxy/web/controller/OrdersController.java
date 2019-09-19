@@ -9,11 +9,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.woniuxy.domain.Deposit;
 import com.woniuxy.domain.Orders;
+import com.woniuxy.domain.Page;
 import com.woniuxy.domain.User;
+import com.woniuxy.service.IOrdersService;
 import com.woniuxy.service.impl.OrdersServiceImpl;
 
 @Controller
@@ -21,7 +25,7 @@ import com.woniuxy.service.impl.OrdersServiceImpl;
 public class OrdersController {
 	
 	@Autowired
-	private OrdersServiceImpl service;
+	private IOrdersService service;
 	
 	
 	@ResponseBody
@@ -40,20 +44,24 @@ public class OrdersController {
 	
 	@PutMapping
 	@ResponseBody
-	public void update(Orders orders) {
+	public void update(@RequestBody Orders orders) {
+		System.out.println("OrdersController.update()-------------");
 		service.update(orders);
 	}
 	
 	@GetMapping
 	@ResponseBody
-	public List<Orders> find(){
+	public Page<Orders> find(Integer p){
 		System.out.println(111);
-		List<Orders> find = service.find();
-		System.out.println(find);
-		for (Orders orders : find) {
+		if(p==null)p=1;
+		int count=service.count();
+		Page<Orders> page=new Page<>(p,count,5);
+		List<Orders> list=service.find(page);
+		page.setList(list);
+		for (Orders orders : list) {
 			System.out.println(orders);
-		} 
-		return find;
+		}
+		return page;
 	}
 	
 	@GetMapping(value = "/{odid}")

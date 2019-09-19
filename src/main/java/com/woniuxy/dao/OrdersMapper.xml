@@ -312,7 +312,7 @@
   
   
   
-  <resultMap id="bt" type="com.woniuxy.domain.Orders">
+  <resultMap id="bt" type="Orders">
     <id column="odid" jdbcType="INTEGER" property="odid" />
     <result column="odmoney" jdbcType="DOUBLE" property="odmoney" />
     <result column="odtime" jdbcType="TIMESTAMP" property="odtime" />
@@ -335,14 +335,14 @@
 	    <result column="ainfo" property="ainfo" />
     </association>
   </resultMap>
- 
   
   
-  <select id="find" parameterType="com.woniuxy.domain.Orders" resultMap="bt">
+  <select id="find" parameterType="Page" resultMap="bt">
 		SELECT * FROM orders o
 		INNER JOIN user u ON o.uid=u.uid
 		INNER JOIN goods g ON o.gid=g.gid
 		INNER JOIN address a ON o.aid=a.aid
+		limit #{startLine},#{size}
   </select>
    
 </mapper>
