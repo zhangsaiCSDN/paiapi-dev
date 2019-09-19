@@ -83,7 +83,7 @@ public class GoodsTypeController {
 			goodstype.setGtname(gtname);
 			goodstype.setGtdes(gtdes);
 			goodstype.setImg(newName);
-			System.out.println(newName);
+
 			service.save(goodstype);
 	
 		
