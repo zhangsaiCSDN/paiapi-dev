@@ -10,4 +10,5 @@ public interface IGoodsService {
 	void update(Goods goods);
 	List<Goods> find();
 	Goods findOne(Integer gid);
+	List<Goods> findByImages();
 }

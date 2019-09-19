@@ -43,4 +43,10 @@ public class GoodsServiceImpl implements IGoodsService {
 		return dao.selectByPrimaryKey(gid);
 	}
 
+	//查询goods 一对多Img
+	@Override
+	public List<Goods> findByImages() {
+		return dao.findByImages();
+	}
+
 }
