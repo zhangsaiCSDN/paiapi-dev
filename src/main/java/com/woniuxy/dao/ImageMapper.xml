@@ -187,8 +187,9 @@
 
   <resultMap id="bt" type="com.woniuxy.domain.Image">
     <id column="imgid" jdbcType="INTEGER" property="imgid" />
-
+	 <result column="gid" jdbcType="INTEGER" property="gid" />
     <result column="img" jdbcType="VARCHAR" property="img" />
+   
 
   
     <association property="goods">
