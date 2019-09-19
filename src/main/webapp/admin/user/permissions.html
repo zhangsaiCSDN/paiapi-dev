@@ -24,68 +24,49 @@
 
 		<table id="app" class="table table-hover table-striped table-bordered table-dark">
 			<tr>
-				<th>角色ID</th>
-				<th>角色名称</th>
-				<th>角色描述</th>
-				<th>角色权限</th>
+				<th>权限ID</th>
+				<th>权限名称</th>
+				<th>权限描述</th>
 				<th>操作</th>
 			</tr>
-			<tr v-for="role in roles">
-				<td>{{role.rid}}</td>
-				<td>{{role.rname}}</td>
-				<td>{{role.rdes}}</td>
-				<td><span v-for='permission in role.permissions'>{{permission.pmsname}} </span></td>
+			<tr v-for="permission in permissions">
+				<td>{{permission.pmsid}}</td>
+				<td>{{permission.pmsname}}</td>
+				<td>{{permission.pmsdes}}</td>
 				<td>
 					<button @click=''>修改</button>
-					<button @click=''>删除</button>
+					<button @click='del(permission.pmsid)'>删除</button>
 				</td>
 			</tr>
-<!-- 			<tr>
-				<td><input class="textInput" type="hidden" name="rid" v-model="rid" /></td>
-				<td><input class="textInput" type="text" name="cid" v-model="cid" /></td>
-				<td><input class="textInput" type="text" name="uname" v-model="uname" placeholder="角色名" /></td>
-				<td><input class="textInput" type="text" name="upwd" v-model="upwd" /></td>
-				<td><input class="textInput" type="text" name="ustate" v-model="ustate" /></td>
-				<td><input class="textInput" type="text" name="avatar" v-model="avatar" /></td>
-				<td><input class="textInput" type="text" name="salt" v-model="salt" /></td>
-				<td>
-					<table border="0">
-						<tr v-for="role in allRoles">
-							<td>{{role.rname}}</td>
-							<td><input type="checkbox" :value="role" v-model="selectRoles" /></td>
-						</tr>
-					</table>
-				</td>
-				<td>
-					<button @click='save'>增加角色</button>
-					<button @click='test'>test</button>
-				</td>
-			</tr> -->
+			<tr>
+				<td><input type="hidden" v-model="pmsid" /></td>
+				<td><input v-model="pmsname" placeholder="请输入权限名"/></td>
+				<td><input v-model="pmsdes" placeholder="请输入对权限的描述"/></td>
+				<td><button type="button" @click="save">添加用户</button></td>
+			</tr>
 		</table>
 	</body>
 	<script>
 		var vue = new Vue({
 			el: "#app",
 			data: {
-				roles: [],
 				permissions: [],
-				selectPermissions: [],
-				rid:'',
-				rname:'',
-				rdesc:''
+				pmsid: '',
+				pmsname: '',
+				pmsdes: ''
 			},
 			methods: {
-				//查询所有角色
+				//查询所有权限
 				findAll() {
 					var self = this;
-					axios.get("http://localhost:8080/roles").then(function(response) {
-						self.roles = response.data;
+					axios.get("http://localhost:8080/permissions").then(function(response) {
+						self.permissions = response.data;
 					})
 				},
-				//删除角色
-				del(rid) {
+				//删除权限
+				del(pmsid) {
 					var self = this;
-					axios.delete("http://localhost:8080/roles?rid=" + rid).then(function(response) {
+					axios.delete("http://localhost:8080/permissions?pmsid=" + pmsid).then(function(response) {
 						alert('删除成功');
 						self.findAll();
 					})
@@ -93,32 +74,22 @@
 				//增加
 				save() {
 					var self = this;
-					axios.post("http://localhost:8080/roles", {
-
-
-
+					axios.post("http://localhost:8080/permissions", {
+						pmsid: self.pmsid,
+						pmsname: self.pmsname,
+						pmsdes: self.pmsdes
 					}).then(function(response) {
 						self.findAll();
 						alert('添加成功!');
 					})
 				},
-				update(rid) {
-				},
-				//查询所有权限供角色选择
-				findAllPermissions() {
-					var self = this;
-					axios.get("http://localhost:8080/permissions").then(function(response) {
-						self.permissions = response.data; //此时还是字符串
-					})
-				},
+				update(pmsid) {},
 				test() {
-					alert(this.selectRoles);
-				}
 
+				}
 			},
 			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
 				this.findAll();
-				this.findAllPermissions();
 			}
 		});
 	</script>
