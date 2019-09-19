@@ -240,4 +240,20 @@
       uid = #{uid,jdbcType=INTEGER}
     where apid = #{apid,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </mapper>

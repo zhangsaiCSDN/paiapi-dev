@@ -2,165 +2,378 @@
 <html>
 <head>
 
-  <meta charset="utf-8">
-  <title></title>
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
-  <link
-	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css"
+<meta charset="utf-8">
+<title></title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css"
+	media="all">
+
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script
+	src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<script src="/layer/layer.js"></script>
+<link
+	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
 	rel="stylesheet">
-  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
-  <style type="text/css">
+<link rel="stylesheet" href="../../../layuiadmin/style/admin.css"
+	media="all">
+<style type="text/css">
 #update, #del {
-	width: 50%;
+	width: 45%;
 }
 
 th {
 	text-align: center;
 }
+
+.v-enter, .v-leave-to {
+	opacity: 0;
+	transform: translateX(80px);
+}
+
+.v-enter-to, .v-leave {
+	opacity: 1;
+	transform: translateX(0px);
+}
+
+.v-enter-active, .v-leave-active {
+	transition: all .6s ease
+}
 </style>
 </head>
 <body>
 
-  <div class="layui-fluid">
-    <div class="layui-card">
-      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item">
-          <div class="layui-inline">
-            <label class="layui-form-label">ID</label>
-            <div class="layui-input-block">
-              <input type="text" name="apid" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">用户名</label>
-            <div class="layui-input-block">
-              <input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">邮箱</label>
-            <div class="layui-input-block">
-              <input type="text" name="email" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">性别</label>
-            <div class="layui-input-block">
-              <select name="sex">
-                <option value="0">不限</option>
-                <option value="1">男</option>
-                <option value="2">女</option>
-              </select>
-            </div>
-          </div>
-          <div class="layui-inline">
-            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
-              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      
-      <div class="layui-card-body">
-        <div style="padding-bottom: 10px;">
-          <button class="layui-btn layuiadmin-btn-useradmin" data-type="batchdel">删除</button>
-          <button class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>
-        </div>
-        
-        <table id="LAY-user-manage" lay-filter="LAY-user-manage" class="table table-hover table-striped table-bordered table-dark">
-        <tr>
-			<th>收藏ID</th>
-			<th>收藏时间</th>
-			<th>用户ID</th>
-			<th>拍品ID</th>
-			<th>修改</th>
+	<div class="layui-fluid">
+		<div class="layui-card">
+			<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">ID</label>
+						<div class="layui-input-block">
+							<input type="text" name="apid" placeholder="请输入"
+								autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">用户名</label>
+						<div class="layui-input-block">
+							<input type="text" name="username" placeholder="请输入"
+								autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">邮箱</label>
+						<div class="layui-input-block">
+							<input type="text" name="email" placeholder="请输入"
+								autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">性别</label>
+						<div class="layui-input-block">
+							<select name="sex">
+								<option value="0">不限</option>
+								<option value="1">男</option>
+								<option value="2">女</option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<button class="layui-btn layuiadmin-btn-useradmin" lay-submit
+							lay-filter="LAY-user-front-search">
+							<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+						</button>
+					</div>
+				</div>
+			</div>
 
-		</tr>
-        
-        
-        
-        
-        
-        </table>
+			<div class="layui-card-body">
+				<div style="padding-bottom: 10px;">
+					<button class="layui-btn layuiadmin-btn-useradmin"
+						data-type="batchdel">删除</button>
+					<button id="add" v-on:click="add"
+						class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>
+				</div>
 
+
+				<div id="app">
+					<table lay-filter="LAY-user-manage"
+						class="table table-hover table-striped table-bordered table-light">
+						<thead>
+							<tr>
+								<th>收藏ID</th>
+								<th>收藏时间</th>
+								<th>用户ID</th>
+								<th>拍品ID</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="collect in collects">
+
+								<th>{{collect.clid}}</th>
+								<th>{{collect.cltime}}</th>
+								<th>{{collect.uid}}</th>
+								<th>{{collect.gid}}</th>
+								<th>
+								<button id="update" type="button" class="btn btn-outline-warning btn-sm" data-target="#wushuang" @click="updateUI(collect)"
+								data-toggle="modal" >修改</button> 
+									<button id="del" v-on:click='del(collect.clid)' type="button"
+										class="btn btn-outline-danger btn-sm ">删除</button>
+								</th>
+							</tr>
+							<tr>
+								<th colspan="5">{{collects.p}}/{{collects.maxPage}}
+									<button @click='find(1)' class="btn btn-outline-info">首页</button>
+									<button @click='find(collects.prev)' class="btn btn-outline-info">上一页</button>
+
+									<button @click='find(collects.next)' class="btn btn-outline-info">下一页</button>
+									<button @click='find(collects.maxPage)'
+										class="btn btn-outline-info">末页</button>
+								</th>
+							</tr>
+						</tbody>
+					</table>
+
+
+						<div class="container">
+							<!-- 按钮：用于打开模态框 -->
+							<!-- <button type="button" class="btn btn-outline-warning btn-sm" @click="updateUI"
+								data-toggle="modal" data-target="#Modal">修改</button> -->
+
+							<!-- 模态框 -->
+							<div class="modal fade" id="wushuang">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+
+										<!-- 模态框头部 -->
+										<div class="modal-header">
+											<h4 class="modal-title">修改</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+
+										<!-- 模态框主体 -->
+										<div class="modal-body">
+											<div>
+												<label for="email">收藏ID:</label> <input type="text"
+													class="form-control" v-model="c_clid" id="email"
+													placeholder="请输入收藏ID">
+											</div>
+											<div>
+												<label for="pwd">收藏时间:</label> <input type="text"
+													style="width: 20%" class="form-control" v-model="c_cltime"
+													id="pwd" placeholder="请输入收藏时间">
+											</div>
+											<div>
+												<label for="pwd">用户:</label> <input type="text"
+													class="form-control" id="pwd" v-model="c_uid"
+													placeholder="请输入用户ID">
+											</div>
+											<div>
+												<label for="pwd">拍品ID:</label> <input type="text"
+													class="form-control" id="pwd" v-model="c_gid"
+													placeholder="请输入拍品ID">
+											</div>
+											
+											
+										</div>
+
+										<!-- 模态框底部 -->
+										<div class="modal-footer">
+											<button type="button" class="btn btn-warning"
+												@click="update" data-dismiss="modal">修改</button>
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">关闭</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+
+					<button id="ok" @click="flag=!flag" type="button"
+						class="btn btn-success btn-block">添加</button>
+
+
+					<transition>
+					<div v-if="flag">
+
+						<div class="container">
+							<!-- <h2>添加</h2> -->
+							<!-- 按钮：用于打开模态框 -->
+							<button type="button" class="btn btn-primary" data-toggle="modal"
+								data-target="#myModal">添加 冲冲冲~~~</button>
+
+							<!-- 模态框 -->
+							<div class="modal fade" id="myModal">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+
+										<!-- 模态框头部 -->
+										<div class="modal-header">
+											<h4 class="modal-title">添加</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+
+										<!-- 模态框主体 -->
+										<div class="modal-body">
+											<!-- 模态框主体 -->
+										<div class="modal-body">
+											<div>
+												<label for="email">收藏ID:</label> <input type="text"
+													class="form-control" v-model="c_clid" id="email"
+													placeholder="请输入收藏ID">
+											</div>
+											<div>
+												<label for="pwd">收藏时间:</label> <input type="text"
+													style="width: 20%" class="form-control" v-model="c_cltime"
+													id="pwd" placeholder="请输入收藏时间">
+											</div>
+											<div>
+												<label for="pwd">用户:</label> <input type="text"
+													class="form-control" id="pwd" v-model="c_uid"
+													placeholder="请输入用户ID">
+											</div>
+											<div>
+												<label for="pwd">拍品ID:</label> <input type="text"
+													class="form-control" id="pwd" v-model="c_gid"
+													placeholder="请输入拍品ID">
+											</div>
+										</div>
+
+										<!-- 模态框底部 -->
+										<div class="modal-footer">
+											<button type="button" class="btn btn-success" @click="save"
+												data-dismiss="modal">添加</button>
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">关闭</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+							</transition>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					</div>
+				
+				</div>
+			</div>
 </body>
-</html>
-<script type="text/javascript">
-	$(function() {
+<script>
+	var vue = new Vue({
+		el : "#app",
+		data : {
+			collects : [],
+			clid:'',
+			cltime:'',
+			uid:'',
+			gid:'',
+			c_clid:'',
+			c_cltime:'',
+			c_uid:'',
+			c_gid:'',
+			flag:false
+		},
+		
+		created:function(){
+			this.findAll();
+		},
 		
 		
-		$("#add").click(function(){
+		methods:{
 			
-		layer.alert("添加成功!!");
-		});		
+			findAll(){
+				
+				var self =this;
+				axios.get("http://localhost:8080/collects").then(function(response){
+					self.collects=response.data;
+				})
+				
+			},
+			del(clid){
+				
+				
+				
+				var self=this;
+				axios.delete("http://localhost:8080/collects?clid=" + clid).then(function(response){
+					layer.alert('删除成功!'); 
+					self.findAll();
+				})
+				
+				
+				
+				
+			},
+			save(){
+				
+				var self=this;
+				axios.post("http://localhost:8080/collects",{
+					clid:self.c_clid,
+					cltime:self.c_cltime,
+					uid:self.c_uid,
+					gid:self.c_gid,
+					
+				}).then(function(response){
+					layer.alert('添加成功!');
+					self.findAll();
+				})
+				
+			},
+			update(){
+				var jason={clid:this.c_clid,cltime:this.c_cltime,uid:this.c_uid,gid:this.c_gid,"_method":"put"};
+				this.$http.post("http://localhost:8080/collects",jason,{emulateJSON:true}).then(function(){
+					layer.alert('修改成功!');
+					this.findAll();
+				});
+				
+
+				
+				
+				
+				
+			},
+			updateUI(item){
+				/* layer.alert(123);   */
+				this.c_clid=item.clid;
+				this.c_cltime=item.cltime;
+				this.c_uid=item.uid;
+				this.c_gid=item.gid;
+				
+			}
 		
-
-		function updateTable() {
-			$
-					.ajax({
-						type : "get",
-						url : "/collects",
-						headers : {
-							"Accept" : "application/json"
-						},
-						success : function(data) {
-							var tab = $("table:eq(0)");
-							for (p in data) {
-								/*  alert(data[p].eid+" "+data[p].ename+" "+data[p].birthday+" "+data[p].money);  */
-								var tr = $("<tr>");
-								var th = $("<th>");
-								var th2 = $("<th>");
-								var th3 = $("<th>");
-								var th4 = $("<th>");
-								var th5 = $("<th>");
-								th.append(data[p].clid);
-								th2.append(data[p].cltime);
-								th3.append(data[p].uid);
-								th4.append(data[p].gid);
- 
-								var update = $("<button id='update' type='button' class='btn btn-warning'>修改</button>");
-								var del = $("<button  id='del' type='button' onclick='return confirm('确定要删除吗？')' class='btn btn-danger'>删除 </button>"); 
-								del.click(function() {
-
-									var apid = $(this).parent().parent()
-											.children().eq(0).html();
-									$.ajax({
-
-										type : "post",
-										url : "/collects",
-										data : {
-											"clid" : clid,
-											"_method" : "delete"
-										},
-										success : function() {
-
-											updataTable();
-										}
-
-									});
-
-								});
-
-								th5.append(update, del);
-
-								tr.append(th);
-								tr.append(th2);
-								tr.append(th3);
-								tr.append(th4);
-								tr.append(th5);
-								tab.append(tr);
-
-							}
-						}
-					});
-
+			
+			
 		}
-
-		updateTable();
-
 	});
 </script>
+</html>

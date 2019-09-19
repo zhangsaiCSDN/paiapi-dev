@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.Apply;
-import com.woniuxy.domain.User;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.IApplyService;
 
-import lombok.Getter;
 
 @Controller
 @RequestMapping("applys")
@@ -27,9 +27,9 @@ public class ApplyController {
 
 	@GetMapping
 	@ResponseBody
-	public List<Apply> find() {
-
+	public List<Apply> find(){
 		return service.find();
+		
 	}
 
 	@GetMapping(value = "/{apid}")
@@ -49,12 +49,14 @@ public class ApplyController {
 	@PutMapping
 	@ResponseBody
 	public void update(Apply apply) {
+		System.out.println("ApplyController.update()");
+		
 		service.update(apply);
 	}
 
 	@PostMapping
 	@ResponseBody
-	public void save(Apply apply) {
+	public void save(@RequestBody Apply apply) {
 		service.save(apply);
 	}
 }

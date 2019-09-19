@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.ApplyMapper;
 import com.woniuxy.domain.Apply;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.IApplyService;
 
 
@@ -42,11 +43,14 @@ public class ApplyServiceImpl implements IApplyService {
 		return apply;
 	}
 
+
+
 	@Override
 	public List<Apply> find() {
-		List<Apply> list = mapper.selectByExample(null);
 		
+		List<Apply> list = mapper.selectByExample(null);
 		return list;
 	}
+
 
 }

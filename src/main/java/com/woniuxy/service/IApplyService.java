@@ -3,6 +3,7 @@ package com.woniuxy.service;
 import java.util.List;
 
 import com.woniuxy.domain.Apply;
+import com.woniuxy.domain.Page;
 
 public interface IApplyService {
 	void save(Apply apply);
