@@ -112,7 +112,7 @@
       uid, gid, aid)
     values (#{odid,jdbcType=INTEGER}, #{odmoney,jdbcType=DOUBLE}, #{odtime,jdbcType=TIMESTAMP}, 
       #{buyerid,jdbcType=INTEGER}, #{salerid,jdbcType=INTEGER}, #{odfee,jdbcType=DOUBLE}, 
-      #{uid,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}), #{aid,jdbcType=INTEGER})
+      #{uid,jdbcType=INTEGER}, #{gid,jdbcType=INTEGER}, #{aid,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.woniuxy.domain.Orders">
     insert into orders

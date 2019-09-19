@@ -47,9 +47,9 @@
 			<div class="layui-form layui-card-header layuiadmin-card-header-auto">
 				<div class="layui-form-item">
 					<div class="layui-inline">
-						<label class="layui-form-label">odtime</label>
+						<label class="layui-form-label">订单id</label>
 						<div class="layui-input-inline">
-							<input type="text" name="id" placeholder="请输入" autocomplete="off"
+							<input type="text" name="id" v-model="o_odid" placeholder="请输入" autocomplete="off"
 								class="layui-input">
 						</div>
 					</div>
@@ -67,14 +67,16 @@
 								autocomplete="off" class="layui-input">
 						</div>
 					</div>
+					<!-- 条件查询 -->
 					<div class="layui-inline">
 						<button class="layui-btn layuiadmin-btn-list" lay-submit
-							lay-filter="LAY-app-contlist-search">
+							lay-filter="LAY-app-contlist-search" @click="findById(o_odid)">
 							<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
 						</button>
 					</div>
 					<div class="layui-inline">
-							<button @click='add()' class="layui-btn layuiadmin-btn-list">添加</button>
+							<button  class="layui-btn layuiadmin-btn-list"
+							data-toggle="modal" data-target="#myModal2">添加</button>
 					</div>
 				</div>
 			</div>
@@ -83,10 +85,74 @@
 		</div>
 	</div>
 
-
-
-	<!-- update-->
+	<!-- add弹框-->
 	<div class="container">
+		<!-- 模态框 -->
+		<div class="modal fade" id="myModal2">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<!-- 模态框头部 -->
+					<div class="modal-header">
+						<h4 class="modal-title">增加订单</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- 模态框主体 -->
+					<div class="modal-body">
+						<div>
+							<label for="pwd">订单id:</label> 
+							<input v-model="o_odid" type="text" class="form-control" placeholder="拍品id">
+						</div>
+						<div>
+							<label for="pwd">成交金额:</label> 
+							<input v-model="o_odmoney" type="text" class="form-control"  placeholder="成交金额">
+						</div>
+						
+						<div>
+							<label for="pwd">成交时间 :</label> 
+							<input v-model="o_odtime" type="date" class="form-control"  placeholder="成交时间">
+						</div>
+						
+						<div>
+							<label for="pwd">买家id:</label> 
+							<input v-model="o_buyerid" type="text" class="form-control"  placeholder="买家id">
+						</div>
+						<div>
+							<label for="pwd">卖家id :</label>
+							<input v-model="o_salerid" type="text" class="form-control"  placeholder="卖家id"> 
+						</div>
+						<div>
+							<label for="pwd">保证金:</label>
+							<input v-model="o_odfee" type="text" class="form-control"  placeholder="保证金">
+						</div>
+						<div>
+							<label for="pwd">用户名称 :</label>
+							<input v-model="o_uid" type="text" class="form-control"  placeholder="用户名称">
+						</div>
+						<div>
+							<label for="pwd">拍品名称 :</label>
+							<input v-model="o_gid" type="text" class="form-control"  placeholder="拍品名称"> 
+						</div>
+						<div>
+							<label for="pwd">地址 :</label>
+							<input v-model="o_aid" type="text" class="form-control"  placeholder="地址">
+						</div>
+						
+						
+					</div>
+					<!-- 模态框底部 -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal" @click="add">提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	
+
+	
+
+	<!-- update弹框-->
+
 		<!-- 模态框 -->
 		<div class="modal fade" id="myModal">
 			<div class="modal-dialog modal-lg">
@@ -186,13 +252,13 @@
 			
 		</tr>
 		<tr>
-			<th colspan="5"  style="vertical-align: middle !important;text-align: center;">
+			<th colspan="10"  style="vertical-align: middle !important;text-align: center;">
 				{{orders.p}}/{{orders.maxPage}}
 				<button @click='find(1)' class="btn btn-outline-info">首页</button>
 				<button @click='find(orders.prev)' class="btn btn-outline-info">上一页</button>
 				<span v-for="i in v_pages">
 					<span v-if="i==orders.p" class="btn"><font  color="red">{{i}}</font></span>
-					<span @click='find(i)' v-if="!(i==orders.p)" class="btn"><font >{{i}}</font></span>
+					<span @click='find(i)' v-if="!(i==orders.p)" class="btn" style="cursor:pointer"><font >{{i}}</font></span>
 				</span>
 				<button @click='find(orders.next)' class="btn btn-outline-info">下一页</button>
 				<button @click='find(orders.maxPage)' class="btn btn-outline-info">末页</button>
@@ -218,7 +284,17 @@
 				o_odfee:'',
 				o_uid:'',
 				o_gid:'',
-				o_aid:'' 
+				o_aid:'' ,
+				/* 
+				v_odid:'',
+				v_odmoney:'',
+				v_odtime:'',
+				v_buyerid:'',
+				v_salerid:'',
+				v_odfee:'',
+				v_uid:'',
+				v_gid:'',
+				v_aid:''  */
 			
 			},
 			created: function(){ 
@@ -227,6 +303,38 @@
 			
 			 
 			methods: {
+				add() {
+					
+					var self=this;
+				  	var dd2 = new Date(self.o_odtime);
+				  	alert(dd2);
+					var y = dd2.getFullYear();
+					var m = (dd2.getMonth() + 1 + "").padStart(2,'0');
+					var d = (dd2.getDate() + "").padStart(2,'0');
+					var hh = (dd2.getHours() + "").padStart(2,'0');
+					var mm = (dd2.getMinutes() + "").padStart(2,'0');
+					var ss = (dd2.getSeconds() + "").padStart(2,'0');
+				    var time= `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+					
+					axios.post("http://localhost:8080/orders",{
+						odid:self.o_odid,
+						odmoney:self.o_odmoney,
+						odtime:time,
+						buyerid:self.o_buyerid,
+						salerid:self.o_salerid,
+						odfee:self.o_odfee,
+						uid:self.o_uid,
+						gid:self.o_gid,
+						aid:self.o_aid
+					})
+					.then(function(response) {
+						self.find(self.orders.p)
+					self.o_odid = self.o_odmoney = self.o_odtime = self.o_buyerid = 
+					self.o_salerid = self.o_odfee = self.o_uid = self.o_gid = self.o_aid = ""
+					});
+					
+				},
+				
 				//分页展示
 				find(page) { 
 			 		var self = this;
@@ -237,7 +345,16 @@
 					}).then(function(response) {
 						self.orders = response.data; 
 						self.v_pages=[];
-						self.pages(self.orders.startPage,self .orders.endPage);
+						self.pages(self.orders.startPage,self.orders.endPage);
+					})
+				},
+				
+				findById(odid) { 
+					alert(odid);
+			 		var self = this;
+					axios.get("http://localhost:8080/orders/{"+odid+"}")
+					.then(function(response) {
+						self.orders = response.data; 
 					})
 				},
 				
@@ -249,10 +366,7 @@
 						}, function(){
 							axios.delete("http://localhost:8080/orders?odid=" + odid)
 								.then(function(response) {
-								axios.get("http://localhost:8080/orders")
-								.then(function(response2) {
-									self.orders = response2.data;
-								})
+								self.find(self.orders.p)
 							});
 			                layer.msg('删除成功', {icon: 1},{anim: 1});
 					},
@@ -265,16 +379,7 @@
 					this.o_odid = order.odid;
 					this.o_odmoney=order.odmoney;
 					
-					// 笨办法
-					var dd = new Date(oeders.odtime);
-					var y = dd.getFullYear();
-					var m = (dd.getMonth() + 1 + "").padStart(2,'0');
-					var d = (dd.getDate() + "").padStart(2,'0');
-					var s = dd.getHour();
-					var f = dd.getHour();
-					
-					this.o_odtime= `${y}/${m}/${d}`;
-					
+			
 					this.o_odtime=order.odtime;
 					this.o_buyerid=order.buyerid;
 					this.o_salerid=order.salerid;
@@ -290,19 +395,21 @@
 				update() {
 					var self=this;
 					axios.put("http://localhost:8080/orders",{
-							odid:this.o_odid,
-							odmoney:this.o_odmoney,
-							odtime:this.o_odtime,
-							buyerid:this.o_buyerid,
-							salerid:this.o_salerid,
-							odfee:this.o_odfee,
-							uid:this.o_uid,
-							gid:this.o_gid,
-							aid:this.o_aid
+							odid:self.o_odid,
+							odmoney:self.o_odmoney,
+							odtime:self.o_odtime,
+							buyerid:self.o_buyerid,
+							salerid:self.o_salerid,
+							odfee:self.o_odfee,
+							uid:self.o_uid,
+							gid:self.o_gid,
+							aid:self.o_aid
 					})
 					.then(function(response) {
-					self.find(page.p)
+						self.find(self.orders.p);
 					});
+						thid.o_odid = thid.o_odmoney = thid.o_odtime = thid.o_buyerid = 
+							thid.o_salerid = thid.o_odfee = thid.o_uid = thid.o_gid = thid.o_aid = ""
 				},
 				
 				/*分页页码数据  */

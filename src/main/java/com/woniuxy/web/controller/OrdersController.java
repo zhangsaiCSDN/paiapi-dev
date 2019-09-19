@@ -30,8 +30,7 @@ public class OrdersController {
 	
 	@ResponseBody
 	@PostMapping
-	public void save (Orders orders) {
-		System.out.println("OrdersController.save()");
+	public void save (@RequestBody Orders orders) {
 		service.save(orders);
 	}
 	
@@ -45,28 +44,24 @@ public class OrdersController {
 	@PutMapping
 	@ResponseBody
 	public void update(@RequestBody Orders orders) {
-		System.out.println("OrdersController.update()-------------");
 		service.update(orders);
 	}
 	
 	@GetMapping
 	@ResponseBody
 	public Page<Orders> find(Integer p){
-		System.out.println(111);
 		if(p==null)p=1;
 		int count=service.count();
 		Page<Orders> page=new Page<>(p,count,5);
 		List<Orders> list=service.find(page);
 		page.setList(list);
-		for (Orders orders : list) {
-			System.out.println(orders);
-		}
 		return page;
 	}
 	
 	@GetMapping(value = "/{odid}")
 	@ResponseBody
 	public Orders findOne(@PathVariable Integer odid) {
+		System.out.println("findOne------"+odid);
 		return service.findOne(odid);
 	}
 	
