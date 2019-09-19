@@ -9,178 +9,187 @@
 <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 <link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
 <link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
 <body>
 
-	
-	
 
-	
-	
-	<table id="app" class="table table-hover table-striped table-bordered table-dark">
-		<thead>
-			<tr>
-				<td>类型id</td>
-				<td>类型名</td>
-				<td>图片</td>
-				<td>类型描述</td>
-				<td>操作</td>
-			</tr>
-		</thead>
-		<tbody id="goodstype">		
-		</tbody>
-		<tfoot>
-			<form id="form" method="post" enctype="multipart/form-data">
+<div id="app">
+	<button type="button"  class="layui-btn layuiadmin-btn-list"
+				data-toggle="modal" data-target="#myModal2">添加</button>  
 
-				<tr>
-					<td>添加</td>
-					<td><input name="gtname" /></td>
-					<td><input id="file" name="file" type="file" multiple="multiple"/></td>
-					<td><input name="gtdes"/></td>
-					<td><input id="upload" name="upload" type="button" value="上传"></td>
-				</tr>
+<!--编辑  修改模态框-->
+	<div class="container">
+		<!-- 模态框 -->
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<!-- 模态框头部 -->
+					<div class="modal-header">
+						<h4 class="modal-title">修改拍品类型</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- 模态框主体 -->
+					<div class="modal-body">
+						<div hidden="true">
+							<label for="pwd">类型id:</label> <input type="text" class="form-control" v-model="u_gtid"  />
+						</div>
+						<div>
+							<label for="pwd">类型名称:</label> <input type="text" class="form-control" v-model="u_gtname" />
+						</div>
+						<div>
+							<label for="pwd">类型描述:</label> <input type="text" class="form-control" v-model="u_gtdes" />
+						</div>
+					</div>
+					<!-- 模态框底部 -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal"  @click='update'>提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 	
-		</form>
-		</tfoot>
+	<!-- 添加模态框 -->
+	<div class="container">
+			<!-- 模态框 -->
+			<div class="modal fade" id="myModal2">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<!-- 模态框头部 -->
+						<div class="modal-header">
+							<h4 class="modal-title">添加拍品页面</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<!-- 模态框主体 -->
+						<div class="modal-body">
+							<div>
+								<label for="pwd">类型名称:</label> <input type="text" class="form-control" v-model="gtname" />
+							</div>
+							<div>
+								<label for="pwd">类型图片:</label><input  class="form-control" ref='photo' name="file" type="file" multiple="multiple"/>
+							</div>
+							<div>
+								<label for="pwd">类型描述:</label> <input type="text" class="form-control" v-model="gtdes" />
+							</div>
+						</div>
+						<!-- 模态框底部 -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal"  @click="add">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	
+	
+	<table class="table table-hover table-striped table-bordered table-dark">
+		<tr>
+			<th>类型id</th>
+			<th>类型名</th>
+			<th>图片</th>
+			<th>类型描述</th>
+			<th>操作</th>
+		</tr>
+		<tr v-for="gt in goodsType">
+			<td>{{gt.gtid}}</td>
+			<td>{{gt.gtname}}</td>
+			<td><img  :src='"goodsTypeImg/"+gt.img' width="150px"/></td>
+			<td>{{gt.gtdes}}</td>
+
+			<td>
+			<button type="button" class="btn btn-outline-info"
+				data-toggle="modal" data-target="#myModal"
+				@click='getEdit(gt)'>编辑</button>  
+	
+			<button @click='del(gt.gtid)' id='update' type='button' class='btn btn-danger'>删除</button>
+			</td>
+		</tr>
 	</table>
+	</div>
 </body>
-<script type="text/javascript">
-	//获取所有商品类型
-	$(function(){
-		function find(){
-			$.ajax({
-				type:"get",
-				url:"/goodsType",
-				success:function(data){
-					$("#goodstype").empty();
-					for(var i=0;i<data.length;i++){
-						var tr=$("<tr></tr>");
-						
-						var td1=$("<td></td>");
-						var td2=$("<td></td>");
-						var td3=$("<td></td>");
-						var td4=$("<td></td>");
-						var td5=$("<td></td>");
-						
-						td1.html(data[i].gtid);
-						td2.html(data[i].gtname);
-						td3.html( "<img width='100px' src='goodsTypeImg/"+data[i].img+"'>  "  );
-						td4.html(data[i].gtdes);
-					    td5 = $("<td>");
-						//删除选中的数据
-						var del = $("<button>删除</button>");
-						del.click(function(){
-							
-								var id = $(this).parent().parent().children().eq(0).html();
+ <script src="../../../layuiadmin/layui/layui.js"></script>  
+	<script>
+		var vue = new Vue({
+			el: "#app",
+			data: {
+				goodsType: [],
+				gtname:'',
+				gtdes:'',
+				u_gtid:'',
+				u_gtname:'',
+				u_gtdes:''
+			},
+			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
+		 		var self = this
+				axios.get("http://localhost:8080/goodsType").then(function(response) {
+					self.goodsType = response.data; //此时还是字符串
+			
+					/* self.orders = eval("(" + self.orders + ")"); //字符串转换为数组对象 */
+				})
+			},
+			 
+			methods: {
+				findAll() {
+					var self = this;
+					axios.get("http://localhost:8080/goodsType").then(function(response) {
+						self.goodsType = response.data; //此时还是字符串
+					})
+				},
+				del(gtid) {
+					if(!confirm('是否要删除当前数据')){
+						return;
+	                }
+					
+					var self = this;
+					axios.delete("http://localhost:8080/goodsType?gtid=" + gtid).then(function(response) {
+						alert('删除成功');
+						self.findAll();
+					})
+				},
+				/* 编辑时的数据回显 */
+				getEdit(gt){
+					this.u_gtid=gt.gtid,
+					this.u_gtname=gt.gtname,
+					this.u_gtdes=gt.gtdes					
+				},
+				/* 修改数据 */
+				update() {
+					
+					var self = this; 
+					axios.put("http://localhost:8080/goodsType", {
+
+						gtid:this.u_gtid,
+						gtname:this.u_gtname,
+						gtdes:this.u_gtdes,
+
 	
-								$.ajax({
-										type:"delete",
-										url:"/goodsType",
-										data:{"gtid":id},
-										success:function(){
-											find();
-											alert("删除成功");											
-										}
-									
-									});
-							});
-
-						//修改收数据
-						var upd = $("<button>修改</button>");
-						upd.click(function(){
-							
-							if($(this).html()=="确认修改"){
-								var tr = $(this).parent().parent().children().eq(0).html();
-								$.ajax({
-									type:"put",
-									url:"/goodsType",
-									data:{
-										"gtid":tr,
-										"gtname":$("#gtname").val(),
-										"img":$("#img").val(),
-										"gtdes":$("#gtdes").val()
-									},
-									//请求成功后刷新页面显示数据
-									success:function(){
-										find();
-									}
-									
-								});
-								
-							}else{
-								
-							
-							//获取要修改的所有数据对象
-							var ogtname = $(this).parent().parent().children().eq(1);
-							var oimg = $(this).parent().parent().children().eq(2);
-							var ogtdes = $(this).parent().parent().children().eq(3);
-						
-							//取出jquery对象中的数据
-							var gtname = ogtname.html();
-							var img	   = oimg.html();
-							var gtdes  = ogtdes.html();
-						
-							//将数据重新填充进表格，数据回显
-							ogtname.replaceWith("<td><input id='gtname' name='gtname' value="+gtname+ " ></td>");
-							//img.replaceWith("<td><input id='img' name='img' value="+img+ " ></td>");
-							ogtdes.replaceWith("<td><input id='gtdes' name='gtdes' value="+gtdes+ " ></td>");
-							
-							
-							$(this).html("确认修改");
-							
-							}
-							
-						});
-						
-						td5.append(del);
-						td5.append(upd);
-						tr.append(td1);
-						tr.append(td2);
-						tr.append(td3);
-						tr.append(td4);
-						tr.append(td5);
-						
-						$("#goodstype").append(tr);
-					}							
+					}).then(function(response) {
+						self.findAll();
+						alert('更改成功!');
+				
+					})
+				},
+				
+				add() {
+		            var formData = new FormData();//获取表单中的文件
+		            
+		            var photoInput = this.$refs.photo;
+					formData.append("photo",photoInput.files[0]);
+					formData.append("gtname",this.gtname);
+					formData.append("gtdes",this.gtdes);
+					
+		            var self = this; 
+					axios.post("http://localhost:8080/goodsType", formData).then(function(response) {
+						self.findAll();
+						alert('添加成功!');
+					})   
 				}
-			});
-		}
-		
-		find();
-
-		//添加商品类型
-		$("#addbtn").click(function(){
-			var params=$("form").serialize();
-			$.ajax({
-				type:"post",
-				url:"/goodsType",
-				data:params,
-				success:function(){
-					find();
-				}
-			});		
+			}
+			
 		});
-		//添加拍品
-        $("#upload").click(function () {
-    
-        	var params=$("form").serialize();//获取表单中的拍品id
-           var formData = new FormData($('#form')[0]);//获取表单中的文件
-           //ajax请求
-           $.ajax({
-               url:"/goodsType",//后台的接口地址
-               type:"post",//post请求方式
-               data:formData,params,//参数
-               cache: false,
-               processData: false,
-               contentType: false,
-               success:function (data) {
-                   alert(data);
-                   find();
-               },error:function () {
-                   alert("操作失败~");
-               }
-           })
-        });
-	})
-</script>
+	</script>
 </html>

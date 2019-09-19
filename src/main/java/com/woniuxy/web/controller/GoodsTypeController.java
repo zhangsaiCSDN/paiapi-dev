@@ -11,8 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +30,7 @@ public class GoodsTypeController {
 
 	@Autowired
 	private GoodsTypeServiceImpl service;
-
+ 
 	// 查询所有商品类型
 	@GetMapping
 	@ResponseBody
@@ -45,7 +47,8 @@ public class GoodsTypeController {
 
 	@PutMapping
 	@ResponseBody
-	public void update(Goodstype goodstype) {
+	public void update(@RequestBody Goodstype goodstype) {
+		System.out.println(goodstype);
 		Goodstype findOne = service.findOne(goodstype.getGtid());
 		//拍品类型图片单一 修改先不修改图片
 		findOne.setGtname(goodstype.getGtname());
@@ -55,14 +58,12 @@ public class GoodsTypeController {
 
 	@PostMapping
 	@ResponseBody
-	public String save(@RequestParam("file") MultipartFile[] files, Integer gtid,String gtname,String gtdes, HttpServletRequest request) {// 支持多个文件的上传
+	public void save(@RequestParam MultipartFile photo,String gtname,String gtdes, HttpServletRequest request) {// 支持多个文件的上传
 
-		// 实例化一个文件存放的目录地址 
-		String dir = request.getServletContext().getRealPath("/admin/goods/goodsTypeImg");
-		for (MultipartFile file : files) {
-			System.out.println("文件类型:" + file.getContentType());
-
-			String oldName = file.getOriginalFilename(); // 文件名
+			// 实例化一个文件存放的目录地址 
+			String dir = request.getServletContext().getRealPath("/admin/goods/goodsTypeImg");
+	
+			String oldName = photo.getOriginalFilename(); // 文件名 
 			int lastDot = oldName.lastIndexOf(".");
 			String ext = oldName.substring(lastDot);
 			String newName = UUID.randomUUID().toString() + ext; // 存入数据库的文件名
@@ -73,7 +74,7 @@ public class GoodsTypeController {
 			}
 			try {
 				// 将文件写入创建的路径
-				file.transferTo(dirFile);
+				photo.transferTo(dirFile);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -82,10 +83,10 @@ public class GoodsTypeController {
 			goodstype.setGtname(gtname);
 			goodstype.setGtdes(gtdes);
 			goodstype.setImg(newName);
-
+			System.out.println(newName);
 			service.save(goodstype);
-		}
-		return "OK";
-	}
-
+	
+		
+	}	
 }
+
