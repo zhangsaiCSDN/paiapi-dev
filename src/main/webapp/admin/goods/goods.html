@@ -3,72 +3,206 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css"
+	media="all">
+<link rel="stylesheet" href="../../../layuiadmin/style/admin.css"
+	media="all">
 <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
-<link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
-<link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<style type="text/css">
+	input{
+		width: 90px
+	}
+</style>
 </head>
 <body>
 
-	 <div class="layui-fluid">
-    <div class="layui-card">
-      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item">
-          <div class="layui-inline">
-            <label class="layui-form-label">文章ID</label>
-            <div class="layui-input-inline">
-              <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">作者</label>
-            <div class="layui-input-inline">
-              <input type="text" name="author" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">标题</label>
-            <div class="layui-input-inline">
-              <input type="text" name="title" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">文章标签</label>
-            <div class="layui-input-inline">
-              <select name="label">
-                <option value="">请选择标签</option>
-                <option value="0">美食</option>
-                <option value="1">新闻</option>
-                <option value="2">八卦</option>
-                <option value="3">体育</option>
-                <option value="4">音乐</option>
-              </select>
-            </div>
-          </div>
-          <div class="layui-inline">
-            <button class="layui-btn layuiadmin-btn-list" lay-submit lay-filter="LAY-app-contlist-search">
-              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-            </button>
-          </div>
-        </div>
-      </div>
 
-      <div class="layui-card-body">
-        <div style="padding-bottom: 10px;">
-          <button class="layui-btn layuiadmin-btn-list" data-type="batchdel">删除</button>
-          <button @click='add()' class="layui-btn layuiadmin-btn-list">添加</button>
-        </div>
-      </div>
-    </div>
-  </div>
+<div id="app">
+	<button type="button" class="btn btn-success btn-block"
+				data-toggle="modal" data-target="#myModal2"
+				>添加</button>  
+		
+<!--编辑  修改模态框-->
+	<div class="container">
+		<!-- 模态框 -->
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<!-- 模态框头部 -->
+					<div class="modal-header">
+						<h4 class="modal-title">修改拍品页面</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- 模态框主体 -->
+					<div class="modal-body">
+						<div hidden="true">
+							<label for="pwd">拍品id:</label> <input type="text" class="form-control" v-model="u_gid"  />
+						</div>
+						<div>
+							<label for="pwd">拍品名称:</label> <input type="text" class="form-control" v-model="u_gname" />
+						</div>
+						<div>
+							<label for="pwd">拍品价格:</label> <input type="text" class="form-control" v-model="u_gprice" />
+						</div>
+						<div>
+							<label for="pwd">起拍时间:</label> <input type="text" class="form-control" v-model="u_gstart" />
+						</div>
+						<div>
+							<label for="pwd">结束时间:</label> <input type="text" class="form-control" v-model="u_gend" />
+						</div>
+						<div>
+							<label for="pwd">围观次数:</label> <input type="text" class="form-control" v-model="u_gcount" />
+						</div>
+						<div>
+							<label for="pwd">加价幅度:</label> <input type="text" class="form-control" v-model="u_ggap" />
+						</div>
+						<div>
+							<label for="pwd">审核通过时间:</label> <input type="text" class="form-control" v-model="u_gpasstime" />
+						</div>
+						<div>
+							<label for="pwd">状态:</label> 
+							<select class="form-control" v-model="u_gstate">
+								<option value="0">待审核</option>
+								<option value="1">未通过审核</option>
+								<option value="2">公告期</option>
+								<option value="3">拍卖期</option>
+								<option value="4">无效</option>
+								<option value="5">等待竞价</option>
+								<option value="6">竞价失败</option>
+								<option value="7">已成交</option>
+							</select>
+						</div>
+						<div>
+							<label for="pwd">区域:</label> 
+							<select class="form-control" v-model="u_garea">
+								<option value="北京">北京</option>
+								<option value="上海">上海</option>
+								<option value="广东">广东</option>
+								<option value="深圳">深圳</option>
+								<option value="西安">西安</option>
+								<option value="成都">成都</option>
+							</select>
+						</div>
+						<div>
+							<label for="pwd">详细信息:</label> <input type="text" class="form-control" v-model="u_ginfo" />
+						</div>
+						<div>
+							<label for="pwd">卖家id:</label> 
+										<select class="form-control" v-model="u_salerid">
+											<option v-for="g in goods">{{g.user.uid}}</option>
+										</select>
+						</div>
+						<div>
+							<label for="pwd">拍品类型id:</label>
+										<select class="form-control" v-model="u_salerid">
+											<option v-for="g in goods">{{g.goodstype.gtid}}</option>
+										</select>
+						</div>
+					</div>
+					<!-- 模态框底部 -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal"  @click='update'>提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 添加模态框 -->
+	<div class="container">
+			<!-- 模态框 -->
+			<div class="modal fade" id="myModal2">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<!-- 模态框头部 -->
+						<div class="modal-header">
+							<h4 class="modal-title">添加拍品页面</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<!-- 模态框主体 -->
+						<div class="modal-body">
+							<div>
+								<label for="pwd">拍品名称:</label> <input type="text" class="form-control" v-model="gname" />
+							</div>
+							<div>
+								<label for="pwd">拍品价格:</label> <input type="text" class="form-control" v-model="gprice" />
+							</div>
+							<div>
+								<label for="pwd">起拍时间:</label> <input type="text" class="form-control" v-model="gstart" />
+							</div>
+							<div>
+								<label for="pwd">结束时间:</label> <input type="text" class="form-control" v-model="gend" />
+							</div>
+							<div>
+								<label for="pwd">围观次数:</label> <input type="text" class="form-control" v-model="gcount" />
+							</div>
+							<div>
+								<label for="pwd">加价幅度:</label> <input type="text" class="form-control" v-model="ggap" />
+							</div>
+							<div>
+								<label for="pwd">审核通过时间:</label> <input type="text" class="form-control" v-model="gpasstime" />
+							</div>
+							<div>
+								<label for="pwd">状态:</label> 
+								<select class="form-control" v-model="gstate">
+									<option value="0">待审核</option>
+									<option value="1">未通过审核</option>
+									<option value="2">公告期</option>
+									<option value="3">拍卖期</option>
+									<option value="4">无效</option>
+									<option value="5">等待竞价</option>
+									<option value="6">竞价失败</option>
+									<option value="7">已成交</option>
+								</select>
+							</div>
+							<div>
+								<label for="pwd">区域:</label> 
+								<select class="form-control" v-model="garea">
+									<option value="北京">北京</option>
+									<option value="上海">上海</option>
+									<option value="广东">广东</option>
+									<option value="深圳">深圳</option>
+									<option value="西安">西安</option>
+									<option value="成都">成都</option>
+								</select>
+							</div>
+							<div>
+								<label for="pwd">详细信息:</label> <input type="text" class="form-control" v-model="ginfo" />
+							</div>
+							<div>
+								<label for="pwd">卖家id:</label> 
+											<select class="form-control" v-model="salerid">
+												<option v-for="g in goods">{{g.user.uid}}</option>
+											</select>
+							</div>
+							<div>
+								<label for="pwd">拍品类型id:</label>
+											<select class="form-control" v-model="gtid">
+												<option v-for="g in goods">{{g.goodstype.gtid}}</option>
+											</select>
+							</div>
+						</div>
+						<!-- 模态框底部 -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal"  @click='save'>提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+
+	<table class="table table-hover table-striped table-bordered table-dark">
+
 	
-	
-	
-	
-	
-	<table id="app" class="table table-hover table-striped table-bordered table-dark">
 		<tr>
 			<th>拍品id</th>
 			<th>拍品名</th>
@@ -102,58 +236,32 @@
 
 
 			<td>
-			<button @click='updateUI(g)' id='update' type='button' class='btn btn-warning'>修改</button>
+
 			<button @click='del(g.gid)' id='del' type='button' class='btn btn-danger'>删除</button>
+							
+			<button type="button" class="btn btn-outline-info"
+				data-toggle="modal" data-target="#myModal"
+				@click='getEdit(g)'>编辑</button>  
 			</td>
-		</tr>
-		<tr>
-			<td>增加</td>
-			<td><input v-model="gname"/></td>
-			<td><input v-model="gprice"/></td>
-			<td><input v-model="gstart" /></td>
-			<td><input v-model="gend" /></td>
-			<td><input v-model="gcount"/></td>
-			<td><input v-model="ggap"/></td>
-			<td><input v-model="gpasstime" /></td>
-			<td><input v-model="gstate" /></td>
-			<td><input v-model="garea"/></td>
-			<td><input v-model="ginfo"/></td>
-			<td><input v-model="salerid"/></td>
-			<td><input v-model="gtid"/></td>
-			<td><button @click='save'>增加拍品</button></td>
-		</tr>
-		<tr> 
 		
-			<td>修改</td>
-			<td hidden="true"><input v-model="u_gid" /></td>
-			<td><input v-model="u_gname"/></td>
-			<td><input v-model="u_gprice"/></td>
-			<td><input v-model="u_gstart" /></td>
-			<td><input v-model="u_gend" /></td>
-			<td><input v-model="u_gcount"/></td>
-			<td><input v-model="u_ggap"/></td>
-			<td><input v-model="u_gpasstime" /></td>
-			<td><input v-model="u_gstate" /></td>
-			<td><input v-model="u_garea"/></td>
-			<td><input v-model="u_ginfo"/></td>
-			<td><input v-model="u_salerid"/></td>
-			<td><input v-model="u_gtid"/></td>
-			<td><button  @click='update'>修改拍品</button></td>
 		</tr>
 	</table>
+</div>
+	
 </body>
  <script src="../../../layuiadmin/layui/layui.js"></script>  
 	<script>
 		var vue = new Vue({
 			el: "#app",
 			data: {
+				
 				gname:'',
 				gprice:'',
-				gstart:'',
-				gend:'',
+				gstart:'2019-09-12 20:56:27',
+				gend:'2019-09-12 20:56:27',
 				gcount:'',
 				ggap:'',
-				gpasstime:'',
+				gpasstime:'2019-09-12 20:56:27',
 				gstate:'',
 				garea:'',
 				ginfo:'',
@@ -203,10 +311,8 @@
 						self.findAll();
 					})
 				},
-
-				
-				updateUI(g) {
-	
+				/* 编辑时的数据回显 */
+				getEdit(g){
 					this.u_gid=g.gid,
 					this.u_gname=g.gname,
 					this.u_gprice=g.gprice,
@@ -220,10 +326,10 @@
 					this.u_ginfo=g.ginfo,
 					this.u_salerid=g.salerid,
 					this.u_gtid=g.gtid
-
 				},
+			
 				update() {
-					alert(1);
+					
 					var self = this; 
 					axios.put("http://localhost:8080/goods", {
 
@@ -245,6 +351,7 @@
 					}).then(function(response) {
 						self.findAll();
 						alert('更改成功!');
+				
 					})
 
 				},

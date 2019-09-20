@@ -2,179 +2,458 @@
 <html>
 <head>
 
-  <meta charset="utf-8">
-  <title></title>
-  <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
-  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
-  
-  <link
-	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css"
+<meta charset="utf-8">
+<title></title>
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+<script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css"
+	media="all">
+
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.js"></script>
+<script
+	src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+<script src="http://cdn.bootcss.com/jquery/1.12.3/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<script src="/layer/layer.js"></script>
+<link
+	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
 	rel="stylesheet">
-  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
-  <style type="text/css">
+<link rel="stylesheet" href="../../../layuiadmin/style/admin.css"
+	media="all">
+<style type="text/css">
 #update, #del {
-	width: 50%;
-}   
-   
+	width: 45%;
+}
+
 th {
 	text-align: center;
+}
+
+.v-enter, .v-leave-to {
+	opacity: 0;
+	transform: translateX(80px);
+}
+
+.v-enter-to, .v-leave {
+	opacity: 1;
+	transform: translateX(0px);
+}
+
+.v-enter-active, .v-leave-active {
+	transition: all .6s ease
 }
 </style>
 </head>
 <body>
 
-  <div class="layui-fluid">
-    <div class="layui-card">
-      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
-        <div class="layui-form-item">
-          <div class="layui-inline">
-            <label class="layui-form-label">ID</label>
-            <div class="layui-input-block">
-              <input type="text" name="apid" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">用户名</label>
-            <div class="layui-input-block">
-              <input type="text" name="username" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">邮箱</label>
-            <div class="layui-input-block">
-              <input type="text" name="email" placeholder="请输入" autocomplete="off" class="layui-input">
-            </div>
-          </div>
-          <div class="layui-inline">
-            <label class="layui-form-label">性别</label>
-            <div class="layui-input-block">
-              <select name="sex">
-                <option value="0">不限</option>
-                <option value="1">男</option>
-                <option value="2">女</option>
-              </select>
-            </div>
-          </div>
-          <div class="layui-inline">
-            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
-              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-            </button>
-          </div>
-        </div>
-      </div>
-      
-      <div class="layui-card-body">
-        <div style="padding-bottom: 10px;">
-          <button class="layui-btn layuiadmin-btn-useradmin" data-type="batchdel">删除</button>
-          <button class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>
-        </div>
-        
-        <table id="LAY-user-manage" lay-filter="LAY-user-manage" class="table table-hover table-striped table-bordered table-dark">
-        <tr>
-			<th>申请ID</th>
-			<th>编号</th>
-			<th>用户ID</th>
-			<th>业务</th>
-			<th>详细信息</th>
-			<th>申请状态</th>
-			<th>没有通过的原因</th>
-			<th>修改</th>
+	<div class="layui-fluid">
+		<div class="layui-card">
+			<div class="layui-form layui-card-header layuiadmin-card-header-auto">
+				<div class="layui-form-item">
+					<div class="layui-inline">
+						<label class="layui-form-label">ID</label>
+						<div class="layui-input-block">
+							<input type="text" name="apid" placeholder="请输入"
+								autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">用户名</label>
+						<div class="layui-input-block">
+							<input type="text" name="username" placeholder="请输入"
+								autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">邮箱</label>
+						<div class="layui-input-block">
+							<input type="text" name="email" placeholder="请输入"
+								autocomplete="off" class="layui-input">
+						</div>
+					</div>
+					<div class="layui-inline">
+						<label class="layui-form-label">性别</label>
+						<div class="layui-input-block">
+							<select name="sex">
+								<option value="0">不限</option>
+								<option value="1">男</option>
+								<option value="2">女</option>
+							</select>
+						</div>
+					</div>
+					<div class="layui-inline">
+						<button class="layui-btn layuiadmin-btn-useradmin" lay-submit
+							lay-filter="LAY-user-front-search">
+							<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+						</button>
+					</div>
+				</div>
+			</div>
 
-		</tr>
-        
-        
-        
-        
-        
-        </table>
+			<div class="layui-card-body">
+				<div style="padding-bottom: 10px;">
+					<button class="layui-btn layuiadmin-btn-useradmin"
+						data-type="batchdel">删除</button>
+					<button id="add" v-on:click="add"
+						class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>
+				</div>
 
+
+				<div id="app">
+					<table lay-filter="LAY-user-manage"
+						class="table table-hover table-striped table-bordered table-light">
+						<thead>
+							<tr>
+								<th>申请ID</th>
+								<th>编号</th>
+								<th>业务</th>
+								<th>详细信息</th>
+								<th>申请状态</th>
+								<th>没有通过的原因</th>
+								<th>用户名称</th>
+								<th>操作</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-for="apply in applys.list">
+
+								<th>{{apply.apid}}</th>
+								<th>{{apply.apno}}</th>
+								<th>{{apply.apbusi}}</th>
+								<th>{{apply.apinfo}}</th>
+								<th>{{apply.apstate}}</th>
+								<th>{{apply.apreason}}</th>
+								<th>{{apply.user.uname}}</th>
+								<th>
+								<button id="update" type="button" class="btn btn-outline-warning btn-sm" data-target="#wushuang" @click="updateUI(apply)"
+								data-toggle="modal" >修改</button> 
+									<button id="del" v-on:click='del(apply.apid)' type="button"
+										class="btn btn-outline-danger btn-sm ">删除</button>
+								</th>
+							</tr>
+							<tr>
+								<th colspan="8">{{applys.p}}/{{applys.maxPage}}
+									<button @click='find(1)' class="btn btn-outline-primary">首页</button>
+									<button @click='find(applys.prev)' class="btn btn-outline-primary">上一页</button>
+										<span v-for="i in v_pages" >
+										
+										
+										<span v-if="i==applys.p" class="btn"><font color="red">{{i}}</font></span>
+										<span @click='find(i)' v-if="!(i==applys.p)" class="btn"><font>{{i}}</font></span>										
+										
+										
+										</span>
+
+										
+									<button @click='find(applys.next)' class="btn btn-outline-primary">下一页</button>
+									<button @click='find(applys.maxPage)'
+										class="btn btn-outline-info">末页</button>
+								</th>
+							</tr>
+						</tbody>
+					</table>
+
+
+						<div class="container">
+							<!-- 按钮：用于打开模态框 -->
+							<!-- <button type="button" class="btn btn-outline-warning btn-sm" @click="updateUI"
+								data-toggle="modal" data-target="#Modal">修改</button> -->
+
+							<!-- 模态框 -->
+							<div class="modal fade" id="wushuang">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+
+										<!-- 模态框头部 -->
+										<div class="modal-header">
+											<h4 class="modal-title">修改</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+
+										<!-- 模态框主体 -->
+										<div class="modal-body">
+											<div>
+												<label for="email">申请ID:</label> <input type="text"
+													class="form-control" v-model="a_apid" id="email"
+													placeholder="请输入申请ID">
+											</div>
+											<div>
+												<label for="pwd">编号:</label> <input type="text"
+													style="width: 20%" class="form-control" v-model="a_apno"
+													id="pwd" placeholder="请输入编号">
+											</div>
+											<div>
+												<label for="pwd">业务:</label> <input type="text"
+													class="form-control" id="pwd" v-model="a_apbusi"
+													placeholder="请输入业务">
+											</div>
+											<div>
+												<label for="pwd">详细信息:</label> <input type="text"
+													class="form-control" id="pwd" v-model="a_apinfo"
+													placeholder="请输入详细信息">
+											</div>
+											<div>
+												<label for="pwd">申请状态:</label> <input type="text"
+													class="form-control" id="pwd" v-model="a_apstate"
+													placeholder="请输入申请状态">
+											</div>
+											<div>
+												<label for="pwd">没有通过的原因:</label> <input type="text"
+													class="form-control" id="pwd" v-model="a_apreason"
+													placeholder="请输入没有通过的原因">
+											</div>
+											<div>
+												<label for="pwd">用户ID:</label> <input type="text"
+													class="form-control" id="pwd" v-model="a_uid"
+													placeholder="请输入用户ID">
+											</div>
+										</div>
+
+										<!-- 模态框底部 -->
+										<div class="modal-footer">
+											<button type="button" class="btn btn-warning"
+												@click="update" data-dismiss="modal">修改</button>
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">关闭</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+
+						</div>
+
+					<button id="ok" @click="flag=!flag" type="button"
+						class="btn btn-success btn-block">添加</button>
+
+
+					<transition>
+					<div v-if="flag">
+
+						<div class="container">
+							<!-- <h2>添加</h2> -->
+							<!-- 按钮：用于打开模态框 -->
+							<button type="button" class="btn btn-primary btn-block"  style="margin-top:10px"data-toggle="modal"
+								data-target="#myModal" >添加 冲冲冲~~~</button>
+
+							<!-- 模态框 -->
+							<div class="modal fade" id="myModal">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+
+										<!-- 模态框头部 -->
+										<div class="modal-header">
+											<h4 class="modal-title">添加</h4>
+											<button type="button" class="close" data-dismiss="modal">&times;</button>
+										</div>
+
+										<!-- 模态框主体 -->
+										<div class="modal-body">
+											<div>
+												<label for="email">申请ID:</label> <input type="text"
+													class="form-control" v-model="a_apid" id="email"
+													placeholder="请输入申请ID">
+											</div>
+											<div>
+												<label for="pwd">编号:</label> <input type="text"
+													style="width: 20%" class="form-control" v-model="a_apno"
+													id="pwd" placeholder="请输入编号">
+											</div>
+											<div>
+												<label for="pwd">业务:</label> <input type="text"
+													class="form-control" id="pwd" v-model="a_apbusi"
+													placeholder="请输入业务">
+											</div>
+											<div>
+												<label for="pwd">详细信息:</label> <input type="text"
+													class="form-control" id="pwd" v-model="a_apinfo"
+													placeholder="请输入详细信息">
+											</div>
+											<div>
+												<label for="pwd">申请状态:</label> <input type="text"
+													class="form-control" id="pwd" v-model="a_apstate"
+													placeholder="请输入申请状态">
+											</div>
+											<div>
+												<label for="pwd">没有通过的原因:</label> <input type="text"
+													class="form-control" id="pwd" v-model="a_apreason"
+													placeholder="请输入没有通过的原因">
+											</div>
+											<div>
+												<label for="pwd">用户ID:</label> <input type="text"
+													class="form-control" id="pwd" v-model="a_uid"
+													placeholder="请输入用户ID">
+											</div>
+										</div>
+
+										<!-- 模态框底部 -->
+										<div class="modal-footer">
+											<button type="button" class="btn btn-success" @click="save"
+												data-dismiss="modal">添加</button>
+											<button type="button" class="btn btn-secondary"
+												data-dismiss="modal">关闭</button>
+										</div>
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+							</transition>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+					</div>
+				
+				</div>
+			</div>
 </body>
-</html>
-<script type="text/javascript">
-	$(function() {
+<script>
+
+	var vue = new Vue({
+		el : "#app",
+		data : {
+			applys : [],
+			v_pages:[],
+			apid:'',
+			apno:'',
+			apbusi:'',
+			apinfo:'',
+			apstate:'',
+			apreason:'',
+			uid:'',
+			a_apid:'',
+			a_apno:'',
+			a_apbusi:'',
+			a_apinfo:'',
+			a_apstate:'',
+			a_apreason:'',
+			a_uid:'',
+			a_user:'',
+			flag:false
+		},
+		/* mounted : function() { //mounted　表示这个 Vue 对象加载成功了
+			var self = this
+			axios.get("http://localhost:8080/applys").then(
+					function(response) {
+						self.applys = response.data; //此时还是字符串
+						 
+			})
+		}, */
+		created:function(){
+			this.find(1);
+		},
 		
 		
-		$("#add").click(function(){
+		methods:{
 			
-		layer.alert("添加成功!!");
-		});		
+			find(page){
+				var self = this;
+				axios.get("http://localhost:8080/applys",{
+					params:{
+						p:page
+					}
+				}).then(function(response){
+					self.applys =response.data;
+					self.v_pages=[];
+					self.pages(self.applys.startPage,self.applys.endPage);
+					
+				})
+				
+				
+			},
+			del(apid){
+				
+				
+				
+				var self=this;
+				axios.delete("http://localhost:8080/applys?apid=" + apid).then(function(response){
+					layer.alert('删除成功!'); 
+					self.find(self.applys.p);
+				})
+				
+				
+				
+				
+			},
+			save(){
+				
+				var self=this;
+				axios.post("http://localhost:8080/applys",{
+					apid:self.a_apid,
+					apno:self.a_apno,
+					apbusi:self.a_apbusi,
+					apinfo:self.a_apinfo,
+					apstate:self.a_apstate,
+					apreason:self.a_apreason,
+					/* uid:self.a_uid */
+				}).then(function(response){
+					layer.alert('添加成功!');
+					self.find();
+				})
+				
+			},
+			update(){
+				var jason={apid:this.a_apid,apno:this.a_apno,apbusi:this.a_apbusi,apinfo:this.a_apinfo,apstate:this.a_apstate,apreason:this.a_apreason,uid:this.a_uid,"_method":"put"};
+				this.$http.post("http://localhost:8080/applys",jason,{emulateJSON:true}).then(function(){
+					layer.alert('修改成功!');
+					this.find(self.applys.p);
+				});
+				
+
+				
+				
+				
+				
+			},
+			updateUI(item){
+				/* layer.alert(123);   */
+				this.a_apid=item.apid;
+				this.a_apno=item.apno;
+				this.a_apbusi=item.apbusi;
+				this.a_apinfo=item.apinfo;
+				this.a_apstate=item.apstate;
+				this.a_apreason=item.apreason;
+				this.a_user=item.user;
+				
+			},
+			
+			/* 分页页码数据 */
+			pages(startPage,endPage){
+				
+				var self=this;
+				for(i=startPage;i<=endPage;i++){
+					self.v_pages.push(i);
+					
+				}
+			}
+			
 		
-
-		function updateTable() {
-			$
-					.ajax({
-						type : "get",
-						url : "/applys",
-						headers : {
-							"Accept" : "application/json"
-						},
-						success : function(data) {
-							var tab = $("table:eq(0)");
-							for (p in data) {
-								/*  alert(data[p].eid+" "+data[p].ename+" "+data[p].birthday+" "+data[p].money);  */
-								var tr = $("<tr>");
-								var th = $("<th>");
-								var th2 = $("<th>");
-								var th3 = $("<th>");
-								var th4 = $("<th>");
-								var th5 = $("<th>");
-								var th6 = $("<th>");
-								var th7 = $("<th>");
-								var th8 = $("<th>");
-								th.append(data[p].apid);
-								th2.append(data[p].apno);
-								th3.append(data[p].uid);
-								th4.append(data[p].apbusi);
-								th5.append(data[p].apinfo);
-								th6.append(data[p].apstate);
-								th7.append(data[p].apreason);
-
-								var update = $("<button id='update' type='button' class='btn btn-warning'>修改</button>");
-								var del = $("<button  id='del' type='button' onclick='return confirm('确定要删除吗？')' class='btn btn-danger'>删除 </button>");
-
-								del.click(function() {
-
-									var apid = $(this).parent().parent()
-											.children().eq(0).html();
-									$.ajax({
-
-										type : "post",
-										url : "/applys",
-										data : {
-											"apid" : apid,
-											"_method" : "delete"
-										},
-										success : function() {
-
-											updataTable();
-										}
-
-									});
-
-								});
-
-								th8.append(update, del);
-
-								tr.append(th);
-								tr.append(th2);
-								tr.append(th3);
-								tr.append(th4);
-								tr.append(th5);
-								tr.append(th6);
-								tr.append(th7);
-								tr.append(th8);
-								tab.append(tr);
-
-							}
-						}
-					});
-
+			
+			
 		}
-
-		updateTable();
-
 	});
 </script>
+</html>

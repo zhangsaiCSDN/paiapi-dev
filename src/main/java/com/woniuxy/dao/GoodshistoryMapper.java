@@ -3,6 +3,8 @@ package com.woniuxy.dao;
 import com.woniuxy.domain.Goodshistory;
 import com.woniuxy.domain.GoodshistoryExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface GoodshistoryMapper {
@@ -28,5 +30,7 @@ public interface GoodshistoryMapper {
 
     int updateByPrimaryKey(Goodshistory record);
    
-    List<Goodshistory> find();
+    List<Goodshistory> find(Map<String , Object> map);
+    
+    Integer findCount();
 }

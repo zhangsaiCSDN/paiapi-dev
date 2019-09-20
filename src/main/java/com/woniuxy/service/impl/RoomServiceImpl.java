@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.RoomMapper;
+import com.woniuxy.domain.Page;
 import com.woniuxy.domain.Room;
 import com.woniuxy.service.IRoomService;
   
@@ -32,7 +33,7 @@ public class RoomServiceImpl implements IRoomService {
 	@Override
 	public void update(Room room) {
 
-		mapper.updateByPrimaryKeySelective(room);
+		mapper.updateByPrimaryKey(room);
 	}
 
 	@Override
@@ -45,6 +46,18 @@ public class RoomServiceImpl implements IRoomService {
 	public List<Room> find() {
 
 		return mapper.selectByExample(null);
+	}
+
+	@Override
+	public List<Room> findByPage(Page<Room> page) {
+		// TODO Auto-generated method stub
+		return mapper.findByPage(page);
+	}
+
+	@Override
+	public long count() {
+		// TODO Auto-generated method stub
+		return mapper.countByExample(null);
 	}
 
 }

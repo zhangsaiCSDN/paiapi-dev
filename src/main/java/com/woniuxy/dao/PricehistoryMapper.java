@@ -3,6 +3,8 @@ package com.woniuxy.dao;
 import com.woniuxy.domain.Pricehistory;
 import com.woniuxy.domain.PricehistoryExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface PricehistoryMapper {
@@ -28,5 +30,7 @@ public interface PricehistoryMapper {
 
     int updateByPrimaryKey(Pricehistory record);
     
-    List<Pricehistory> find(Pricehistory ph);
+    List<Pricehistory> find(Map<String , Object> map);
+   
+    Integer findCount();
 }

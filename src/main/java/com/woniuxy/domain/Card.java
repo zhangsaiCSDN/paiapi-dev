@@ -16,6 +16,8 @@ public class Card implements Serializable{
 
 	private Integer cid;
 
+    private User user;
+    
     private Integer uid;
 
     private String cfront;

@@ -25,7 +25,6 @@ public class AnnounceController {
 	@PostMapping
 	@ResponseBody
 	public void save(@RequestBody Announce announce) {
-		System.out.println(announce);
 		service.save(announce);
 	}
 	
@@ -38,7 +37,6 @@ public class AnnounceController {
 	@PutMapping
 	@ResponseBody
 	public void update(@RequestBody Announce announce) {
-		System.out.println(announce);
 		service.update(announce);
 	}
 	

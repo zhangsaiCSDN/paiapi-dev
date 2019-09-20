@@ -52,13 +52,49 @@
 				</div>
 
 				<div class="layui-card-body">
-					<div style="padding-bottom: 10px;">
-						<button class="layui-btn layuiadmin-btn-useradmin"
-							data-type="batchdel">删除</button>
-						<button class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>
+					<div style="padding-bottom: 10px">
+						<button class="layui-btn layuiadmin-btn-useradmin" data-type="add"
+							data-toggle="modal" data-target="#myModal2">添加</button>
 					</div>
+
 					<!--编辑  -->
 					<div class="container">
+						<!--增加  -->
+						<div class="modal fade" id="myModal2">
+							<div class="modal-dialog modal-lg">
+								<div class="modal-content">
+									<!-- 模态框头部 -->
+									<div class="modal-header">
+										<h4 class="modal-title">编辑页面</h4>
+										<button type="button" class="close" data-dismiss="modal">&times;</button>
+									</div>
+									<!-- 模态框主体 -->
+									<div class="modal-body">
+										<div>
+											<label for="pwd">拍品id:</label> <input type="text"
+												class="form-control" v-model="sgid" />
+										</div>
+										<div>
+											<label for="pwd">用户id:</label> <input type="text"
+												class="form-control" v-model="suid" />
+										</div>
+										<div>
+											<label for="pwd">保证金金额 :</label> <input type="text"
+												class="form-control" v-model="sdmoney" />
+										</div>
+										<div>
+											<label for="pwd">拍品状态:</label> <input type="text"
+												class="form-control" v-model="sgstate" />
+										</div>
+									</div>
+									<!-- 模态框底部 -->
+									<div class="modal-footer">
+										<button type="button" class="btn btn-secondary"
+											data-dismiss="modal" @click="save">提交</button>
+									</div>
+								</div>
+							</div>
+						</div>
 						<!-- 模态框 -->
 						<div class="modal fade" id="myModal">
 							<div class="modal-dialog modal-lg">
@@ -72,19 +108,19 @@
 									<div class="modal-body">
 										<div>
 											<label for="pwd">拍品id:</label> <input type="text"
-												class="form-control" v-model="vgid" placeholder="拍品id" />
+												class="form-control" v-model="vgid" />
 										</div>
 										<div>
 											<label for="pwd">用户id:</label> <input type="text"
-												class="form-control" v-model="vuid" placeholder="用户id" />
+												class="form-control" v-model="vuid" />
 										</div>
 										<div>
 											<label for="pwd">保证金金额 :</label> <input type="text"
-												class="form-control" v-model="vdmoney" placeholder="保证金金额" />
+												class="form-control" v-model="vdmoney" />
 										</div>
 										<div>
 											<label for="pwd">拍品状态:</label> <input type="text"
-												class="form-control" v-model="vgstate" placeholder="拍品状态" />
+												class="form-control" v-model="vgstate" />
 										</div>
 									</div>
 									<!-- 模态框底部 -->
@@ -99,7 +135,7 @@
 					</div>
 					<!-- 主体内容 -->
 					<table
-						class="table table-hover table-striped table-bordered table-dark"
+						class="table table-hover table-striped table-bordered table-light"
 						lay-skin="line">
 						<thead>
 							<tr>
@@ -112,25 +148,31 @@
 						</thead>
 						<tbody>
 							<tr v-for="deposit in deposits.list">
-
 								<td>{{deposit.user.uname}}</td>
 								<td>{{deposit.dmoney}}</td>
 								<td>{{deposit.gstate}}</td>
 								<td>{{deposit.goods.gname}}</td>
 								<td>
 									<button @click='del(deposit.did)' type="button"
-										class="btn btn-warning">删除</button>
+										class="btn btn-outline-danger btn-sm">删除</button>
 
-									<button type="button" class="btn btn-primary"
+									<button type="button" class="btn btn-outline-warning btn-sm"
 										data-toggle="modal" data-target="#myModal"
 										@click='getEdit(deposit)'>编辑</button> <!-- <button @click='edit' type="button" class="btn btn-danger">编辑</button> -->
 								</td>
 							</tr>
 							<tr>
-								<th colspan="5">{{deposits.p}}/{{deposits.maxPage}}
+								<th colspan="5"
+									style="vertical-align: middle !important; text-align: center;">
+									{{deposits.p}}/{{deposits.maxPage}}
 									<button @click='find(1)' class="btn btn-outline-info">首页</button>
 									<button @click='find(deposits.prev)'
-										class="btn btn-outline-info">上一页</button> <span></span>
+										class="btn btn-outline-info">上一页</button> <span
+									v-for="i in vpages"> <span v-if="i==deposits.p"
+										class="btn"><font color="red">{{i}}</font></span> <span
+										@click='find(i)' v-if="!(i==deposits.p)" class="btn"
+										style="cursor: pointer"><font>{{i}}</font></span>
+								</span>
 									<button @click='find(deposits.next)'
 										class="btn btn-outline-info">下一页</button>
 									<button @click='find(deposits.maxPage)'
@@ -140,7 +182,6 @@
 						</tbody>
 					</table>
 				</div>
-
 			</div>
 		</div>
 	</div>
@@ -150,20 +191,24 @@
 		el : "#app",
 		data : {
 			deposits : [],
-			deposit : [],
+			vpages:[],
 			vdid:"",
 			vgid:"",
 			vuid:"",
 			vdmoney:"",
-			vgstate:""
-			
+			vgstate:"",
+			sgid:"",
+			suid:"",
+			sdmoney:"",
+			sgstate:""
 		},
 		created: function(){ 
 			this.find(1);
 		},
 		methods:{
+			/*查询  */
 			find(page){
-				var self = this
+				var self = this;
 				axios.get("http://localhost:8080/deposits",{
 						params:{
 							p:page
@@ -172,9 +217,12 @@
 				).then(
 						function(response) {
 							self.deposits = response.data; //此时还是字符串
-							// self.deposits = eval("(" + self.deposits + ")"); //字符串转换为数组对象
-				})
+							self.vpages=[];
+							self.pages(self.deposits.startPage,self .deposits.endPage);
+				});
+				
 			},
+			/*删除  */
 			del(did1){
 				var self=this
 				axios.delete("http://localhost:8080/deposits",{
@@ -185,13 +233,15 @@
 					self.find(self.deposits.p)
 				})
 			},
+			/* 编辑时的数据回显 */
 			getEdit(deposit){
-						this.vdid=deposit.did;
-						this.vgid=deposit.goods.gid;
-						this.vuid=deposit.user.uid;
-						this.vdmoney=deposit.dmoney;
-						this.vgstate=deposit.gstate;
+					this.vdid=deposit.did;
+					this.vgid=deposit.goods.gid;
+					this.vuid=deposit.user.uid;
+					this.vdmoney=deposit.dmoney;
+					this.vgstate=deposit.gstate;
 		},
+		/* 编辑 */
 			edit(){
 				var self=this;
 				axios.put("http://localhost:8080/deposits",{
@@ -204,6 +254,27 @@
 				}).then(function(){
 					self.find(self.deposits.p)
 				})
+			},
+			/*增加  */
+			save(){
+				var self=this;
+				axios.post("http://localhost:8080/deposits",{
+						gid:self.sgid,
+						uid:self.suid,
+						dmoney:self.sdmoney,
+						gstate:self.sgstate
+					
+				}).then(function(){
+					self.find(self.deposits.p);
+					self.sgid=self.suid=self.sdmoney=self.sgstate="";
+				})
+			},
+			/*分页页码数据  */
+			pages(startPage,endPage){
+				var self=this;
+				for(i=startPage;i<=endPage;i++){
+					self.vpages.push(i);
+				};
 			}
 		}
 	});

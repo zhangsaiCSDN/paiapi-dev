@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>添加记录</title>
+<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="/layuiadmin/layui/css/layui.css"  media="all">
+  <script src="/layuiadmin/layui/layui.all.js"></script>
+<link
+	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<div id="saveApp">
+
+		<div class="form-group">
+			<label for="email" class="col-sm-2 control-label">用户名称</label>
+			<div class="col-sm-4">
+				<select class="form-control" name="uid" v-model="uid">
+					<option v-for="item in userslist" :value="item.uid">
+						{{item.uname}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-group">
+			
+			<div class="col-sm-4">
+			拍品名称：
+				<select class="form-control" name="gid" v-model="gid">
+					<option v-for="item in goodslist" :value="item.gid">
+						{{item.gname}}</option>
+				</select>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="name1" class="control-label label1 col-sm-4">竞拍金额</label>
+			<div class="col-sm-8">
+				<input type="text" class="form-control" v-model="phmoney"
+					name="phmoney">
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label for="name1" class="control-label label1 col-sm-4">竞拍时间</label>
+			<div class="col-sm-8">
+				<input type="date" class="form-control" v-model="phtime"
+					name="phtime">
+			</div>
+		</div>
+
+		<button class="btn btn-success btn-sm" @click="save">确认添加</button>
+	</div>
+
+<script>
+	
+function child(index) {
+	var vue = new Vue({
+		el:"#saveApp",
+		data:{
+			goodslist:[],
+			userslist:[],
+			gid:'',
+			uid:'',
+			phmoney:'',
+			phtime:'',
+			index:''
+		},
+		methods:{
+			save(){
+				
+				var dd = new Date(this.phtime);
+				var y = dd.getFullYear();
+				var m = (dd.getMonth() + 1 + "").padStart(2,'0');
+				var d = (dd.getDate() + "").padStart(2,'0');
+				var hh = (dd.getHours() + "").padStart(2,'0');
+				var mm = (dd.getMinutes() + "").padStart(2,'0');
+				var ss = (dd.getSeconds() + "").padStart(2,'0');
+			    var time= `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+				
+				var self = this;
+				axios.post("http://localhost:8080/phistorys",{
+					'gid': self.gid,
+					'uid': self.uid,
+					'phmoney': self.phmoney,
+					'phtime': time
+				}).then(function(response){
+					
+					parent.layer.close(self.index);
+					parent.layer.alert("添加成功");
+					
+				});
+			}
+		},
+		
+		mounted:function(){
+			this.index=index;
+			var self = this;
+			axios.get("http://localhost:8080/goods").then(function(response) {
+				self.goodslist = response.data; //此时还是字符串
+			});
+			axios.get("http://localhost:8080/users").then(function(response) {
+				self.userslist = response.data; //此时还是字符串
+			});
+		},
+		
+	});
+	
+	 }
+	</script>
+</body>
+</html>

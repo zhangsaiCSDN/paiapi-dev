@@ -193,4 +193,97 @@
       gid = #{gid,jdbcType=INTEGER}
     where clid = #{clid,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  
+  
+  
+  <select id="findAll"   parameterType="Page" resultMap="co">
+  
+  
+  
+  
+  
+  select * from collect  c
+  join goods g on c.gid =g.gid
+  join user u on c.uid = u.uid
+  
+    limit #{startLine},#{size}
+  
+  
+  
+  
+  
+  
+  
+  
+  </select>
+  
+  
+  
+  <resultMap type="Collect" id="co">
+  <id property="clid" column="clid"/>
+  <result property="cltime" column="cltime"/>
+  
+  
+  
+  <association property="user" javaType="user">
+  	<id property="uid" column="uid"/>
+  	<result property="uname" column="uname"/>
+  </association>
+  <association property="goods" javaType="goods">
+  <id property="gid" column="gid"/>
+  <result property="gname" column="gname"/>
+  
+  
+  </association>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  </resultMap>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 </mapper>

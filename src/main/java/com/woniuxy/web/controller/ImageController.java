@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -43,19 +45,22 @@ public class ImageController {
 	public void delete(Integer imgid) {
 		service.delete(imgid);
 	}
-
+	
+	@PutMapping
+	@ResponseBody
+	public void update(@RequestBody Image image) {
+		service.update(image);
+	}
  
     @PostMapping
 	@ResponseBody
-    public String upload(@RequestParam("file") MultipartFile[] files,Integer gid,HttpServletRequest request){//支持多个文件的上传
-    	
+    public void save(@RequestParam MultipartFile photo,Integer gid,HttpServletRequest request){//支持多个文件的上传
         //实例化一个文件存放的目录地址
         String dir = request.getServletContext().getRealPath("/admin/goods/goodsImg");
-        for (MultipartFile file : files){
-            System.out.println("文件类型:"+file.getContentType());
+       
  
           
-            String oldName = file.getOriginalFilename();		//文件名
+            String oldName = photo.getOriginalFilename();		//文件名
             int lastDot = oldName.lastIndexOf(".");
             String ext =oldName.substring(lastDot);
             String newName = UUID.randomUUID().toString()+ext;  //存入数据库的文件名
@@ -66,7 +71,7 @@ public class ImageController {
             } 
             try {
                 //将文件写入创建的路径
-                file.transferTo(dirFile);
+            	photo.transferTo(dirFile);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -75,9 +80,37 @@ public class ImageController {
             image.setGid(gid);
             image.setImg(newName);
             service.save(image);
-        }
-        return "OK";
-    }
 
+    }
+    //修改图片
+    @PostMapping("updImg")
+   	@ResponseBody
+       public void udpImg(@RequestParam MultipartFile photo,Integer imgid,HttpServletRequest request){//支持多个文件的上传
+           //实例化一个文件存放的目录地址
+           String dir = request.getServletContext().getRealPath("/admin/goods/goodsImg");
+          
+    
+             
+               String oldName = photo.getOriginalFilename();		//文件名
+               int lastDot = oldName.lastIndexOf(".");
+               String ext =oldName.substring(lastDot);
+               String newName = UUID.randomUUID().toString()+ext;  //存入数据库的文件名
+               //创建要保存文件的路径
+               File dirFile = new File(dir,newName);
+               if (!dirFile.exists()){
+                   dirFile.mkdirs();
+               } 
+               try {
+                   //将文件写入创建的路径
+               	photo.transferTo(dirFile);
+               } catch (IOException e) {
+                   e.printStackTrace();
+               }
+               //存入数据库
+
+               service.updImg(imgid, newName);
+
+
+       }
 	
 }

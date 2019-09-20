@@ -2,6 +2,7 @@ package com.woniuxy.service;
 
 import java.util.List;
 
+import com.woniuxy.domain.Page;
 import com.woniuxy.domain.Room;
   
 public interface IRoomService {
@@ -11,4 +12,6 @@ public interface IRoomService {
 	void update(Room room);
 	Room findOne(Integer rmid);
 	List<Room> find();
+	List<Room> findByPage(Page<Room> page);
+	long count();
 }

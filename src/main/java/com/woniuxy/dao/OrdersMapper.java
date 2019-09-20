@@ -2,6 +2,8 @@ package com.woniuxy.dao;
 
 import com.woniuxy.domain.Orders;
 import com.woniuxy.domain.OrdersExample;
+import com.woniuxy.domain.Page;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,6 +30,6 @@ public interface OrdersMapper {
 
     int updateByPrimaryKey(Orders record);
     
-    List<Orders> find();
+    List<Orders> find(Page<Orders> page);
     
 }

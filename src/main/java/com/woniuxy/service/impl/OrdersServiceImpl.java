@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.OrdersMapper;
 import com.woniuxy.domain.Orders;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.IOrdersService;
 
 @Service
@@ -37,9 +38,15 @@ public class OrdersServiceImpl implements IOrdersService {
 		return mapper.selectByPrimaryKey(odid);
 	}
 
+
 	@Override
-	public List<Orders> find() {
-		return mapper.find();
+	public List<Orders> find(Page<Orders> page) {
+		return mapper.find(page);
+	}
+
+	@Override
+	public Integer count() {
+		return (int) mapper.countByExample(null);
 	}
 
 }

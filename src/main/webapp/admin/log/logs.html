@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>日志管理</title>
+<link
+	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+
+<script
+	src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div id="log">
+	
+		<!-- 模态框开始 -->
+		<div class="container">
+			<!-- 模态框 -->
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+
+						<!-- 模态框头部 -->
+						<div class="modal-header">
+							<h4 class="modal-title">修改竞价室</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<!-- 模态框主体 -->
+						<div class="modal-body">
+							<form role="form">
+							  <div class="form-group">
+							    <label for="name">用户编号:</label>
+							    <input type="text" v-model="l_uid" class="form-control" placeholder="用户编号"/>
+							  </div>
+							  <div class="form-group">
+							    <label for="name">日志编号:</label>
+							    <input type="text" v-model="l_lig" class="form-control" placeholder="日志编号"/>
+							  </div>
+							  <div class="form-group">
+							    <label for="name">生成时间:</label>
+							    <input type="text" v-model="l_ltime" class="form-control" placeholder="生成时间"/>
+							  </div>
+							  <div class="form-group">
+							    <label for="name">操作描述:</label>
+							    <input type="text" v-model="l_loption" class="form-control" placeholder="操作描述"/>
+							  </div>
+							  
+							</form>
+						</div>
+
+						<!-- 模态框底部 -->
+						<div class="modal-footer">
+							<button @click="update()" type="button" class="btn btn-secondary"
+								data-dismiss="modal">修改</button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- 模态框结束-->
+	
+		<table class="table table-hover table-striped table-bordered table-light">
+			<tr>
+				<th>用户姓名</th>
+				<th>日志id</th>
+				<th>时间</th>
+				<th>事件</th>
+				<th>操作</th>
+			</tr>
+			<tr v-for="item in logs">
+				<td>{{item.uid}}</td>
+				<td>{{item.lig}}</td>
+				<td>{{item.ltime}}</td>
+				<td>{{item.loption}}</td>
+				<td>
+					<button @click="updateUI(item)" data-toggle="modal" data-target="#myModal" type='button'
+						class='btn btn-warning'>修改</button>
+					<button @click="del(item.lig)" type='button'
+						class='btn btn-danger'>删除</button>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<script>
+		var vue = new Vue({
+			el:"#log",
+			data:{
+				uid:"",
+				ltime:"",
+				loption:"",
+				l_lig:"",
+				l_uid:"",
+				l_ltime:"",
+				l_loption:"",
+				logs:[]
+			},
+			created() {
+				this.findAll();
+			},
+			methods:{
+				findAll() {
+					this.$http.get("http://localhost:8080/logs").then(function(data){
+						this.logs = data.body;
+					});
+				},
+				updateUI(item) {
+					this.l_lig = item.lig;
+					this.l_uid = item.uid;
+					this.l_ltime = item.ltime;
+					this.l_loption = item.loption;
+				},
+				update() {
+					var json = {lig:this.l_lig,uid:this.l_uid,ltime:this.l_ltime,loption:this.l_loption,"_method":"put"};
+					this.$http.post("http://localhost:8080/logs",json,{emulateJSON:"true"}).then(function(){
+						this.findAll();
+					});
+				},
+				del(lig) {
+					this.$http.post("http://localhost:8080/logs",{"lig":lig,"_method":"delete"},{emulateJSON:"true"}).then(function(){
+						this.findAll();
+					});
+				}
+			}
+		});
+	</script>
+</body>
+</html>

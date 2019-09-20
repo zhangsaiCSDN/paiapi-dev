@@ -29,7 +29,15 @@ public class ImageServiceImpl implements IImageService {
 
 	@Override
 	public void update(Image image) {
-		dao.updateByPrimaryKey(image);
+		Integer imgid = image.getImgid();
+		Image oldImage = dao.selectByPrimaryKey(imgid); //查询出要修改的实体
+		
+		Integer gid = image.getGid();
+		
+		String img = image.getImg();
+		
+		oldImage.setGid(gid);
+		dao.updateByPrimaryKey(oldImage);
 	}
 
 	@Override
@@ -45,6 +53,16 @@ public class ImageServiceImpl implements IImageService {
 	@Override
 	public List<Image> findByGoods() {
 		return dao.find();
+	}
+
+	@Override
+	public void updImg(Integer imgid, String img) {
+
+		Image image = dao.selectByPrimaryKey(imgid); //查询出要修改的实体
+		image.setImg(img);	//修改图片路径
+		
+		dao.updateByPrimaryKeySelective(image);
+		
 	} 
 
 }

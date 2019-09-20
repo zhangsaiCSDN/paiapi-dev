@@ -2,6 +2,7 @@ package com.woniuxy.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -39,6 +40,6 @@ public class Goods implements Serializable {
     
     private User user; 
 
-
+    private Set<Image> images;
     
 }

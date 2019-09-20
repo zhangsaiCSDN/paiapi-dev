@@ -1,9 +1,12 @@
 package com.woniuxy.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.woniuxy.domain.Collect;
 import com.woniuxy.domain.CollectExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.woniuxy.domain.Page;
 
 public interface CollectMapper {
     long countByExample(CollectExample example);
@@ -27,4 +30,9 @@ public interface CollectMapper {
     int updateByPrimaryKeySelective(Collect record);
 
     int updateByPrimaryKey(Collect record);
+    
+    List<Collect> findAll(Page<Collect> page);
+    
+    
+    
 }

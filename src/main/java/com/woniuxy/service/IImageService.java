@@ -11,5 +11,6 @@ public interface IImageService {
 	List<Image> find();
 	Image findOne(Integer imgid);
 	List<Image> findByGoods();
+	void updImg(Integer imgid,String img);
 }
  

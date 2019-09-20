@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>竞价室管理</title>
+<link
+	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/layer/2.3/layer.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+
+<script
+	src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<style>
+	.pointer {cursor:pointer}
+</style>	
+	
+	
+</head>
+<body>
+	<div id="room">
+		
+		<!-- //模态框开始 -->
+		<div class="container">
+			<!-- 模态框 -->
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+
+						<!-- 模态框头部 -->
+						<div class="modal-header">
+							<h4 class="modal-title">修改竞价室</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+
+						<!-- 模态框主体 -->
+						<div class="modal-body">
+							<form role="form">
+							  <div class="form-group">
+							    <label for="name">竞价室编号:</label>
+							    <input type="text" v-model="r_rmid" class="form-control" placeholder="请输入竞价室编号"/>
+							  </div>
+							  <div class="form-group">
+							    <label for="name">拍品编号:</label>
+							    <input type="text" v-model="r_gid" class="form-control" placeholder="请输入拍品编号"/>
+							  </div>
+							  <div class="form-group">
+							    <label for="name">卖家编号:</label>
+							    <input type="text" v-model="r_salerid" class="form-control" placeholder="请输入卖家编号"/>
+							  </div>
+							  <div class="form-group">
+							    <label for="name">标题:</label>
+							    <input type="text" v-model="r_rmtitle" class="form-control" placeholder="请输入竞价室标题"/>
+							  </div>
+							  
+							</form>
+						</div>
+
+						<!-- 模态框底部 -->
+						<div class="modal-footer">
+							<button @click="update()" type="button" class="btn btn-secondary"
+								data-dismiss="modal">修改</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+	<!-- 	//模态框结束 -->
+
+
+		<div>
+			拍品编号:<input type="text" v-model="gid" /> 
+			卖家编号:<input type="text" v-model="salerid" /> 
+			标题:<input type="text" v-model="rmtitle" />
+			<button @click="save()" type='button' class='btn btn-danger'>添加</button>
+		</div>
+		<table
+			class="table table-hover table-striped table-bordered table-light">
+			<tr>
+				<th>竞价室编号</th>
+				<th>拍品编号</th>
+				<th>卖家编号</th>
+				<th>标题</th>
+				<th>操作</th>
+			</tr>
+			<tr v-for="item in page.list">
+				<td>{{item.rmid}}</td>
+				<td>{{item.gid}}</td>
+				<td>{{item.salerid}}</td>
+				<td>{{item.rmtitle}}</td>
+				<td>
+					<button @click="updateUI(item)" data-toggle="modal" data-target="#myModal" type='button'
+						class='btn btn-warning'>修改</button>
+					<button @click="del(item.rmid)" type='button'
+						class='btn btn-danger'>删除</button>
+				</td>
+			</tr>
+			<tr>
+				<th colspan="5">
+					<font color=red>{{page.p}}</font>/{{page.maxPage}}
+					<button @click='findByPage(1)' class="btn btn-outline-info">首页</button>
+					<button @click='findByPage(page.prev)' class="btn btn-outline-info">上一页</button>
+					<scan v-for="i in ps">	
+						<span>
+							<span v-if="i==page.p" class="btn"><font  color="red" class="pointer">{{i}}</font></span>
+							<span @click='findByPage(i)' v-if="!(i==page.p)" class="btn"  class="cursor:pointer"><font class="pointer">{{i}}</font></span>
+						</span>
+					</scan>
+					<button @click='findByPage(page.next)' class="btn btn-outline-info">下一页</button>
+					<button @click='findByPage(page.maxPage)'
+						class="btn btn-outline-info">末页</button>
+				</th>
+			</tr>
+
+		</table>
+	</div>
+	<script>
+		var vue = new Vue({
+			el:"#room",
+			data:{
+				gid:"",
+				salerid:"",
+				rmtitle:"",
+				r_rmid:"",
+				r_gid:"",
+				r_salerid:"",
+				r_rmtitle:"",
+				ps:[],
+				page:[]
+			},
+			created() {
+				this.findByPage(1);
+			},
+			methods: {
+				findByPage(pg) {
+					this.$http.get("http://localhost:8080/rooms",{params:{"p":pg}}).then(function(data){
+						this.page = data.body;
+						this.ps=[];
+						this.pages(this.page.startPage,this.page.endPage);
+					});
+				},
+				del(rmid) {
+					this.$http.post("http://localhost:8080/rooms",{"rmid":rmid,"_method":"delete"},{emulateJSON:true}).then(function(){
+						this.findByPage(this.page.p);		
+					});
+				},
+				updateUI(item) {
+					this.r_rmid = item.rmid;
+					this.r_gid = item.gid;
+					this.r_salerid = item.salerid;
+					this.r_rmtitle = item.rmtitle;
+				},
+				update() {
+					var json = {"rmid":this.r_rmid,"gid":this.r_gid,"salerid":this.r_salerid,"rmtitle":this.r_rmtitle,"_method":"put"}
+					this.$http.post("http://localhost:8080/rooms",json,{emulateJSON:true}).then(function(){
+						this.findByPage(this.page.p);
+					});
+				},
+				save() {
+					var json = {"gid":this.gid,"salerid":this.salerid,"rmtitle":this.rmtitle}
+					this.$http.post("http://localhost:8080/rooms",json).then(function(){
+						this.findByPage(this.page.p);
+						this.gid=this.salerid=this.rmtitle="";
+					});
+				},
+				pages(startPage,endPage){
+					for(var i=startPage;i<=endPage;i++){
+						this.ps.push(i);
+					}
+				}
+			}
+		});
+	</script>
+</body>
+</html>

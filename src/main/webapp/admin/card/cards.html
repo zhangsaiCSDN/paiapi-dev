@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>用户身份证管理</title>
+  <meta name="renderer" content="webkit">
+  <link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <link rel="stylesheet" href="../../../layuiadmin/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="../../../layuiadmin/style/admin.css" media="all">
+  <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+  <script src="https://cdn.bootcss.com/vue-resource/1.5.1/vue-resource.min.js"></script>
+  <script src="/layer/layer.js"></script>
+  <link href="https://cdn.bootcss.com/animate.css/3.7.2/animate.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+  <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <style type="text/css">
+  
+		#LAY-user-manage tr:nth-child(even){
+			background: #fafafa;
+		}
+		#LAY-user-manage tr:nth-child(odd){
+			background: #efefef;
+	 	 }
+	 	 th{
+	 	 text-align:center
+	 	 }
+  </style>
+</head>
+<body>
+
+  <div class="layui-fluid">
+    <div class="layui-card">
+      <div class="layui-form layui-card-header layuiadmin-card-header-auto">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">AID</label>
+            <div class="layui-input-block">
+              <input type="text" name="aid" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">UID</label>
+            <div class="layui-input-block">
+              <input type="text" name="uid" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">状态</label>
+            <div class="layui-input-block">
+              <input type="text" name="apost" placeholder="请输入" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+         
+          <div class="layui-inline">
+            <button class="layui-btn layuiadmin-btn-useradmin" lay-submit lay-filter="LAY-user-front-search">
+              <i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="layui-card-body" >
+        
+        <div id="app">
+        <table id="LAY-user-manage" class="table"  font-size=“300px” >
+        	
+        	<tr>
+        		<b><th>cid</th>   </b>
+        		<b><th>uid</th>   </b>
+        		<b><th>cfront</th> </b>
+        		<b><th>cback</th> </b>
+        		<b><th>cstate</th> </b>
+        		<b><th>操作</th>     </b>
+        	</tr>
+        	
+        	
+        	<tr v-for = "item in card.list" >
+        		<th>{{item.cid}}</th>
+        		<th>{{item.user.uname}}</th>
+        		<th><img width='100px' :src="item.cfront"></th>
+        		<th><img width='100px' :src="item.cback" ></th>
+        		<th>{{item.cstate==1?"可用":"不可用"}}</th>
+        		<th>
+        			<button class="btn btn-danger" @click="del(item.cid)" :key="item.cid">删除</button>
+        			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#updateModal" @click="updateUI(item)" >修改</button>
+        		</th>
+        	</tr>
+        	
+        	<tr >
+        		<th colspan="6" >
+	 					 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+	   						 添加
+	 					 </button>
+  				</th>
+        	</tr>
+        </table>
+        
+			 <div class="container">
+			  <!-- 模态框 -->
+			  <div class="modal fade" id="myModal">
+			    <div class="modal-dialog modal-lg">
+			      <div class="modal-content">
+			   
+			        <!-- 模态框头部 -->
+			        <div class="modal-header">
+			          <h4 class="modal-title">增加用户</h4>
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        </div>
+			   
+			        <!-- 模态框主体 -->
+			        <div class="modal-body" text-aligh="center">
+						<input type="hidden" width="17%" />
+						用户<br>
+						<input type="text" class="form-control" width="17%" v-model="uid"  />
+						身份证正面<br>
+						<input type="file" class="form-control" width="17%" ref="cfront" v-model="cfront" />
+						身份证背面<br>
+						<input type="file" class="form-control" width="17%" ref="cback"   v-model="cback" />
+						用户状态<br>
+						<input type="text" class="form-control" width="17%" v-model="cstate"  />
+						
+			        </div>
+			   
+			        <!-- 模态框底部 -->
+			        <div class="modal-footer">
+			       	<button class="btn btn-success" @click="upload" data-dismiss="modal" >添加</button>
+					<button type="reset" class="btn btn-info" @click="">重置</button>
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+			        </div>
+			   
+			      </div>
+			    </div>
+			  </div>
+			  
+			</div>
+			
+			
+			<!-- 模态框 -->
+			  <div class="modal fade" id="updateModal">
+			    <div class="modal-dialog modal-lg">
+			      <div class="modal-content">
+			   
+			        <!-- 模态框头部 -->
+			        <div class="modal-header">
+			          <h4 class="modal-title">修改用户地址</h4>
+			          <button type="button" class="close" data-dismiss="modal">&times;</button>
+			        </div>
+			   
+			        <!-- 模态框主体 -->
+			        <div class="modal-body" text-aligh="center">
+						
+						
+			        </div>
+			   
+			        <!-- 模态框底部 -->
+			        <div class="modal-footer">
+			       	<button class="btn btn-success" @click="" data-dismiss="modal" >修改</button>
+			        <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+			        </div>
+			   
+			      </div>
+			    </div>
+			  </div>
+			  
+			</div>
+        </div>
+        <script type="text/html" id="imgTpl"> 
+          <img style="display: inline-block; width: 50%; height: 100%;" src= {{ d.avatar }}>
+        </script> 
+        <script type="text/html" id="table-useradmin-webuser">
+          <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>编辑</a>
+          <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del"><i class="layui-icon layui-icon-delete"></i>删除</a>
+        </script>
+      </div>
+    </div>
+  </div>
+	<script>
+		var vue = new Vue({
+			el:"#app",
+			data:{
+				card:"",
+				mypage:[],
+				user:"",
+				cfront:"",
+				cback:"",
+				cstate:"",
+				uid:"",
+				map:[]
+			},
+			created(){
+				this.find(1);
+			},
+			methods:{
+				find(page){
+					this.$http.get("http://localhost:8080/cards",
+							{params:{
+									p:page
+									}
+						}).then(function(data){
+							var array = data.body;
+							this.card = array;
+					});
+				},
+				save(){
+					var json = {"cid":null,"uid":this.uid,"cfront":this.cfront,"cback":this.cback,"cstate":this.cstate};
+					this.$http.post("http://localhost:8080/cards",json).then(function(){	
+					this.find(1);
+					});
+				},
+				upload(){
+					var formData = new window.FormData();
+					var cfrontInput = this.$refs.cfront;
+					var cbackInput = this.$refs.cback;
+					formData.append("cfront",cfrontInput.files[0]);
+					formData.append("cback",cbackInput.files[0]);
+					this.$http.post("http://localhost:8080/cards/upload",formData).then(function(data){
+						this.map = data.body;
+						this.cfront=this.map.cfront;
+						this.cback=this.map.cback;
+						this.save();
+					});
+				}
+				
+			}
+		});
+	</script>
+	
+	
+
+</body>
+</html>

@@ -10,4 +10,5 @@ public interface IGoodsTypeService {
 	void update(Goodstype goodstype);
 	Goodstype findOne(Integer gtid);
 	List<Goodstype> find();
+	void updImg(Integer gtid, String img);
 }

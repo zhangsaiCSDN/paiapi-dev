@@ -2,6 +2,9 @@ package com.woniuxy.dao;
 
 import com.woniuxy.domain.Apply;
 import com.woniuxy.domain.ApplyExample;
+import com.woniuxy.domain.Deposit;
+import com.woniuxy.domain.Page;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +30,7 @@ public interface ApplyMapper {
     int updateByPrimaryKeySelective(Apply record);
 
     int updateByPrimaryKey(Apply record);
+    
+    List<Apply> findAll(Page<Apply> page);
+    
 }

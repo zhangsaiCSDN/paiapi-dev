@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.woniuxy.dao.AnnounceMapper;
 import com.woniuxy.dao.GoodstypeMapper;
 import com.woniuxy.domain.Goodstype;
+import com.woniuxy.domain.Image;
 import com.woniuxy.service.IGoodsTypeService;
 
 
@@ -31,7 +32,12 @@ public class GoodsTypeServiceImpl implements IGoodsTypeService {
 
 	@Override
 	public void update(Goodstype goodstype) {
-		mapper.updateByPrimaryKey(goodstype);
+
+		Goodstype findOne = mapper.selectByPrimaryKey(goodstype.getGtid());
+		//修改商品类型字段 除图片
+		findOne.setGtname(goodstype.getGtname());
+		findOne.setGtdes(goodstype.getGtdes());
+		mapper.updateByPrimaryKey(findOne);
 	}
 
 	@Override
@@ -42,6 +48,15 @@ public class GoodsTypeServiceImpl implements IGoodsTypeService {
 	@Override
 	public List<Goodstype> find() {
 		return mapper.selectByExample(null);
+	}
+
+	@Override
+	public void updImg(Integer gtid, String img) {
+		 Goodstype goodstype = mapper.selectByPrimaryKey(gtid); //查询出要修改的实体
+		 goodstype.setImg(img);	//修改图片路径
+		
+		mapper.updateByPrimaryKeySelective(goodstype);
+		
 	}
 
 }

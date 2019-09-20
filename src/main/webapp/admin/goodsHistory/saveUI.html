@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>添加记录</title>
+<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<link rel="stylesheet" href="/layuiadmin/layui/css/layui.css"
+	media="all">
+<script src="/layuiadmin/layui/layui.all.js"></script>
+<link
+	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css"
+	rel="stylesheet">
+</head>
+<body>
+	<div id="saveApp" style=" margin-left:20px;" >
+
+		<div class="input-group col-xs-12" style=" text-align:center; margin-top:5px;" >
+			<label class="col-sm-2 control-label" >
+				用户名称 :
+			</label>
+			<!-- 样式1 -->
+			<div class="col-sm-5 input-group-btn">
+				<select class=" form-control" name="uid" v-model="buyerid">
+					<option v-for="item in userslist" :value="item.uid">
+						{{item.uname}}</option>
+				</select>
+			</div>
+		</div>
+		<div class="input-group col-xs-12" style=" text-align:center; margin-top:5px;">
+			<label class="col-sm-2 control-label">拍品名称:</label>
+			<div class="col-sm-5 input-group-btn">
+				<!-- 样式1 -->
+				<select class="form-control" name="gid" v-model="gid">
+					<option v-for="item in goodslist" :value="item.gid">
+						{{item.gname}}</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="row" style=" text-align:center; margin-top:5px; margin-left:20px;">
+            <div>
+                <label class="form-inline" />拍下金额：
+                <input style=" margin-left:22px;" type="text" class="form-control" v-model="ghmoney"/></label>
+            </div>
+		</div>
+		
+		<div class="row" style=" text-align:center; margin-top:5px; margin-left:20px;">
+            <div>
+                <label class="form-inline" />拍下时间：
+                <input v-model="ghtime" type="date" class="form-control"  style=" margin-left:22px;"/></label>
+            </div>
+		</div>
+	
+		<div class="row" style=" text-align:center; margin-top:5px; margin-left:20px;">
+			  <div >
+                    <label class="form-inline" >描述:
+                    <textarea  v-model="ghdes" class="form-control" style=" margin-left:65px;" ></textarea></label>
+               </div>
+        </div>
+        
+        <div class="row" style=" text-align:center; margin-top:5px; margin-left:3px;">
+            <div>
+                <label class="form-inline" />最后期限时间：
+                <input v-model="ghdeadline" type="date" class="form-control"  style=" margin-left:10px;"/></label>
+            </div>
+		</div>
+		
+		<div class="input-group col-xs-12" style=" text-align:center; margin-top:5px;" >
+			<label class="col-sm-3 control-label" >
+				支付情况 :
+			</label>
+			<!-- 样式1 -->
+			<div class="col-sm-3 input-group-btn">
+				<select  v-model="paystate" class=" form-control" name="uid">
+					<option value="0">待支付</option>
+					<option value="1">已支付</option>
+				</select>
+			</div>
+		</div>
+		
+
+		<button class="btn btn-success btn-sm" @click="save">确认添加</button>
+	</div>
+
+	<script>
+	
+function child(index) {
+	var vue = new Vue({
+		el:"#saveApp",
+		data:{
+			goodslist:[],
+			userslist:[],
+			gid:'',
+			buyerid:'',
+			ghmoney:'',
+			ghtime:'',
+			ghdes:'',
+			ghdeadline:'',
+			paystate:'',
+			index:''
+		},
+		methods:{
+			save(){
+				
+				var dd = new Date(this.ghdeadline);
+				var y = dd.getFullYear();
+				var m = (dd.getMonth() + 1 + "").padStart(2,'0');
+				var d = (dd.getDate() + "").padStart(2,'0');
+				var hh = (dd.getHours() + "").padStart(2,'0');
+				var mm = (dd.getMinutes() + "").padStart(2,'0');
+				var ss = (dd.getSeconds() + "").padStart(2,'0');
+			    var time= `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+				
+			    var dd2 = new Date(this.ghtime);
+				var y = dd2.getFullYear();
+				var m = (dd2.getMonth() + 1 + "").padStart(2,'0');
+				var d = (dd2.getDate() + "").padStart(2,'0');
+				var hh = (dd2.getHours() + "").padStart(2,'0');
+				var mm = (dd2.getMinutes() + "").padStart(2,'0');
+				var ss = (dd2.getSeconds() + "").padStart(2,'0');
+			    var time2= `${y}-${m}-${d} ${hh}:${mm}:${ss}`;
+			    
+				var self = this;
+				axios.post("http://localhost:8080/ghistorys",{
+					'gid': self.gid,
+					'buyerid': self.buyerid,
+					'ghmoney': self.ghmoney,
+					'ghtime': time,
+					'ghdes':self.ghdes,
+					'ghdeadline': time2,
+					'paystate':self.paystate
+				}).then(function(response){
+					
+					layer.alert('添加成功！！', {
+						  icon: 1,
+						  skin: 'layer-ext-moon' 
+						}, function(){
+							parent.layer.close(self.index);
+							setTimeout(parent.location.reload(), 3000);
+							
+						});
+					
+				});
+			}
+		},
+		
+		mounted:function(){
+			this.index=index;
+			var self = this;
+			axios.get("http://localhost:8080/goods").then(function(response) {
+				self.goodslist = response.data; //此时还是字符串
+			});
+			axios.get("http://localhost:8080/users").then(function(response) {
+				self.userslist = response.data; //此时还是字符串
+			});
+			
+		},
+		
+	});
+	
+	 }
+	</script>
+</body>
+</html>

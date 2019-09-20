@@ -29,4 +29,7 @@ public interface GoodsMapper {
     int updateByPrimaryKey(Goods record);
     
     List<Goods> find(); 
+    
+    List<Goods> findByImages(); //联合images 一对多
+    
 }

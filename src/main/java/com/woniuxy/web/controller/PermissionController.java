@@ -27,7 +27,6 @@ public class PermissionController {
 	@PostMapping
 	@ResponseBody
 	public void save(@RequestBody Permission permission) {
-		System.out.println("UserController.save()"+permission);
 		service.save(permission);
 	}
 
