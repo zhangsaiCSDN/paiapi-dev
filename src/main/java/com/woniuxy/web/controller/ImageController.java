@@ -22,6 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.woniuxy.domain.Goods;
 import com.woniuxy.domain.Image;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.impl.GoodsServiceImpl;
 import com.woniuxy.service.impl.ImageServiceImpl;
 
@@ -34,10 +35,16 @@ public class ImageController {
 	@Autowired
 	private GoodsServiceImpl goodsService; //查goods返回所有外键
 	//查询所有拍品图片
+	//查询所有拍品
 	@GetMapping
 	@ResponseBody
-	public List<Image> find() {
-		return service.findByGoods();
+	public Page<Image> find(Integer p) {
+		if(p==null)p=1;
+		int count=service.count();
+		Page<Image> page=new Page<>(p,count,5);
+		List<Image> list=service.find(page);
+		page.setList(list);
+		return page;
 	}
 
 	@DeleteMapping
