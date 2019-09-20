@@ -45,11 +45,20 @@ public class ApplyServiceImpl implements IApplyService {
 
 
 
+
 	@Override
-	public List<Apply> find() {
+	public List<Apply> find(Page<Apply> page) {
 		
-		List<Apply> list = mapper.selectByExample(null);
-		return list;
+			
+		
+		return mapper.findAll(page);
+		
+		
+	}
+
+	@Override
+	public Integer count() {
+		return (int) mapper.countByExample(null);
 	}
 
 

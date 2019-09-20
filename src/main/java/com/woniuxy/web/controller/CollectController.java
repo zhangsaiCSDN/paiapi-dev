@@ -2,7 +2,6 @@ package com.woniuxy.web.controller;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -15,9 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.Collect;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.ICollectService;
-
-import lombok.Getter;
 
 @Controller
 @RequestMapping("collects")
@@ -28,8 +26,15 @@ public class CollectController {
 
 	@GetMapping
 	@ResponseBody
-	public List<Collect> find() {
-		return service.find();
+	public Page<Collect> find(Integer p) {
+		
+		if(p==null)p=1;
+		int count = service.count();
+		Page<Collect> page = new Page<>(p,count,5);
+		List<Collect> list =service.find(page);
+		page.setList(list);
+		
+		return page;
 	}
   
 	@GetMapping(value = "/{clid}")

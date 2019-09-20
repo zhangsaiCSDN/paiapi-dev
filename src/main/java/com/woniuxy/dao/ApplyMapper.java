@@ -31,4 +31,6 @@ public interface ApplyMapper {
 
     int updateByPrimaryKey(Apply record);
     
+    List<Apply> findAll(Page<Apply> page);
+    
 }

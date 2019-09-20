@@ -116,18 +116,18 @@ th {
 							<tr>
 								<th>收藏ID</th>
 								<th>收藏时间</th>
-								<th>用户ID</th>
-								<th>拍品ID</th>
+								<th>用户名称</th>
+								<th>拍品名称</th>
 								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="collect in collects">
+							<tr v-for="collect in collects.list">
 
 								<th>{{collect.clid}}</th>
 								<th>{{collect.cltime}}</th>
-								<th>{{collect.uid}}</th>
-								<th>{{collect.gid}}</th>
+								<th>{{collect.user.uname}}</th>
+								<th>{{collect.goods.gname}}</th>
 								<th>
 								<button id="update" type="button" class="btn btn-outline-warning btn-sm" data-target="#wushuang" @click="updateUI(collect)"
 								data-toggle="modal" >修改</button> 
@@ -137,12 +137,19 @@ th {
 							</tr>
 							<tr>
 								<th colspan="5">{{collects.p}}/{{collects.maxPage}}
-									<button @click='find(1)' class="btn btn-outline-info">首页</button>
-									<button @click='find(collects.prev)' class="btn btn-outline-info">上一页</button>
-
-									<button @click='find(collects.next)' class="btn btn-outline-info">下一页</button>
+									<button @click='find(1)' class="btn btn-outline-primary">首页</button>
+									<button @click='find(collects.prev)' class="btn btn-outline-primary">上一页</button>
+									<span v-for="i in v_pages">
+									
+									
+									<span v-if="i==collects.p" class="btn"><font color="red">{{i}}</font></span>
+									<span @click='find(i)' v-if="!(i==collects.p)" class="btn"><font>{{i}}</font></span>
+									
+									
+									</span>
+									<button @click='find(collects.next)' class="btn btn-outline-primary">下一页</button>
 									<button @click='find(collects.maxPage)'
-										class="btn btn-outline-info">末页</button>
+										class="btn btn-outline-primary">末页</button>
 								</th>
 							</tr>
 						</tbody>
@@ -179,12 +186,12 @@ th {
 											</div>
 											<div>
 												<label for="pwd">用户:</label> <input type="text"
-													class="form-control" id="pwd" v-model="c_uid"
+													class="form-control" id="pwd" v-model="c_user.uname"
 													placeholder="请输入用户ID">
 											</div>
 											<div>
 												<label for="pwd">拍品ID:</label> <input type="text"
-													class="form-control" id="pwd" v-model="c_gid"
+													class="form-control" id="pwd" v-model="c_goods.gname"
 													placeholder="请输入拍品ID">
 											</div>
 											
@@ -216,7 +223,7 @@ th {
 						<div class="container">
 							<!-- <h2>添加</h2> -->
 							<!-- 按钮：用于打开模态框 -->
-							<button type="button" class="btn btn-primary" data-toggle="modal"
+							<button type="button" class="btn btn-primary btn-block" style="margin-top:10px" data-toggle="modal"
 								data-target="#myModal">添加 冲冲冲~~~</button>
 
 							<!-- 模态框 -->
@@ -294,31 +301,47 @@ th {
 		el : "#app",
 		data : {
 			collects : [],
+			v_pages:[],
 			clid:'',
 			cltime:'',
 			uid:'',
 			gid:'',
 			c_clid:'',
-			c_cltime:'',
 			c_uid:'',
 			c_gid:'',
+			c_cltime:'',
+			c_user:'',
+			c_goods:'',
 			flag:false
 		},
 		
 		created:function(){
-			this.findAll();
+			this.find(1);
 		},
 		
 		
 		methods:{
 			
-			findAll(){
+			/* findAll(){
 				
 				var self =this;
 				axios.get("http://localhost:8080/collects").then(function(response){
 					self.collects=response.data;
 				})
 				
+			}, */
+			//分页展示
+			find(page){
+				var self=this;
+				axios.get("http://localhost:8080/collects",{
+					params:{
+						p:page
+					}
+				}).then(function(response){
+					self.collects =response.data;
+					self.v_pages=[];
+					self.pages(self.collects.startPage,self.collects.endPage);
+				})
 			},
 			del(clid){
 				
@@ -327,7 +350,7 @@ th {
 				var self=this;
 				axios.delete("http://localhost:8080/collects?clid=" + clid).then(function(response){
 					layer.alert('删除成功!'); 
-					self.findAll();
+					self.find(self.collects.p)
 				})
 				
 				
@@ -353,7 +376,7 @@ th {
 				var jason={clid:this.c_clid,cltime:this.c_cltime,uid:this.c_uid,gid:this.c_gid,"_method":"put"};
 				this.$http.post("http://localhost:8080/collects",jason,{emulateJSON:true}).then(function(){
 					layer.alert('修改成功!');
-					this.findAll();
+					this.find(self.collects.p);
 				});
 				
 
@@ -366,10 +389,22 @@ th {
 				/* layer.alert(123);   */
 				this.c_clid=item.clid;
 				this.c_cltime=item.cltime;
-				this.c_uid=item.uid;
-				this.c_gid=item.gid;
+				this.c_user=item.user;
+				this.c_goods=item.goods;
 				
+			},
+			
+			/* 分页页码数据 */
+			pages(startPage,endPage){
+				
+				var self=this;
+				for(i=startPage;i<=endPage;i++){
+					self.v_pages.push(i);
+					
+				}
 			}
+			
+			
 		
 			
 			
