@@ -8,25 +8,21 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.CollectMapper;
 import com.woniuxy.domain.Collect;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.ICollectService;
-
-
-
 
 @Service
 @Transactional
-public class CollectServiceImpl  implements ICollectService{
-	
-	
+public class CollectServiceImpl implements ICollectService {
+
 	@Autowired
 	private CollectMapper mapper;
 
 	@Override
 	public void save(Collect collect) {
-		
+
 		mapper.insert(collect);
-		
-		
+
 	}
 
 	@Override
@@ -46,9 +42,15 @@ public class CollectServiceImpl  implements ICollectService{
 	}
 
 	@Override
-	public List<Collect> find() {
-		List<Collect> list = mapper.selectByExample(null);
-		return list;
+	public List<Collect> find(Page<Collect> page) {
+
+		return mapper.findAll(page);
+
+	}
+
+	@Override
+	public Integer count() {
+		return (int) mapper.countByExample(null);
 	}
 
 }

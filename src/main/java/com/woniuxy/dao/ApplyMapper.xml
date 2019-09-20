@@ -243,6 +243,50 @@
   
   
   
+
+
+<select id="findAll"  parameterType="Page" resultMap="ap">
+
+
+select * from apply a 
+join user u on a.uid=u.uid  limit #{startLine},#{size}
+
+
+
+
+</select>
+
+<resultMap type="Apply" id="ap">
+<id property="apid" column="apid"/>
+<result property="apno" column="apno"/>
+<result property="apbusi" column="apbusi"/>
+<result property="apinfo" column="apinfo"/>
+<result property="apstate" column="apstate"/>
+<result property="apreason" column="apreason"/>
+
+
+
+
+
+<association property="user" javaType="user">
+
+	<id property="uid" column="uid"/>
+	<result property="uname" column="uname"></result>
+
+</association>
+
+
+
+
+
+
+
+
+
+
+</resultMap>
+  
+  
   
   
   

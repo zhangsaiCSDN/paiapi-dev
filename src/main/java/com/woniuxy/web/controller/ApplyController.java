@@ -27,8 +27,15 @@ public class ApplyController {
 
 	@GetMapping
 	@ResponseBody
-	public List<Apply> find(){
-		return service.find();
+	public Page<Apply> find(Integer p){
+		
+		if(p==null)p=1;
+		int count = service.count();
+		Page<Apply> page = new Page<>(p,count,5);
+		List<Apply> list = service.find(page);
+		page.setList(list);
+		
+		return page;
 		
 	}
 

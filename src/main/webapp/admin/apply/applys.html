@@ -120,12 +120,12 @@ th {
 								<th>详细信息</th>
 								<th>申请状态</th>
 								<th>没有通过的原因</th>
-								<th>用户ID</th>
+								<th>用户名称</th>
 								<th>操作</th>
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-for="apply in applys">
+							<tr v-for="apply in applys.list">
 
 								<th>{{apply.apid}}</th>
 								<th>{{apply.apno}}</th>
@@ -133,7 +133,7 @@ th {
 								<th>{{apply.apinfo}}</th>
 								<th>{{apply.apstate}}</th>
 								<th>{{apply.apreason}}</th>
-								<th>{{apply.uid}}</th>
+								<th>{{apply.user.uname}}</th>
 								<th>
 								<button id="update" type="button" class="btn btn-outline-warning btn-sm" data-target="#wushuang" @click="updateUI(apply)"
 								data-toggle="modal" >修改</button> 
@@ -143,10 +143,19 @@ th {
 							</tr>
 							<tr>
 								<th colspan="8">{{applys.p}}/{{applys.maxPage}}
-									<button @click='find(1)' class="btn btn-outline-info">首页</button>
-									<button @click='find(applys.prev)' class="btn btn-outline-info">上一页</button>
+									<button @click='find(1)' class="btn btn-outline-primary">首页</button>
+									<button @click='find(applys.prev)' class="btn btn-outline-primary">上一页</button>
+										<span v-for="i in v_pages" >
+										
+										
+										<span v-if="i==applys.p" class="btn"><font color="red">{{i}}</font></span>
+										<span @click='find(i)' v-if="!(i==applys.p)" class="btn"><font>{{i}}</font></span>										
+										
+										
+										</span>
 
-									<button @click='find(applys.next)' class="btn btn-outline-info">下一页</button>
+										
+									<button @click='find(applys.next)' class="btn btn-outline-primary">下一页</button>
 									<button @click='find(applys.maxPage)'
 										class="btn btn-outline-info">末页</button>
 								</th>
@@ -235,8 +244,8 @@ th {
 						<div class="container">
 							<!-- <h2>添加</h2> -->
 							<!-- 按钮：用于打开模态框 -->
-							<button type="button" class="btn btn-primary" data-toggle="modal"
-								data-target="#myModal">添加 冲冲冲~~~</button>
+							<button type="button" class="btn btn-primary btn-block"  style="margin-top:10px"data-toggle="modal"
+								data-target="#myModal" >添加 冲冲冲~~~</button>
 
 							<!-- 模态框 -->
 							<div class="modal fade" id="myModal">
@@ -322,10 +331,12 @@ th {
 			</div>
 </body>
 <script>
+
 	var vue = new Vue({
 		el : "#app",
 		data : {
 			applys : [],
+			v_pages:[],
 			apid:'',
 			apno:'',
 			apbusi:'',
@@ -339,7 +350,8 @@ th {
 			a_apinfo:'',
 			a_apstate:'',
 			a_apreason:'',
-			a_uid:'' ,
+			a_uid:'',
+			a_user:'',
 			flag:false
 		},
 		/* mounted : function() { //mounted　表示这个 Vue 对象加载成功了
@@ -351,18 +363,25 @@ th {
 			})
 		}, */
 		created:function(){
-			this.findAll();
+			this.find(1);
 		},
 		
 		
 		methods:{
 			
-			findAll(){
-				
-				var self =this;
-				axios.get("http://localhost:8080/applys").then(function(response){
-					self.applys=response.data;
+			find(page){
+				var self = this;
+				axios.get("http://localhost:8080/applys",{
+					params:{
+						p:page
+					}
+				}).then(function(response){
+					self.applys =response.data;
+					self.v_pages=[];
+					self.pages(self.applys.startPage,self.applys.endPage);
+					
 				})
+				
 				
 			},
 			del(apid){
@@ -372,7 +391,7 @@ th {
 				var self=this;
 				axios.delete("http://localhost:8080/applys?apid=" + apid).then(function(response){
 					layer.alert('删除成功!'); 
-					self.findAll();
+					self.find(self.applys.p);
 				})
 				
 				
@@ -389,10 +408,10 @@ th {
 					apinfo:self.a_apinfo,
 					apstate:self.a_apstate,
 					apreason:self.a_apreason,
-					uid:self.a_uid
+					/* uid:self.a_uid */
 				}).then(function(response){
 					layer.alert('添加成功!');
-					self.findAll();
+					self.find();
 				})
 				
 			},
@@ -400,7 +419,7 @@ th {
 				var jason={apid:this.a_apid,apno:this.a_apno,apbusi:this.a_apbusi,apinfo:this.a_apinfo,apstate:this.a_apstate,apreason:this.a_apreason,uid:this.a_uid,"_method":"put"};
 				this.$http.post("http://localhost:8080/applys",jason,{emulateJSON:true}).then(function(){
 					layer.alert('修改成功!');
-					this.findAll();
+					this.find(self.applys.p);
 				});
 				
 
@@ -417,9 +436,20 @@ th {
 				this.a_apinfo=item.apinfo;
 				this.a_apstate=item.apstate;
 				this.a_apreason=item.apreason;
-				this.a_uid=item.uid;
+				this.a_user=item.user;
 				
+			},
+			
+			/* 分页页码数据 */
+			pages(startPage,endPage){
+				
+				var self=this;
+				for(i=startPage;i<=endPage;i++){
+					self.v_pages.push(i);
+					
+				}
 			}
+			
 		
 			
 			

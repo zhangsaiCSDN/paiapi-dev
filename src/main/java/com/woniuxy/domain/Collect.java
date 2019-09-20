@@ -5,16 +5,18 @@ import java.util.Date;
 
 import lombok.Data;
 
-
 @Data
-public class Collect implements Serializable{
-    private Integer clid;
+public class Collect implements Serializable {
+	private Integer clid;
 
-    private Date cltime;
+	private Date cltime;
 
-    private Integer uid;
+	private Integer uid;
 
-    private Integer gid;
+	private Integer gid;
 
-   
+	private User user;
+
+	private Goods goods;
+
 }
