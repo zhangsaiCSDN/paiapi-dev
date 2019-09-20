@@ -26,10 +26,10 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public void save(User user) {
 		mapper.insert(user);
-		User user2 = mapper.findUserByUname(user.getUname());
+		User userDB = mapper.findUserByUname(user.getUname());
 		Set<Role> roles = user.getRoles();
 		Map<String, Integer> map = new HashMap<>();	
-		map.put("uid", user2.getUid());
+		map.put("uid", userDB.getUid());
 		for (Role role : roles) {
 			map.put("rid", role.getRid());
 			mapper.insertUserRole(map);
