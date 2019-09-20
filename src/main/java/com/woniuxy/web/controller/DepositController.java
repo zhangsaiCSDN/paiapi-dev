@@ -57,7 +57,7 @@ public class DepositController {
 	
 	@PostMapping
 	@ResponseBody
-	public void save(Deposit deposit) {
+	public void save(@RequestBody Deposit deposit) {
 		service.save(deposit);
 	}
 }
