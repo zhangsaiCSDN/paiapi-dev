@@ -39,7 +39,7 @@ public class PermissionServiceImpl implements IPermissionService{
 	@Override
 	public List<Permission> find() {
 		System.out.println(mapper.selectByExample(null));
-		return mapper.selectByExample(null);
+		return mapper.selectByExample(null); 
 	}
 	
 }
