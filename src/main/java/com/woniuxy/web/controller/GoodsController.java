@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.Goods;
+import com.woniuxy.domain.Orders;
+import com.woniuxy.domain.Page;
+import com.woniuxy.service.IGoodsService;
 import com.woniuxy.service.impl.GoodsServiceImpl;
 
 @Controller
@@ -20,14 +23,21 @@ import com.woniuxy.service.impl.GoodsServiceImpl;
 public class GoodsController {
 	
 	@Autowired
-	private GoodsServiceImpl service;
+	private IGoodsService service;
 	
 	//查询所有拍品
 	@GetMapping
 	@ResponseBody
-	public List<Goods> find() {
-		List<Goods> list = service.find();
-		return list;
+	public Page<Goods> find(Integer p) {
+		if(p==null)p=1;
+		int count=service.count();
+		Page<Goods> page=new Page<>(p,count,5);
+		List<Goods> list=service.find(page);
+		for (Goods goods : list) {
+			System.out.println(goods);
+		}
+		page.setList(list);
+		return page;
 	}
 	
 	@PostMapping
@@ -35,11 +45,13 @@ public class GoodsController {
 	public void save(@RequestBody Goods goods) {
 		service.save(goods);
 	}
+	
 	@DeleteMapping
 	@ResponseBody 
 	public void delete(Integer gid) {
 		service.delete(gid);
 	}
+	
 	@PutMapping
 	@ResponseBody
 	public void update(@RequestBody Goods goods) {

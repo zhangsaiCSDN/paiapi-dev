@@ -21,254 +21,241 @@
 	src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
 <script
 	src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
-<script src="../../layer/layer.js"></script>	
-<style>
-	.v-enter,.v-leave-to {
-		opacity:0;
-		transform:translateX(150px);
-	}
-	.v-leave, .v-enter-to {
-		opacity:1;
-		transform:translateX(0px);
-	}
-	.v-enter-active, .v-leave-active{
-		transition:all .6s ease;
-	}
-</style>
+<script src="../../layer/layer.js"></script>
 </head>
 <body>
-	
-	
+	<div id="app">
+		<!-- 头部搜索和增加 -->
+		<div class="layui-fluid">
+			<div class="layui-card">
+				<div
+					class="layui-form layui-card-header layuiadmin-card-header-auto">
+					<div class="layui-form-item">
+						<div class="layui-inline">
+							<label class="layui-form-label">订单id</label>
+							<div class="layui-input-inline">
+								<input type="text" name="id" v-model="o_odid" placeholder="请输入"
+									autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">buyerName</label>
+							<div class="layui-input-inline">
+								<input type="text" name="author" placeholder="请输入"
+									autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-inline">
+							<label class="layui-form-label">goodsName</label>
+							<div class="layui-input-inline">
+								<input type="text" name="title" placeholder="请输入"
+									autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<!-- 条件查询 -->
+						<div class="layui-inline">
+							<button class="layui-btn layuiadmin-btn-list" lay-submit
+								lay-filter="LAY-app-contlist-search" @click="findById(o_odid)">
+								<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
+							</button>
+						</div>
+						<div class="layui-inline">
+							<button class="layui-btn layuiadmin-btn-list" data-toggle="modal" data-type="add"
+								data-target="#myModal2">添加</button>
+						</div>
+					</div>
+				</div>
 
-<div id="app">
-	<!-- 头部搜索和增加 -->
-	<div class="layui-fluid">
-		<div class="layui-card">
-			<div class="layui-form layui-card-header layuiadmin-card-header-auto">
-				<div class="layui-form-item">
-					<div class="layui-inline">
-						<label class="layui-form-label">订单id</label>
-						<div class="layui-input-inline">
-							<input type="text" name="id" v-model="o_odid" placeholder="请输入" autocomplete="off"
-								class="layui-input">
+
+			</div>
+		</div>
+
+		<!-- add弹框-->
+		<div class="container">
+			<!-- 模态框 -->
+			<div class="modal fade" id="myModal2">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<!-- 模态框头部 -->
+						<div class="modal-header">
+							<h4 class="modal-title">增加订单</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
-					</div>
-					<div class="layui-inline">
-						<label class="layui-form-label">buyerName</label>
-						<div class="layui-input-inline">
-							<input type="text" name="author" placeholder="请输入"
-								autocomplete="off" class="layui-input">
+						<!-- 模态框主体 -->
+						<div class="modal-body">
+							<div>
+								<label for="pwd">订单id:</label> <input v-model="o_odid"
+									type="text" class="form-control" placeholder="拍品id">
+							</div>
+							<div>
+								<label for="pwd">成交金额:</label> <input v-model="o_odmoney"
+									type="text" class="form-control" placeholder="成交金额">
+							</div>
+
+							<div>
+								<label for="pwd">成交时间 :</label> <input v-model="o_odtime"
+									type="date" class="form-control" placeholder="成交时间">
+							</div>
+
+							<div>
+								<label for="pwd">买家id:</label> <input v-model="o_buyerid"
+									type="text" class="form-control" placeholder="买家id">
+							</div>
+							<div>
+								<label for="pwd">卖家id :</label> <input v-model="o_salerid"
+									type="text" class="form-control" placeholder="卖家id">
+							</div>
+							<div>
+								<label for="pwd">保证金:</label> <input v-model="o_odfee"
+									type="text" class="form-control" placeholder="保证金">
+							</div>
+							<div>
+								<label for="pwd">用户名称 :</label> <input v-model="o_uid"
+									type="text" class="form-control" placeholder="用户名称">
+							</div>
+							<div>
+								<label for="pwd">拍品名称 :</label> <input v-model="o_gid"
+									type="text" class="form-control" placeholder="拍品名称">
+							</div>
+							<div>
+								<label for="pwd">地址 :</label> <input v-model="o_aid" type="text"
+									class="form-control" placeholder="地址">
+							</div>
+
+
 						</div>
-					</div>
-					<div class="layui-inline">
-						<label class="layui-form-label">goodsName</label>
-						<div class="layui-input-inline">
-							<input type="text" name="title" placeholder="请输入"
-								autocomplete="off" class="layui-input">
+						<!-- 模态框底部 -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal" @click="add">提交</button>
 						</div>
-					</div>
-					<!-- 条件查询 -->
-					<div class="layui-inline">
-						<button class="layui-btn layuiadmin-btn-list" lay-submit
-							lay-filter="LAY-app-contlist-search" @click="findById(o_odid)">
-							<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-						</button>
-					</div>
-					<div class="layui-inline">
-							<button  class="layui-btn layuiadmin-btn-list"
-							data-toggle="modal" data-target="#myModal2">添加</button>
 					</div>
 				</div>
 			</div>
 
-			
-		</div>
-	</div>
 
-	<!-- add弹框-->
-	<div class="container">
-		<!-- 模态框 -->
-		<div class="modal fade" id="myModal2">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<!-- 模态框头部 -->
-					<div class="modal-header">
-						<h4 class="modal-title">增加订单</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<!-- 模态框主体 -->
-					<div class="modal-body">
-						<div>
-							<label for="pwd">订单id:</label> 
-							<input v-model="o_odid" type="text" class="form-control" placeholder="拍品id">
+
+
+			<!-- update弹框-->
+
+			<!-- 模态框 -->
+			<div class="modal fade" id="myModal">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<!-- 模态框头部 -->
+						<div class="modal-header">
+							<h4 class="modal-title">开始编辑吧</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
 						</div>
-						<div>
-							<label for="pwd">成交金额:</label> 
-							<input v-model="o_odmoney" type="text" class="form-control"  placeholder="成交金额">
+						<!-- 模态框主体 -->
+						<div class="modal-body">
+							<div>
+								<label for="pwd">订单id:</label> <input v-model="o_odid"
+									type="text" class="form-control" placeholder="拍品id">
+							</div>
+							<div>
+								<label for="pwd">成交金额:</label> <input v-model="o_odmoney"
+									type="text" class="form-control" placeholder="成交金额">
+							</div>
+
+							<div>
+								<label for="pwd">成交时间 :</label> <input v-model="o_odtime"
+									type="text" class="form-control" placeholder="成交时间">
+							</div>
+
+							<div>
+								<label for="pwd">买家id:</label> <input v-model="o_buyerid"
+									type="text" class="form-control" placeholder="买家id">
+							</div>
+							<div>
+								<label for="pwd">卖家id :</label> <input v-model="o_salerid"
+									type="text" class="form-control" placeholder="卖家id">
+							</div>
+							<div>
+								<label for="pwd">保证金:</label> <input v-model="o_odfee"
+									type="text" class="form-control" placeholder="保证金">
+							</div>
+							<div>
+								<label for="pwd">用户名称 :</label> <input v-model="o_uid"
+									type="text" class="form-control" placeholder="用户名称">
+							</div>
+							<div>
+								<label for="pwd">拍品名称 :</label> <input v-model="o_gid"
+									type="text" class="form-control" placeholder="拍品名称">
+							</div>
+							<div>
+								<label for="pwd">地址 :</label> <input v-model="o_aid" type="text"
+									class="form-control" placeholder="地址">
+							</div>
+
+
 						</div>
-						
-						<div>
-							<label for="pwd">成交时间 :</label> 
-							<input v-model="o_odtime" type="date" class="form-control"  placeholder="成交时间">
+						<!-- 模态框底部 -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal" @click="update">提交</button>
 						</div>
-						
-						<div>
-							<label for="pwd">买家id:</label> 
-							<input v-model="o_buyerid" type="text" class="form-control"  placeholder="买家id">
-						</div>
-						<div>
-							<label for="pwd">卖家id :</label>
-							<input v-model="o_salerid" type="text" class="form-control"  placeholder="卖家id"> 
-						</div>
-						<div>
-							<label for="pwd">保证金:</label>
-							<input v-model="o_odfee" type="text" class="form-control"  placeholder="保证金">
-						</div>
-						<div>
-							<label for="pwd">用户名称 :</label>
-							<input v-model="o_uid" type="text" class="form-control"  placeholder="用户名称">
-						</div>
-						<div>
-							<label for="pwd">拍品名称 :</label>
-							<input v-model="o_gid" type="text" class="form-control"  placeholder="拍品名称"> 
-						</div>
-						<div>
-							<label for="pwd">地址 :</label>
-							<input v-model="o_aid" type="text" class="form-control"  placeholder="地址">
-						</div>
-						
-						
-					</div>
-					<!-- 模态框底部 -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal" @click="add">提交</button>
 					</div>
 				</div>
 			</div>
+
 		</div>
-	
 
-	
+		<!-- 主体 -->
+		<table
+			class="table table-hover table-striped table-bordered table-light"
+			lay-skin="line">
+			<tr>
+				<th>订单id</th>
+				<th>成交金额</th>
+				<th>成交时间</th>
+				<th>买家名称</th>
+				<th>卖家名称</th>
+				<th>手续费</th>
+				<th>用户名称</th>
+				<th>拍品名称</th>
+				<th>地址</th>
+				<th>操作</th>
+			</tr>
+			<tr v-for="order in orders.list">
+				<td>{{order.odid}}</td>
+				<td>{{order.odmoney}}</td>
+				<td>{{order.odtime}}</td>
+				<td>{{order.user.uname}}</td>
+				<td>{{order.user.uname}}</td>
+				<td>{{order.odfee}}</td>
+				<td>{{order.user.uname}}</td>
+				<td>{{order.goods.gname}}</td>
+				<td>{{order.address.ainfo}}</td>
+				<td>
+					<div class="layui-btn-group">
+						<button type="button" class="layui-btn" data-toggle="modal"
+							data-target="#myModal" @click='updateUI(order)'>编辑</button>
+						<button @click='del(order.odid)' id='update' type='button'
+							class="layui-btn">删除</button>
+					</div>
+				</td>
 
-	<!-- update弹框-->
-
-		<!-- 模态框 -->
-		<div class="modal fade" id="myModal">
-			<div class="modal-dialog modal-lg">
-				<div class="modal-content">
-					<!-- 模态框头部 -->
-					<div class="modal-header">
-						<h4 class="modal-title">开始编辑吧</h4>
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-					</div>
-					<!-- 模态框主体 -->
-					<div class="modal-body">
-						<div>
-							<label for="pwd">订单id:</label> 
-							<input v-model="o_odid" type="text" class="form-control" placeholder="拍品id">
-						</div>
-						<div>
-							<label for="pwd">成交金额:</label> 
-							<input v-model="o_odmoney" type="text" class="form-control"  placeholder="成交金额">
-						</div>
-						
-						<div>
-							<label for="pwd">成交时间 :</label> 
-							<input v-model="o_odtime" type="text" class="form-control"  placeholder="成交时间">
-						</div>
-						
-						<div>
-							<label for="pwd">买家id:</label> 
-							<input v-model="o_buyerid" type="text" class="form-control"  placeholder="买家id">
-						</div>
-						<div>
-							<label for="pwd">卖家id :</label>
-							<input v-model="o_salerid" type="text" class="form-control"  placeholder="卖家id"> 
-						</div>
-						<div>
-							<label for="pwd">保证金:</label>
-							<input v-model="o_odfee" type="text" class="form-control"  placeholder="保证金">
-						</div>
-						<div>
-							<label for="pwd">用户名称 :</label>
-							<input v-model="o_uid" type="text" class="form-control"  placeholder="用户名称">
-						</div>
-						<div>
-							<label for="pwd">拍品名称 :</label>
-							<input v-model="o_gid" type="text" class="form-control"  placeholder="拍品名称"> 
-						</div>
-						<div>
-							<label for="pwd">地址 :</label>
-							<input v-model="o_aid" type="text" class="form-control"  placeholder="地址">
-						</div>
-						
-						
-					</div>
-					<!-- 模态框底部 -->
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal" @click="update">提交</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	
-	</div>
-	
-	<!-- 主体 -->
-	<table class="table table-hover table-striped table-bordered table-light">
-		<tr>
-			<th>订单id</th>
-			<th>成交金额</th>
-			<th>成交时间</th>
-			<th>买家名称</th>
-			<th>卖家名称</th>
-			<th>手续费</th>
-			<th>用户名称</th>
-			<th>拍品名称</th>
-			<th>地址</th>
-			<th>操作</th>
-		</tr>
-		<tr v-for="order in orders.list">
-			<td>{{order.odid}}</td>
-			<td>{{order.odmoney}}</td>
-			<td>{{order.odtime}}</td>
-			<td>{{order.user.uname}}</td>
-			<td>{{order.user.uname}}</td>
-			<td>{{order.odfee}}</td>
-			<td>{{order.user.uname}}</td>
-			<td>{{order.goods.gname}}</td>
-			<td>{{order.address.ainfo}}</td>
-			<td>
-				<div class="layui-btn-group">
-				<button type="button" class="layui-btn" 
-					data-toggle="modal" data-target="#myModal"
-					@click='updateUI(order)'>编辑</button>
-				  <button @click='del(order.odid)' id='update' type='button'
-					class="layui-btn" >删除</button>
-				</div>
-			</td>
-			
-		</tr>
-		<tr>
-			<th colspan="10"  style="vertical-align: middle !important;text-align: center;">
-				{{orders.p}}/{{orders.maxPage}}
-				<button @click='find(1)' class="btn btn-outline-info">首页</button>
-				<button @click='find(orders.prev)' class="btn btn-outline-info">上一页</button>
-				<span v-for="i in v_pages">
-					<span v-if="i==orders.p" class="btn"><font  color="red">{{i}}</font></span>
-					<span @click='find(i)' v-if="!(i==orders.p)" class="btn" style="cursor:pointer"><font >{{i}}</font></span>
+			</tr>
+			<tr>
+				<th colspan="10"
+					style="vertical-align: middle !important; text-align: center;">
+					{{orders.p}}/{{orders.maxPage}}
+					<button @click='find(1)' class="btn btn-outline-info">首页</button>
+					<button @click='find(orders.prev)' class="btn btn-outline-info">上一页</button>
+					<span v-for="i in v_pages"> <span v-if="i==orders.p"
+						class="btn"><font color="red">{{i}}</font></span> <span
+						@click='find(i)' v-if="!(i==orders.p)" class="btn"
+						style="cursor: pointer"><font>{{i}}</font></span>
 				</span>
-				<button @click='find(orders.next)' class="btn btn-outline-info">下一页</button>
-				<button @click='find(orders.maxPage)' class="btn btn-outline-info">末页</button>
-			</th>
-		</tr>
-	</table>
-</div>	
-	
+					<button @click='find(orders.next)' class="btn btn-outline-info">下一页</button>
+					<button @click='find(orders.maxPage)' class="btn btn-outline-info">末页</button>
+				</th>
+			</tr>
+		</table>
+	</div>
+
 </body>
-<script src="../../../layuiadmin/layui/layui.js"></script>
 <script>
 		var vue = new Vue({
 			el: "#app",
@@ -285,7 +272,7 @@
 				o_uid:'',
 				o_gid:'',
 				o_aid:'' ,
-				/* 
+				
 				v_odid:'',
 				v_odmoney:'',
 				v_odtime:'',
@@ -294,7 +281,7 @@
 				v_odfee:'',
 				v_uid:'',
 				v_gid:'',
-				v_aid:''  */
+				v_aid:''  
 			
 			},
 			created: function(){ 
@@ -328,9 +315,9 @@
 						aid:self.o_aid
 					})
 					.then(function(response) {
-						self.find(self.orders.p)
-					self.o_odid = self.o_odmoney = self.o_odtime = self.o_buyerid = 
-					self.o_salerid = self.o_odfee = self.o_uid = self.o_gid = self.o_aid = ""
+						self.find(self.orders.p);
+						self.o_odid = self.o_odmoney = self.o_odtime = self.o_buyerid = 
+							self.o_salerid = self.o_odfee = self.o_uid = self.o_gid = self.o_aid = ""
 					});
 					
 				},
@@ -378,7 +365,6 @@
 					//数据回显
 					this.o_odid = order.odid;
 					this.o_odmoney=order.odmoney;
-					
 			
 					this.o_odtime=order.odtime;
 					this.o_buyerid=order.buyerid;
@@ -387,10 +373,8 @@
 					this.o_uid=order.user.uid;
 					this.o_gid=order.goods.gid;
 					this.o_aid=order.address.aid;
+					
 				},
-				
-				
-		
 				
 				update() {
 					var self=this;
@@ -407,9 +391,9 @@
 					})
 					.then(function(response) {
 						self.find(self.orders.p);
+						 self.o_odid = self.o_odmoney = self.o_odtime = self.o_buyerid = 
+							self.o_salerid = self.o_odfee = self.o_uid = self.o_gid = self.o_aid = ""
 					});
-						thid.o_odid = thid.o_odmoney = thid.o_odtime = thid.o_buyerid = 
-							thid.o_salerid = thid.o_odfee = thid.o_uid = thid.o_gid = thid.o_aid = ""
 				},
 				
 				/*分页页码数据  */

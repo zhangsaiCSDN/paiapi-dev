@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.GoodsMapper;
 import com.woniuxy.domain.Goods;
+import com.woniuxy.domain.Orders;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.IGoodsService;
 
 @Service 
@@ -34,8 +36,8 @@ public class GoodsServiceImpl implements IGoodsService {
 	}
 
 	@Override
-	public List<Goods> find() {
-		return dao.find();
+	public List<Goods> find(Page<Goods> page) {
+		return dao.find(page);
 	}
 
 	@Override
@@ -48,5 +50,12 @@ public class GoodsServiceImpl implements IGoodsService {
 	public List<Goods> findByImages() {
 		return dao.findByImages();
 	}
+
+	@Override
+	public Integer count() {
+		// TODO Auto-generated method stub
+		return  (int) dao.countByExample(null);
+	}
+
 
 }

@@ -365,6 +365,7 @@
 		SELECT * FROM goods g
 		INNER JOIN goodstype gt ON g.gtid=gt.gtid
 		INNER JOIN user u ON g.salerid=u.uid
+		limit #{startLine},#{size}
 
   	</select>
   	

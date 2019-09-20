@@ -97,13 +97,13 @@
 						<div>
 							<label for="pwd">卖家id:</label> 
 										<select class="form-control" v-model="u_salerid">
-											<option v-for="g in goods">{{g.user.uid}}</option>
+											<option v-for="g in goods.list">{{g.user.uid}}</option>
 										</select>
 						</div>
 						<div>
 							<label for="pwd">拍品类型id:</label>
 										<select class="form-control" v-model="u_salerid">
-											<option v-for="g in goods">{{g.goodstype.gtid}}</option>
+											<option v-for="g in goods.list">{{g.goodstype.gtid}}</option>
 										</select>
 						</div>
 					</div>
@@ -180,13 +180,13 @@
 							<div>
 								<label for="pwd">卖家id:</label> 
 											<select class="form-control" v-model="salerid">
-												<option v-for="g in goods">{{g.user.uid}}</option>
+												<option v-for="g in goods.list">{{g.user.uid}}</option>
 											</select>
 							</div>
 							<div>
 								<label for="pwd">拍品类型id:</label>
 											<select class="form-control" v-model="gtid">
-												<option v-for="g in goods">{{g.goodstype.gtid}}</option>
+												<option v-for="g in goods.list">{{g.goodstype.gtid}}</option>
 											</select>
 							</div>
 						</div>
@@ -219,7 +219,7 @@
 			<th>拍品类型id</th>
 			<th>操作</th>
 		</tr>
-		<tr v-for="g in goods">
+		<tr v-for="g in goods.list">
 			<td>{{g.gid}}</td>
 			<td>{{g.gname}}</td>
 			<td>{{g.gprice}}</td>
@@ -244,6 +244,22 @@
 				@click='getEdit(g)'>编辑</button>  
 			</td>
 		
+		</tr>
+		
+		<tr>
+			<th colspan="13"
+				style="vertical-align: middle !important; text-align: center;">
+				{{goods.p}}/{{goods.maxPage}}
+				<button @click='findAll(1)' class="btn btn-outline-info">首页</button>
+				<button @click='findAll(goods.prev)' class="btn btn-outline-info">上一页</button>
+				<span v-for="i in u_pages"> <span v-if="i==goods.p"
+					class="btn"><font color="red">{{i}}</font></span> <span
+					@click='findAll(i)' v-if="!(i==goods.p)" class="btn"
+					style="cursor: pointer"><font>{{i}}</font></span>
+				</span>
+				<button @click='findAll(goods.next)' class="btn btn-outline-info">下一页</button>
+				<button @click='findAll(goods.maxPage)' class="btn btn-outline-info">末页</button>
+			</th>
 		</tr>
 	</table>
 </div>
@@ -281,24 +297,29 @@
 				u_ginfo:'',
 				u_salerid:'',
 				u_gtid:'',
-				goods: []
+				goods: [],
+		
+				u_pages:[]
 			},
-			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
-		 		var self = this
-				axios.get("http://localhost:8080/goods").then(function(response) {
-					self.goods = response.data; //此时还是字符串
-					/* self.orders = eval("(" + self.orders + ")"); //字符串转换为数组对象 */
-					
-				})
+			
+			created: function(){ 
+				this.findAll(1);
 			},
 			 
 			methods: {
-				findAll() {
-					var self = this;
-					axios.get("http://localhost:8080/goods").then(function(response) {
-						self.goods = response.data; //此时还是字符串
+				findAll(page) { 
+			 		var self = this;
+					axios.get("http://localhost:8080/goods",{
+						params:{
+							p:page
+						}
+					}).then(function(response) {
+						self.goods = response.data; 
+						self.u_pages=[];
+						self.pages(self.goods.startPage,self.goods.endPage);
 					})
 				},
+				
 				del(gid) {
 				
 					if(!confirm('是否要删除当前数据')){
@@ -375,6 +396,13 @@
 						self.findAll();
 						alert('添加成功!');
 					})
+				},
+				/*分页页码数据  */
+				pages(startPage,endPage){
+					var self=this;
+					for(i=startPage;i<=endPage;i++){
+						self.u_pages.push(i);
+					};
 				}
 			}
 			
