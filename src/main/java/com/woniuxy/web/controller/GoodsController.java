@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.Goods;
+import com.woniuxy.domain.Goodstype;
 import com.woniuxy.domain.Orders;
 import com.woniuxy.domain.Page;
 import com.woniuxy.service.IGoodsService;
+import com.woniuxy.service.IGoodsTypeService;
 import com.woniuxy.service.impl.GoodsServiceImpl;
 
 @Controller
@@ -24,6 +26,8 @@ public class GoodsController {
 	
 	@Autowired
 	private IGoodsService service;
+	@Autowired
+	private IGoodsTypeService goodsTypeService; 
 	
 	//查询所有拍品
 	@GetMapping
@@ -53,5 +57,10 @@ public class GoodsController {
 	@ResponseBody
 	public void update(@RequestBody Goods goods) {
 		service.update(goods); 
+	}
+	@GetMapping("getGoodsType")
+	@ResponseBody
+	public List<Goodstype> getGoodsType() {
+		return goodsTypeService.find();
 	}
 }
