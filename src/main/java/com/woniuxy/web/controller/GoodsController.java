@@ -33,9 +33,6 @@ public class GoodsController {
 		int count=service.count();
 		Page<Goods> page=new Page<>(p,count,5);
 		List<Goods> list=service.find(page);
-		for (Goods goods : list) {
-			System.out.println(goods);
-		}
 		page.setList(list);
 		return page;
 	}
