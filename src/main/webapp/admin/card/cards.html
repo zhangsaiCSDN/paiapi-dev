@@ -91,7 +91,26 @@
         			<button type="button" class="btn btn-success" data-toggle="modal" data-target="#updateModal" @click="updateUI(item)" >修改</button>
         		</th>
         	</tr>
-        	
+        	<tr >
+        		<th colspan="6" >
+	        			
+	 					 <button class="btn btn-info" @click="find(1)">首页</button>
+	 					 <button class="btn btn-info" @click="find(card.prev)">上页</button>
+	 					 <span v-for="i in mypage">
+	 					 	<span v-if="i==card.p" class="btn"><font  color="red">{{i}}</font></span>
+							<span @click='find(i)' v-if="!(i==card.p)" class="btn"><font >{{i}}</font></span>
+	 					 </span>
+	 					  <a>第{{card.p}}页 / 共{{card.maxPage}}页</a>
+	 					 <a >共{{card.rowCount}}条记录</a>
+	 					 <button class="btn btn-info" @click="find(card.next)">下页</button>
+	 					 <button class="btn btn-info" @click="find(card.maxPage)">末页</button>
+	 					
+	 					 
+	 					 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+	   						 添加
+	 					 </button>
+  				</th>
+        	</tr>
         	<tr >
         		<th colspan="6" >
 	 					 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
@@ -109,7 +128,7 @@
 			   
 			        <!-- 模态框头部 -->
 			        <div class="modal-header">
-			          <h4 class="modal-title">增加用户</h4>
+			          <h4 class="modal-title">增加身份证信息</h4>
 			          <button type="button" class="close" data-dismiss="modal">&times;</button>
 			        </div>
 			   
@@ -148,12 +167,21 @@
 			   
 			        <!-- 模态框头部 -->
 			        <div class="modal-header">
-			          <h4 class="modal-title">修改用户地址</h4>
+			          <h4 class="modal-title">修改用户身份证信息</h4>
 			          <button type="button" class="close" data-dismiss="modal">&times;</button>
 			        </div>
 			   
 			        <!-- 模态框主体 -->
 			        <div class="modal-body" text-aligh="center">
+						<input type="hidden" width="17%" />
+						用户<br>
+						<input type="text" class="form-control" width="17%" v-model="uid" value="" />
+						身份证正面<br>
+						<input type="file" class="form-control" width="17%" ref="cfront" v-model="cfront" />
+						身份证背面<br>
+						<input type="file" class="form-control" width="17%" ref="cback"   v-model="cback" />
+						用户状态<br>
+						<input type="text" class="form-control" width="17%" v-model="cstate"  />
 						
 						
 			        </div>
@@ -191,7 +219,12 @@
 				cback:"",
 				cstate:"",
 				uid:"",
-				map:[]
+				map:[],
+				u_cid:"",
+				u_uid:"",
+				u_cfront:"",
+				u_cback:"",
+				u_cstate:""
 			},
 			created(){
 				this.find(1);
@@ -205,6 +238,9 @@
 						}).then(function(data){
 							var array = data.body;
 							this.card = array;
+							this.list = array.list;
+							this.mypage = [];
+							this.pages(this.card.startPage,this.card.endPage);
 					});
 				},
 				save(){
@@ -225,6 +261,24 @@
 						this.cback=this.map.cback;
 						this.save();
 					});
+				},
+				del(cid){
+					this.$http.post("http://localhost:8080/cards",{"cid":cid,"_method":"delete"},{emulateJSON:true}).then(function(){
+						this.find(1);
+					});
+				},
+				updateUI(item){
+					this.u_cid = item.cid;
+					this.u_uid = item.user.uid;
+					this.u_cfront = item.cfront;
+					this.u_cback = item.cback;
+					this.u_cstate = item.cstate;
+				},
+				pages(startPage,endPage){
+					for(var i = startPage;i<=endPage;i++){
+						this.mypage.push(i);
+					}
+					
 				}
 				
 			}

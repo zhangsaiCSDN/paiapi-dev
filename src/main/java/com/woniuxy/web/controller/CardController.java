@@ -64,7 +64,7 @@ public class CardController {
 			p=1;
 		}
 		int count = service.count();
-		Page<Card> page=new Page<Card>(p, count, 100);
+		Page<Card> page=new Page<Card>(p, count, 5);
 		List<Card> list = service.find(page);
 		page.setList(list);
  		return page;
