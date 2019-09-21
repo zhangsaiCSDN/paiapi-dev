@@ -48,7 +48,7 @@
 					<!-- 模态框底部 -->
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal"  @click='update'>提交</button>
+							data-dismiss="modal"  @click='update(images.p)'>提交</button>
 					</div>
 				</div>
 			</div>
@@ -106,7 +106,7 @@
 				data-toggle="modal" data-target="#myModal"
 				@click='getEdit(i)'>编辑</button>  
 	
-			<button @click='del(i.imgid)' id='update' type='button' class='btn btn-danger'>删除</button>
+			<button @click='del(i.imgid,images.p)' id='update' type='button' class='btn btn-danger'>删除</button>
 			</td>
 		</tr>
 		
@@ -166,7 +166,7 @@
 						self.u_pages.push(i);
 					};
 				},
-				del(imgid) {
+				del(imgid,p) {
 					if(!confirm('是否要删除当前数据')){
 						return;
 	                }
@@ -174,7 +174,7 @@
 					var self = this;
 					axios.delete("http://localhost:8080/images?imgid=" + imgid).then(function(response) {
 						alert('删除成功');
-						self.findAll();
+						self.findAll(p); //删除时候跳转当前页
 					})
 				},
 				/* 编辑时的数据回显 */
@@ -183,7 +183,7 @@
 					this.u_gid=i.gid				
 				},
 				/* 修改数据 */
-				update() {
+				update(p) {
 					
 					var self = this; 
 					axios.put("http://localhost:8080/images", {
@@ -193,7 +193,7 @@
 	
 					}).then(function(response) {
 						alert('更改成功!');
-						self.findAll();
+						self.findAll(p);
 				
 					})
 				},

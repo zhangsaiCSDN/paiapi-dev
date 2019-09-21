@@ -107,7 +107,7 @@
 					<!-- 模态框底部 -->
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal"  @click='update'>提交</button>
+							data-dismiss="modal"  @click='update(goods.p)'>提交</button>
 					</div>
 				</div>
 			</div>
@@ -236,7 +236,7 @@
 				@click='getEdit(g)'>编辑</button>  
 		
 
-			<button @click='del(g.gid)' id='del' type='button' class='btn btn-danger'>删除</button>
+			<button @click='del(g.gid,goods.p)' id='del' type='button' class='btn btn-danger'>删除</button>
 							
 			</td>
 		</tr>
@@ -317,7 +317,7 @@
 					})
 				},
 				
-				del(gid) {
+				del(gid,p) {
 				
 					if(!confirm('是否要删除当前数据')){
 						return;
@@ -326,7 +326,7 @@
 					var self = this;
 					axios.delete("http://localhost:8080/goods?gid=" + gid).then(function(response) {
 						alert('删除成功');
-						self.findAll();
+						self.findAll(p);
 					})
 				},
 				/* 编辑时的数据回显 */
@@ -346,7 +346,7 @@
 					this.u_gtid=g.gtid
 				},
 			
-				update() {
+				update(p) {
 					
 					var self = this; 
 					axios.put("http://localhost:8080/goods", {
@@ -367,7 +367,7 @@
 
 	
 					}).then(function(response) {
-						self.findAll();
+						self.findAll(p); //修改后回显当前页面
 						alert('更改成功!');
 				
 					})
