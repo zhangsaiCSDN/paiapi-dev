@@ -209,32 +209,32 @@
     where anid = #{anid,jdbcType=INTEGER}
   </update>
   
+  
+  
+  
+  
   <!-- 两表联查 -->
-  <select id="findInfo" resultMap="findInfo">
+  <select id="findInfo" parameterType="Page" resultMap="fi">
   	select * from announce a
-  	inner join goods g
+  	join goods g
   	on a.gid=g.gid
+  	limit #{startLine},#{size}
   </select>
-  <resultMap type="Announce" id="findInfo">
+  <resultMap type="Announce" id="fi">
   	<id property="anid" column="anid"/>
-  	<result property="gid" column="gid" />
   	<result property="ancontent" column="ancontent" />
   	<result property="anstart" column="anstart" />
   	<result property="anend" column="anend" />
-  	<association property="goods" javaType="Goods">
+  	<association property="goods" javaType="goods">
   		<id column="gid" jdbcType="INTEGER" property="gid" />
 	    <result column="gname" jdbcType="CHAR" property="gname" />
-	    <result column="gprice" jdbcType="DOUBLE" property="gprice" /> 
-	    <result column="gstart" jdbcType="TIMESTAMP" property="gstart" />
-	    <result column="gend" jdbcType="TIMESTAMP" property="gend" />
-	    <result column="gcount" jdbcType="INTEGER" property="gcount" />
-	    <result column="ggap" jdbcType="DOUBLE" property="ggap" />
-	    <result column="gpasstime" jdbcType="TIMESTAMP" property="gpasstime" />
-	    <result column="gstate" jdbcType="INTEGER" property="gstate" />
-	    <result column="garea" jdbcType="VARCHAR" property="garea" />
-	    <result column="ginfo" jdbcType="VARCHAR" property="ginfo" />
-	    <result column="salerid" jdbcType="INTEGER" property="salerid" />
-	    <result column="gtid" jdbcType="INTEGER" property="gtid" />
   	</association>
   </resultMap>
+  
+  
+  <!-- 查询所有拍品 -->
+  <select id="findAllGoods" parameterType="Goods" resultType="goods">
+  	select * from goods
+  </select>
+  
 </mapper>

@@ -3,16 +3,16 @@ package com.woniuxy.domain;
 import java.util.List;
 
 public class Page<T> {
-	private int p;
-	private int rowCount;
-	private int maxPage;
-	private int prev;
-	private int next;
-	private int	startLine;
-	private int size;
-	private int	startPage;
-	private int endPage;
-	private String  keyWord;
+	private int p;//当前页
+	private int rowCount;//总行数
+	private int maxPage;//总页数
+	private int prev;//上一页
+	private int next;//下一页
+	private int	startLine;//起始行
+	private int size;//每行页数
+	private int	startPage;//起始页
+	private int endPage;//末尾页
+	private String  keyWord;//
 	private List<T> list;
 	
 	public Page(int ps,int rc,int sz) {

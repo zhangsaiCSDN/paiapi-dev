@@ -2,11 +2,15 @@ package com.woniuxy.dao;
 
 import com.woniuxy.domain.Announce;
 import com.woniuxy.domain.AnnounceExample;
+import com.woniuxy.domain.Goods;
+import com.woniuxy.domain.Page;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface AnnounceMapper {
-    long countByExample(AnnounceExample example);
+
+	long countByExample(AnnounceExample example);
 
     int deleteByExample(AnnounceExample example);
 
@@ -28,5 +32,8 @@ public interface AnnounceMapper {
 
     int updateByPrimaryKey(Announce record);
 
-	List<Announce> findInfo();
+	List<Announce> findInfo(Page<Announce> page);
+	//查询所有拍品
+	List<Goods> findAllGoods();
+	
 }

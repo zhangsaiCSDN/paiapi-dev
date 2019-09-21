@@ -1,7 +1,6 @@
 package com.woniuxy.web.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,8 +13,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.Announce;
 import com.woniuxy.domain.Goods;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.IAnnounceService;
 
+
+//拍品公告管理
 @Controller
 @RequestMapping("announces")
 public class AnnounceController {
@@ -49,8 +51,23 @@ public class AnnounceController {
 	
 	@GetMapping
 	@ResponseBody
-	public List<Announce> find(){
-		return service.find();
+	public Page<Announce> find(Integer p){
+		//如果后台接受到的p为null，就设置为1
+		if(p==null) p=1;
+		//从数据库中返回总行数
+		int count=service.count();
+		//调用page类，将返回的封装了各种运算结果的page对象放入到list集合中
+		Page<Announce> page=new Page<>(p,count,5);
+		List<Announce> list=service.find(page);
+		page.setList(list);
+		return page;
+	}
+	
+	@GetMapping("goods")
+	@ResponseBody
+	public List<Goods> findAllGoods(){
+		List<Goods> goods=service.findAllGoods();
+		return goods;
 	}
 	
 }

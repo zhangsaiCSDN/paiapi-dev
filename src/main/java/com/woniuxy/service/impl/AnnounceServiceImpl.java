@@ -1,13 +1,14 @@
 package com.woniuxy.service.impl;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.AnnounceMapper;
 import com.woniuxy.domain.Announce;
+import com.woniuxy.domain.Goods;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.IAnnounceService;
 
 @Service
@@ -37,8 +38,19 @@ public class AnnounceServiceImpl implements IAnnounceService {
 	}
 
 	@Override
-	public List<Announce> find() {	
-		return mapper.findInfo();
+	public List<Announce> find(Page<Announce> page) {	
+		return mapper.findInfo(page);
 	}
+	
+	@Override
+	public Integer count() {
+		return  (int) mapper.countByExample(null);
+	}
+
+	@Override
+	public List<Goods> findAllGoods() {
+		return mapper.findAllGoods();
+	}
+
 
 }
