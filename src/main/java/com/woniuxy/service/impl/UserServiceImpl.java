@@ -27,7 +27,7 @@ public class UserServiceImpl implements IUserService {
 	public void save(User user) {
 		mapper.insert(user);
 		User userDB = mapper.findUserByUname(user.getUname());
-		Set<Role> roles = user.getRoles();
+		Set<Role> roles = user.getRoles(); 
 		Map<String, Integer> map = new HashMap<>();	
 		map.put("uid", userDB.getUid());
 		for (Role role : roles) {

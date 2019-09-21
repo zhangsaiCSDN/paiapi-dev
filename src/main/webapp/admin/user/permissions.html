@@ -18,33 +18,36 @@
 	</head>
 	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+	<link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+	<script src="//unpkg.com/iview/dist/iview.min.js"></script>
 
 	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<body>
-
-		<table id="app" class="table table-hover table-striped table-bordered table-dark">
-			<tr>
-				<th>权限ID</th>
-				<th>权限名称</th>
-				<th>权限描述</th>
-				<th>操作</th>
-			</tr>
-			<tr v-for="permission in permissions">
-				<td>{{permission.pmsid}}</td>
-				<td>{{permission.pmsname}}</td>
-				<td>{{permission.pmsdes}}</td>
-				<td>
-					<button @click=''>修改</button>
-					<button @click='del(permission.pmsid)'>删除</button>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="hidden" v-model="pmsid" /></td>
-				<td><input v-model="pmsname" placeholder="请输入权限名"/></td>
-				<td><input v-model="pmsdes" placeholder="请输入对权限的描述"/></td>
-				<td><button type="button" @click="save">添加用户</button></td>
-			</tr>
-		</table>
+		<div id="app">
+			<table class="table table-hover table-striped table-bordered table-dark">
+				<tr>
+					<th>权限ID</th>
+					<th>权限名称</th>
+					<th>权限描述</th>
+					<th>操作</th>
+				</tr>
+				<tr v-for="permission in permissions">
+					<td>{{permission.pmsid}}</td>
+					<td>{{permission.pmsname}}</td>
+					<td>{{permission.pmsdes}}</td>
+					<td>
+						<button @click=''>修改</button>
+						<button @click='del(permission.pmsid)'>删除</button>
+					</td>
+				</tr>
+				<tr>
+					<td><input type="hidden" v-model="pmsid" />添加用户</td>
+					<td><input v-model="pmsname" placeholder="请输入权限名" /></td>
+					<td><input v-model="pmsdes" placeholder="请输入对权限的描述" /></td>
+					<td><button type="button" @click="save">添加用户</button></td>
+				</tr>
+			</table>
+		</div>
 	</body>
 	<script>
 		var vue = new Vue({
@@ -84,13 +87,12 @@
 					})
 				},
 				update(pmsid) {},
-				test() {
-
-				}
+				test() {}
 			},
 			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
 				this.findAll();
 			}
 		});
+		
 	</script>
 </html>

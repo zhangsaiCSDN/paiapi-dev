@@ -1,6 +1,7 @@
 package com.woniuxy.domain;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class UserExample {
@@ -60,7 +61,7 @@ public class UserExample {
     public void clear() {
         oredCriteria.clear();
         orderByClause = null;
-        distinct = false; 
+        distinct = false;
     }
 
     protected abstract static class GeneratedCriteria {
@@ -561,6 +562,196 @@ public class UserExample {
 
         public Criteria andSaltNotBetween(String value1, String value2) {
             addCriterion("salt not between", value1, value2, "salt");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelIsNull() {
+            addCriterion("tel is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelIsNotNull() {
+            addCriterion("tel is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelEqualTo(String value) {
+            addCriterion("tel =", value, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelNotEqualTo(String value) {
+            addCriterion("tel <>", value, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelGreaterThan(String value) {
+            addCriterion("tel >", value, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelGreaterThanOrEqualTo(String value) {
+            addCriterion("tel >=", value, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelLessThan(String value) {
+            addCriterion("tel <", value, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelLessThanOrEqualTo(String value) {
+            addCriterion("tel <=", value, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelLike(String value) {
+            addCriterion("tel like", value, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelNotLike(String value) {
+            addCriterion("tel not like", value, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelIn(List<String> values) {
+            addCriterion("tel in", values, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelNotIn(List<String> values) {
+            addCriterion("tel not in", values, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelBetween(String value1, String value2) {
+            addCriterion("tel between", value1, value2, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andTelNotBetween(String value1, String value2) {
+            addCriterion("tel not between", value1, value2, "tel");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeIsNull() {
+            addCriterion("regtime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeIsNotNull() {
+            addCriterion("regtime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeEqualTo(Date value) {
+            addCriterion("regtime =", value, "regtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeNotEqualTo(Date value) {
+            addCriterion("regtime <>", value, "regtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeGreaterThan(Date value) {
+            addCriterion("regtime >", value, "regtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("regtime >=", value, "regtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeLessThan(Date value) {
+            addCriterion("regtime <", value, "regtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeLessThanOrEqualTo(Date value) {
+            addCriterion("regtime <=", value, "regtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeIn(List<Date> values) {
+            addCriterion("regtime in", values, "regtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeNotIn(List<Date> values) {
+            addCriterion("regtime not in", values, "regtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeBetween(Date value1, Date value2) {
+            addCriterion("regtime between", value1, value2, "regtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRegtimeNotBetween(Date value1, Date value2) {
+            addCriterion("regtime not between", value1, value2, "regtime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeIsNull() {
+            addCriterion("updatetime is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeIsNotNull() {
+            addCriterion("updatetime is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeEqualTo(Date value) {
+            addCriterion("updatetime =", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeNotEqualTo(Date value) {
+            addCriterion("updatetime <>", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeGreaterThan(Date value) {
+            addCriterion("updatetime >", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("updatetime >=", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeLessThan(Date value) {
+            addCriterion("updatetime <", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeLessThanOrEqualTo(Date value) {
+            addCriterion("updatetime <=", value, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeIn(List<Date> values) {
+            addCriterion("updatetime in", values, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeNotIn(List<Date> values) {
+            addCriterion("updatetime not in", values, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeBetween(Date value1, Date value2) {
+            addCriterion("updatetime between", value1, value2, "updatetime");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpdatetimeNotBetween(Date value1, Date value2) {
+            addCriterion("updatetime not between", value1, value2, "updatetime");
             return (Criteria) this;
         }
     }

@@ -2,44 +2,43 @@ package com.woniuxy.dao;
 
 import com.woniuxy.domain.User;
 import com.woniuxy.domain.UserExample;
-
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
-    long countByExample(UserExample example);
+	long countByExample(UserExample example);
 
-    int deleteByExample(UserExample example);
+	int deleteByExample(UserExample example);
 
-    int deleteByPrimaryKey(Integer uid);
+	int deleteByPrimaryKey(Integer uid);
 
-    int insert(User record);
+	int insert(User record);
 
-    int insertSelective(User record);
+	int insertSelective(User record);
 
-    List<User> selectByExample(UserExample example);
+	List<User> selectByExample(UserExample example);
 
-    User selectByPrimaryKey(Integer uid);
+	User selectByPrimaryKey(Integer uid);
 
-    int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
+	int updateByExampleSelective(@Param("record") User record, @Param("example") UserExample example);
 
-    int updateByExample(@Param("record") User record, @Param("example") UserExample example);
+	int updateByExample(@Param("record") User record, @Param("example") UserExample example);
 
-    int updateByPrimaryKeySelective(User record);
+	int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record); 
-    
-    //////////////////////////////////////
-    List<User> findInfo();
-    
-    User findInfoById(Integer uid);
-    
-    User findUserByUname(String uname);
-    
-    int insertUserRole(Map<String, Integer> map);
+	int updateByPrimaryKey(User record);
 
-    int deleteUserRole(Map<String, Integer> map);
+	////////////////////
+	List<User> findInfo();
+
+	User findInfoById(Integer uid);
+
+	User findUserByUname(String uname);
+
+	int insertUserRole(Map<String, Integer> map);
+
+	int deleteUserRole(Map<String, Integer> map);
+
 }
