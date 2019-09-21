@@ -100,7 +100,7 @@
 						<div>
 							<label for="pwd" >拍品类型id:</label>
 										<select class="form-control" v-model="u_gtid">
-											<option v-for="gt in goodsType">{{gt.gtid}}</option>
+											<option v-for="gt in goodsType" :value="gt.gtid">{{gt.gtname}}</option>
 										</select>
 						</div>
 					</div>
@@ -180,7 +180,7 @@
 							<div>
 								<label for="pwd">拍品类型id:</label>
 											<select class="form-control" v-model="gtid">
-												<option v-for="gt in goodsType" >{{gt.gtid}}</option>
+												<option v-for="gt in goodsType" :value="gt.gtid">{{gt.gtname}}</option>
 											</select>
 							</div>
 						</div>
