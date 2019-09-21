@@ -216,8 +216,9 @@
   <!-- 两表联查 -->
   <select id="findInfo" parameterType="Page" resultMap="fi">
   	select * from announce a
-  	join goods g
+  	inner join goods g
   	on a.gid=g.gid
+  	order by anid
   	limit #{startLine},#{size}
   </select>
   <resultMap type="Announce" id="fi">
