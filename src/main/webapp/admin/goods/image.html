@@ -94,7 +94,7 @@
 			<th>图片</th>
 			<th>操作</th>
 		</tr>
-		<tr v-for="i in images">
+		<tr v-for="i in images.list">
 			<td>{{i.imgid}}</td>
 			<td>{{i.gid}}</td>
 			<td>{{i.goods.gname}}</td>
@@ -109,6 +109,22 @@
 			<button @click='del(i.imgid)' id='update' type='button' class='btn btn-danger'>删除</button>
 			</td>
 		</tr>
+		
+		<tr>
+			<th colspan="13"
+				style="vertical-align: middle !important; text-align: center;">
+				{{images.p}}/{{images.maxPage}}
+				<button @click='findAll(1)' class="btn btn-outline-info">首页</button>
+				<button @click='findAll(images.prev)' class="btn btn-outline-info">上一页</button>
+				<span v-for="i in u_pages"> <span v-if="i==images.p"
+					class="btn"><font color="red">{{i}}</font></span> <span
+					@click='findAll(i)' v-if="!(i==images.p)" class="btn"
+					style="cursor: pointer"><font>{{i}}</font></span>
+				</span>
+				<button @click='findAll(images.next)' class="btn btn-outline-info">下一页</button>
+				<button @click='findAll(images.maxPage)' class="btn btn-outline-info">末页</button>
+			</th>
+		</tr>
 	</table>
 	</div>
 </body>
@@ -118,6 +134,7 @@
 			el: "#app",
 			data: {
 				images: [],
+				u_pages:[],
 				imgid:'',
 				gid:'',
 				
@@ -125,20 +142,29 @@
 				u_gid:''							
 
 			},
-			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
-		 		var self = this
-				axios.get("http://localhost:8080/images").then(function(response) {
-					self.images = response.data; //此时还是字符串
-			
-				})
+			created: function(){ 
+				this.findAll(1);
 			},
 			 
 			methods: {
-				findAll() {
-					var self = this;
-					axios.get("http://localhost:8080/images").then(function(response) {
-						self.images = response.data; //此时还是字符串
+				findAll(page) { 
+			 		var self = this;
+					axios.get("http://localhost:8080/images",{
+						params:{
+							p:page
+						}
+					}).then(function(response) {
+						self.images = response.data; 
+						self.u_pages=[];
+						self.pages(self.images.startPage,self.images.endPage);
 					})
+				},
+				/*分页页码数据  */
+				pages(startPage,endPage){
+					var self=this;
+					for(i=startPage;i<=endPage;i++){
+						self.u_pages.push(i);
+					};
 				},
 				del(imgid) {
 					if(!confirm('是否要删除当前数据')){

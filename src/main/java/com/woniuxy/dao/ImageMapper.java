@@ -1,7 +1,10 @@
 package com.woniuxy.dao;
 
+import com.woniuxy.domain.Goods;
 import com.woniuxy.domain.Image;
 import com.woniuxy.domain.ImageExample;
+import com.woniuxy.domain.Page;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -28,5 +31,5 @@ public interface ImageMapper {
 
     int updateByPrimaryKey(Image record);
     
-    List<Image> find();//联合查询goods
+    List<Image> find(Page<Image> page);//联合查询goods
 }

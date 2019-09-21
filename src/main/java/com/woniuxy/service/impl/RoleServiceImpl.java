@@ -36,15 +36,10 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public void delete(Integer rid) {
-		Role roleDB = mapper.selectByPrimaryKey(rid);
 		mapper.deleteByPrimaryKey(rid);
-		Set<Permission> pmss = roleDB.getPermissions();
-		Map<String,Integer> map = new HashMap<>();
-		map.put("rid", roleDB.getRid());
-		for (Permission pms : pmss) {
-			map.put("pmsid", pms.getPmsid());
-			mapper.deleteRolePermission(map);
-		}
+		Map<String, Integer> map = new HashMap<>();
+		map.put("rid", rid);
+		mapper.deleteRolePermission(map);
 	}
 
 	@Override
@@ -62,7 +57,6 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public Role findOne(Integer rid) {
 		// TODO Auto-generated method stub
-		
 		return mapper.selectByPrimaryKey(rid);
 	}
 

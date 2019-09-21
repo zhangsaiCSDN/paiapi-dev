@@ -26,7 +26,6 @@ public class UserController {
 	@PostMapping
 	@ResponseBody
 	public void save(@RequestBody User user) {
-		System.out.println("UserController.save()"+user);
 		service.save(user);
 	}
 

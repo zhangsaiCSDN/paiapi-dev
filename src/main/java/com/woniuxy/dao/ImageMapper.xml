@@ -201,6 +201,7 @@
     <select id="find" parameterType="com.woniuxy.domain.Image" resultMap="bt">
 		SELECT * FROM image i
 		INNER JOIN goods g ON i.gid=g.gid
+		limit #{startLine},#{size}
   	</select>
   	
  </mapper>

@@ -7,7 +7,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.ImageMapper;
+import com.woniuxy.domain.Goods;
 import com.woniuxy.domain.Image;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.IImageService;
 
 @Service
@@ -41,8 +43,8 @@ public class ImageServiceImpl implements IImageService {
 	}
 
 	@Override
-	public List<Image> find() {
-		return dao.selectByExample(null);
+	public List<Image> find(Page<Image> page) {
+		return dao.find(page);
 	}
 
 	@Override
@@ -50,10 +52,7 @@ public class ImageServiceImpl implements IImageService {
 		return dao.selectByPrimaryKey(imgid);
 	}
 
-	@Override
-	public List<Image> findByGoods() {
-		return dao.find();
-	}
+
 
 	@Override
 	public void updImg(Integer imgid, String img) {
@@ -64,5 +63,9 @@ public class ImageServiceImpl implements IImageService {
 		dao.updateByPrimaryKeySelective(image);
 		
 	} 
-
+	@Override
+	public Integer count() {
+		// TODO Auto-generated method stub
+		return  (int) dao.countByExample(null);
+	}
 }

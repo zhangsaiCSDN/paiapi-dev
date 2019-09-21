@@ -209,8 +209,8 @@
 		INNER JOIN
 		permission p
 		ON
-		pr.pmsid =
-		p.pmsid
+		pr.pmsid = p.pmsid
+		
 	</select>
 	<resultMap type="Role" id="findInfo">
 		<id property="rid" column="rid" />
