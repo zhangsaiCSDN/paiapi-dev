@@ -11,8 +11,8 @@
   
   
   
-  <select id="selectLogByUid" parameterType="Integer" resultMap="rm">
-  	select * from log l JOIN user u on u.uid=l.uid where l.uid=#{uid}
+  <select id="selectLogByPage" parameterType="Page" resultMap="rm">
+  	select * from log l JOIN user u on u.uid=l.uid limit #{startLine},#{size}
   </select>
   <resultMap type="Log" id="rm">
   	<id property="lig" column="lig"/>

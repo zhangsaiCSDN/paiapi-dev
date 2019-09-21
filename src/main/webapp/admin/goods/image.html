@@ -41,7 +41,11 @@
 						</div>
 						<div>
 							<label for="pwd">修改图片:</label><input  class="form-control" ref='photoUdp' name="file" type="file" multiple="multiple"/>
-													<button @click='updImg(u_imgid)' id='update' type='button' class='btn btn-warning'>更换图片</button>
+													
+						</div>
+						<div>
+							<label for="pwd">上传至服务器:</label>
+							<button @click='updImg(u_imgid,images.p)' id='update' type='button'class="layui-btn layui-btn-normal layui-btn-radius">更换图片</button>
 						</div>
 
 					</div>
@@ -198,7 +202,7 @@
 					})
 				},
 				/* 修改图片 */
-				updImg(imgid) {
+				updImg(imgid,p) {
 					
 		            var formData = new FormData();
 		            
@@ -209,7 +213,7 @@
 					
 		            var self = this; 
 					axios.post("http://localhost:8080/images/updImg", formData).then(function(response) {
-						self.findAll();
+						self.findAll(p);
 						alert('修改图片成功!');
 					})   
 				},

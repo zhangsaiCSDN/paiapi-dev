@@ -43,7 +43,12 @@
 						</div>
 						<div>
 							<label for="pwd">修改图片:</label><input  class="form-control" ref='photoUdp' name="file" type="file" multiple="multiple"/>
-													<button @click='updImg(u_gtid)' id='update' type='button' class='btn btn-warning'>更换图片</button>
+													
+						</div>
+						<div>
+							<label for="pwd">上传至服务器:</label>
+							<button @click='updImg(u_gtid)' class="layui-btn layui-btn-normal layui-btn-radius"
+							 id='update' type='button' >开始上传</button>
 						</div>
 					</div>
 					<!-- 模态框底部 -->

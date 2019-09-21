@@ -13,6 +13,10 @@ public class Room implements Serializable{
     private Integer salerid;
 
     private String rmtitle;
+    
+    private Goods goods;
+    
+    private User user;
 
   
 }
