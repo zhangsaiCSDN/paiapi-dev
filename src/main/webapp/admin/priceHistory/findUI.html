@@ -13,8 +13,9 @@
 <body>
 
 	<div id="app">
-		<adds></adds>
 		<button @click="save" class="btn btn-success btn-sm">添加数据</button>
+		<input type="text" v-model="search" placeholder="请输入搜索条件">
+		<button type="button" @click="findAll">搜索</button>
 		<table class="table table-hover table-striped table-bordered table-dark">
 
 			<tr>
@@ -51,12 +52,13 @@
 		el:"#app",
 		data:{
 			list:[],
-			page:''
+			page:'',
+			search:''
 		},
 		methods:{
 			findAll(){
 				var self = this;
-				var par = {"p":self.page.p , "size":self.page.size};
+				var par = {"p":self.page.p , "size":self.page.size ,"search":self.search};
 				axios.get("http://localhost:8080/phistorys" , {params: par}).then(function(response){
 					self.list = response.data.list;
 					self.page = response.data;
@@ -73,7 +75,7 @@
 					    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
 					    jump: function(obj,first){
 						    if(!first){
-						      var param ={"p":obj.curr,"size":obj.limit};
+						      var param ={"p":obj.curr,"size":obj.limit,"search":self.search};
 						      axios.get("http://localhost:8080/phistorys" , {params: param}).then(function(response){
 						    		self.list = response.data.list;
 									self.page = response.data
@@ -83,6 +85,8 @@
 					  });
 					
 				});
+				
+		
 			},
 			updateUI(item){
 				var self = this;

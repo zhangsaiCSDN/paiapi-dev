@@ -50,7 +50,7 @@ public class PriceHistoryServiceImpl implements IPriceHistoryService {
 	public Page<Pricehistory> find(Map<String , Object> map) {
 		
 		//获取前端传来的当前页，每页行数，查出当前查询条件的总行数
-		int rc = phmapper.findCount();
+		int rc = phmapper.findCount(map);
 		Integer p = Integer.parseInt(map.get("p").toString()) ;
 		Integer size = Integer.parseInt( map.get("size").toString()) ;
 		

@@ -49,7 +49,7 @@ public class GoodsHistoryServiceImpl implements IGoodsHistoryService {
 	@Override
 	public Page<Goodshistory> find(Map<String , Object> map) {
 		//获取前端传来的当前页，每页行数，查出当前查询条件的总行数
-		int rc = ghmapper.findCount();
+		int rc = ghmapper.findCount(map);
 		Integer p = Integer.parseInt(map.get("p").toString()) ;
 		Integer size = Integer.parseInt( map.get("size").toString()) ;
 		
