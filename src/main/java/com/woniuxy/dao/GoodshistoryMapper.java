@@ -32,5 +32,5 @@ public interface GoodshistoryMapper {
    
     List<Goodshistory> find(Map<String , Object> map);
     
-    Integer findCount();
+    Integer findCount(Map<String , Object> map);
 }

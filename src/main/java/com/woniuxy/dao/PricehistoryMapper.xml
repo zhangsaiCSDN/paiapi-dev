@@ -274,6 +274,9 @@
 			<if test="phid != null">
 				and phid = #{phid}
 			</if>
+			<if test ="search !=null">
+				user.uname like '%${search}%' or goods.gname like '%${search}%'
+			</if>
 		</where>
 		 	
 		 	limit #{page.startLine} , #{page.size}
@@ -296,6 +299,9 @@
 			<if test="phid != null">
 				and phid = #{phid}
 			</if>	 	
+			<if test ="search !=null">
+				user.uname like '%${search}%' or goods.gname like '%${search}%'
+			</if>
 		</where>
   </select>
   

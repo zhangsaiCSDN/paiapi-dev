@@ -1,6 +1,7 @@
 package com.woniuxy.web.controller;
 
 import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,6 +46,7 @@ public class PHTestController {
 	@ResponseBody
 	public Page<Pricehistory> find(@RequestParam Map<String,Object> map){
 		
+		
 		if(map.get("p")==null ) {
 			map.put("p", 1);
 		}
@@ -54,7 +56,7 @@ public class PHTestController {
 		}
 	
 		Page<Pricehistory> page = service.find(map);
-		
+		System.out.println(page.getList().toString());
 		return page;
 	}
 	

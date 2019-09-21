@@ -32,5 +32,5 @@ public interface PricehistoryMapper {
     
     List<Pricehistory> find(Map<String , Object> map);
    
-    Integer findCount();
+    Integer findCount(Map<String , Object> map);
 }
