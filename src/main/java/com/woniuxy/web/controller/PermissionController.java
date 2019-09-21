@@ -38,7 +38,7 @@ public class PermissionController {
 
 	@PutMapping
 	@ResponseBody
-	public void update(Permission permission) {
+	public void update(@RequestBody Permission permission) {
 		service.update(permission);
 	}
 

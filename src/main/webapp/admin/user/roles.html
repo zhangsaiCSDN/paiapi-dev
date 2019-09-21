@@ -7,7 +7,7 @@
 			table {
 				margin: auto;
 				width: 100%;
-				font-size: 10px;
+				font-size: 14px;
 			}
 
 			.textInput {
@@ -18,46 +18,130 @@
 	</head>
 	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
-
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
 	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<body>
-
-		<table id="app" class="table table-hover table-striped table-bordered table-dark">
-			<tr>
-				<th>角色ID</th>
-				<th>角色名称</th>
-				<th>角色描述</th>
-				<th>角色权限</th>
-				<th>操作</th>
-			</tr>
-			<tr v-for="role in roles">
-				<td>{{role.rid}}</td>
-				<td>{{role.rname}}</td>
-				<td>{{role.rdes}}</td>
-				<td><span v-for='permission in role.permissions'>{{permission.pmsname}} </span></td>
-				<td>
-					<button @click=''>修改</button>
-					<button @click='del(role.rid)'>删除</button>
-				</td>
-			</tr>
-			<tr>
+		<div id="app">
+			<table class="table table-hover table-striped table-bordered table-dark">
+				<tr>
+					<th>角色ID</th>
+					<th>角色名称</th>
+					<th>角色描述</th>
+					<th>角色角色</th>
+					<th>操作</th>
+				</tr>
+				<tr v-for="role in roles">
+					<td>{{role.rid}}</td>
+					<td>{{role.rname}}</td>
+					<td>{{role.rdes}}</td>
+					<td><span v-for='permission in role.permissions'>{{permission.pmsname}} </span></td>
+					<td>
+						<button @click='updateUI(role.rid)' data-toggle="modal" data-target="#editModal">修改</button>
+						<button @click='del(role.rid)'>删除</button>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="5"><button type="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveModal">添加角色</button></td>
+				</tr>
+				<!-- 	
+				<tr>
 				<td><input class="textInput" type="hidden" name="rid" v-model="rid" /></td>
 				<td><input class="textInput" type="text" name="rname" v-model="rname" placeholder="角色名称" /></td>
 				<td><input class="textInput" type="text" name="rdes" v-model="rdes" placeholder="角色描述" /></td>
 				<td>
-					<table border="0">
-						<tr v-for="pms in permissions">
-							<td>{{pms.pmsname}}</td>
-							<td><input type="checkbox" :value="pms" v-model="selectPermissions" /></td>
-						</tr>
-					</table>
+					
 				</td>
 				<td>
 					<button @click='save'>增加角色</button>
 					<button @click='test'>test</button>
 				</td>
-			</tr>
-		</table>
+				</tr> 
+				-->
+			</table>
+
+			<!-- 增加模态框开始 -->
+			<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">
+								增加角色
+							</h4>
+						</div>
+						<div class="modal-body">
+							<table border="0">
+								<tr>
+									<td>角色名称</td>
+									<td><input class="textInput" type="text" name="rname" v-model="rname" placeholder="角色名称" /></td>
+								</tr>
+								<tr>
+									<td>角色描述</td>
+									<td><input class="textInput" type="text" name="rdes" v-model="rdes" placeholder="角色描述" /></td>
+								</tr>
+								<tr>
+									<td colspan="2">请选择下列用户权限:</td>
+								</tr>
+								<tr v-for="pms in permissions">
+									<td></td>
+									<td>{{pms.pmsname}}<input type="checkbox" :value="pms" v-model="selectPermissions" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+								关闭
+							</button>
+							<button type="button" class="btn btn-primary" @click="save" data-dismiss="modal">
+								确认增加
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 增加模态框结束 -->
+
+			<!-- 修改模态框开始 -->
+			<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">
+								修改角色
+							</h4>
+						</div>
+						<div class="modal-body">
+							<table border="0">
+								<tr>
+									<td>角色名称</td>
+									<td><input class="textInput" type="text" name="rname" v-model="updateRole.rname" placeholder="角色名称" /></td>
+								</tr>
+								<tr>
+									<td>角色描述</td>
+									<td><input class="textInput" type="text" name="rdes" v-model="updateRole.rdes" placeholder="角色描述" /></td>
+								</tr>
+								<tr>
+									<td colspan="2">为用户选择新的权限:</td>
+								</tr>
+								<tr v-for="pms in permissions">
+									<td></td>
+									<td>{{pms.pmsname}}<input type="checkbox" :value="pms" v-model="selectPermissions" /></td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+								关闭
+							</button>
+							<button type="button" class="btn btn-primary" @click="update" data-dismiss="modal">
+								确认修改
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 修改模态框结束 -->
+		</div>
 	</body>
 	<script>
 		var vue = new Vue({
@@ -68,7 +152,8 @@
 				selectPermissions: [],
 				rid: '',
 				rname: '',
-				rdes: ''
+				rdes: '',
+				updateRole: ''
 			},
 			methods: {
 				//查询所有角色
@@ -89,6 +174,10 @@
 				//增加
 				save() {
 					var self = this;
+					if (this.selectPermissions.length == 0) {
+						alert("添加失败! 权限不能为空");
+						return;
+					}
 					axios.post("http://localhost:8080/roles", {
 						//rid: self.rid,
 						rname: self.rname,
@@ -97,10 +186,27 @@
 					}).then(function(response) {
 						self.findAll();
 						alert('添加成功!');
+
+					}).catch(function() {
+						alert('添加失败! 角色名 ' + self.rname + ' 已存在,请检查输入后重试!')
 					})
 				},
-				update(rid) {},
-				//查询所有权限供角色选择
+				updateUI(rid) {
+					var self = this;
+					this.findAllPermissions();
+					axios.get("http://localhost:8080/roles/" + rid).then(function(response) {
+						self.updateRole = response.data;
+					})
+				},
+				update(rid) {
+					var self = this;
+					this.updateRole.permissions = this.selectPermissions;
+					axios.put("http://localhost:8080/roles", self.updateRole).then(function(response) {
+						alert('修改成功');
+						self.findAll();
+					})
+				},
+				//查询所有角色供角色选择
 				findAllPermissions() {
 					var self = this;
 					axios.get("http://localhost:8080/permissions").then(function(response) {
@@ -109,6 +215,9 @@
 				},
 				test() {
 					alert(this.selectPermissions);
+				},
+				refresh() {
+					this.findAllPermissions();
 				}
 
 			},

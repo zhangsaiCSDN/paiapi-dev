@@ -44,7 +44,19 @@ public class RoleServiceImpl implements IRoleService {
 
 	@Override
 	public void update(Role record) {
-		// TODO Auto-generated method stub
+		Integer rid = record.getRid();
+		Set<Permission> permissions = record.getPermissions();
+		//用rid删除旧的关系表对应关系
+		Map<String, Integer> map = new HashMap<>();
+		map.put("rid", rid);
+		mapper.deleteRolePermission(map);
+		
+		//添加新的关系
+		for (Permission p : permissions) {
+			map.put("pmsid", p.getPmsid());
+			mapper.insertRolePermission(map);
+		}
+		
 		mapper.updateByPrimaryKeySelective(record);
 	}
 

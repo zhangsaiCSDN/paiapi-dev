@@ -37,14 +37,14 @@ public class UserController {
 
 	@PutMapping
 	@ResponseBody
-	public void update(User user) {
+	public void update(@RequestBody User user) {
 		service.update(user);
 	}
 
 	@GetMapping(value = "/{uid}")
 	@ResponseBody
 	public User findOne(@PathVariable Integer uid) {
-		return service.findOne(uid); 
+		return service.findOne(uid);
 	}
 
 	@GetMapping

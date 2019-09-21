@@ -9,80 +9,192 @@
 				width: 100%;
 				font-size: 14px;
 			}
- 
-			/* input {
-				width: 130px;
-			} */
+
 			.textInput {
-				width: 130px;
+				width: 200px;
 				vertical-align: middle;
 			}
 		</style>
 	</head>
 	<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 	<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
-	
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+	<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
 	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	<body>
+		<div id="app">
+			<table class="table table-hover table-striped table-bordered table-dark">
+				<tr>
+					<th>用户ID</th>
+					<th>身份证信息</th>
+					<th>用户名</th>
+					<th>密码</th>
+					<th>状态</th>
+					<th>头像</th>
+					<th>SALT</th>
+					<th>注册时间</th>
+					<th>修改时间</th>
+					<th>手机号码</th>
+					<th>用户角色</th>
+					<th>操作</th>
+				</tr>
+				<tr v-for="user in users">
+					<td>{{user.uid}}</td>
+					<td>{{user.cid}}</td>
+					<td>{{user.uname}}</td>
+					<td>{{user.upwd}}</td>
+					<td>{{user.ustate}}</td>
+					<td>{{user.avatar}}</td>
+					<td>{{user.salt}}</td>
+					<td>{{user.regtime}}</td>
+					<td>{{user.updatetime}}</td>
+					<td>{{user.tel}}</td>
+					<td><span v-for='role in user.roles'>{{role.rname}} </span></td>
+					<td>
+						<button @click='updateUI(user.uid)' data-toggle="modal" data-target="#editModal">修改</button>
+						<button @click='del(user.uid)'>删除</button>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="12"><button type="btn btn-primary btn-lg" data-toggle="modal" data-target="#saveModal">添加用户</button></td>
+				</tr>
+			</table>
+			<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">
+								增加用户
+							</h4>
+						</div>
+						<div class="modal-body">
+							<table border="0">
+								<tr>
+									<td>用户名</td>
+									<td><input class="textInput" type="text" name="uname" v-model="uname" placeholder="用户名" /></td>
+								</tr>
+								<tr>
+									<td>密码</td>
+									<td><input class="textInput" type="text" name="upwd" v-model="upwd" placeholder="密码" /></td>
+								</tr>
+								<tr>
+									<td>状态</td>
+									<td> <input class="textInput" type="text" name="ustate" v-model="ustate" placeholder="状态" /></td>
+								</tr>
+								<tr>
+									<td>头像</td>
+									<td> <input class="textInput" type="text" name="avatar" v-model="avatar" placeholder="头像" /></td>
+								</tr>
+								<tr>
+									<td>SALT</td>
+									<td> <input class="textInput" type="text" name="salt" v-model="salt" placeholder="SALT" /></td>
+								</tr>
+								<tr>
+									<td>注册时间</td>
+									<td> <input class="textInput" type="text" name="regtime" v-model="regtime" placeholder="注册时间(yy-MM-dd HH:mm:ss)" /></td>
+								</tr>
+								<tr>
+									<td>修改时间</td>
+									<td> <input class="textInput" type="text" name="updatetime" v-model="updatetime" placeholder="修改时间(yy-MM-dd HH:mm:ss)" /></td>
+								</tr>
+								<tr>
+									<td>手机号码</td>
+									<td> <input class="textInput" type="text" name="tel" v-model="tel" placeholder="手机号码" /></td>
+								</tr>
+								<tr>
+									<td>为该用户指定角色</td>
+									<td>
+										<span v-for="role in allRoles">
+											{{role.rname}}<input type="checkbox" :value="role" v-model="selectRoles" />&nbsp;
+										</span>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+								关闭
+							</button>
+							<button type="button" class="btn btn-primary" @click="save" data-dismiss="modal">
+								确认增加
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 增加模态框结束 -->
+			<!--  -->
+			<!--  -->
 
-		<table id="app" class="table table-hover table-striped table-bordered table-dark">
-			<tr>
-				<th>用户ID</th>
-				<th>身份证信息</th>
-				<th>用户名</th>
-				<th>密码</th>
-				<th>状态</th>
-				<th>头像</th>
-				<th>SALT</th>
-				<th>注册时间</th>
-				<th>修改时间</th>
-				<th>手机号码</th>
-				<th>用户角色</th>
-				<th>操作</th>
-			</tr>
-			<tr v-for="user in users">
-				<td>{{user.uid}}</td>
-				<td>{{user.cid}}</td>
-				<td>{{user.uname}}</td>
-				<td>{{user.upwd}}</td>
-				<td>{{user.ustate}}</td>
-				<td>{{user.avatar}}</td>
-				<td>{{user.salt}}</td>
-				<td>{{user.regtime}}</td>
-				<td>{{user.updatetime}}</td>
-				<td>{{user.tel}}</td>
-				<td><span v-for='role in user.roles'>{{role.rname}} </span></td>
-				<td>
-					<button @click='update(user.uid)'>修改</button>
-					<button @click='del(user.uid)'>删除</button>
-				</td>
-			</tr>  
-			<!-- 增加用户开始 -->
-<!-- 			<tr>
-				<td><input class="textInput" type="hidden" name="uid" v-model="uid" /></td>
-				<td><input class="textInput" type="text" name="cid" v-model="cid" /></td>
-				<td><input class="textInput" type="text" name="uname" v-model="uname" placeholder="用户名" /></td>
-				<td><input class="textInput" type="text" name="upwd" v-model="upwd" placeholder="密码" /></td>
-				<td><input class="textInput" type="text" name="ustate" v-model="ustate" placeholder="状态" /></td>
-				<td><input class="textInput" type="text" name="avatar" v-model="avatar" placeholder="头像" /></td>
-				<td><input class="textInput" type="text" name="salt" v-model="salt" placeholder="SALT"/></td>
-				<td><input class="textInput" type="text" name="regtime" v-model="regtime" placeholder="注册时间(yy-MM-dd HH:mm:ss)"/></td>
-				<td><input class="textInput" type="text" name="updatetime" v-model="updatetime" placeholder="修改时间(yy-MM-dd HH:mm:ss)"/></td>
-				<td><input class="textInput" type="text" name="tel" v-model="tel" placeholder="手机号码"/></td>
-				<td>
-					<table border="0">
-						<tr v-for="role in allRoles">
-							<td>{{role.rname}}</td>
-							<td><input type="checkbox" :value="role" v-model="selectRoles" /></td>
-						</tr>
-					</table>
-				</td>
-				<td>
-					<button @click='save'>增加用户</button>
-				</td>
-			</tr> -->
-			<!-- 增加用户结束 -->
-		</table>
+			<!--  -->
+			<!--  -->
+			<!-- 修改模态框开始 -->
+			<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title" id="myModalLabel">
+								修改用户
+							</h4>
+						</div>
+						<div class="modal-body">
+							<table border="0">
+								<tr>
+									<td>用户名</td>
+									<td><input class="textInput" type="text" name="uname" v-model="updateUser.uname" placeholder="用户名" /></td>
+								</tr>
+								<tr>
+									<td>密码</td>
+									<td><input class="textInput" type="text" name="upwd" v-model="updateUser.upwd" placeholder="密码" /></td>
+								</tr>
+								<tr>
+									<td>状态</td>
+									<td> <input class="textInput" type="text" name="ustate" v-model="updateUser.ustate" placeholder="状态" /></td>
+								</tr>
+								<tr>
+									<td>头像</td>
+									<td> <input class="textInput" type="text" name="avatar" v-model="updateUser.avatar" placeholder="头像" /></td>
+								</tr>
+								<tr>
+									<td>SALT</td>
+									<td> <input class="textInput" type="text" name="salt" v-model="updateUser.salt" placeholder="SALT" /></td>
+								</tr>
+								<tr>
+									<td>注册时间</td>
+									<td> <input class="textInput" type="text" name="regtime" v-model="updateUser.regtime" placeholder="注册时间(yy-MM-dd HH:mm:ss)" /></td>
+								</tr>
+								<tr>
+									<td>修改时间</td>
+									<td> <input class="textInput" type="text" name="updatetime" v-model="updateUser.updatetime" placeholder="修改时间(yy-MM-dd HH:mm:ss)" /></td>
+								</tr>
+								<tr>
+									<td>手机号码</td>
+									<td> <input class="textInput" type="text" name="tel" v-model="updateUser.tel" placeholder="手机号码" /></td>
+								</tr>
+								<tr>
+									<td>为该用户指定新的角色</td>
+									<td>
+										<span v-for="role in allRoles">
+											{{role.rname}}<input type="checkbox" :value="role" v-model="selectRoles" />&nbsp;
+										</span>
+									</td>
+								</tr>
+							</table>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">
+								关闭
+							</button>
+							<button type="button" class="btn btn-primary" @click="update" data-dismiss="modal">
+								确认修改
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 修改模态框结束 -->
+		</div>
 	</body>
 	<script>
 		var vue = new Vue({
@@ -100,7 +212,8 @@
 				salt: '',
 				regtime: '',
 				updatetime: '',
-				tel: ''
+				tel: '',
+				updateUser: ''
 			},
 			methods: {
 				//查询所有用户
@@ -121,7 +234,7 @@
 				//增加
 				save() {
 					var self = this;
-					axios.post("http://localhost:8080/users", {
+					var userJson = {
 						//uid: self.uid,
 						//cid: self.cid, FK
 						uname: self.uname,
@@ -133,12 +246,36 @@
 						updatetime: self.updatetime,
 						tel: self.tel,
 						roles: self.selectRoles
-					}).then(function(response) {
+					};
+					if(userJson.roles.length==0){
+						alert('添加失败 角色不能为空');
+						return;
+					};
+					axios.post("http://localhost:8080/users", userJson).then(function(response) {
 						self.findAll();
 						alert('添加成功!');
 					})
 				},
-				update(uid) {},
+				//查一个
+				updateUI(uid) {
+					var self = this;
+					axios.get("http://localhost:8080/users/" + uid).then(function(response) {
+						self.updateUser = response.data;
+					})
+				},
+				// 改一个
+				update() {
+					var self = this;
+					this.updateUser.roles = this.selectRoles;
+					if (this.updateUser.roles.length == 0) {
+						alert("修改失败 角色不能为空!");
+						return;
+					}
+					axios.put("http://localhost:8080/users", self.updateUser).then(function(response) {
+						alert('修改成功');
+						self.findAll();
+					})
+				},
 				//查询所有角色供用户选择
 				findAllRoles() {
 					var self = this;
