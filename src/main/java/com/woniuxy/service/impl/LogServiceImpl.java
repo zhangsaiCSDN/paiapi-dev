@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.LogMapper;
 import com.woniuxy.domain.Log;
+import com.woniuxy.domain.Page;
 import com.woniuxy.service.ILogService;
 
 @Service
@@ -43,8 +44,14 @@ public class LogServiceImpl implements ILogService {
 	}
 	 
 	@Override
-	public List<Log> findByUid(Integer uid) {
-		return mapper.selectLogByUid(uid);
+	public List<Log> findByPage(Page<Log> page) {
+		return mapper.selectLogByPage(page);
+	}
+
+	@Override
+	public long count() {
+		// TODO Auto-generated method stub
+		return mapper.countByExample(null);
 	}
 
 }

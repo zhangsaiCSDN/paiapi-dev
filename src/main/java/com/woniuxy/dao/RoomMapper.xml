@@ -11,13 +11,37 @@
   
   
   <select id="findByPage" parameterType="Page" resultMap="fbp">
-  	select * from room limit #{startLine},#{size}
+  	select * from room r join goods g on r.gid=g.gid JOIN user u on r.salerid=u.uid limit #{startLine},#{size}
   </select>
   <resultMap type="Room" id="fbp">
   	<id property="rmid" column="rmid"/>
   	<result property="gid" column="gid"/>
   	<result property="salerid" column="salerid"/>
   	<result property="rmtitle" column="rmtitle"/>
+  	<association property="goods" javaType="Goods">
+  		<id column="gid" jdbcType="INTEGER" property="gid" />
+	    <result column="gname" jdbcType="CHAR" property="gname" />
+	    <result column="gprice" jdbcType="DOUBLE" property="gprice" /> 
+	    <result column="gstart" jdbcType="TIMESTAMP" property="gstart" />
+	    <result column="gend" jdbcType="TIMESTAMP" property="gend" />
+	    <result column="gcount" jdbcType="INTEGER" property="gcount" />
+	    <result column="ggap" jdbcType="DOUBLE" property="ggap" />
+	    <result column="gpasstime" jdbcType="TIMESTAMP" property="gpasstime" />
+	    <result column="gstate" jdbcType="INTEGER" property="gstate" />
+	    <result column="garea" jdbcType="VARCHAR" property="garea" />
+	    <result column="ginfo" jdbcType="VARCHAR" property="ginfo" />
+	    <result column="salerid" jdbcType="INTEGER" property="salerid" />
+	    <result column="gtid" jdbcType="INTEGER" property="gtid" />
+  	</association>
+  	<association property="user" javaType="User">
+  		<id column="uid" property="uid" />
+	    <result column="cid" property="cid" />
+	    <result column="uname" property="uname" />
+	    <result column="upwd" property="upwd" />
+	    <result column="ustate" property="ustate" />
+	    <result column="avatar" property="avatar" />
+	    <result column="salt" property="salt" />
+  	</association>
   </resultMap>
   
   

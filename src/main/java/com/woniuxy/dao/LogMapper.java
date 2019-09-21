@@ -1,9 +1,12 @@
 package com.woniuxy.dao;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.woniuxy.domain.Log;
 import com.woniuxy.domain.LogExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
+import com.woniuxy.domain.Page;
 
 public interface LogMapper {
     long countByExample(LogExample example);
@@ -29,5 +32,5 @@ public interface LogMapper {
     int updateByPrimaryKey(Log record);
     
     
-    List<Log> selectLogByUid(Integer uid);
+    List<Log> selectLogByPage(Page<Log> page);
 }

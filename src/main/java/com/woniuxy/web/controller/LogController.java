@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.Log;
+import com.woniuxy.domain.Page;
+import com.woniuxy.domain.Room;
 import com.woniuxy.service.ILogService;
 
 @Controller
@@ -42,17 +44,22 @@ public class LogController {
 	}
 	
 	
-	@GetMapping(value = "/{uid}")
-	@ResponseBody
-	public List<Log> findByUid(@PathVariable Integer uid){
-		return logService.findByUid(uid);
-	}
-	
 	@GetMapping
 	@ResponseBody
-	public List<Log> find() {
-		return logService.find();
+	public Page<Log> findByPage(Integer p){
+		if(p==null)p=1;
+		int count=(int) logService.count();
+		Page<Log> page=new Page<>(p,count,8);
+		List<Log> list=logService.findByPage(page);
+		page.setList(list);
+		return page;
 	}
+	
+//	@GetMapping
+//	@ResponseBody
+//	public List<Log> find() {
+//		return logService.find();
+//	}
 	
 
 }
