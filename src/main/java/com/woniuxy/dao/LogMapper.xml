@@ -12,7 +12,7 @@
   
   
   <select id="selectLogByPage" parameterType="Page" resultMap="rm">
-  	select * from log l JOIN user u on u.uid=l.uid limit #{startLine},#{size}
+  	select * from log l JOIN user u on u.uid=l.uid order by l.lig limit #{startLine},#{size}
   </select>
   <resultMap type="Log" id="rm">
   	<id property="lig" column="lig"/>
@@ -29,6 +29,29 @@
 	    <result column="salt" property="salt" />
   	</association>
   </resultMap>
+  
+  
+  <select id="selectBySearch" parameterType="java.util.HashMap" resultMap="rm1">
+  	select * from log l JOIN user u on u.uid=l.uid where u.uname like concat('%',#{uname},'%') order by l.lig limit #{startLine},#{size}
+  </select>
+  <resultMap type="Log" id="rm1">
+  	<id property="lig" column="lig"/>
+  	<result property="uid" column="uid"/>
+  	<result property="ltime" column="ltime"/>
+  	<result property="loption" column="loption"/>
+  	<association property="user" javaType="User">
+  		<id column="uid" property="uid" />
+	    <result column="cid" property="cid" />
+	    <result column="uname" property="uname" />
+	    <result column="upwd" property="upwd" />
+	    <result column="ustate" property="ustate" />
+	    <result column="avatar" property="avatar" />
+	    <result column="salt" property="salt" />
+  	</association>
+  </resultMap>
+  
+  
+  
   
   
   

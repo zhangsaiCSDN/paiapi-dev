@@ -1,6 +1,7 @@
 package com.woniuxy.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -33,4 +34,8 @@ public interface LogMapper {
     
     
     List<Log> selectLogByPage(Page<Log> page);
+    
+    
+    List<Log> selectBySearch(Map<String,Object> map);
+    
 }
