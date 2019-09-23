@@ -56,6 +56,12 @@ public class GoodsServiceImpl implements IGoodsService {
 		// TODO Auto-generated method stub
 		return  (int) dao.countByExample(null);
 	}
+	
+	//原生查询
+	@Override
+	public List<Goods> find() {
+		return dao.findAll();
+	}
 
 
 }

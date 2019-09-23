@@ -29,8 +29,11 @@ public class GoodsController {
 	@Autowired
 	private IGoodsTypeService goodsTypeService; 
 	
-	//查询所有拍品
-	@GetMapping
+	
+	
+	
+	//查询所有拍品 返回值是Page
+	@GetMapping("page")
 	@ResponseBody
 	public Page<Goods> find(Integer p) {
 		if(p==null)p=1;
@@ -39,6 +42,13 @@ public class GoodsController {
 		List<Goods> list=service.find(page);
 		page.setList(list);
 		return page;
+	}
+	//原生查询
+	@GetMapping
+	@ResponseBody
+	public List<Goods> find() {
+		List<Goods> list = service.find();
+		return list;
 	}
 	
 	@PostMapping

@@ -9,7 +9,8 @@ public interface IGoodsService {
 	void save(Goods goods);
 	void delete(Integer gid);
 	void update(Goods goods);
-	List<Goods> find(Page<Goods> page);
+	List<Goods> find(Page<Goods> page); 
+	List<Goods> find(); 
 	Goods findOne(Integer gid);
 	List<Goods> findByImages();
 	Integer count();
