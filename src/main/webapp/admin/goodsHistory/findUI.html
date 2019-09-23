@@ -13,9 +13,12 @@
 <body> 
  
 	<div id="app">
-		<adds></adds>
 		<button @click="save" class="btn btn-success btn-sm">添加数据</button>
 		<input type="text" v-model="search" placeholder="请输入搜索条件">
+		<button type="button" @click="findAll">搜索</button>
+		
+		<input style='margin-left:20px;' type="text" v-model="minmoney" size="3" placeholder="￥">-
+		<input type="text" v-model="maxmoney" size="3" placeholder="￥">
 		<button type="button" @click="findAll">搜索</button>
 		
 		<table
@@ -63,12 +66,15 @@
 		data:{
 			list:[],
 			page:'',
-			search:''
+			search:'',
+			minmoney:'',
+			maxmoney:''
 		},
 		methods:{
 			findAll(){
 				var self = this;
-				var par = {"p":self.page.p , "size":self.page.size,"search":self.search};
+				var par = {"p":self.page.p , "size":self.page.size,"search":self.search,
+						"minmoney":self.minmoney,"maxmoney":self.maxmoney};
 				axios.get("http://localhost:8080/ghistorys" , {params: par}).then(function(response){
 					self.list = response.data.list;
 					self.page = response.data;
@@ -86,7 +92,8 @@
 					    layout: ['count', 'prev', 'page', 'next', 'limit', 'skip'],
 					    jump: function(obj,first){
 						    if(!first){
-						      var param ={"p":obj.curr,"size":obj.limit,"search":self.search};
+						      var param ={"p":obj.curr,"size":obj.limit,"search":self.search,
+						    		  "minmoney":self.minmoney,"maxmoney":self.maxmoney};
 						      axios.get("http://localhost:8080/ghistorys" , {params: param}).then(function(response){
 						    		self.list = response.data.list;
 									self.page = response.data

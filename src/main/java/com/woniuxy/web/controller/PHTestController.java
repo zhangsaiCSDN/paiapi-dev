@@ -46,17 +46,15 @@ public class PHTestController {
 	@ResponseBody
 	public Page<Pricehistory> find(@RequestParam Map<String,Object> map){
 		
-		
 		if(map.get("p")==null ) {
 			map.put("p", 1);
 		}
 		
 		if(map.get("size")==null) {
-			map.put("size", 5);
+			map.put("size", 10);
 		}
-	
+		
 		Page<Pricehistory> page = service.find(map);
-		System.out.println(page.getList().toString());
 		return page;
 	}
 	

@@ -265,23 +265,35 @@
 		JOIN goods ON goods.`gid` = pricehistory.`gid`
 	
 		<where>
-			<if test="uid != null">
-				and pricehistory.`uid` = #{uid}
-			</if>
-			<if test="gid != null">
-				and pricehistory.`gid` = #{gid}
-			</if>
+		
 			<if test="phid != null">
 				and phid = #{phid}
 			</if>
+				
 			<if test ="search !=null">
-				user.uname like '%${search}%' or goods.gname like '%${search}%'
+				
+				and (user.uname like concat('%', #{search}, '%') or goods.gname like concat('%', #{search}, '%'))
 			</if>
+				
+
+			<choose>
+				<when test="minmoney !='' and maxmoney !='' ">
+					and (phmoney between #{minmoney} and #{maxmoney})
+				</when>
+				
+				<when test="minmoney !='' ">
+					and phmoney &gt; #{minmoney}
+				</when>
+				
+				<when test="maxmoney !='' ">
+					and phmoney &lt;  #{maxmoney}
+				</when>
+			</choose>	
+		
 		</where>
-		 	
 		 	limit #{page.startLine} , #{page.size}
   
-  </select>
+  </select> 
   
  <!-- 查询总行数-->
   <select id="findCount" parameterType="java.util.HashMap" resultType="java.lang.Integer">
@@ -290,18 +302,28 @@
 		JOIN goods ON goods.`gid` = pricehistory.`gid`
 		
 		<where>
-			<if test="uid != null">
-				and pricehistory.`uid` = #{uid}
-			</if>
-			<if test="gid != null">
-				and pricehistory.`gid` = #{gid}
-			</if>
 			<if test="phid != null">
-				and phid = #{phid}
-			</if>	 	
-			<if test ="search !=null">
-				user.uname like '%${search}%' or goods.gname like '%${search}%'
+				and pricehistory.phid = #{phid}
 			</if>
+			
+			<if test ="search !=''">
+				and (user.uname like concat('%', #{search}, '%') or goods.gname like concat('%', #{search}, '%'))
+			</if>
+			
+			<choose>
+				<when test="minmoney !='' and maxmoney !='' ">
+					and (phmoney between #{minmoney} and #{maxmoney})
+				</when>
+				
+				<when test="minmoney !='' ">
+					and phmoney &gt; #{minmoney}
+				</when>
+				
+				<when test="maxmoney !='' ">
+					and phmoney &lt;  #{maxmoney}
+				</when>
+			</choose>	 	
+			
 		</where>
   </select>
   

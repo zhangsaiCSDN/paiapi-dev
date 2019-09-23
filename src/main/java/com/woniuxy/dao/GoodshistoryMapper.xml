@@ -319,18 +319,28 @@
 	goodshistory.`buyerid` = user.`uid`
 	
 		<where>
-			<if test="uid != null">
-				and goodshistory.`uid` = #{uid}
-			</if>
-			<if test="gid != null">
-				and goodshistory.`gid` = #{gid}
-			</if>
+		
 			<if test="ghid != null">
 				and ghid = #{ghid}
 			</if>
 			<if test ="search !=null">
-				user.uname like '%${search}%' or goods.gname like '%${search}%'
+				and (user.uname like concat('%', #{search}, '%') or goods.gname like concat('%', #{search}, '%'))
 			</if>
+			
+				<choose>
+				<when test="minmoney !='' and maxmoney !='' ">
+					and (ghmoney between #{minmoney} and #{maxmoney})
+				</when>
+				
+				<when test="minmoney !='' ">
+					and ghmoney &gt; #{minmoney}
+				</when>
+				
+				<when test="maxmoney !='' ">
+					and ghmoney &lt;  #{maxmoney}
+				</when>
+			</choose>	
+			
 		</where>
 		 	
 		 	limit #{page.startLine} , #{page.size}
@@ -344,18 +354,28 @@
 	goodshistory.`buyerid` = user.`uid`
 	
 		<where>
-			<if test="uid != null">
-				and goodshistory.`uid` = #{uid}
-			</if>
-			<if test="gid != null">
-				and goodshistory.`gid` = #{gid}
-			</if>
+		
 			<if test="ghid != null">
 				and ghid = #{ghid}
 			</if>
 			<if test ="search !=null">
-				user.uname like '%${search}%' or goods.gname like '%${search}%'
+			    and	(user.uname like concat('%', #{search}, '%') or goods.gname like concat('%', #{search}, '%'))
 			</if>
+			
+				<choose>
+				<when test="minmoney !='' and maxmoney !='' ">
+					and (ghmoney between #{minmoney} and #{maxmoney})
+				</when>
+				
+				<when test="minmoney !='' ">
+					and ghmoney &gt; #{minmoney}
+				</when>
+				
+				<when test="maxmoney !='' ">
+					and ghmoney &lt;  #{maxmoney}
+				</when>
+			</choose>	
+			
 		</where>
 		
   </select>
