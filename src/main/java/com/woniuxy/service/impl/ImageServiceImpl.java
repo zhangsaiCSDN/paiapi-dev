@@ -41,7 +41,7 @@ public class ImageServiceImpl implements IImageService {
 		oldImage.setGid(gid);
 		dao.updateByPrimaryKey(oldImage);
 	}
-
+	//分页查询
 	@Override
 	public List<Image> find(Page<Image> page) {
 		return dao.find(page);
@@ -67,5 +67,12 @@ public class ImageServiceImpl implements IImageService {
 	public Integer count() {
 		// TODO Auto-generated method stub
 		return  (int) dao.countByExample(null);
+	}
+
+	//查询
+	@Override
+	public List<Image> find() {
+		// TODO Auto-generated method stub
+		return dao.findAll();
 	}
 }

@@ -31,5 +31,7 @@ public interface ImageMapper {
 
     int updateByPrimaryKey(Image record);
     
-    List<Image> find(Page<Image> page);//联合查询goods
+    List<Image> find(Page<Image> page);//分页查询goods
+    
+    List<Image> findAll();//查询
 }

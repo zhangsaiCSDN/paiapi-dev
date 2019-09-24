@@ -32,11 +32,10 @@ public class ImageController {
 	
 	@Autowired
 	private ImageServiceImpl service;
-	@Autowired
-	private GoodsServiceImpl goodsService; //查goods返回所有外键
-	//查询所有拍品图片
-	//查询所有拍品
-	@GetMapping
+
+
+	//查询图片分页 返回的是page
+	@GetMapping("page")
 	@ResponseBody
 	public Page<Image> find(Integer p) {
 		if(p==null)p=1;
@@ -45,6 +44,12 @@ public class ImageController {
 		List<Image> list=service.find(page);
 		page.setList(list);
 		return page;
+	}
+	//查询图片
+	@GetMapping
+	@ResponseBody
+	public List<Image> find() {
+		return service.find();
 	}
 
 	@DeleteMapping

@@ -184,7 +184,7 @@
 
 
 
-
+	<!--  分页查询 -->
   <resultMap id="bt" type="com.woniuxy.domain.Image">
     <id column="imgid" jdbcType="INTEGER" property="imgid" />
 	 <result column="gid" jdbcType="INTEGER" property="gid" />
@@ -202,6 +202,26 @@
 		SELECT * FROM image i
 		INNER JOIN goods g ON i.gid=g.gid
 		limit #{startLine},#{size}
+  	</select>
+  	
+  	
+  	<!-- 查询 -->
+  <resultMap id="fd" type="com.woniuxy.domain.Image">
+    <id column="imgid" jdbcType="INTEGER" property="imgid" />
+	 <result column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="img" jdbcType="VARCHAR" property="img" />
+   
+
+  
+    <association property="goods">
+    	<id property="gid" column="gid"/>
+   		<result column="gname"  property="gname" />
+    </association>
+  </resultMap>
+  
+    <select id="findAll"  resultMap="fd">
+		SELECT * FROM image i
+		INNER JOIN goods g ON i.gid=g.gid
   	</select>
   	
  </mapper>
