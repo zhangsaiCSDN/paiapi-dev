@@ -34,7 +34,7 @@ public class ImageController {
 	private ImageServiceImpl service;
 
 
-	//查询图片分页 返回的是page
+	//查询图片分页 返回的是page 
 	@GetMapping("page")
 	@ResponseBody
 	public Page<Image> find(Integer p) {
