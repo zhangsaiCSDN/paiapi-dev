@@ -16,7 +16,7 @@ public interface ICollectService {
 	Collect findOne(Integer clid);
 
 	List<Collect> find(Page<Collect> page);
-
+	
 	Integer count();
 
 }

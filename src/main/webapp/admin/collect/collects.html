@@ -186,12 +186,12 @@ th {
 											</div>
 											<div>
 												<label for="pwd">用户:</label> <input type="text"
-													class="form-control" id="pwd" v-model="c_user.uname"
+													class="form-control" id="pwd" v-model="c_user.uname" readonly="readonly"
 													placeholder="请输入用户ID">
 											</div>
 											<div>
 												<label for="pwd">拍品ID:</label> <input type="text"
-													class="form-control" id="pwd" v-model="c_goods.gname"
+													class="form-control" id="pwd" v-model="c_goods.gname" readonly="readonly"
 													placeholder="请输入拍品ID">
 											</div>
 											
@@ -368,7 +368,11 @@ th {
 					
 				}).then(function(response){
 					layer.alert('添加成功!');
-					self.findAll();
+					self.find(self.collects.p)
+					self.clid='',
+					self.cltime='',
+					self.c_uid='',
+					self.c_gid=''
 				})
 				
 			},

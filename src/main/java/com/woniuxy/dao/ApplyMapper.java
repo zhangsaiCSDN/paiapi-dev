@@ -2,7 +2,6 @@ package com.woniuxy.dao;
 
 import com.woniuxy.domain.Apply;
 import com.woniuxy.domain.ApplyExample;
-import com.woniuxy.domain.Deposit;
 import com.woniuxy.domain.Page;
 
 import java.util.List;

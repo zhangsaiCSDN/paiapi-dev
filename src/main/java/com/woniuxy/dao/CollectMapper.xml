@@ -209,6 +209,10 @@
   join goods g on c.gid =g.gid
   join user u on c.uid = u.uid
   
+  
+  
+  
+  
     limit #{startLine},#{size}
   
   
@@ -252,6 +256,43 @@
   
   
   
+  <!-- <select id="findCount"  parameterType="java.util.hashMap"  resultType="java.lang.Integer">
+  
+  
+  
+ 		select count(*) from collect  c
+  join goods g on c.gid =g.gid
+  join user u on c.uid = u.uid
+  
+  
+   <where>
+  
+  <if test="uid!=null">
+  
+  	and collect.'uid' =#{uid}
+  
+  </if>
+  
+  	<if test="gid!=null">
+  		and collect.'gid'=#{gid}
+  	</if>
+  	<if test="clid!=null">
+  	and clid=#{clid}
+  	
+  	</if>
+  	
+  	<if test="search!=null">
+  	user.uname like  '%${search}%' or goods.gname like '%${search}%'
+  	
+  	</if>
+  
+  
+  
+  </where>
+  
+  
+  </select>
+   -->
   
   
   

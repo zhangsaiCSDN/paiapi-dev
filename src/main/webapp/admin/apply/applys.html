@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-
+ 
 <meta charset="utf-8">
 <title></title>
 <meta name="renderer" content="webkit">
@@ -214,7 +214,7 @@ th {
 											</div>
 											<div>
 												<label for="pwd">用户ID:</label> <input type="text"
-													class="form-control" id="pwd" v-model="a_uid"
+													class="form-control" id="pwd" v-model="a_user.uid"
 													placeholder="请输入用户ID">
 											</div>
 										</div>
@@ -291,9 +291,17 @@ th {
 													placeholder="请输入没有通过的原因">
 											</div>
 											<div>
-												<label for="pwd">用户ID:</label> <input type="text"
+												<label for="pwd">用户ID:</label> 
+												<select v-model="a_uid" class="form-control">
+												<option v-for="apply in applys.list" >{{apply.user.uid}}</option>
+												
+												
+												</select>
+												
+												
+												<!-- <input type="text"
 													class="form-control" id="pwd" v-model="a_uid"
-													placeholder="请输入用户ID">
+													placeholder="请输入用户ID"> -->
 											</div>
 										</div>
 
@@ -408,10 +416,19 @@ th {
 					apinfo:self.a_apinfo,
 					apstate:self.a_apstate,
 					apreason:self.a_apreason,
+					uid:self.a_uid,
 					/* uid:self.a_uid */
 				}).then(function(response){
 					layer.alert('添加成功!');
-					self.find();
+					self.find(self.applys.p);
+					
+					self.a_apid='',
+					self.a_apno='',
+					self.a_apbusi='',
+					self.a_apinfo='',
+					self.a_apstate='',
+					self.a_apreason='',
+					self.a_uid=''
 				})
 				
 			},
@@ -419,7 +436,7 @@ th {
 				var jason={apid:this.a_apid,apno:this.a_apno,apbusi:this.a_apbusi,apinfo:this.a_apinfo,apstate:this.a_apstate,apreason:this.a_apreason,uid:this.a_uid,"_method":"put"};
 				this.$http.post("http://localhost:8080/applys",jason,{emulateJSON:true}).then(function(){
 					layer.alert('修改成功!');
-					this.find(self.applys.p);
+					this.find(this.applys.p);
 				});
 				
 

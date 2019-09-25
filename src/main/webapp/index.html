@@ -8,7 +8,6 @@
 	href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.css"
 	rel="stylesheet">
 
-<script src="layer/layer.js"></script>
 
 <style type="text/css">
 #update, #del {
@@ -22,81 +21,41 @@ th {
 </head>
 
 <body>
-
-
-
 	<center>
-		<h1>申请表</h1>
+		<h1>用户管理系统</h1>
 	</center>
 
 
-	<form>
-		<caption>
-			<h3>增加申请</h3>
-		</caption>
-		<br />
-		
-		<label> 申请ID:</label><input type="text" name="apid" placeholder="请输入申请ID" id="iputs" /><br/>
-		<label>编号:</label><input type="text" name="apno" placeholder="请输入编号"  id="iputs2"/><br />
-		<label> 业务:<input
-			type="text" name="apbusi" placeholder="请输入业务" /></label><br /> 详细信息:<input
-			type="text" name="apinfo" placeholder="请输入详细信息" /><br /> 申请状态:<input
-			type="text" name="apstate" placeholder="请输入申请状态" /><br /> 没有通过的原因:<input
-			type="text" name="apreason" placeholder="请输入没有通过的原因" /><br /> 用户ID:<input
-			type="text" name="uid" placeholder="请输入用户id" /><br />
-		<button id="add" type="button" class="btn btn-success">增加</button>
-	</form>
 
 
-
+	
 
 	<table
 		class="table table-hover table-striped table-bordered table-dark">
 		<tr>
-			<th>申请ID</th>
-			<th>编号</th>
-			<th>用户ID</th>
-			<th>业务</th>
-			<th>详细信息</th>
-			<th>申请状态</th>
-			<th>没有通过的原因</th>
-			<th>修改</th>
+			<th>用户编号</th>
+			<th>用户名称</th>
+			<th>生日</th>
+			<th>工资</th>
+			<th>操作</th>
 
 		</tr>
 
 
 	</table>
-
-	<form>
-		<caption>
-			<h3>修改申请</h3>
-		</caption>
-		<br /> 申请ID:<input type="text" name="apid" /><br /> 编号:<input
-			type="text" name="apno" /><br /> 业务:<input type="text"
-			name="apbusi" /><br /> 详细信息:<input type="text" name="apinfo" /><br />
-		申请状态:<input type="text" name="apstate" /><br /> 没有通过的原因:<input
-			type="text" name="apreason" /><br /> 用户ID:<input type="text"
-			name="uid" /><br />
-		<button type="button" class="btn btn-warning">修改</button>
-	</form>
-
+	
+	
 </body>
 </html>
 <script type="text/javascript">
 	$(function() {
-		
-		
-		$("#add").click(function(){
-			
-		layer.alert("添加成功!!");
-		});		
-		
 
+		
 		function updateTable() {
 			$
 					.ajax({
 						type : "get",
-						url : "/applys",
+						url : "/users",
 						headers : {
 							"Accept" : "application/json"
 						},
@@ -110,51 +69,48 @@ th {
 								var th3 = $("<th>");
 								var th4 = $("<th>");
 								var th5 = $("<th>");
-								var th6 = $("<th>");
-								var th7 = $("<th>");
-								var th8 = $("<th>");
-								th.append(data[p].apid);
-								th2.append(data[p].apno);
-								th3.append(data[p].uid);
-								th4.append(data[p].apbusi);
-								th5.append(data[p].apinfo);
-								th6.append(data[p].apstate);
-								th7.append(data[p].apreason);
+								th.append(data[p].uid);
+								th2.append(data[p].uname);
+								th3.append(data[p].birthday);
+								th4.append(data[p].money);
 
 								var update = $("<button id='update' type='button' class='btn btn-warning'>修改</button>");
-								var del = $("<button  id='del' type='button' onclick='return confirm('确定要删除吗？')' class='btn btn-danger'>删除 </button>");
-
-								del.click(function() {
-
-									var apid = $(this).parent().parent()
-											.children().eq(0).html();
+								var del = $("<button  id='del' type='button'  onclick='del'  class='btn btn-danger'>删除 </button>");
+								
+								del.click(function(){
+									
+									alert(data[p].uid);
+									
+									
+									
+									
+									
+									var uid=$(this).parent().parent().children().eq(0).html();
+									
+									
 									$.ajax({
-
-										type : "post",
-										url : "/applys",
-										data : {
-											"apid" : apid,
-											"_method" : "delete"
-										},
-										success : function() {
-
+										
+										type:"post",
+										url:"/users",
+										data:{"uid":uid,"_method":"delete"},
+										success:function(){
+												
 											updataTable();
 										}
-
+										
 									});
-
-								});
-
-								th8.append(update, del);
+									
+								
+									});
+									
+									
+								th5.append(update, del);
 
 								tr.append(th);
 								tr.append(th2);
 								tr.append(th3);
 								tr.append(th4);
 								tr.append(th5);
-								tr.append(th6);
-								tr.append(th7);
-								tr.append(th8);
 								tab.append(tr);
 
 							}
@@ -162,7 +118,7 @@ th {
 					});
 
 		}
-
+		
 		updateTable();
 
 	});
