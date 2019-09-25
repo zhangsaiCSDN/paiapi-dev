@@ -11,6 +11,7 @@ public interface IOrdersService {
 	void delete(Integer odid);
 	void update(Orders orders);
 	Orders findOne(Integer odid);
+	List<Orders> find();
 	List<Orders> find(Page<Orders> page);
 	Integer count();
 }

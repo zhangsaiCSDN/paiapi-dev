@@ -49,4 +49,11 @@ public class OrdersServiceImpl implements IOrdersService {
 		return (int) mapper.countByExample(null);
 	}
 
+	@Override
+	public List<Orders> find() {
+		// TODO Auto-generated method stub
+		return mapper.selectByExample(null);
+	}
+
+
 }

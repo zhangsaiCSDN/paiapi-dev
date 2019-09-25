@@ -57,6 +57,13 @@ public class OrdersController {
 		page.setList(list);
 		return page;
 	}
+	//查询orders
+	@GetMapping("findAll")
+	@ResponseBody
+	public List<Orders> find(){
+		List<Orders> list=service.find();
+		return list;
+	}
 	
 	@GetMapping(value = "/{odid}")
 	@ResponseBody
