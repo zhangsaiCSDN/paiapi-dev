@@ -63,7 +63,7 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public List<Role> find() {
 		// TODO Auto-generated method stub
-		return mapper.selectByExample(null);
+		return mapper.selectByExample(null); 
 	}
 
 	@Override
