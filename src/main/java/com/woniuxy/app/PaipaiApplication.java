@@ -13,4 +13,3 @@ public class PaipaiApplication {
 		SpringApplication.run(PaipaiApplication.class, args);
 	}
 }
-
