@@ -367,8 +367,6 @@
 		SELECT * FROM goods g
 		INNER JOIN goodstype gt ON g.gtid=gt.gtid
 		INNER JOIN user u ON g.salerid=u.uid
-
-
   	</select>
   	
   	
@@ -453,4 +451,23 @@
 			<result property="img" jdbcType="VARCHAR" column="img" />
 		</collection>
 	  </resultMap>
+	  
+	  
+	  
+	  
+	  
+	  
+	  
+	  <!-- 模糊查询 -->
+	    <select id="findCount"  parameterType="java.util.HashMap" resultMap="bt">
+		  	SELECT * FROM goods g JOIN goodstype gt ON
+			g.gtid = gt.gtid
+	
+		<where>
+			<if test ="search !=null">
+			    and	(gt.gtname like concat('%', #{search}, '%') or g.gname like concat('%', #{search}, '%'))
+			</if>
+		</where>
+		
+  </select>
 </mapper>

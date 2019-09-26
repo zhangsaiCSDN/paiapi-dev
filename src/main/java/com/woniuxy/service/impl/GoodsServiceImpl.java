@@ -1,6 +1,7 @@
 package com.woniuxy.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -61,6 +62,11 @@ public class GoodsServiceImpl implements IGoodsService {
 	@Override
 	public List<Goods> find() {
 		return dao.findAll();
+	}
+
+	@Override
+	public List<Goods> find(Map<String, Object> map) {
+		return dao.findCount(map);
 	}
 
 

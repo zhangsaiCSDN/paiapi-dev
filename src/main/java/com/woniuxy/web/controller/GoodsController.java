@@ -1,6 +1,9 @@
 package com.woniuxy.web.controller;
 
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.Goods;
@@ -43,11 +47,27 @@ public class GoodsController {
 		page.setList(list);
 		return page;
 	}
+	
 	//原生查询
 	@GetMapping
 	@ResponseBody
-	public List<Goods> find() {
+	public List<Goods> find(HttpServletResponse resp) {
+		resp.setHeader("Access-Control-Allow-Origin","*");
 		List<Goods> list = service.find();
+		return list;
+	}
+	
+	//模糊查询
+	@GetMapping("findBySearch")
+	@ResponseBody
+	public List<Goods> find(@RequestParam Map<String,Object> map) {
+		System.out.println(1111);
+		System.out.println(map);
+		List<Goods> list = service.find(map);
+		for (Goods goods : list) {
+			System.out.println(goods);
+		}
+		System.out.println("-----------aaa"+list.size());
 		return list;
 	}
 	
