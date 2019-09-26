@@ -1,6 +1,7 @@
 package com.woniuxy.domain;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import lombok.Data;
 
@@ -13,5 +14,7 @@ public class Goodstype implements Serializable{
     private String img;
 
     private String gtdes;
+    
+    private Set<Goods> goods;
 
 }
