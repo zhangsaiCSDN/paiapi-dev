@@ -39,4 +39,5 @@ public interface RoleMapper {
 	
 	int deleteRolePermission(Map<String,Integer> map);
 	
+	Role findInfoByRid(Integer rid);
 }

@@ -69,7 +69,7 @@ public class RoleServiceImpl implements IRoleService {
 	@Override
 	public Role findOne(Integer rid) {
 		// TODO Auto-generated method stub
-		return mapper.selectByPrimaryKey(rid);
+		return mapper.findInfoByRid(rid);
 	}
 
 	public List<Role> findInfo() {

@@ -200,6 +200,8 @@
 		#{rdes,jdbcType=VARCHAR}
 		where rid = #{rid,jdbcType=INTEGER}
 	</update>
+	
+
 	<select id="findInfo" resultMap="findInfo">
 		SELECT * FROM role r
 		INNER JOIN
@@ -220,6 +222,33 @@
 			<id property="pmsid" column="pmsid" />
 			<result property="pmsname" column="pmsname" />
 			<result property="pmsdes" column="pmsdes" />
+			<result property="pid" column="pid" />
+			<result property="url" column="url" />
+		</collection>
+	</resultMap>
+	
+	<select id="findInfoByRid" resultMap="findInfoByRid">
+		SELECT * FROM role r
+		INNER JOIN
+		role_permission pr
+		ON
+		pr.rid = r.rid
+		INNER JOIN
+		permission p
+		ON
+		pr.pmsid = p.pmsid
+		where r.rid = #{rid}
+	</select>
+	<resultMap type="Role" id="findInfoByRid">
+		<id property="rid" column="rid" />
+		<result property="rname" column="rname" />
+		<result property="rdes" column="rdes" />
+		<collection property="permissions" ofType="Permission">
+			<id property="pmsid" column="pmsid" />
+			<result property="pmsname" column="pmsname" />
+			<result property="pmsdes" column="pmsdes" />
+			<result property="pid" column="pid" />
+			<result property="url" column="url" />
 		</collection>
 	</resultMap>
 
@@ -234,4 +263,7 @@
 	<delete id="deleteRolePermission">
 		delete from role_permission where rid = #{rid}
 	</delete>
+	
+	
+	
 </mapper>
