@@ -1,6 +1,7 @@
 package com.woniuxy.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,6 +55,26 @@ public class OrdersServiceImpl implements IOrdersService {
 		// TODO Auto-generated method stub
 		return mapper.selectByExample(null);
 	}
+	
+	//前端查询
+	@Override
+	public List<Orders> find(Map<String, Object> map) {		
+		Integer rowCount = mapper.findCount(map);//查出uid的order数量
+		Page page = (Page) map.get("page");
+		page.setRowCount(rowCount); //将数量存入
+		
+		map.put("page", page); //cho
+		List<Orders> list = mapper.findByUid(map);  //map中封装了 page 和uid
+		return list;
+	}
+
+	@Override
+	public Integer findCount(Map<String, Object> map) {
+		Integer findCount = mapper.findCount(map);
+		return findCount;
+	}
+
+
 
 
 }

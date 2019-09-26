@@ -5,6 +5,8 @@ import com.woniuxy.domain.OrdersExample;
 import com.woniuxy.domain.Page;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface OrdersMapper {
@@ -31,5 +33,9 @@ public interface OrdersMapper {
     int updateByPrimaryKey(Orders record);
     
     List<Orders> find(Page<Orders> page);
+    
+    List<Orders> findByUid(Map<String , Object> map); //根据用户uid查询
+    
+    Integer findCount(Map<String , Object> map);//根据用户uid查询
     
 }

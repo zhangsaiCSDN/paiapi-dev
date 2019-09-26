@@ -344,5 +344,60 @@
 		INNER JOIN address a ON o.aid=a.aid
 		limit #{startLine},#{size}
   </select>
+  <!-- 根据用户uid 查询出订单~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+  <resultMap id="fd" type="Orders">
+    <id column="odid" jdbcType="INTEGER" property="odid" />
+    <result column="odmoney" jdbcType="DOUBLE" property="odmoney" />
+    <result column="odtime" jdbcType="TIMESTAMP" property="odtime" />
+    <result column="buyerid" jdbcType="INTEGER" property="buyerid" />
+    <result column="salerid" jdbcType="INTEGER" property="salerid" />
+    <result column="odfee" jdbcType="DOUBLE" property="odfee" />
+    
+    <association property="user">
+    	<id property="uid" column="uid"/>
+   		<result column="uname"  property="uname" />
+    </association>
+    
+     <association property="goods">
+    	<id property="gid" column="gid"/>
+   		<result column="gname"  property="gname" />
+    </association>
+    
+     <association property="address">
+    	<id property="aid" column="aid"/>
+	    <result column="ainfo" property="ainfo" />
+    </association>
+  </resultMap>
+  
+  
+  <select id="findByUid" parameterType="java.util.HashMap"  resultMap="fd">
+		SELECT * FROM orders o
+		INNER JOIN user u ON o.uid=u.uid
+		INNER JOIN goods g ON o.gid=g.gid
+		INNER JOIN address a ON o.aid=a.aid
+
+	<where>
+		<if test="uid != null">
+			and u.uid = #{uid}
+		</if>
+	</where>
+	limit #{page.startLine} , #{page.size}
+  </select>
+  <!-- 根据用户uid 查询出订单的数量~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
+
+  
+  
+  <select id="findCount" parameterType="java.util.HashMap"  resultType="java.lang.Integer">
+
+		SELECT COUNT(*) FROM orders o
+		INNER JOIN user u ON o.uid=u.uid
+		INNER JOIN goods g ON o.gid=g.gid
+		INNER JOIN address a ON o.aid=a.aid
+	<where>
+		<if test="uid != null">
+			and u.uid = #{uid}
+		</if>
+	</where>
+  </select>
    
 </mapper>

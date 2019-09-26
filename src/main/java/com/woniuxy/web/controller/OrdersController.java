@@ -1,6 +1,11 @@
 package com.woniuxy.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,7 +51,7 @@ public class OrdersController {
 	public void update(@RequestBody Orders orders) {
 		service.update(orders);
 	}
-	
+	//后端查询
 	@GetMapping
 	@ResponseBody
 	public Page<Orders> find(Integer p){
@@ -57,10 +62,39 @@ public class OrdersController {
 		page.setList(list);
 		return page;
 	}
+	
+	//前端根据uid查询orders
+	@GetMapping("findByUid")
+	@ResponseBody
+	public Page<Orders> findByUid(HttpServletResponse resp,Integer p){
+		resp.setHeader("Access-Control-Allow-Origin","*");
+		//测试参数uid 接口留着接参数
+//		int uid =562;
+		int uid =1;
+
+		Map map = new HashMap<String,Object>();
+		map.put("uid", uid);
+		Integer rc = service.findCount(map); //根据条件查到rc
+		
+		if(p==null)p=1;
+		int count=service.count();
+		
+		Page<Orders> page=new Page<>(p,rc,3);
+		List<Orders> list=service.find(page);
+		
+		map.put("page", page);
+		List find = service.find(map);
+		page.setList(find);
+
+		page.setRowCount(1); //总页数
+		
+		return page;
+	}
 	//查询orders
 	@GetMapping("findAll")
 	@ResponseBody
-	public List<Orders> find(){
+	public List<Orders> find(HttpServletResponse resp){
+		resp.setHeader("Access-Control-Allow-Origin","*");
 		List<Orders> list=service.find();
 		return list;
 	}
