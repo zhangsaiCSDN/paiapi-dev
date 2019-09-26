@@ -5,6 +5,8 @@ import com.woniuxy.domain.GoodsExample;
 import com.woniuxy.domain.Page;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
  
 public interface GoodsMapper {
@@ -36,4 +38,5 @@ public interface GoodsMapper {
     
     List<Goods> findByImages(); //联合images 一对多
     
+    List<Goods> findCount(Map<String , Object> map);
 }
