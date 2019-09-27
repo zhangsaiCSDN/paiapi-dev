@@ -31,5 +31,9 @@ public interface DepositMapper {
 
     int updateByPrimaryKey(Deposit record);
     
+    int findCount();
+    
     List<Deposit> findAll(Page<Deposit> page);
+    
+    List<Deposit> findDepo(Page<Deposit> page);
 }

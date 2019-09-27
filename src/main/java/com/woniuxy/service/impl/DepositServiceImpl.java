@@ -30,9 +30,25 @@ public class DepositServiceImpl implements IDepositService {
 	}
 
 	@Override
-	public void update(Deposit ds) {
+	public String update(Deposit ds) {
+		Deposit deposit = findOne(ds.getDid());
+		
+		switch (deposit.getGstate()) {
+		case 0:
+			return "退款失败,您的押金已被扣除";
+		case 1:
+			return "退款正在申请中";
+		case 2:
+			mapper.updateByPrimaryKeySelective(ds);
+			return "退款申请中";
+		case 3:
+			return "退款失败,您的押金已已抵押货款";
+		case 4:
+			return "退款成功";
 
-		mapper.updateByPrimaryKeySelective(ds);
+		default:
+			return "";
+		}
 	}
 
 	@Override
@@ -52,5 +68,16 @@ public class DepositServiceImpl implements IDepositService {
 		
 		return  (int) mapper.countByExample(null);
 	}
+
+	@Override
+	public Page<Deposit> findDepo(Integer p ,Integer size) {
+		// TODO Auto-generated method stub
+		int findCount = mapper.findCount();
+		Page<Deposit> page = new Page<Deposit>(p, findCount, size);
+		List<Deposit> list = mapper.findDepo(page);
+		page.setList(list);
+		return page;
+	}
+
 	
 }

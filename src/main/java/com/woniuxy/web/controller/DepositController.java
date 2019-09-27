@@ -2,6 +2,7 @@ package com.woniuxy.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,12 +29,24 @@ public class DepositController {
 	
 	@GetMapping
 	@ResponseBody
-	public Page<Deposit> find(Integer p){
+	public Page<Deposit> find(Integer p,HttpServletResponse resp){
+		resp.setHeader("Access-Control-Allow-Origin","*");
 		if(p==null)p=1;
 		int count=service.count();
 		Page<Deposit> page=new Page<>(p,count,5);
 		List<Deposit> list=service.find(page);
 		page.setList(list);
+		return page;
+	}
+	
+	@GetMapping("findDepo")
+	@ResponseBody
+	public Page<Deposit> findDepo(Integer p,HttpServletResponse resp){
+		resp.setHeader("Access-Control-Allow-Origin","*");
+		if(p==null)p=1;
+	
+		
+		Page<Deposit> page = service.findDepo(p,5);
 		return page;
 	}
 	
@@ -51,8 +64,11 @@ public class DepositController {
 	
 	@PutMapping
 	@ResponseBody
-	public void update(@RequestBody Deposit deposit) {
-		service.update(deposit);
+	public String update(@RequestBody Deposit deposit ,HttpServletResponse resp) {
+		resp.setHeader("Access-Control-Allow-Origin","*");
+		String massage = service.update(deposit);
+		System.out.println(massage);
+		return massage;
 	};
 	
 	@PostMapping
