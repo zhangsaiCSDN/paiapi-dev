@@ -8,8 +8,9 @@ public interface IDepositService {
 
 	void save(Deposit ds);
 	void delete(Integer did);
-	void update(Deposit ds);
+	String update(Deposit ds);
 	Deposit findOne(Integer did);
 	List<Deposit> find(Page<Deposit> page);
 	Integer count();
+	Page<Deposit> findDepo(Integer p ,Integer size);
 }

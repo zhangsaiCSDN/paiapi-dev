@@ -210,7 +210,7 @@
   </update>
   
   <select id="findAll" parameterType="Page" resultMap="sd">
-  	SELECT  * FROM 
+  	SELECT  d.`did`,d.`dmoney`,d.`gstate`,u.`uid`,u.`uname`,g.`gid`,g.`gname`,g.`gstate` `gg` FROM 
   	deposit d 
   	 JOIN 
   	goods g 
@@ -220,9 +220,8 @@
   	ON d.uid=u.uid limit #{startLine},#{size}
   </select>
   
-  <resultMap type="Deposit" id="sd">
+  <resultMap type="Deposit" id="sd"> 
   	<id property="did" column="did"/>
-  	<result property="dname" column="dname"/>
   	<result property="dmoney" column="dmoney"/>
   	<result property="gstate" column="gstate"/>
   	<association property="user" javaType="user">
@@ -232,6 +231,56 @@
   	<association property="goods" javaType="goods">
   		<id property="gid" column="gid"/>
   		<result property="gname" column="gname"/>
+  		<result  property="gstate" column="gg"  />
   	</association>
   </resultMap>
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="findCount"  resultType="java.lang.Integer">
+  	SELECT  count(*) FROM 
+  	deposit d 
+  	 JOIN 
+  	goods g 
+  	ON 
+  	d.gid=g.gid 
+  	 JOIN user u 
+  	ON d.uid=u.uid
+  	where g.`gstate` in (3,5,6,7)
+  </select>
+  
+  
+  <select id="findDepo" parameterType="Page" resultMap="depo">
+  	SELECT  d.`did`,d.`dmoney`,d.`gstate`,u.`uid`,u.`uname`,g.`gid`,g.`gname`,g.`gstate` `gg` FROM 
+  	deposit d 
+  	 JOIN 
+  	goods g 
+  	ON 
+  	d.gid=g.gid 
+  	 JOIN user u 
+  	ON d.uid=u.uid
+  	where g.`gstate` in (3,5,6,7)
+  	limit #{startLine},#{size}
+  </select>
+  
+  <resultMap type="Deposit" id="depo"> 
+  	<id property="did" column="did"/>
+  	<result property="dmoney" column="dmoney"/>
+  	<result property="gstate" column="gstate"/>
+  	<association property="user" javaType="user">
+  		<id property="uid" column="uid"/>
+  		<result property="uname" column="uname"/>
+  	</association>
+  	<association property="goods" javaType="goods">
+  		<id property="gid" column="gid"/>
+  		<result property="gname" column="gname"/>
+  		<result  property="gstate" column="gg"  />
+  	</association>
+  </resultMap>
+  
 </mapper>

@@ -193,4 +193,45 @@
       gtdes = #{gtdes,jdbcType=VARCHAR}
     where gtid = #{gtid,jdbcType=INTEGER}
   </update>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  	<!-- goodType 联合 goods 联合 image 第一张图 -->
+  	<select id="goodTypeAll" resultMap="gta">
+		SELECT * FROM goodstype gt
+		INNER JOIN  goods g ON gt.`gtid`=g.gtid
+		INNER JOIN image i ON i.`gid`= g.`gid`
+	</select>
+	  <resultMap id="gta" type="Goodstype">
+	    <id column="gtid" jdbcType="INTEGER" property="gtid" />
+	    <result column="gtname" jdbcType="CHAR" property="gtname" />
+	    <result column="img" jdbcType="VARCHAR" property="img" />
+	    <result column="gtdes" jdbcType="VARCHAR" property="gtdes" />
+	
+		<collection property="goods" ofType="Goods">
+	    	<id property="gid" column="gid"/>
+	   		<result column="gname"  property="gname" />
+	   		<result column="gtid"  property="gtid" />
+			<collection property="images" ofType="Image">
+				<id property="imgid" jdbcType="INTEGER" column="imgid" />
+				<result property="gid" jdbcType="INTEGER" column="gid" />
+				<result property="img" jdbcType="VARCHAR" column="img" />
+			</collection>
+		</collection>
+
+	  </resultMap>
 </mapper>

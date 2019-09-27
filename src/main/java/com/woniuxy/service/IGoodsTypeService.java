@@ -11,4 +11,5 @@ public interface IGoodsTypeService {
 	Goodstype findOne(Integer gtid);
 	List<Goodstype> find();
 	void updImg(Integer gtid, String img);
+	List<Goodstype> goodTypeAll();//联合查询goods image 第一张图
 }

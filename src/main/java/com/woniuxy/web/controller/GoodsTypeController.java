@@ -31,12 +31,19 @@ public class GoodsTypeController {
 	@Autowired
 	private GoodsTypeServiceImpl service;
  
-	// 查询所有商品类型
+	// 查询所有商品类型 单表查询
 	@GetMapping
 	@ResponseBody
 	public List<Goodstype> find() {
 		List<Goodstype> list = service.find();
 		return list;
+	};
+	// 查询所有商品类型 级联查询 goodType 一对多 goods ,goods一对多 Images
+	@GetMapping("findAll")
+	@ResponseBody
+	public List<Goodstype> findAll() {
+		List<Goodstype> goodTypeAll = service.goodTypeAll();
+		return goodTypeAll;
 	};
 
 	@DeleteMapping

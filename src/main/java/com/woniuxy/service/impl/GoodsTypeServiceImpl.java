@@ -58,5 +58,12 @@ public class GoodsTypeServiceImpl implements IGoodsTypeService {
 		mapper.updateByPrimaryKeySelective(goodstype);
 		
 	}
+	
+	//联合查询goods image 第一张图
+	@Override
+	public List<Goodstype> goodTypeAll() {
+		// TODO Auto-generated method stub
+		return mapper.goodTypeAll();
+	}
 
 }
