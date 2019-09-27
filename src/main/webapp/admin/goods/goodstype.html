@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<link rel="stylesheet" href="../../layuiadmin/layui/css/layui.css" media="all">
+<link rel="stylesheet" href="../../layuiadmin/style/admin.css" media="all">
+<script
+	src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    
+<div id="app">
+	<button type="button"   class="btn btn-success btn-block"
+				data-toggle="modal" data-target="#myModal2">添加</button>  
+
+<!--编辑  修改模态框-->
+	<div class="container">
+		<!-- 模态框 -->
+		<div class="modal fade" id="myModal">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<!-- 模态框头部 -->
+					<div class="modal-header">
+						<h4 class="modal-title">修改拍品类型</h4>
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+					</div>
+					<!-- 模态框主体 -->
+					<div class="modal-body">
+						<div hidden="true">
+							<label for="pwd">类型id:</label> <input type="text" class="form-control" v-model="u_gtid"  />
+						</div>
+						<div>
+							<label for="pwd">类型名称:</label> <input type="text" class="form-control" v-model="u_gtname" />
+						</div>
+						<div>
+							<label for="pwd">类型描述:</label> <input type="text" class="form-control" v-model="u_gtdes" />
+						</div>
+						<div>
+							<label for="pwd">修改图片:</label><input  class="form-control" ref='photoUdp' name="file" type="file" multiple="multiple"/>
+													
+						</div>
+						<div>
+							<label for="pwd">上传至服务器:</label>
+							<button @click='updImg(u_gtid)' class="layui-btn layui-btn-normal layui-btn-radius"
+							 id='update' type='button' >开始上传</button>
+						</div>
+					</div>
+					<!-- 模态框底部 -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal"  @click='update'>提交</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 添加模态框 -->
+	<div class="container">
+			<!-- 模态框 -->
+			<div class="modal fade" id="myModal2">
+				<div class="modal-dialog modal-lg">
+					<div class="modal-content">
+						<!-- 模态框头部 -->
+						<div class="modal-header">
+							<h4 class="modal-title">添加拍品页面</h4>
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+						</div>
+						<!-- 模态框主体 -->
+						<div class="modal-body">
+							<div>
+								<label for="pwd">类型名称:</label> <input type="text" class="form-control" v-model="gtname" />
+							</div>
+							<div>
+								<label for="pwd">类型图片:</label><input  class="form-control" ref='photo' name="file" type="file" multiple="multiple"/>
+							</div>
+							<div>
+								<label for="pwd">类型描述:</label> <input type="text" class="form-control" v-model="gtdes" />
+							</div>
+						</div>
+						<!-- 模态框底部 -->
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary"
+								data-dismiss="modal"  @click="add">提交</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>	
+	
+	
+	<table class="table table-hover table-striped table-bordered table-dark">
+		<tr>
+			<th>类型id</th>
+			<th>类型名</th>
+			<th>图片</th>
+			<th>类型描述</th>
+			<th>操作</th>
+		</tr>
+		<tr v-for="gt in goodsType">
+			<td>{{gt.gtid}}</td>
+			<td>{{gt.gtname}}</td>
+			<td><img  :src='"goodsTypeImg/"+gt.img' width="150px"/></td>
+			<td>{{gt.gtdes}}</td>
+
+			<td>
+			<button type="button" class="btn btn-outline-info"
+				data-toggle="modal" data-target="#myModal"
+				@click='getEdit(gt)'>编辑</button>  
+	
+			<button @click='del(gt.gtid)' id='update' type='button' class='btn btn-danger'>删除</button>
+			</td>
+		</tr>
+	</table>
+	</div>
+</body>
+ <script src="../../../layuiadmin/layui/layui.js"></script>  
+	<script>
+		var vue = new Vue({
+			el: "#app",
+			data: {
+				goodsType: [],
+				gtname:'',
+				gtdes:'',
+				u_gtid:'',
+				u_gtname:'',
+				u_gtdes:''
+			},
+			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
+		 		var self = this
+				axios.get("http://localhost:8080/goodsType").then(function(response) {
+					self.goodsType = response.data; //此时还是字符串
+			
+					/* self.orders = eval("(" + self.orders + ")"); //字符串转换为数组对象 */
+				})
+			},
+			 
+			methods: {
+				findAll() {
+					var self = this;
+					axios.get("http://localhost:8080/goodsType").then(function(response) {
+						self.goodsType = response.data; //此时还是字符串
+					})
+				},
+				del(gtid) {
+					if(!confirm('是否要删除当前数据')){
+						return;
+	                }
+					
+					var self = this;
+					axios.delete("http://localhost:8080/goodsType?gtid=" + gtid).then(function(response) {
+						alert('删除成功');
+						self.findAll();
+					})
+				},
+				/* 编辑时的数据回显 */
+				getEdit(gt){
+					this.u_gtid=gt.gtid,
+					this.u_gtname=gt.gtname,
+					this.u_gtdes=gt.gtdes					
+				},
+				/* 修改数据 */
+				update() {
+					
+					var self = this; 
+					axios.put("http://localhost:8080/goodsType", {
+
+						gtid:this.u_gtid,
+						gtname:this.u_gtname,
+						gtdes:this.u_gtdes,
+
+	
+					}).then(function(response) {
+						self.findAll();
+						alert('更改成功!');
+				
+					})
+				},
+				/* 修改图片 */
+				updImg(gtid) {
+					
+		            var formData = new FormData();
+		            
+		            var photoInput = this.$refs.photoUdp;
+					formData.append("photo",photoInput.files[0]);
+					formData.append("gtid",gtid);
+
+					
+		            var self = this; 
+					axios.post("http://localhost:8080/goodsType/updImg", formData).then(function(response) {
+						self.findAll();
+						alert('修改图片成功!');
+					})   
+				},
+				add() {
+		            var formData = new FormData();//获取表单中的文件
+		            
+		            var photoInput = this.$refs.photo;
+					formData.append("photo",photoInput.files[0]);
+					formData.append("gtname",this.gtname);
+					formData.append("gtdes",this.gtdes);
+					
+		            var self = this; 
+					axios.post("http://localhost:8080/goodsType", formData).then(function(response) {
+						self.findAll();
+						alert('添加成功!');
+					})   
+				}
+			}
+			
+		});
+	</script>
+</html>
