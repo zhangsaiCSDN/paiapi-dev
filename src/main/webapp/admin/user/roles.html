@@ -18,7 +18,11 @@
 		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
 		<script src="https://cdn.bootcss.com/axios/0.19.0/axios.min.js"></script>
 		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/jquery-migrate/1.1.1/jquery-migrate.min.js"></script>
+		<link href="https://cdn.bootcss.com/zTree.v3/3.5.40/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
 		<script src="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/js/bootstrap.js"></script>
+		<script src="https://cdn.bootcss.com/zTree.v3/3.5.40/js/jquery.ztree.core.js"></script>
+		<script src="https://cdn.bootcss.com/zTree.v3/3.5.40/js/jquery.ztree.excheck.js"></script>
 		<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
 	</head>
 	<body>
@@ -71,10 +75,19 @@
 								<tr>
 									<td colspan="2">请选择下列用户权限:</td>
 								</tr>
-								<tr v-for="pms in permissions">
+								<!-- ########################################### -->
+								<!--<tr v-for="pms in permissions">
 									<td></td>
 									<td><input type="checkbox" :value="pms" v-model="selectPermissions" />{{pms.pmsname}}</td>
+								</tr> -->
+								<tr>
+									<td></td>
+									<td>
+										<ul id="treeDemo" class="ztree"></ul>
+									</td>
 								</tr>
+
+								<!-- ########################################### -->
 							</table>
 						</div>
 						<div class="modal-footer">
@@ -186,7 +199,6 @@
 				updateUI(rid) {
 					var self = this;
 					this.findAllPermissions();
-
 					axios.get("http://localhost:8080/roles/" + rid).then(function(response) {
 						self.updateRole = response.data;
 						self.selectPermissions = self.updateRole.permissions;
@@ -210,7 +222,8 @@
 					var self = this;
 					axios.get("http://localhost:8080/permissions").then(function(response) {
 						self.permissions = response.data; //此时还是字符串
-					})
+					});
+					this.permissions;
 				},
 				test() {
 					alert(this.selectPermissions);
@@ -221,6 +234,7 @@
 				//防止修改在数据在添加处回显
 				saveInit() {
 					this.selectPermissions = '';
+					initList();
 				}
 			},
 			mounted: function() { //mounted　表示这个 Vue 对象加载成功了
@@ -228,5 +242,59 @@
 				this.findAllPermissions();
 			}
 		});
+		//vue结束         vue结束         vue结束         vue结束         vue结束         vue结束         vue结束         
+		var zTreeObj;
+		var setting = {
+			data: {
+				simpleData: {
+					enable: true
+				}
+			},
+			check: {
+				enable: true
+			},
+			callback: {
+				onCheck(event, treeId, treeNode) {
+
+				}
+			}
+		};
+
+		var ztreePms = [];
+
+		function formatData(data) {
+			var target = [];
+			var json = {
+				id: '',
+				pId: '',
+				name: '',
+				url: ''
+			}
+			// console.log('before' + data);
+			for (var i = 0; i < data.length; i++) {
+				json.id = data[i].pmsid;
+				json.open=true;
+				json.pId = data[i].pid;
+				json.name = data[i].pmsname;
+				json.url = data[i].url;
+				target.push(json);
+				json={};
+			}
+			// console.log('after' + target);
+			return target;
+		};
+
+		function initList() {
+			$.ajax({
+				type: "get",
+				url: "http://localhost:8080/permissions",
+				async: false,
+				success: function(data) {
+					ztreePms = data;
+					// console.log(ztreePms);
+				}
+			});
+			zTreeObj = $.fn.zTree.init($("#treeDemo"), setting, formatData(ztreePms));
+		}
 	</script>
 </html>

@@ -16,22 +16,8 @@
 			targetPackage="com.woniuxy.dao" targetProject=".\src\main\java"
 			type="XMLMAPPER" />
 
-		<table schema="" tableName="address"></table>
-		<table schema="" tableName="announce"></table>
-		<table schema="" tableName="apply"></table>
-		<table schema="" tableName="card"></table>
-		<table schema="" tableName="collect"></table>
-		<table schema="" tableName="deposit"></table>
-		<table schema="" tableName="goods"></table>
-		<table schema="" tableName="goodshistory"></table>
-		<table schema="" tableName="pricehistory"></table>
-		<table schema="" tableName="goodstype"></table>
-		<table schema="" tableName="image"></table>
-		<table schema="" tableName="log"></table>
-		<table schema="" tableName="orders"></table>
+
 		<table schema="" tableName="permission"></table>
-		<table schema="" tableName="role"></table>
-		<table schema="" tableName="room"></table>
-		<table schema="" tableName="user"></table>
+
 	</context>
 </generatorConfiguration>
