@@ -425,10 +425,15 @@
   	
   	
   	<!-- goods 联合 image -->
-  	<select id="findByImages" resultMap="fbi">
+  	<select id="findByImages" parameterType="java.lang.Integer" resultMap="fbi">
 		SELECT * FROM goods g
 		INNER JOIN image i 
 		ON g.gid=i.gid
+		<where>
+			<if test="gid != null">
+				and g.gid = #{gid}
+			</if>
+		</where>
 	</select>
 	 <resultMap id="fbi" type="Goods">
 	    <id column="gid" jdbcType="INTEGER" property="gid" />
