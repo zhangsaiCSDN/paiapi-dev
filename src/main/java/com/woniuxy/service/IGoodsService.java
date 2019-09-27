@@ -14,6 +14,6 @@ public interface IGoodsService {
 	List<Goods> find(); 
 	List<Goods> find(Map<String,Object> map);
 	Goods findOne(Integer gid);
-	List<Goods> findByImages(Integer gid);
+	List<Goods> findByImages(Map<String,Object> map);
 	Integer count();
 }

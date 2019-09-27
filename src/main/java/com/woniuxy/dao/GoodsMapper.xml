@@ -434,6 +434,10 @@
 				and g.gid = #{gid}
 			</if>
 		</where>
+			<if test="page!=null">
+				limit #{page.startLine},#{page.size}
+			</if>
+		
 	</select>
 	 <resultMap id="fbi" type="Goods">
 	    <id column="gid" jdbcType="INTEGER" property="gid" />

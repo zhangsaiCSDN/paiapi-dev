@@ -48,8 +48,8 @@ public class GoodsServiceImpl implements IGoodsService {
 
 	//查询goods 一对多Img
 	@Override
-	public List<Goods> findByImages(Integer gid) {
-		return dao.findByImages(gid);
+	public List<Goods> findByImages(Map<String,Object> map) {
+		return dao.findByImages(map);
 	}
 
 	@Override

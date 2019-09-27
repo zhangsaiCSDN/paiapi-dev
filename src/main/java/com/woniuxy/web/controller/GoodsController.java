@@ -1,5 +1,6 @@
 package com.woniuxy.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -62,13 +63,10 @@ public class GoodsController {
 	@GetMapping("findBySearch")
 	@ResponseBody
 	public List<Goods> find(@RequestParam Map<String,Object> map) {
-		System.out.println(1111);
-		System.out.println(map);
 		List<Goods> list = service.find(map);
 		for (Goods goods : list) {
 			System.out.println(goods);
 		}
-		System.out.println("-----------aaa"+list.size());
 		return list;
 	}
 	
@@ -97,9 +95,21 @@ public class GoodsController {
 	
 	@GetMapping("image")
 	@ResponseBody
-	public List<Goods> findImage(HttpServletResponse resp,Integer gid) {
+	public Page<Goods> findImage(HttpServletResponse resp,Integer gid,Integer p) {
 		resp.setHeader("Access-Control-Allow-Origin","*");
-		return service.findByImages(gid);
+		Integer p1=p;
+		int count=service.count();
+		Page<Goods> page=new Page<>(p==null?1:p,count,10);
+		Map<String,Object> map= new HashMap<>();
+		map.put("gid", gid);
+		if(p1!=null) {
+			map.put("page", page);
+		}else {
+			map.put("page", null);
+		}
+		List<Goods> list=service.findByImages(map);
+		page.setList(list);
+		return page;
 	}
 	
 	
