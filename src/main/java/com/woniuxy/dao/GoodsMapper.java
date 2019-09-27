@@ -36,7 +36,7 @@ public interface GoodsMapper {
     
     List<Goods> findAll(); //原生查询
     
-    List<Goods> findByImages(); //联合images 一对多
+    List<Goods> findByImages(Integer gid); //联合images 一对多
     
     List<Goods> findCount(Map<String , Object> map);
 }
