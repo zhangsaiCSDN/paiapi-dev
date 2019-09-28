@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -101,8 +102,15 @@ public class OrdersController {
 	
 	@GetMapping(value = "/{odid}")
 	@ResponseBody
-	public Orders findOne(@PathVariable Integer odid) {
-		System.out.println("findOne------"+odid);
+	public Orders findOne(@PathVariable Integer odid,HttpServletResponse resp) {
+		resp.setHeader("Access-Control-Allow-Origin","*");
+		return service.findOne(odid);
+	}
+	//前端显示查一个  //@GetMapping(value = "/{odid}") @PathVariable接参数与HttpServletResponse resp有冲突
+	@GetMapping("order") 
+	@ResponseBody
+	public Orders findOneGG(HttpServletResponse resp,Integer odid) {
+		resp.setHeader("Access-Control-Allow-Origin","*");
 		return service.findOne(odid);
 	}
 	
