@@ -23,6 +23,7 @@ import biddingRoomList from'./vue/biddingRoomList.vue'
 
 var router = new VueRouter({
 	routes:[
+		{path:"/",component:indexTop,redirect:"/index"},
 		{path:"/login",component:login},
 		{path:"/register",component:register},
 		{
