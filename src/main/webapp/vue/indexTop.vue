@@ -31,7 +31,7 @@
 					<ul>
 						<li><router-link to="/login">登录</router-link></li>
 						<li>|</li>
-						<li><a href="./register.html" target="_blank" >注册</a></li>
+						<li><router-link to="/register">注册</router-link></li>
 						<li>|</li>
 						<li><a href="">消息通知</a></li>
 					</ul>

@@ -1,31 +1,75 @@
 <template>
-	<div>
-		注册界面<br />
-		<router-link to="/login">去登录界面!!</router-link>
-	</div>
+	<form method="post" action="./regist.php">
+		<div class="regist">
+			<div class="regist_center">
+				<div class="regist_top">
+					<div class="left fl">会员注册</div>
+					<div class="right fr"><a @click="pageChange('index')">拍拍网</a></div>
+					<div class="clear"></div>
+					<div class="xian center"></div>
+				</div>
+				<div class="regist_main center">
+					<div class="username">用&nbsp;&nbsp;户&nbsp;&nbsp;名:&nbsp;&nbsp;<input class="shurukuang" type="text" name="username"
+						 placeholder="请输入你的用户名" v-model="uname" /><span>请不要输入汉字</span></div>
+					<div class="username">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码:&nbsp;&nbsp;<input class="shurukuang"
+						 type="password" v-model="upwd" placeholder="请输入你的密码" /><span>请输入6位以上字符</span></div>
 
+					<div class="username">确认密码:&nbsp;&nbsp;<input class="shurukuang" type="password" v-model="upwd2" placeholder="请确认你的密码" /><span>两次密码要输入一致哦</span></div>
+					<div class="username">手&nbsp;&nbsp;机&nbsp;&nbsp;号:&nbsp;&nbsp;<input class="shurukuang" type="text" v-model="tel"
+						 placeholder="请填写正确的手机号" /><span>填写下手机号吧，方便我们联系您！</span></div>
+					<div class="username">
+						<div class="left fl">验&nbsp;&nbsp;证&nbsp;&nbsp;码:&nbsp;&nbsp;<input class="yanzhengma" type="text" name="username"
+							 placeholder="请输入验证码" /></div>
+						<div class="right fl"><img src=""></div>
+						<div class="clear"></div>
+					</div>
+				</div>
+				<div class="regist_submit">
+					<button class="submit" type="button" @click="submitValidate()">立即注册</button>
+				</div>
+			</div>
+		</div>
+	</form>
 </template>
-
 <style scoped>
-	div {
-		width:100%;
-		height:300px;
-		background-color:rgb(250,250,250);
-		font-size: 30px;
-		line-height: 300px;
-		text-align: center;
-	}
-</style>
 
+</style>
 
 <script>
 	export default {
+
 		data() {
 			return {
+				uname: '',
+				upwd: '',
+				upwd2: '',
+				tel: ''
+
 			};
 		},
+		mounted: function() {
+
+		},
 		methods: {
+			pageChange(path) {
+				this.$router.push(path);
+			},
+			submitValidate() {
+				if (this.upwd != this.upwd2) {
+					alert('error');
+				}
+				var json = {
+					uname: this.uname,
+					upwd: this.upwd,
+					tel: this.tel
+				}
+
+				this.$ajax.post("http://localhost:8080/users", json).then(function(response) {
+					if (response.status==200) {
+						alert(response.data.message);
+					}
+				});
+			}
 		}
 	}
-	
 </script>
