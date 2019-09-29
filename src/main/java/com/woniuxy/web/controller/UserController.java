@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.SecurityUtils;
@@ -60,7 +61,7 @@ public class UserController {
 	// 登录过程 成功返回200 失败返回500
 	@PostMapping("login")
 	@ResponseBody
-	public Map<String, Object> login(String username, String password) {
+	public Map<String, Object> login(String username, String password,HttpServletRequest req) {
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 
@@ -69,6 +70,8 @@ public class UserController {
 			subject.login(token);
 			map.put("status", 200);
 			map.put("username", subject.getPrincipal());
+			User user = service.findUserByUname(username);
+			req.setAttribute("uid", user.getUid());
 		} catch (AuthenticationException e) {
 			map.put("status", 500);
 			map.put("message", "登录失败，可能是用户名或密码错误");
