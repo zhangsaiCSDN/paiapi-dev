@@ -1,6 +1,7 @@
 package com.woniuxy.web.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -41,11 +42,8 @@ public class DepositController {
 	
 	@GetMapping("findDepo")
 	@ResponseBody
-	public Page<Deposit> findDepo(Integer p,HttpServletResponse resp){
-		resp.setHeader("Access-Control-Allow-Origin","*");
+	public Page<Deposit> findDepo(Integer p){
 		if(p==null)p=1;
-	
-		
 		Page<Deposit> page = service.findDepo(p,5);
 		return page;
 	}
@@ -57,17 +55,22 @@ public class DepositController {
 	}
 	
 	@DeleteMapping
-	@ResponseBody
+	@ResponseBody 
 	public void delete(Integer did) {
 		service.delete(did);
 	} 
 	
 	@PutMapping
-	@ResponseBody
-	public String update(@RequestBody Deposit deposit ,HttpServletResponse resp) {
-		resp.setHeader("Access-Control-Allow-Origin","*");
+	@ResponseBody 
+	public String update(@RequestBody Deposit deposit) {
 		String massage = service.update(deposit);
-		System.out.println(massage);
+		return massage;
+	};
+	
+	@PutMapping("updateList")
+	@ResponseBody
+	public String updateList(@RequestBody Map<String , List<Deposit>> map) {
+		String massage = service.updateList(map);
 		return massage;
 	};
 	

@@ -36,4 +36,6 @@ public interface DepositMapper {
     List<Deposit> findAll(Page<Deposit> page);
     
     List<Deposit> findDepo(Page<Deposit> page);
+    
+    Deposit findOne(Integer did);
 }
