@@ -65,7 +65,7 @@ public class UserController {
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 
-		Map<String, Object> map = new HashMap<>();
+		Map<String, Object> map = new HashMap<>();  
 		try {
 			subject.login(token);
 			map.put("status", 200);
