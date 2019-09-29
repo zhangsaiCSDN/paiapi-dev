@@ -27,12 +27,12 @@
 			<table class="table table-hover table-striped table-bordered table-dark">
 				<tr>
 					<th>用户ID</th>
-					<th>身份证信息</th>
+					<!-- <th>身份证信息</th> -->
 					<th>用户名</th>
 					<th>密码</th>
 					<th>状态</th>
 					<th>头像</th>
-					<th>SALT</th>
+					<!-- <th>SALT</th> -->
 					<th>注册时间</th>
 					<th>修改时间</th>
 					<th>手机号码</th>
@@ -41,16 +41,16 @@
 				</tr>
 				<tr v-for="user in users">
 					<td>{{user.uid}}</td>
-					<td>{{user.cid}}</td>
+					<!-- <td>{{user.cid}}</td> -->
 					<td>{{user.uname}}</td>
 					<td>{{user.upwd}}</td>
 					<td>{{user.ustate}}</td>
 					<td>{{user.avatar}}</td>
-					<td>{{user.salt}}</td>
+					<!-- <td>{{user.salt}}</td> -->
 					<td>{{user.regtime}}</td>
 					<td>{{user.updatetime}}</td>
 					<td>{{user.tel}}</td>
-					<td><span v-for='role in user.roles'>{{role.rname}} </span></td>
+					<td><div v-for='role in user.roles'>{{role.rname}} </div></td>
 					<td>
 						<button @click='updateUI(user.uid)' data-toggle="modal" data-target="#editModal">修改</button>
 						<button @click='del(user.uid)'>删除</button>
@@ -86,10 +86,10 @@
 									<td>头像</td>
 									<td> <input class="textInput" type="text" name="avatar" v-model="avatar" placeholder="头像" /></td>
 								</tr>
-								<tr>
+								<!-- <tr>
 									<td>SALT</td>
 									<td> <input class="textInput" type="text" name="salt" v-model="salt" placeholder="SALT" /></td>
-								</tr>
+								</tr> -->
 								<tr>
 									<td>注册时间</td>
 									<td> <input class="textInput" type="text" name="regtime" v-model="regtime" placeholder="注册时间(yy-MM-dd HH:mm:ss)" /></td>
@@ -105,9 +105,9 @@
 								<tr>
 									<td>为该用户指定角色</td>
 									<td>
-										<span v-for="role in allRoles">
-											{{role.rname}}<input type="checkbox" :value="role" v-model="selectRoles" />&nbsp;
-										</span>
+										<div v-for="role in allRoles">
+											<input type="checkbox" :value="role" v-model="selectRoles" />&nbsp{{role.rname}}
+										</div>
 									</td>
 								</tr>
 							</table>
@@ -156,10 +156,10 @@
 									<td>头像</td>
 									<td> <input class="textInput" type="text" name="avatar" v-model="updateUser.avatar" placeholder="头像" /></td>
 								</tr>
-								<tr>
+						<!-- 		<tr>
 									<td>SALT</td>
 									<td> <input class="textInput" type="text" name="salt" v-model="updateUser.salt" placeholder="SALT" /></td>
-								</tr>
+								</tr> -->
 								<tr>
 									<td>注册时间</td>
 									<td> <input class="textInput" type="text" name="regtime" v-model="updateUser.regtime" placeholder="注册时间(yy-MM-dd HH:mm:ss)" /></td>
@@ -175,9 +175,9 @@
 								<tr>
 									<td>为该用户指定新的角色</td>
 									<td>
-										<span v-for="role in allRoles">
-											{{role.rname}}<input type="checkbox" :value="role" v-model="selectRoles" />&nbsp;
-										</span>
+										<div v-for="role in allRoles">
+											<input type="checkbox" :value="role" v-model="selectRoles" />&nbsp{{role.rname}}
+										</div>
 									</td>
 								</tr>
 							</table>
@@ -209,7 +209,7 @@
 				upwd: '',
 				ustate: '',
 				avatar: '',
-				salt: '',
+				// salt: '',
 				regtime: '',
 				updatetime: '',
 				tel: '',
@@ -241,7 +241,7 @@
 						upwd: self.upwd,
 						ustate: self.ustate,
 						avatar: self.avatar,
-						salt: self.salt,
+						// salt: self.salt,
 						regtime: self.regtime,
 						updatetime: self.updatetime,
 						tel: self.tel,

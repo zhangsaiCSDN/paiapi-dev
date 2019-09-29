@@ -313,10 +313,10 @@
 
 	<select id="findInfo" resultMap="findInfo">
 		SELECT * FROM `user` u
-		INNER JOIN
+		left JOIN
 		user_role ur
 		ON u.uid=ur.uid
-		INNER JOIN role r
+		left JOIN role r
 		ON r.rid = ur.rid
 	</select>
 	<resultMap type="User" id="findInfo">

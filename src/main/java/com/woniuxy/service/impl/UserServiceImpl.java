@@ -25,6 +25,7 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private UserMapper mapper;
 
+	// 用户注册
 	@Override
 	public void save(User user) {
 		mapper.insert(user);
@@ -32,9 +33,11 @@ public class UserServiceImpl implements IUserService {
 		Set<Role> roles = user.getRoles();
 		Map<String, Integer> map = new HashMap<>();
 		map.put("uid", userDB.getUid());
-		for (Role role : roles) {
-			map.put("rid", role.getRid());
-			mapper.insertUserRole(map);
+		if (roles != null) {
+			for (Role role : roles) {
+				map.put("rid", role.getRid());
+				mapper.insertUserRole(map);
+			}
 		}
 	}
 
