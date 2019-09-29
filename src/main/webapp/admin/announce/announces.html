@@ -64,12 +64,12 @@ content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale
 			<!-- 表头 -->
 			<thead>
 				<tr>
-					<th width="5%">公告id</th>
+					<th width="8%">公告id</th>
 					<th width="10%">拍品名称</th>
 					<th width="25%">公告内容</th>
 					<th width="20%">公告起始时间</th>
 					<th width="20%">公告结束时间</th>
-					<th width="20%">操作</th>
+					<th width="17%">操作</th>
 				</tr>
 			</thead>
 			<!-- 表结构 -->
@@ -93,7 +93,7 @@ content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale
 				<div class="modal fade" id="myModal2">
 					<div class="modal-dialog modal-lg">
 						<div class="modal-content">
-							<!-- 模态框头部 -->
+							<!-- 模态框头部 --> 
 							<div class="modal-header">
 								<h3 class="modal-title">新增公告</h3>
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -281,7 +281,7 @@ content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale
 			//查询所有拍品
 			findAllGoods(){
 				var self=this;
-				axios.get("http://localhost:8080/announces/goods").then(function(response){
+				axios.get("http://localhost:8080/goods").then(function(response){
 					self.allGoods=response.data;
 				})
 			},

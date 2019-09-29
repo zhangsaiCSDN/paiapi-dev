@@ -11,7 +11,7 @@ module.exports = {
 	module: {
 		rules: [
 			{test: /\.css$/, use:['style-loader','css-loader']},
-			{test: /\.(jpg|png|gif)$/, use:'url-loader?limit=80000&name=[hash:8][name].[ext]'},
+			{test: /\.(jpg|png|gif)$/, use:'url-loader?'},
 			{test: /\.(ttf|eot|svg|woff|woff2)$/, use:'url-loader'},
 			{test: /\.js$/, use:'babel-loader', exclude:/node_modules/},
 			{test: /\.vue$/, use:'vue-loader'}

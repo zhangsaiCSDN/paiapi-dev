@@ -3,6 +3,7 @@ package com.woniuxy.web.controller;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,6 +52,7 @@ public class AnnounceController {
 	
 	@GetMapping
 	@ResponseBody
+	@CrossOrigin
 	public Page<Announce> find(Integer p){
 		//如果后台接受到的p为null，就设置为1
 		if(p==null) p=1;
@@ -61,13 +63,6 @@ public class AnnounceController {
 		List<Announce> list=service.find(page);
 		page.setList(list);
 		return page;
-	}
-	
-	@GetMapping("goods")
-	@ResponseBody
-	public List<Goods> findAllGoods(){
-		List<Goods> goods=service.findAllGoods();
-		return goods;
 	}
 	
 }
