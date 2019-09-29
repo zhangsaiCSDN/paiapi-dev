@@ -54,7 +54,6 @@ public class GoodsController {
 	@GetMapping
 	@ResponseBody
 	public List<Goods> find(HttpServletResponse resp) {
-		resp.setHeader("Access-Control-Allow-Origin","*");
 		List<Goods> list = service.find();
 		return list;
 	}
@@ -96,10 +95,10 @@ public class GoodsController {
 	@GetMapping("image")
 	@ResponseBody
 	public Page<Goods> findImage(HttpServletResponse resp,Integer gid,Integer p) {
-		resp.setHeader("Access-Control-Allow-Origin","*");
 		Integer p1=p;
+		if(p==null)p=1;
 		int count=service.count();
-		Page<Goods> page=new Page<>(p==null?1:p,count,10);
+		Page<Goods> page=new Page<>(p,count,10);
 		Map<String,Object> map= new HashMap<>();
 		map.put("gid", gid);
 		if(p1!=null) {

@@ -9,7 +9,7 @@ public class Page<T> {
 	private int prev;//上一页
 	private int next;//下一页
 	private int	startLine;//起始行
-	private int size;//每行页数
+	private int size;//每页行数
 	private int	startPage;//起始页
 	private int endPage;//末尾页
 	private String  keyWord;//

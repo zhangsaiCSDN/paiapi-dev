@@ -425,8 +425,10 @@
   	
   	
   	<!-- goods 联合 image -->
-  	<select id="findByImages" parameterType="java.lang.Integer" resultMap="fbi">
-		SELECT * FROM goods g
+  	<select id="findByImages" parameterType="java.util.HashMap" resultMap="fbi">
+		SELECT 
+		* 
+		FROM goods g
 		INNER JOIN image i 
 		ON g.gid=i.gid
 		<where>
@@ -435,10 +437,11 @@
 			</if>
 		</where>
 			<if test="page!=null">
-				limit #{page.startLine},#{page.size}
+				group by g.gid limit #{page.startLine}, #{page.size}
 			</if>
-		
 	</select>
+	
+	
 	 <resultMap id="fbi" type="Goods">
 	    <id column="gid" jdbcType="INTEGER" property="gid" />
 	    <result column="gname" jdbcType="CHAR" property="gname" />
