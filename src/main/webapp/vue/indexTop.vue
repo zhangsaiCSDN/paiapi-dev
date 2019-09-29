@@ -122,7 +122,7 @@ export default{
   		var self=this;
 		this.$axios.get("http://localhost:8080/announces").then(function(response){
 			self.announces=response.data;
-			alert(response.data);
+			// alert(response.data);
 		})
   	},
 	mounted:function(){

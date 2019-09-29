@@ -66,7 +66,7 @@
 
 				this.$ajax.post("http://localhost:8080/users", json).then(function(response) {
 					if (response.status==200) {
-						alert(response.data.message);
+						// alert(response.data.message);
 					}
 				});
 			}
