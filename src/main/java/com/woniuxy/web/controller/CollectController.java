@@ -39,24 +39,18 @@ public class CollectController {
 		Page<Collect> page = new Page<>(p,count,5);
 		List<Collect> list = service.find(page);
 		page.setList(list);
-		
-		
-		
-		
 		return page;
 	}
   
 	@GetMapping(value = "/{clid}")
 	@ResponseBody
 	public Collect findOne(@PathVariable Integer clid) {
-
 		return service.findOne(clid);
 	}
 
 	@DeleteMapping
 	@ResponseBody
 	public void delete(Integer clid) {
-
 		service.delete(clid);
 	}
 
@@ -64,7 +58,6 @@ public class CollectController {
 	@ResponseBody
 	public void update(Collect collect) {
 		service.update(collect);
-
 	}
 
 	@PostMapping
@@ -87,8 +80,6 @@ public class CollectController {
 			service.save(collect);
 			map.put("status", 200);
 		}
-		
 		 return map;
 	}
-
 }
