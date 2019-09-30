@@ -1,7 +1,10 @@
 package com.woniuxy.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -66,8 +69,26 @@ public class CollectController {
 
 	@PostMapping
 	@ResponseBody
-	public void save(@RequestBody Collect collect) {
-		service.save(collect);
+	public Map<String,Object> save(@RequestBody Collect collect,HttpSession session) {
+		Integer uid=null;
+		Map<String,Object> map=new HashMap<>();
+		if(collect.getUid()==null) {
+			String oldUid=(String) session.getAttribute("uid");
+			if(oldUid!=null) {
+				uid=Integer.parseInt(oldUid);
+				collect.setUid(uid);
+				map.put("status",200);
+				service.save(collect);
+			}else {
+				map.put("status", 500);
+				map.put("messge", "暂未登录,请先登录");
+			}
+		}else {
+			service.save(collect);
+			map.put("status", 200);
+		}
+		
+		 return map;
 	}
 
 }
