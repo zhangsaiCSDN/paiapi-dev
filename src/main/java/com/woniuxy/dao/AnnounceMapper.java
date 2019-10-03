@@ -35,5 +35,7 @@ public interface AnnounceMapper {
 	List<Announce> findInfo(Page<Announce> page);
 	//查询所有拍品
 	List<Goods> findAllGoods();
+	//查询所有公告
+	List<Announce> findAll();
 	
 }

@@ -14,6 +14,9 @@ public interface IAnnounceService {
 	//查询announce总行数
 	Integer count();
 	
+	//查询所有公告
+	List<Announce> findAll();
+	
 	//查询所有拍品
 	List<Goods> findAllGoods();
 }

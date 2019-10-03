@@ -65,4 +65,11 @@ public class AnnounceController {
 		return page;
 	}
 	
+	//查询所有公告
+	@GetMapping("findAll")
+	@ResponseBody
+	public List<Announce> findAll() {
+		return service.findAll();
+	}
+	
 }

@@ -52,5 +52,10 @@ public class AnnounceServiceImpl implements IAnnounceService {
 		return mapper.findAllGoods();
 	}
 
+	@Override
+	public List<Announce> findAll() {
+		return mapper.findAll();
+	}
+
 
 }
