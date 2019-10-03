@@ -31,7 +31,7 @@
 					<ul>
 						<li><router-link to="/login">登录</router-link></li>
 						<li>|</li>
-						<li><router-link to="/register">注册</router-link></li>
+						<li><a href="./register.html" target="_blank" >注册</a></li>
 						<li>|</li>
 						<li><a href="">消息通知</a></li>
 					</ul>
@@ -89,7 +89,6 @@
 	</footer>
 	
 </div>
-
 </template>
 
 <style scoped>
@@ -107,6 +106,7 @@ export default{
 				'第四条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
 				'第五条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
 			],
+			announces:[],
 			number:0
 		};
 	},
@@ -114,15 +114,16 @@ export default{
     	text () {
        		return {
 	        	id: this.number,
-	        	val: this.textArr[this.number]
+	        	val: this.announces[this.number]
      		}
    		}
   	},
   	created:function(){
   		var self=this;
-		this.$axios.get("http://localhost:8080/announces").then(function(response){
-			self.announces=response.data;
-			// alert(response.data);
+		this.$axios.get("http://localhost:8080/announces/findAll").then(function(response){
+			for(var i in response.data){
+				self.announces.push("拍拍网公告："+response.data[i].ancontent);
+			}
 		})
   	},
 	mounted:function(){
@@ -133,7 +134,7 @@ export default{
 		startMove () {
 	      	// eslint-disable-next-line
 	     	let timer = setTimeout(() => {
-		        if (this.number === 4) {
+		        if (this.number === this.announces.length) {
 		          this.number = 0;
 		        } else {
 		          this.number += 1;

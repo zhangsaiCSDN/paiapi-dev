@@ -19,8 +19,6 @@ import biddingRoom from'./vue/biddingRoom.vue'
 import biddingRoomList from'./vue/biddingRoomList.vue'
 
 
-
-
 var router = new VueRouter({
 	routes:[
 		{path:"/",component:indexTop,redirect:"/index"},

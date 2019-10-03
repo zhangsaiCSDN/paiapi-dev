@@ -9,8 +9,8 @@
 						<div class="pop">
 							<div class="left fl" v-for="g in gt.goods">
 								<div class="xuangou_left fl" >
-									<a href="">
-										<div class="img fl"><img src="../image/5c_80.png" ></div>
+									<a href=""> 
+										<div class="img fl"><img :src='g.images[0] ? "../admin/goods/goodsImg/"+g.images[0].img : "../image/733db5ee-2e56-41fe-8286-3a3f87193496.jpg" ' ></div>
 										<span class="fl">{{g.gname}}</span>
 									</a>
 								</div> 
