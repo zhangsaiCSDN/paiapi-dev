@@ -13,6 +13,13 @@ import help from './vue/help.vue'
 import limiteTime from './vue/limiteTime.vue'
 import login from'./vue/login.vue'
 import register from './vue/register.vue'
+import userCenter from './vue/userCenter.vue'
+import goodsHistory from './vue/goodsHistory.vue'
+import order from './vue/order.vue'
+import orderOne from './vue/orderOne.vue'
+import deposit from './vue/deposit.vue'
+import rooms from './vue/rooms.vue'
+import myRooms from './vue/myRooms.vue'
 
 import list from'./vue/list.vue'
 import biddingRoom from'./vue/biddingRoom.vue'
@@ -37,7 +44,16 @@ var router = new VueRouter({
 				{path:"/help",component:help},
 				{path:"/list",component:list},
 				{path:"/biddingRoom",component:biddingRoom},
-				{path:"/biddingRoomList",component:biddingRoomList}
+				{path:"/biddingRoomList",component:biddingRoomList},
+				{path:"/userCenter",component:userCenter,children:[
+					{path:"/goodsHistory",component:goodsHistory},
+					{path:"/order",component:order},
+					{path:"/orderOne",component:orderOne},
+					{path:"/deposit",component:deposit},
+					{path:"/rooms/:2",component:rooms},
+					{path:"/myRooms/:1",component:myRooms}
+				]}
+				
 			]
 		}
 	]

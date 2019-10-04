@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<!-- start banner_y -->
-		<div class="banner_y center" >
+		<div class="banner_y center"  >
 			<div class="nav" >				
 				<ul >
 					<li v-for="gt in goodsType">
@@ -75,7 +75,7 @@ export default{
 	},
 	mounted:function(){
 		var self=this;
-		this.$axios.get("http://localhost:8080/goodsType/findAll").then(function(response){
+		this.$axios.get("http://localhost:8080/ghistorys").then(function(response){
 			self.goodsType=response.data;
 		});
 	},

@@ -26,7 +26,7 @@
 				</ul>
 			</div>
 			<div class="right fr">
-				<div class="gouwuche fr"><a href="">我的订单</a></div>
+				<div class="gouwuche fr"> <span @click="enterUserCenter">个人中心</span></div>
 				<div class="fr">
 					<ul>
 						<li><router-link to="/login">登录</router-link></li>
@@ -79,7 +79,7 @@
 	
 	<!--组件切换用-->
 	
-	<div>
+	<div >
 		<router-view></router-view>
 	</div>	
 	
@@ -131,6 +131,10 @@ export default{
 		this.startMove()
 	},
 	methods:{
+		enterUserCenter(){
+			console.log("hahahahq23333");
+			this.$router.push('userCenter');
+		},
 		startMove () {
 	      	// eslint-disable-next-line
 	     	let timer = setTimeout(() => {
