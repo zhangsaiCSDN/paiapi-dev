@@ -29,11 +29,9 @@ public class CollectController {
 
 	@Autowired
 	private ICollectService service;
-
 	@GetMapping
 	@ResponseBody
 	public Page<Collect> find(Integer p) {
-		
 		if(p==null)p=1;
 		int count = service.count();
 		Page<Collect> page = new Page<>(p,count,5);
@@ -41,7 +39,6 @@ public class CollectController {
 		page.setList(list);
 		return page;
 	}
-  
 	@GetMapping(value = "/{clid}")
 	@ResponseBody
 	public Collect findOne(@PathVariable Integer clid) {
@@ -59,7 +56,6 @@ public class CollectController {
 	public void update(Collect collect) {
 		service.update(collect);
 	}
-
 	@PostMapping
 	@ResponseBody
 	public Map<String,Object> save(@RequestBody Collect collect,HttpSession session) {
@@ -71,10 +67,11 @@ public class CollectController {
 				uid=Integer.parseInt(oldUid);
 				collect.setUid(uid);
 				map.put("status",200);
+				map.put("message","添加成功");
 				service.save(collect);
 			}else {
 				map.put("status", 500);
-				map.put("messge", "暂未登录,请先登录");
+				map.put("message", "暂未登录,请先登录");
 			}
 		}else {
 			service.save(collect);
