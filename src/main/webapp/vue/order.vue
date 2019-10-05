@@ -22,20 +22,21 @@
 				</div>
 				<div class="clear"></div>
 			</div>
-				<span >
+			<div style="vertical-align: middle !important; text-align: center;" id="page">				
+					<span id="page">
 					{{orders.p}}/{{orders.maxPage}}
-					<button @click='find(1)'>首页</button>
-					<button @click='find(orders.prev)' >上一页</button>
-					<span v-for="i in v_pages"> <span v-if="i==orders.p"
-						><font color="red">{{i}}</font></span> <span
+					<button @click='find(1)' class='btn'>首页</button>
+					<button @click='find(orders.prev)'class='btn' >上一页</button>
+					<span v-for="i in v_pages" > <span v-if="i==orders.p"
+						><font color="red" >{{i}}</font></span> <span
 						@click='find(i)' v-if="!(i==orders.p)" 
 						style="cursor: pointer"><font>{{i}}</font></span>
 					</span>
-					<button @click='find(orders.next)' >下一页</button>
-					<button @click='find(orders.maxPage)'>末页</button>
+					<button @click='find(orders.next)' class='btn'>下一页</button>
+					<button @click='find(orders.maxPage)' class='btn'>末页</button>
 				</span>		
+			</div>
 		</div>
-		<div class="clear"></div>
 		</div>
 	</div>
 <!-- self_info -->
@@ -43,7 +44,8 @@
 </template>
 
 <style scoped>
-
+	#page{
+	}
 </style>
 
 <script>
