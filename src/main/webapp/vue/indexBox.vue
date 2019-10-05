@@ -5,11 +5,11 @@
 			<div class="nav">
 				<ul>
 					<li v-for="gt in goodsType">
-						<a href="">{{gt.gtname}}</a>
+						<a >{{gt.gtname}}</a>
 						<div class="pop">
 							<div class="left fl" v-for="g in gt.goods">
 								<div class="xuangou_left fl">
-									<a href="">
+									<a >
 										<div class="img fl"><img :src='g.images[0] ? "../admin/goods/goodsImg/"+g.images[0].img : "../image/733db5ee-2e56-41fe-8286-3a3f87193496.jpg" '></div>
 										<span class="fl">{{g.gname}}</span>
 									</a>
@@ -19,7 +19,7 @@
 
 							<div class="right fl">
 								<div class="xuangou_left fl">
-									<a href="">
+									<a>
 										<div class="img fl" style="margin-left: 20px;"><img :src='"../admin/goods/goodsTypeImg/"+gt.img' alt=""></div>
 									</a>
 								</div>
@@ -78,7 +78,7 @@
 		},
 		mounted: function() {
 			var self = this;
-			this.$ajax.get("http://localhost:8080/ghistorys").then(function(response) {
+			this.$ajax.get("http://localhost:8080/goodsType").then(function(response) {
 				self.goodsType = response.data;
 			});
 		},

@@ -94,13 +94,14 @@ public class GoodsController {
 	
 	@GetMapping("image")
 	@ResponseBody
-	public Page<Goods> findImage(HttpServletResponse resp,Integer gid,Integer p) {
+	public Page<Goods> findImage(HttpServletResponse resp,Integer gid,Integer p,String gname) {
 		Integer p1=p;
 		if(p==null)p=1;
 		int count=service.count();
 		Page<Goods> page=new Page<>(p,count,10);
 		Map<String,Object> map= new HashMap<>();
 		map.put("gid", gid);
+		if(gname!=null)map.put("gname", gname);
 		if(p1!=null) {
 			map.put("page", page);
 		}else {

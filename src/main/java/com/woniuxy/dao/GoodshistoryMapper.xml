@@ -328,15 +328,15 @@
 			</if>
 			
 				<choose>
-				<when test="minmoney !='' and maxmoney !='' ">
+				<when test="minmoney !=null and maxmoney !=null ">
 					and (ghmoney between #{minmoney} and #{maxmoney})
 				</when>
 				
-				<when test="minmoney !='' ">
+				<when test="minmoney !=null ">
 					and ghmoney &gt; #{minmoney}
 				</when>
 				
-				<when test="maxmoney !='' ">
+				<when test="maxmoney !=null ">
 					and ghmoney &lt;  #{maxmoney}
 				</when>
 			</choose>	
@@ -363,15 +363,15 @@
 			</if>
 			
 				<choose>
-				<when test="minmoney !='' and maxmoney !='' ">
+				<when test="minmoney !=null and maxmoney !=null ">
 					and (ghmoney between #{minmoney} and #{maxmoney})
 				</when>
 				
-				<when test="minmoney !='' ">
+				<when test="minmoney !=null ">
 					and ghmoney &gt; #{minmoney}
 				</when>
 				
-				<when test="maxmoney !='' ">
+				<when test="maxmoney !=null ">
 					and ghmoney &lt;  #{maxmoney}
 				</when>
 			</choose>	

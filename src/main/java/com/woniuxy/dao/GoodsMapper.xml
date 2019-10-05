@@ -435,6 +435,9 @@
 			<if test="gid != null">
 				and g.gid = #{gid}
 			</if>
+			<if test="gname !=null">
+				and g.gname like concat('%',#{gname},'%')
+			</if>
 		</where>
 			<if test="page!=null">
 				group by g.gid limit #{page.startLine}, #{page.size}
