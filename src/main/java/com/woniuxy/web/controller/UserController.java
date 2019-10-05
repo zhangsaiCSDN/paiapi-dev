@@ -1,11 +1,16 @@
 package com.woniuxy.web.controller;
 
+import java.awt.image.RenderedImage;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -21,11 +26,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.User;
 import com.woniuxy.service.impl.UserServiceImpl;
 import com.woniuxy.util.AppUtils;
+import com.woniuxy.util.ValidateCode;
 
 @Controller
 @RequestMapping("users")
@@ -61,11 +68,14 @@ public class UserController {
 	// 登录过程 成功返回200 失败返回500
 	@PostMapping("login")
 	@ResponseBody
-	public Map<String, Object> login(String username, String password,HttpServletRequest req) {
+	public Map<String, Object> login(@RequestBody User userFront, HttpServletRequest req) {
+		String username = userFront.getUname();
+		String password = userFront.getUpwd();
+		System.out.println(username + password);
 		Subject subject = SecurityUtils.getSubject();
 		UsernamePasswordToken token = new UsernamePasswordToken(username, password);
 
-		Map<String, Object> map = new HashMap<>();  
+		Map<String, Object> map = new HashMap<>();
 		try {
 			subject.login(token);
 			map.put("status", 200);
@@ -84,11 +94,10 @@ public class UserController {
 	@GetMapping("isLogin")
 	@ResponseBody
 	public Map<String, Object> isLogin() {
-		System.out.println("isLogin");
 		Subject subject = SecurityUtils.getSubject();
-
 		Map<String, Object> map = new HashMap<>();
 		map.put("status", subject.isAuthenticated() ? 200 : 500);
+		map.put("username", subject.getPrincipal());
 		return map;
 	}
 
@@ -118,6 +127,44 @@ public class UserController {
 	@ResponseBody
 	public List<User> find() {
 		return service.findInfo();
+	}
+
+	// 获取验证码
+	@GetMapping(value = "getCode")
+	public void getCode(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+
+		// 生成验证码map
+		Map<String, Object> codeMap = ValidateCode.generateCodeAndPic();
+
+		// 验证码的值放在session里
+		HttpSession session = req.getSession();
+		session.setAttribute("code", codeMap.get("code").toString());
+
+		// 禁止图像缓存。
+		resp.setHeader("Pragma", "no-cache");
+		resp.setHeader("Cache-Control", "no-cache");
+		resp.setDateHeader("Expires", 0);
+		resp.setContentType("image/jpeg");
+
+		// 输出流显示图片
+		ServletOutputStream sos = resp.getOutputStream();
+		ImageIO.write((RenderedImage) codeMap.get("codePic"), "jpeg", sos);
+		sos.flush();
+		sos.close();
+	}
+
+	@GetMapping(value = "checkCode")
+	@ResponseBody
+	public Map<String, Object> checkCode(HttpServletRequest req, HttpServletResponse resp, String code) {
+		String realCode = (String) req.getSession().getAttribute("code");
+		Map<String, Object> map = new HashMap<>();
+
+		if (code != null && code.equalsIgnoreCase(realCode)) {
+			map.put("status", true);
+		} else {
+			map.put("status", false);
+		}
+		return map;
 	}
 
 }

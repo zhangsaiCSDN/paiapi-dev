@@ -4,7 +4,9 @@
 			<div class="top center">
 				<div class="left fl">
 					<ul>
-						<li><router-link to='/index'>商城首页</router-link></li>
+						<li>
+							<router-link to='/index'>商城首页</router-link>
+						</li>
 						<li>|</li>
 
 
@@ -29,7 +31,7 @@
 								<router-link to="/register">注册</router-link>
 							</li>
 							<li>|</li>
-							<li><a href="">消息通知</a></li>
+							<li><a>消息通知</a></li>
 						</ul>
 					</div>
 				</div>
@@ -46,21 +48,31 @@
 	export default {
 		data() {
 			return {
+				username: ''
 			};
 		},
 		computed: {
 			text() {
 				return {
 					id: this.number,
-					val: this.announces[this.number]
+					val: this.announces[this.number],
 				}
 			}
 		},
 		methods: {
 			enterUserCenter() {
-				console.log("hahahahq23333");
 				this.$router.push('userCenter');
+			},
+			isLogin() {
+				this.$ajax.get('http://localhost:8080/users/isLogin').then((resp) => {
+					if (resp.data.status == 200) {
+						this.username == resp.data.username;
+					}
+				});
 			}
+		},
+		mounted: function() {
+			this.isLogin();
 		}
 	}
 </script>
