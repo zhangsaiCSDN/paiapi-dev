@@ -12,7 +12,9 @@ import axios from 'axios';
 axios.defaults.withCredentials = true
 import router from './router.js';
 import myCenter from './js/userCenter.js';
+
 Vue.prototype.$ajax = axios;
+
 
 var app=new Vue({
 	el:"#app",
