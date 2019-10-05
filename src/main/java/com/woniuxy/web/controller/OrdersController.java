@@ -67,8 +67,7 @@ public class OrdersController {
 	//前端根据uid查询orders
 	@GetMapping("findByUid")
 	@ResponseBody
-	public Page<Orders> findByUid(HttpServletResponse resp,Integer p){
-		resp.setHeader("Access-Control-Allow-Origin","*");
+	public Page<Orders> findByUid(Integer p){
 		//测试参数uid 接口留着接参数
 //		int uid =562;
 		int uid =1;
@@ -94,23 +93,20 @@ public class OrdersController {
 	//查询orders
 	@GetMapping("findAll")
 	@ResponseBody
-	public List<Orders> find(HttpServletResponse resp){
-		resp.setHeader("Access-Control-Allow-Origin","*");
+	public List<Orders> find(){
 		List<Orders> list=service.find();
 		return list;
 	}
 	
 	@GetMapping(value = "/{odid}")
 	@ResponseBody
-	public Orders findOne(@PathVariable Integer odid,HttpServletResponse resp) {
-		resp.setHeader("Access-Control-Allow-Origin","*");
+	public Orders findOne(@PathVariable Integer odid) {
 		return service.findOne(odid);
 	}
 	//前端显示查一个  //@GetMapping(value = "/{odid}") @PathVariable接参数与HttpServletResponse resp有冲突
 	@GetMapping("order") 
 	@ResponseBody
-	public Orders findOneGG(HttpServletResponse resp,Integer odid) {
-		resp.setHeader("Access-Control-Allow-Origin","*");
+	public Orders findOneGG(Integer odid) {
 		return service.findOne(odid);
 	}
 	

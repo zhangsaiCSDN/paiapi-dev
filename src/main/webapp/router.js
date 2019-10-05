@@ -48,7 +48,7 @@ var router = new VueRouter({
 				{path:"/userCenter",component:userCenter,children:[
 					{path:"/goodsHistory",component:goodsHistory},
 					{path:"/order",component:order},
-					{path:"/orderOne",component:orderOne},
+					{path:"/orderOne/:gid/:odid", component: orderOne},
 					{path:"/deposit",component:deposit},
 					{path:"/rooms/:2",component:rooms},
 					{path:"/myRooms/:1",component:myRooms}

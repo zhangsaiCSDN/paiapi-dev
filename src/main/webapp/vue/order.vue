@@ -9,7 +9,7 @@
 			<div class="ddzxbt">交易订单</div>
 			
 			<div class="ddxq" v-for="order in orders.list"> 
-				<div class="ddspt fl"><img src="./image/gwc_xiaomi6.jpg" alt=""></div>
+				<div class="ddspt fl"><!-- 图片 --></div>
 				<div class="ddbh fl">交易ID:{{order.odid}}</div>
 				<div class="ztxx fr">
 					<ul>
@@ -61,7 +61,7 @@
 				//分页展示
 				find(page) { 
 			 		var self = this;
-					this.$axios.get("http://localhost:8080/orders/findByUid",{
+					this.$ajax.get("http://localhost:8080/orders/findByUid",{
 						params:{
 							p:page
 						}

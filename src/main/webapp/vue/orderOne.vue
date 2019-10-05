@@ -5,7 +5,7 @@
 		<!-- 图片 -->
 		<div class="left fl">		
 			<div class="imgs" v-for="(item,index) in imgList" v-if="index==num">
-				 <img :src='"./vue/image/"+item.img'/>
+				 <img :src='"../admin/goods/goodsImg/"+item.img'/>
 			</div>
 			<div class="btns">
 				<button @click="prev">上一张</button>
