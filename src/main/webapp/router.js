@@ -53,7 +53,7 @@ var router = new VueRouter({
 					{path:"/rooms/:2",component:rooms},
 					{path:"/myRooms/:1",component:myRooms}
 				]}
-				
+				 
 			]
 		}
 	]
