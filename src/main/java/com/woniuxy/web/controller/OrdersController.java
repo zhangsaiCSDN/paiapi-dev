@@ -67,10 +67,10 @@ public class OrdersController {
 	//前端根据uid查询orders
 	@GetMapping("findByUid")
 	@ResponseBody
-	public Page<Orders> findByUid(Integer p){
+	public Page<Orders> findByUid(Integer p,Integer uid){
 		//测试参数uid 接口留着接参数
 //		int uid =562;
-		int uid =1;
+//		int uid =1;
 
 		Map map = new HashMap<String,Object>();
 		map.put("uid", uid);
@@ -79,7 +79,7 @@ public class OrdersController {
 		if(p==null)p=1;
 		int count=service.count();
 		
-		Page<Orders> page=new Page<>(p,rc,3);
+		Page<Orders> page=new Page<>(p,rc,5);
 		List<Orders> list=service.find(page);
 		
 		map.put("page", page);
