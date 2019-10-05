@@ -4,26 +4,33 @@
 	<!-- self_info -->
 	<div>
 		<div >
+	<table class="table table-striped" >
+	  <thead>
+	    <tr>
+	      <th>交易id</th>
+	      <th>拍品名</th>
+	      <th>价格</th>
+	      <th>交易时间</th>
+	      <th>详细信息</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr v-for="order in orders.list">
+	      <td>{{order.odid}}</td>
+	      <td>{{order.goods.gname}}</td>
+	      <td>￥{{order.odmoney}}</td>
+	      <td>{{order.odtime}}</td>
+	      <td><a @click="orderOne(order.goods.gid,order.odid)">订单详情</a></td>
+	    </tr>
+	    <tr>
 
+	    </tr>
+	  </tbody>
+	</table>
+	
 		<div class="rtcont fr">
-			<div class="ddzxbt">交易订单</div>
-			
-			<div class="ddxq" v-for="order in orders.list"> 
-				<div class="ddspt fl"><!-- 图片 --></div>
-				<div class="ddbh fl">交易ID:{{order.odid}}</div>
-				<div class="ztxx fr">
-					<ul>
-						<li>价格：￥{{order.odmoney}}</li>
-						<li>卖家id：{{order.salerid}}</li>
-						<li>{{order.odtime}}</li>									
-						<li><a @click="orderOne(order.goods.gid,order.odid)">订单详情</a></li>															
-						<div class="clear"></div>
-					</ul>
-				</div>
-				<div class="clear"></div>
-			</div>
 			<div style="vertical-align: middle !important; text-align: center;" id="page">				
-					<span id="page">
+				<span id="page">
 					{{orders.p}}/{{orders.maxPage}}
 					<button @click='find(1)' class='btn'>首页</button>
 					<button @click='find(orders.prev)'class='btn' >上一页</button>
@@ -45,6 +52,7 @@
 
 <style scoped>
 	#page{
+		position:relative;
 	}
 </style>
 
@@ -60,12 +68,14 @@
 			this.find(1);  
 		},
 		methods: {
-				//分页展示
+				//分页展示 uid是传入的买家id
 				find(page) { 
+					var uid=this.$route.params.uid
 			 		var self = this;
 					this.$ajax.get("http://localhost:8080/orders/findByUid",{
 						params:{
-							p:page
+							p:page,
+							uid:uid
 						}
 					}).then(function(response) {
 						self.orders = response.data; 
@@ -83,7 +93,7 @@
 				},
 				orderOne(gid,odid){
 					this.$router.push({
-						path:"orderOne/"+gid+"/"+odid
+						path:"/orderOne/"+gid+"/"+odid
 					});
 				}
 		}

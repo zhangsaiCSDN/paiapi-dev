@@ -47,7 +47,7 @@ var router = new VueRouter({
 				{path:"/biddingRoomList",component:biddingRoomList},
 				{path:"/userCenter",component:userCenter,children:[
 					{path:"/goodsHistory",component:goodsHistory},
-					{path:"/order",component:order},
+					{path:"/order/:1",component:order},
 					{path:"/orderOne/:gid/:odid", component: orderOne},
 					{path:"/deposit",component:deposit},
 					{path:"/rooms/:2",component:rooms},

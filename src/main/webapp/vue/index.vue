@@ -61,7 +61,7 @@
 		},
 		methods: {
 			enterUserCenter() {
-				this.$router.push('userCenter');
+				this.$router.push('/userCenter');
 			},
 			isLogin() {
 				this.$ajax.get('http://localhost:8080/users/isLogin').then((resp) => {
