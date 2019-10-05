@@ -10,7 +10,10 @@
 						<li>|</li>
 
 
-
+						<!-- 	<li v-if="username.length > 0">
+								欢迎您&nbsp;&nbsp;,{{username}}
+							</li>
+							<li>|</li> -->
 
 
 						<li><a>问题反馈</a></li>
@@ -22,7 +25,8 @@
 				<div class="right fr">
 					<div class="gouwuche fr"> <span @click="enterUserCenter">个人中心</span></div>
 					<div class="fr">
-						<ul>
+
+						<ul v-if="username.length==0">
 							<li>
 								<router-link to="/login">登录</router-link>
 							</li>
@@ -30,9 +34,21 @@
 							<li>
 								<router-link to="/register">注册</router-link>
 							</li>
+						</ul>
+
+						<ul v-if="username.length>0">
+							<li>
+								欢迎您&nbsp;&nbsp;,{{username}}&nbsp;
+							</li>
+							<li>|</li>
+							<li @click='logOut'>
+								&nbsp;退出登录&nbsp;
+							</li>
 							<li>|</li>
 							<li><a>消息通知</a></li>
 						</ul>
+
+
 					</div>
 				</div>
 			</div>
@@ -48,27 +64,19 @@
 	export default {
 		data() {
 			return {
-				username: ''
+				username: '112233'
 			};
-		},
-		computed: {
-			text() {
-				return {
-					id: this.number,
-					val: this.announces[this.number],
-				}
-			}
 		},
 		methods: {
 			enterUserCenter() {
-				this.$router.push('userCenter');
+				this.$router.push('/userCenter');
 			},
-			isLogin() {
-				this.$ajax.get('http://localhost:8080/users/isLogin').then((resp) => {
-					if (resp.data.status == 200) {
-						this.username == resp.data.username;
-					}
-				});
+			logOut(){
+				this.username='';
+			},
+			async isLogin() {
+				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
+				this.username = result.data.username;
 			}
 		},
 		mounted: function() {
