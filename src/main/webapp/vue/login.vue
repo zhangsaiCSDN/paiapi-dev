@@ -1,11 +1,6 @@
 <template>
 	<!-- login -->
 	<div>
-		<div class="top center">
-			<div class="logo center">
-				<a @click="pageChange('index')"><img src="./image/logo.png" alt=""></a>
-			</div>  
-		</div>
 		<form class="form center">
 			<div class="login">
 				<div class="login_center">
