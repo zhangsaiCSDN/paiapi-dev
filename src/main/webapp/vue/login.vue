@@ -73,8 +73,8 @@
 			login() {
 				if (this.codeStatus) {
 					this.loginPost();
-				}else{
-					this.alertMsg='您输入的验证码有误,点击验证码刷新';
+				} else {
+					this.alertMsg = '您输入的验证码有误,点击验证码刷新';
 				}
 			},
 			loginPost() {
@@ -87,6 +87,7 @@
 						this.codeRefresh();
 						this.alertMsg = response.data.message;
 					} else {
+						this.$parent.isLogin();
 						this.pageChange('/index');
 					}
 				})
@@ -112,10 +113,10 @@
 			code(val) {
 				if (val.length == 4) {
 					this.checkCode();
-				}else if (val.length > 4){
-					this.alertMsg='验证码长度为四位,请检查后再次输入';
-				}else if (val.length < 4){
-					this.alertMsg='';
+				} else if (val.length > 4) {
+					this.alertMsg = '验证码长度为四位,请检查后再次输入';
+				} else if (val.length < 4) {
+					this.alertMsg = '';
 				}
 			}
 		}
