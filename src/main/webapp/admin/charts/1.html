@@ -1,0 +1,437 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Home</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="keywords" content="" />
+<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+
+<script src="highcharts.js"></script>
+<script src="exporting.js"></script>
+<script src="export-data.js"></script>
+<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+
+
+<!-- Bootstrap Core CSS -->
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+
+<!-- Custom CSS -->
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+
+<!-- font-awesome icons CSS -->
+<link href="css/font-awesome.css" rel="stylesheet"> 
+<!-- //font-awesome icons CSS-->
+
+<!-- side nav css file -->
+<link href='css/SidebarNav.min.css' media='all' rel='stylesheet' type='text/css'/>
+<!-- //side nav css file -->
+ 
+ <!-- js-->
+<script src="js/jquery-1.11.1.min.js"></script>
+<script src="js/modernizr.custom.js"></script>
+
+<!--webfonts-->
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:400,400i,700,700i&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
+<!--//webfonts--> 
+
+<!-- chart -->
+<script src="js/Chart.js"></script>
+<!-- //chart -->
+
+<!-- Metis Menu -->
+<script src="js/metisMenu.min.js"></script>
+<script src="js/custom.js"></script>
+<link href="css/custom.css" rel="stylesheet">
+<!--//Metis Menu -->
+<style>
+#chartdiv {
+  width: 100%;
+  height: 295px;
+}
+</style>
+<!--pie-chart --><!-- index page sales reviews visitors pie chart -->
+<script src="js/pie-chart.js" type="text/javascript"></script>
+ <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('#demo-pie-1').pieChart({
+                barColor: '#2dde98',
+                trackColor: '#eee',
+                lineCap: 'round',
+                lineWidth: 8,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
+                }
+            });
+
+            $('#demo-pie-2').pieChart({
+                barColor: '#8e43e7',
+                trackColor: '#eee',
+                lineCap: 'butt',
+                lineWidth: 8,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
+                }
+            });
+
+            $('#demo-pie-3').pieChart({
+                barColor: '#ffc168',
+                trackColor: '#eee',
+                lineCap: 'square',
+                lineWidth: 8,
+                onStep: function (from, to, percent) {
+                    $(this.element).find('.pie-value').text(Math.round(percent) + '%');
+                }
+            });
+
+           
+        });
+
+    </script>
+<!-- //pie-chart --><!-- index page sales reviews visitors pie chart -->
+
+
+						
+</head> 
+
+
+
+<div class="main-page">
+
+			<div class="col_3">
+        	<div class="col-md-3 widget widget1">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-dollar icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong id="1">¥0</strong></h5>
+                      <span>总收入</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="col-md-3 widget widget1">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-laptop user1 icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong id="2">0</strong></h5>
+                      <span>使用人数(人)</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="col-md-3 widget widget1">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-money user2 icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong id="3">0</strong></h5>
+                      <span>订单数量</span>
+                    </div>
+                </div>
+        	</div>
+        	<div class="col-md-3 widget widget1">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-pie-chart dollar1 icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong id="4">0</strong></h5>
+                      <span>拍品总数量</span>
+                    </div>
+                </div>
+        	 </div>
+        	<div class="col-md-3 widget">
+        		<div class="r3_counter_box">
+                    <i class="pull-left fa fa-users dollar2 icon-rounded"></i>
+                    <div class="stats">
+                      <h5><strong id="5">¥0</strong></h5>
+                      <span>保证金总额</span>
+                    </div>
+                </div>
+        	 </div>
+        	<div class="clearfix"> </div>
+		</div>
+		
+		<div class="row-one widgettable">
+			<div class="col-md-9 content-top-2 card">
+				<div class="agileinfo-cdr">
+					<div class="card-header">
+                        
+                    </div>
+					
+					<div id="Linegraph" style="width: 98%; height: 350px">
+							<script>
+								var aa =[];
+								
+								$.ajax({
+									type:"post",
+									url:"http://localhost:8080/chart",
+									async:false, // async表示是否采用异步请求，默认是ture，也就是异步的（非阻塞）
+									success:function(data) {
+										aa=data.series;
+									}
+								});
+							</script>
+
+							<div id="container" style="min-width: 310px; height: 350px; margin: 0 auto"></div>
+
+						<script type="text/javascript">
+							Highcharts.chart('container', {
+								chart: {
+									type: 'column'
+								},
+								title: {
+									text: '拍拍网各类拍品单月成交额'
+								},
+								credits: {
+									enabled:false
+								},
+								subtitle: {
+									text: '柱状报表'
+								},
+								xAxis: {
+									categories: [
+										'一月',
+										'二月',
+										'三月',
+										'四月',
+										'五月',
+										'六月',
+										'七月',
+										'八月',
+										'九月',
+										'十月',
+										'十一月',
+										'十二月'
+									],
+									crosshair: true
+								},
+								yAxis: {
+									min: 0,
+									title: {
+										text: '成交额(元)'
+									}
+								},
+								tooltip: {
+									headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+									pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+										'<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+									footerFormat: '</table>',
+									shared: true,
+									useHTML: true
+								},
+								plotOptions: {
+									column: {
+										pointPadding: 0.2,
+										borderWidth: 0
+									}
+								},
+								series: aa
+							});
+						</script>
+						
+					</div>
+						
+				</div>
+			</div>
+			<div class="col-md-3 stat">
+				<div class="content-top-1">
+				<div class="col-md-6 top-content">
+					<h5>公告数量(条)</h5>
+					<label>
+						<span id="6">0</span>					
+					</label>
+				</div>
+				<div class="col-md-6 top-content1">	   
+					<div id="demo-pie-1" class="pie-title-center" data-percent="45"> <span class="pie-value"></span> </div>
+				</div>
+				 <div class="clearfix"> </div>
+				</div>
+				<div class="content-top-1">
+				<div class="col-md-6 top-content">
+					<h5>净利润¥</h5>
+					<label>
+						<span id="7">¥0</span>
+					</label>
+				</div>
+				
+				<div class="col-md-6 top-content1">	   
+					<div id="demo-pie-2" class="pie-title-center" data-percent="20"> <span class="pie-value"></span> </div>
+				</div>
+				 <div class="clearfix"> </div>
+				</div>
+				<div class="content-top-1">
+				<div class="col-md-6 top-content">
+					<h5>使用中的竞价室(房间)</h5>
+					<label >
+						<span id="8">0</span>
+					</label>
+				</div>
+				<div class="col-md-6 top-content1">	   
+					<div id="demo-pie-3" class="pie-title-center" data-percent="90"> <span class="pie-value"></span> </div>
+				</div>
+				 <div class="clearfix"> </div>
+				</div>
+			</div>
+			
+			
+		
+			<div class="clearfix"> </div>
+		</div>
+		
+				<div class="charts">
+					<div class="col-md-4 charts-grids widget">
+						<div class="card-header">
+						</div>
+						
+						<div id="container" style="width: 100%; height:340px;">
+									<script>
+									var bb = [];
+									
+									$.ajax({
+										type:"post",
+										url:"http://localhost:8080/chart/pie",
+										async:false, // async表示是否采用异步请求，默认是ture，也就是异步的（非阻塞）
+										success:function(data) {
+											bb=data.series;
+										}
+									});
+							</script>
+
+							<div id="container2" style="min-width: 310px; height: 340px; max-width: 600px; margin: 0 auto"></div>
+
+
+
+								<script type="text/javascript">
+									Highcharts.chart('container2', {
+										chart: {
+											plotBackgroundColor: null,
+											plotBorderWidth: null,
+											plotShadow: false,
+											type: 'pie'
+										},
+										title: {
+											text: '拍拍网库存拍品状态占比'
+										},
+										credits: {
+											enabled:false
+										},
+										plotOptions: {
+											pie: {
+												allowPointSelect: true,
+												cursor: 'pointer',
+												dataLabels: {
+													enabled: true,
+													format: '<b>{point.name}</b>: {point.percentage:.1f} %'
+												}
+											}
+										},
+										series: [{
+											name: 'Brands',
+											colorByPoint: true,
+											data: bb
+										}]
+									});
+								</script>
+						</div>
+						
+						
+					</div>
+					
+					<div class="col-md-4 charts-grids widget states-mdl">
+						<div class="card-header">
+						</div>
+						<div id="chartdiv"  style="width: 100%; height:340px;">
+							<script>
+								var cc = [];
+								
+								$.ajax({
+									type:"post",
+									url:"http://localhost:8080/chart/line",
+									async:false, // async表示是否采用异步请求，默认是ture，也就是异步的（非阻塞）
+									success:function(data) {
+										cc=data.series;
+										console.log(cc);
+									}
+								});
+							</script>
+							
+							<div id="container3" style="min-width: 310px; height: 340px; margin: 0 auto"></div>
+
+							<script type="text/javascript">
+								Highcharts.chart('container3', {
+								    chart: {
+								        type: 'line'
+								    },
+								    title: {
+								        text: '拍拍网用户注册人数'
+								    },
+								  
+								    xAxis: {
+								    	categories: [
+											'一月',
+											'二月',
+											'三月',
+											'四月',
+											'五月',
+											'六月',
+											'七月',
+											'八月',
+											'九月',
+											'十月',
+											'十一月',
+											'十二月'
+										],
+								    },
+								    credits: {
+										enabled:false
+									},
+								    yAxis: {
+								        title: {
+								            text: '人数(人)'
+								        }
+								    },
+								    plotOptions: {
+								        line: {
+								            dataLabels: {
+								                enabled: true
+								            },
+								            enableMouseTracking: false
+								        }
+								    },
+								    series:cc
+								});
+							</script>
+						
+						
+						</div>
+					</div>
+			
+					<div class="clearfix"> </div>
+				</div>
+				
+	
+	
+
+    <script  src="js/index1.js"></script>
+	
+		
+
+   <script src="js/bootstrap.js"> </script>
+	
+	<script type="text/javascript">
+	$.ajax({
+		type:"post",
+		url:"http://localhost:8080/chart/data",
+		success:function(data) {
+			$("#1").text(data.findGoodsMoney+"¥");
+			$("#2").text(data.findUserCount);
+			$("#3").text(data.findOrderCount);
+			$("#4").text(data.findGoods);
+			$("#5").text(data.findDepositMoney+"¥");
+			$("#6").text(data.findAnnounceMoney);
+			$("#7").text(data.mon+"¥");
+			$("#8").text(data.findRoomMoney);
+			
+		}
+	});
+	
+	</script>	
+</body>
+</html>

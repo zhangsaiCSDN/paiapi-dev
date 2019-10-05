@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.woniuxy.dao.MonthlyChartMapper">
+  
+  <select id="find" parameterType="com.woniuxy.domain.Pair" resultMap="rm">
+  	SELECT goodstype.`gtname`, MONTH(odtime) AS month,SUM(odmoney) as odmoney FROM orders
+	JOIN goods ON goods.`gid` = orders.`gid`
+	JOIN goodstype ON goodstype.`gtid` = goods.`gtid`
+	 WHERE YEAR(odtime) = 2019 AND goodstype.`gtid`= #{second} GROUP BY MONTH (odtime) 
+ 	
+ 	
+  </select>
+  
+  <resultMap type="com.woniuxy.domain.GoodstypeExample" id="rm">
+	 <result column="gtname" property="gtname" />
+	<result column="month"  property="month" />
+	 <result column="odmoney" property="odmoney" />
+  </resultMap>
+  
+     <select id="findGoodsCount" parameterType="com.woniuxy.domain.Pair" resultType="java.lang.Integer">
+ 	   select count(gstate) as cou from goods WHERE YEAR(gend) = 2019 
+  	 </select>
+	
+
+  
+   <select id="findPieChart" parameterType="com.woniuxy.domain.Pair" resultMap="fpc">
+ 	   select goods.`gstate` as state,count(gstate) as num from goods 
+   		WHERE YEAR(gend) = 2019  GROUP BY gstate
+   </select>
+  
+   <resultMap type="com.woniuxy.domain.Pair" id="fpc">
+	  	<result column="state" property="first" />
+		<result column="num"  property="second" />
+   </resultMap>
+   
+   
+    <select id="findLineChart" parameterType="com.woniuxy.domain.Pair" resultMap="flc">
+ 	  SELECT r.`rname` as name,MONTH(u.`regtime`) AS month,COUNT(u.uid) as num FROM `user` u
+		LEFT JOIN
+		user_role ur
+		ON u.uid=ur.uid
+		LEFT JOIN role r
+		ON r.rid = ur.rid
+	WHERE YEAR(u.`regtime`) = 2019 AND r.`rname`=#{second}  GROUP BY MONTH (u.`regtime`) 
+   </select>
+  
+  	 <resultMap type="com.woniuxy.domain.Triplet" id="flc">
+	  	<result column="name" property="first" />
+		<result column="month"  property="second" />
+		<result column="num"  property="three" />
+   </resultMap>
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   <!-- 总营业额 -->
+    <select id="findGoodsMoney"  resultType="java.lang.Integer">
+ 	   select sum(odmoney) from orders WHERE YEAR(odtime) = 2019 
+  	 </select>
+  	 
+  	  <!-- 使用人数 -->
+  	  <select id="findUserCount"  resultType="java.lang.Integer">
+ 	   select count(uid) from user
+  	 </select>
+  	 
+  	 <!-- 订单总数量 -->
+  	  <select id="findOrderCount"  resultType="java.lang.Integer">
+ 	   select count(odid)  from orders
+  	 </select>
+  	 
+  	 	 <!-- 拍品总数量 -->
+  	  <select id="findGoods"  resultType="java.lang.Integer">
+ 	   select count(gid)  from goods
+  	 </select>
+  	 
+  	 
+  	  	 <!-- 保证金总额 -->
+  	  <select id="findDepositMoney"  resultType="java.lang.Integer">
+ 	   select sum(dmoney)  from deposit
+  	 </select>
+  	 
+  	 
+  	 	<!-- 使用竞价室数量 -->
+  	  <select id="findRoomMoney"  resultType="java.lang.Integer">
+ 	   select count(rmid)  from room
+  	 </select>
+  	 
+  	 	<!-- 公告总数量 -->
+  	  <select id="findAnnounceMoney"  resultType="java.lang.Integer">
+ 	   select count(anid)  from announce
+  	 </select>
+  	 
+  	 	<!-- 总利润公告总数量 -->
+
+</mapper>

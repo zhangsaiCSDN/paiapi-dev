@@ -10,7 +10,43 @@ public class GoodstypeExample {
 
     protected List<Criteria> oredCriteria;
 
-    public GoodstypeExample() {
+    
+    
+    
+    private String gtname;
+    private String month;
+    private Double odmoney;
+    
+    
+    
+    
+    
+    
+    public String getGtname() {
+		return gtname;
+	}
+
+	public void setGtname(String gtname) {
+		this.gtname = gtname;
+	}
+
+	public String getMonth() {
+		return month;
+	}
+
+	public void setMonth(String month) {
+		this.month = month;
+	}
+
+	public Double getOdmoney() {
+		return odmoney;
+	}
+
+	public void setOdmoney(Double odmoney) {
+		this.odmoney = odmoney;
+	}
+
+	public GoodstypeExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
