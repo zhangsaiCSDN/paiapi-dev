@@ -18,6 +18,8 @@ import salerCenter from './vue/salerCenter.vue'
 import goodsHistory from './vue/goodsHistory.vue'
 import order from './vue/order.vue'
 import orderOne from './vue/orderOne.vue'
+import salerOrder from './vue/salerOrder.vue'
+import salerOrderOne from './vue/salerOrderOne.vue'
 import deposit from './vue/deposit.vue'
 import rooms from './vue/rooms.vue'
 import myRooms from './vue/myRooms.vue'
@@ -56,8 +58,9 @@ var router = new VueRouter({
 					{path:"/rooms/:gid",component:rooms},
 					{path:"/myRooms/:uid",component:myRooms}
 				]},
-				{path:"/salerCenter",component:salerCenter,childen:[
-					
+				{path:"/salerCenter",component:salerCenter,children:[
+					{path:"/salerOrder/:1",component:salerOrder},
+					{path:"/salerOrderOne/:gid/:odid", component: salerOrderOne},
 				]}
 				 
 			]
