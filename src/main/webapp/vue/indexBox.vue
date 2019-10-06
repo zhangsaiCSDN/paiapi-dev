@@ -50,16 +50,14 @@
 				<router-link to="/list"><a class="biaoqian fl">查看更多></a></router-link>
 			</div>
 			<div class="main center">
-				<div class="mingxing fl">
-					<div class="biaoqian">围观次数<br />122人</div>
-					<div class="sub_mingxing">
-						<router-link to="/list"><img></router-link>
-					</div>
-					<div class="pinpai"><a href="">元代青花彩釉纹龙小瓶</a></div>
-					<div class="youhui">反正就是贵</div>
-					<div class="jiage">￥10000000.00起</div>
+				<div class="mingxing fl" v-for="g in goods" @click="findOne(g.gid)">
+					<div class="biaoqian">围观次数<br />{{g.gcount}}人</div>
+					<div class="sub_mingxing"><router-link to="/goodsOne"><img  :src='"image/"+g.img' width="150px"/></router-link></div>
+					<div class="pinpai"><a>{{g.gname}}</a></div>
+					<div class="youhui">起拍时间:{{g.gstart}}</div>
+					<div class="jiage">起拍价格:￥{{g.gprice}}起</div>
 				</div>
-
+	
 			</div>
 		</div>
 	</div>
@@ -74,6 +72,13 @@
 		data() {
 			return {
 				goodsType: [],
+				goods: [],
+				gname:'',
+				gstart:'',
+				gend:'',
+				gcount:'',
+				gprice:'',
+				img:''
 			};
 		},
 		mounted: function() {
@@ -82,6 +87,26 @@
 				self.goodsType = response.data;
 			});
 		},
-		methods: {}
+		created:function(){
+			this.findHotGoods();
+		},
+		methods:{
+			findHotGoods() {
+				var self = this;
+				self.$ajax.get("http://localhost:8080/goods/findHotGoods")
+				.then(function(response) {
+					self.goods = response.data; 
+				});
+			},
+			findOne(gid){	
+				this.$router.push({
+					path:"goodsOne",
+					params:{
+						gid
+					},
+				});
+			}
+			
+		}
 	}
 </script>

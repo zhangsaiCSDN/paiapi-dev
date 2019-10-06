@@ -485,4 +485,12 @@
 		</where>
 		
   </select>
+  <!-- 热点商品查询 -->
+  	 <select id="findHotGoods"  resultMap="fbi">
+		SELECT * FROM goods g
+		INNER JOIN goodstype gt ON g.gtid=gt.gtid
+		INNER JOIN image i ON g.gid=i.gid
+		ORDER BY gcount DESC
+		LIMIT 0,5
+  	</select>
 </mapper>
