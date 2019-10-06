@@ -63,7 +63,7 @@
           </li>
           <li class="layui-nav-item" lay-unselect>
             <a href="javascript:;">
-              <cite>贤心</cite>
+              <cite>拍拍网</cite>
             </a>
             <dl class="layui-nav-child">
               <dd><a lay-href="set/user/info.html">基本资料</a></dd>
@@ -96,7 +96,7 @@
                 <cite>用户管理</cite>
               </a>
               <dl class="layui-nav-child">
-                <dd data-name="console" class="layui-this">
+                <dd data-name="console" > <!-- class="layui-this" -->
                   <a lay-href="user/users.html">用户管理</a>
                 </dd>
                 <dd data-name="console">
@@ -181,30 +181,8 @@
                 </dd>
               </dl>
             </li>
-            <li data-name="set" class="layui-nav-item">
-              <a href="javascript:;" lay-tips="订单报表" lay-direction="2">
-                <i class="layui-icon layui-icon-set"></i>
-                <cite>系统设置</cite>
-              </a>
-              <dl class="layui-nav-child">
-                <dd class="layui-nav-itemed">
-                  <a href="javascript:;">系统设置</a>
-                  <dl class="layui-nav-child">
-                    <dd><a lay-href="set/system/website.html">网站设置</a></dd>
-                    <dd><a lay-href="set/system/email.html">邮件服务</a></dd>
-                  </dl>
-                </dd>
-                <dd class="layui-nav-itemed">
-                  <a href="javascript:;">我的设置</a>
-                  <dl class="layui-nav-child">
-                    <dd><a lay-href="set/user/info.html">基本资料</a></dd>
-                    <dd><a lay-href="set/user/password.html">修改密码</a></dd>
-                  </dl>
-                </dd>
-              </dl>
-            </li>
             <li data-name="get" class="layui-nav-item">
-              <a href="javascript:;" lay-href="http://www.layui.com/admin/#get" lay-tips="授权" lay-direction="2">
+              <a href="javascript:;" lay-href="/admin/charts/1.html" lay-tips="授权" lay-direction="2">
                 <i class="layui-icon layui-icon-chart"></i>
                 <cite>数据报表</cite>
               </a>
@@ -240,7 +218,7 @@
       <!-- 主体内容 -->
       <div class="layui-body" id="LAY_app_body">
         <div class="layadmin-tabsbody-item layui-show">
-          <iframe name="mainUI" src="user/users.html" frameborder="0" class="layadmin-iframe"></iframe>
+          <iframe name="mainUI" src="charts/1.html" frameborder="0" class="layadmin-iframe"></iframe>
         </div>
       </div>
    
