@@ -57,9 +57,9 @@
 	export default {
 		data() {
 			return {
-				username: '',
-				uid:1,
-				rid:0
+				username: null,
+				uid: 1,
+				rid: 0
 			};
 		},
 		methods: {
@@ -75,15 +75,15 @@
 				this.username = result.data.username;
 			},
 			getRoleId() {
-			var uid = this.uid;
+				var uid = this.uid;
 				$.ajax({
-					type:"get",
-					url:"http://localhost:8080/users/"+uid,
-					success: function(data) {            //ajax请求成功后触发的方法
-            			//this.rid = data.roles.rid;
-            			//假定rid暂时先默认为卖家rid 22
-            			this.rid = 22
-       						 }
+					type: "get",
+					url: "http://localhost:8080/users/" + uid,
+					success: function(data) { //ajax请求成功后触发的方法
+						//this.rid = data.roles.rid;
+						//假定rid暂时先默认为卖家rid 22
+						this.rid = 22
+					}
 				});
 			}
 		},
