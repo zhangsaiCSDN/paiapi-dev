@@ -81,6 +81,13 @@ public class GoodsController {
 		service.delete(gid);
 	}
 	
+	@GetMapping("findHotGoods")
+	@ResponseBody
+	public List<Goods> findHotGoods() {
+		List<Goods> list = service.findHotGoods();
+		return list;
+	}
+	
 	@PutMapping
 	@ResponseBody
 	public void update(@RequestBody Goods goods) {
@@ -110,6 +117,12 @@ public class GoodsController {
 		List<Goods> list=service.findByImages(map);
 		page.setList(list);
 		return page;
+	}
+	@GetMapping("findOne")
+	@ResponseBody
+	public Goods findOne(Integer gid) {
+		System.out.println(gid);
+		return service.findOne(gid);
 	}
 	
 	

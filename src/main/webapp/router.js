@@ -14,6 +14,7 @@ import limiteTime from './vue/limiteTime.vue'
 import login from'./vue/login.vue'
 import register from './vue/register.vue'
 import userCenter from './vue/userCenter.vue'
+import salerCenter from './vue/salerCenter.vue'
 import goodsHistory from './vue/goodsHistory.vue'
 import order from './vue/order.vue'
 import orderOne from './vue/orderOne.vue'
@@ -52,8 +53,11 @@ var router = new VueRouter({
 					{path:"/order/:1",component:order},
 					{path:"/orderOne/:gid/:odid", component: orderOne},
 					{path:"/deposit",component:deposit},
-					{path:"/rooms/:2",component:rooms},
-					{path:"/myRooms/:1",component:myRooms}
+					{path:"/rooms/:gid",component:rooms},
+					{path:"/myRooms/:uid",component:myRooms}
+				]},
+				{path:"/salerCenter",component:salerCenter,childen:[
+					
 				]}
 				 
 			]

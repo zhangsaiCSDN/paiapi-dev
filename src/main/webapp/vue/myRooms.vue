@@ -28,7 +28,7 @@
 		mounted:function(){
 			var self = this;
 			var uid = this.$route.params.uid;
-				this.$axios.get("http://localhost:8080/rooms/state?uid="+uid
+				this.$ajax.get("http://localhost:8080/rooms/state?uid="+uid
 				).then(
 						function(response) {
 							self.myRooms = response.data;

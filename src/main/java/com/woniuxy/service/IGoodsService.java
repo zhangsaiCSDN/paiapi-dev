@@ -16,4 +16,5 @@ public interface IGoodsService {
 	Goods findOne(Integer gid);
 	List<Goods> findByImages(Map<String,Object> map);
 	Integer count();
+	List<Goods> findHotGoods();
 }

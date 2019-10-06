@@ -17,6 +17,9 @@ public class Room implements Serializable{
     private Goods goods;
     
     private User user;
-
+    
+    private Deposit deposit;
+    
+    private Image image;
   
 }

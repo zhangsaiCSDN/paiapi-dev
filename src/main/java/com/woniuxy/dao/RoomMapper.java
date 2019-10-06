@@ -32,4 +32,6 @@ public interface RoomMapper {
     int updateByPrimaryKey(Room record);
     
     List<Room> findByPage(Page page);
+    
+    List<Room> findByState(Integer uid);
 }

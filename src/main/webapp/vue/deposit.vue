@@ -16,7 +16,7 @@
 					<div class="sub_content fl ">
 						<input  type="checkbox" v-model="checkedNames" :value="item" class="quanxuan" />
 					</div>
-					<div class="sub_content fl"><img src="../node_modules/image/gwc_xiaomi6.jpg"></div>
+					<div class="sub_content fl">333</div>
 					<div class="sub_content fl ">{{item.goods.gname}}</div>
 					<div class="sub_content fl m-le" >{{item.dmoney}}元</div>
 					

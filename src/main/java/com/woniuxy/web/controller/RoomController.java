@@ -2,6 +2,8 @@ package com.woniuxy.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,14 +52,15 @@ public class RoomController {
 		return roomService.findOne(rmid);
 	}
 		
-//	@GetMapping
-//	@ResponseBody
-//	public List<Room> find() {
-//		return roomService.find();
-//	}
+	@GetMapping("/state")
+	@ResponseBody
+	public List<Room> findbyState(Integer uid,HttpServletResponse response) {
+		return roomService.findByState(uid);
+	}
 	@GetMapping
 	@ResponseBody
 	public Page<Room> findByPage(Integer p){
+		System.out.println("RoomController.findByPage()");
 		if(p==null)p=1;
 		int count=(int) roomService.count();
 		Page<Room> page=new Page<>(p,count,8);
