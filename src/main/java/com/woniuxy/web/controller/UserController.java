@@ -89,6 +89,14 @@ public class UserController {
 		return map;
 	}
 
+	// 退出登录 注销功能
+	@GetMapping(value = "logout")
+	@ResponseBody
+	public void logout(HttpServletRequest request, HttpServletResponse response) {
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+	}
+
 	// 是否登录 成功返回200 失败返回500
 	@GetMapping("isLogin")
 	@ResponseBody
@@ -152,12 +160,16 @@ public class UserController {
 		sos.close();
 	}
 
+	// 校验验证码
 	@GetMapping(value = "checkCode")
 	@ResponseBody
 	public Map<String, Object> checkCode(HttpServletRequest req, HttpServletResponse resp, String code) {
+
+		// session中取出真实的验证码
 		String realCode = (String) req.getSession().getAttribute("code");
 		Map<String, Object> map = new HashMap<>();
 
+		// 对比前端验证码和真实验证码 一致返回true 不一致返回false
 		if (code != null && code.equalsIgnoreCase(realCode)) {
 			map.put("status", true);
 		} else {

@@ -9,13 +9,6 @@
 						</li>
 						<li>|</li>
 
-
-						<!-- 	<li v-if="username.length > 0">
-								欢迎您&nbsp;&nbsp;,{{username}}
-							</li>
-							<li>|</li> -->
-
-
 						<li><a>问题反馈</a></li>
 						<li>|</li>
 						<li><a>切换商家版</a></li>
@@ -26,7 +19,7 @@
 					<div class="gouwuche fr"> <span @click="enterUserCenter">个人中心</span></div>
 					<div class="fr">
 
-						<ul v-if="username.length==0">
+						<ul v-if="username==null">
 							<li>
 								<router-link to="/login">登录</router-link>
 							</li>
@@ -36,7 +29,7 @@
 							</li>
 						</ul>
 
-						<ul v-if="username.length>0">
+						<ul v-if="username!=null">
 							<li>
 								欢迎您&nbsp;&nbsp;,{{username}}&nbsp;
 							</li>
@@ -64,7 +57,7 @@
 	export default {
 		data() {
 			return {
-				username: '112233'
+				username: ''
 			};
 		},
 		methods: {
@@ -73,6 +66,7 @@
 			},
 			logOut(){
 				this.username='';
+				
 			},
 			async isLogin() {
 				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
