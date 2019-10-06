@@ -72,9 +72,10 @@ public class CollectController {
 				collect.setUid(uid);
 				map.put("status",200);
 				service.save(collect);
+				map.put("message", "添加成功");
 			}else {
 				map.put("status", 500);
-				map.put("messge", "暂未登录,请先登录");
+				map.put("message", "暂未登录,请先登录");
 			}
 		}else {
 			service.save(collect);

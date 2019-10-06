@@ -22,6 +22,7 @@ import rooms from './vue/rooms.vue'
 import myRooms from './vue/myRooms.vue'
 
 import list from'./vue/list.vue'
+import goodsOne from'./vue/goodsOne.vue'
 import biddingRoom from'./vue/biddingRoom.vue'
 import biddingRoomList from'./vue/biddingRoomList.vue'
 
@@ -43,6 +44,7 @@ var router = new VueRouter({
 				{path:"/global",component:global},
 				{path:"/help",component:help},
 				{path:"/list",component:list},
+				{path:"/goodsOne/:gid",component:goodsOne},
 				{path:"/biddingRoom",component:biddingRoom},
 				{path:"/biddingRoomList",component:biddingRoomList},
 				{path:"/userCenter",component:userCenter,children:[
