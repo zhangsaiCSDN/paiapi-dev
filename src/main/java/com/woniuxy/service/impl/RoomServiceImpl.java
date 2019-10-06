@@ -60,4 +60,10 @@ public class RoomServiceImpl implements IRoomService {
 		return mapper.countByExample(null);
 	}
 
+	@Override
+	public List<Room> findByState(Integer uid) {
+		// TODO Auto-generated method stub
+		return mapper.findByState(uid);
+	}
+
 }

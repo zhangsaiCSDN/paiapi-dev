@@ -52,8 +52,8 @@ var router = new VueRouter({
 					{path:"/order/:1",component:order},
 					{path:"/orderOne/:gid/:odid", component: orderOne},
 					{path:"/deposit",component:deposit},
-					{path:"/rooms/:2",component:rooms},
-					{path:"/myRooms/:1",component:myRooms}
+					{path:"/rooms/:gid",component:rooms},
+					{path:"/myRooms/:uid",component:myRooms}
 				]}
 				 
 			]

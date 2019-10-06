@@ -111,6 +111,12 @@ public class GoodsController {
 		page.setList(list);
 		return page;
 	}
+	@GetMapping("findOne")
+	@ResponseBody
+	public Goods findOne(Integer gid) {
+		System.out.println(gid);
+		return service.findOne(gid);
+	}
 	
 	
 }

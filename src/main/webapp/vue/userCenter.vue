@@ -10,7 +10,7 @@
 					<li><router-link to="/order/:1">我的订单</router-link></li>
 					<li><router-link to="/goodsHistory">拍品记录</router-link></li>
 					<li><router-link to="">我的参与</router-link></li>
-					<li><router-link to="/myRooms/:1">我的竞价室</router-link></li>
+					<li><router-link to="/myRooms/1">我的竞价室</router-link></li>
 					<li><router-link to="">我的消息</router-link></li>
 					<li><router-link to="">我的收藏</router-link></li>
 				</ul>
