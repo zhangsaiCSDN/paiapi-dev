@@ -69,6 +69,9 @@
 		mounted: function() {
 
 		},
+		created:function(){
+			this.codeRefresh();
+		},
 		methods: {
 			login() {
 				if (this.codeStatus) {

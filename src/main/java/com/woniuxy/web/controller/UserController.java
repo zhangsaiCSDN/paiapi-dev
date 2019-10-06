@@ -43,7 +43,6 @@ public class UserController {
 //	shiro 注册 用户增加加密
 	@PostMapping
 	@ResponseBody
-	@CrossOrigin
 	public Map<String, Object> save(@RequestBody User user) {
 		System.out.println(user);
 		Map<String, Object> map = new HashMap<>();
@@ -79,8 +78,6 @@ public class UserController {
 			subject.login(token);
 			map.put("status", 200);
 			map.put("username", subject.getPrincipal());
-			User user = service.findUserByUname(username);
-			req.setAttribute("uid", user.getUid());
 		} catch (AuthenticationException e) {
 			map.put("status", 500);
 			map.put("message", "登录失败，可能是用户名或密码错误");
@@ -102,9 +99,14 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> isLogin() {
 		Subject subject = SecurityUtils.getSubject();
+		String username = (String) subject.getPrincipal();
 		Map<String, Object> map = new HashMap<>();
 		map.put("status", subject.isAuthenticated() ? 200 : 500);
-		map.put("username", subject.getPrincipal());
+		map.put("username", username);
+		if (username != null) {
+			User user = service.findUserByUname(username);
+			map.put("uid", user.getUid());
+		}
 		return map;
 	}
 

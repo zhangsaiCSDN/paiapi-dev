@@ -30,7 +30,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -62,7 +63,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -80,7 +82,8 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List">
-		uid, cid, uname, upwd, ustate, avatar, salt, tel, regtime, updatetime
+		uid, cid, uname, upwd, ustate, avatar, salt, tel, regtime,
+		updatetime
 	</sql>
 	<select id="selectByExample"
 		parameterType="com.woniuxy.domain.UserExample"
@@ -118,13 +121,16 @@
 		</if>
 	</delete>
 	<insert id="insert" parameterType="com.woniuxy.domain.User">
-		insert into user (uid, cid, uname,
+		insert into user (uid, cid,
+		uname,
 		upwd, ustate, avatar,
 		salt, tel, regtime,
 		updatetime)
-		values (#{uid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER},
+		values
+		(#{uid,jdbcType=INTEGER}, #{cid,jdbcType=INTEGER},
 		#{uname,jdbcType=VARCHAR},
-		#{upwd,jdbcType=VARCHAR}, #{ustate,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR},
+		#{upwd,jdbcType=VARCHAR},
+		#{ustate,jdbcType=INTEGER}, #{avatar,jdbcType=VARCHAR},
 		#{salt,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR},
 		#{regtime,jdbcType=TIMESTAMP},
 		#{updatetime,jdbcType=TIMESTAMP})
@@ -246,15 +252,22 @@
 	<update id="updateByExample" parameterType="map">
 		update user
 		set uid = #{record.uid,jdbcType=INTEGER},
-		cid = #{record.cid,jdbcType=INTEGER},
-		uname = #{record.uname,jdbcType=VARCHAR},
-		upwd = #{record.upwd,jdbcType=VARCHAR},
-		ustate = #{record.ustate,jdbcType=INTEGER},
-		avatar = #{record.avatar,jdbcType=VARCHAR},
-		salt = #{record.salt,jdbcType=VARCHAR},
+		cid =
+		#{record.cid,jdbcType=INTEGER},
+		uname =
+		#{record.uname,jdbcType=VARCHAR},
+		upwd =
+		#{record.upwd,jdbcType=VARCHAR},
+		ustate =
+		#{record.ustate,jdbcType=INTEGER},
+		avatar =
+		#{record.avatar,jdbcType=VARCHAR},
+		salt =
+		#{record.salt,jdbcType=VARCHAR},
 		tel = #{record.tel,jdbcType=VARCHAR},
 		regtime = #{record.regtime,jdbcType=TIMESTAMP},
-		updatetime = #{record.updatetime,jdbcType=TIMESTAMP}
+		updatetime =
+		#{record.updatetime,jdbcType=TIMESTAMP}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -297,14 +310,19 @@
 		parameterType="com.woniuxy.domain.User">
 		update user
 		set cid = #{cid,jdbcType=INTEGER},
-		uname = #{uname,jdbcType=VARCHAR},
+		uname =
+		#{uname,jdbcType=VARCHAR},
 		upwd = #{upwd,jdbcType=VARCHAR},
-		ustate = #{ustate,jdbcType=INTEGER},
+		ustate =
+		#{ustate,jdbcType=INTEGER},
 		avatar = #{avatar,jdbcType=VARCHAR},
-		salt = #{salt,jdbcType=VARCHAR},
+		salt =
+		#{salt,jdbcType=VARCHAR},
 		tel = #{tel,jdbcType=VARCHAR},
-		regtime = #{regtime,jdbcType=TIMESTAMP},
-		updatetime = #{updatetime,jdbcType=TIMESTAMP}
+		regtime =
+		#{regtime,jdbcType=TIMESTAMP},
+		updatetime =
+		#{updatetime,jdbcType=TIMESTAMP}
 		where uid = #{uid,jdbcType=INTEGER}
 	</update>
 
@@ -319,7 +337,40 @@
 		left JOIN role r
 		ON r.rid = ur.rid
 	</select>
+
+
 	<resultMap type="User" id="findInfo">
+		<id property="uid" column="uid" />
+		<result property="cid" column="cid" />
+		<result property="uname" column="uname" />
+		<result property="upwd" column="upwd" />
+		<result property="ustate" column="ustate" />
+		<result property="avatar" column="avatar" />
+		<result property="salt" column="salt" />
+		<result property="tel" column="tel" />
+		<result property="regtime" column="regtime" />
+		<result property="updatetime" column="updatetime" />
+		<collection property="roles" ofType="Role">
+			<id property="rid" column="rid" />
+			<result property="rname" column="rname" />
+			<result property="rdesc" column="rdesc" />
+		</collection>
+	</resultMap>
+
+
+	<select id="findInfoById" resultMap="findInfoById">
+		SELECT * FROM `user` u
+		left
+		JOIN
+		user_role ur
+		ON u.uid=ur.uid
+		left JOIN role r
+		ON r.rid = ur.rid
+		where u.uid = #{uid}
+	</select>
+
+
+	<resultMap type="User" id="findInfoById">
 		<id property="uid" column="uid" />
 		<result property="cid" column="cid" />
 		<result property="uname" column="uname" />

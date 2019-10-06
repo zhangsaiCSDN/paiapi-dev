@@ -1,5 +1,6 @@
 package com.woniuxy.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,7 @@ import com.woniuxy.dao.RoleMapper;
 import com.woniuxy.dao.UserMapper;
 import com.woniuxy.domain.Permission;
 import com.woniuxy.domain.Role;
+import com.woniuxy.domain.RoleExample;
 import com.woniuxy.domain.User;
 import com.woniuxy.domain.UserExample;
 import com.woniuxy.service.IUserService;
@@ -25,20 +27,35 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private UserMapper mapper;
 
+	@Autowired
+	private RoleMapper roleMapper;
+
 	// 用户注册
 	@Override
 	public void save(User user) {
+
+		if (user.getRegtime() == null) {
+			user.setRegtime(new Date());
+		}
 		mapper.insert(user);
 		User userDB = mapper.findUserByUname(user.getUname());
 		Set<Role> roles = user.getRoles();
 		Map<String, Integer> map = new HashMap<>();
 		map.put("uid", userDB.getUid());
+
 		if (roles != null) {
 			for (Role role : roles) {
 				map.put("rid", role.getRid());
 				mapper.insertUserRole(map);
 			}
+		} else {
+			Role role = roleMapper.findRoleByRname("买家");
+			if (role != null) {
+				map.put("rid", role.getRid());
+				mapper.insertUserRole(map);
+			}
 		}
+
 	}
 
 	@Override
@@ -72,7 +89,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public User findOne(Integer uid) {
 
-		return mapper.selectByPrimaryKey(uid);
+		return mapper.findInfoById(uid);
 	}
 
 	@Override
