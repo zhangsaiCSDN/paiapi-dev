@@ -16,7 +16,7 @@
 					</ul>
 				</div>
 				<div class="right fr">
-					<div class="gouwuche fr" v-if="username!=null"> <span @click="enterUserCenter">个人中心</span></div>
+					<div class="gouwuche fr" v-if="username!=null" @click="enterUserCenter"> <span>个人中心</span></div>
 					<div class="fr">
 
 						<ul v-if="username==null">
