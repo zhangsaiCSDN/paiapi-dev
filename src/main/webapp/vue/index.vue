@@ -57,12 +57,14 @@
 	export default {
 		data() {
 			return {
-				username: ''
+				username: '',
+				uid:1,
+				rid:0
 			};
 		},
 		methods: {
 			enterUserCenter() {
-				this.$router.push('/userCenter');
+				this.$router.push('/salerCenter');
 			},
 			logOut() {
 				this.username = null;
@@ -71,6 +73,18 @@
 			async isLogin() {
 				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
 				this.username = result.data.username;
+			},
+			getRoleId() {
+			var uid = this.uid;
+				$.ajax({
+					type:"get",
+					url:"http://localhost:8080/users/"+uid,
+					success: function(data) {            //ajax请求成功后触发的方法
+            			//this.rid = data.roles.rid;
+            			//假定rid暂时先默认为卖家rid 22
+            			this.rid = 22
+       						 }
+				});
 			}
 		},
 		mounted: function() {
