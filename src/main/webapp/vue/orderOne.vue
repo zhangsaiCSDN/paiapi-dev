@@ -5,9 +5,9 @@
 		<!-- 图片 -->
 		<div class="left fl">		
 			<div class="imgs" v-for="(item,index) in imgList" v-if="index==num">
-				 <img :src='"../admin/goods/goodsImg/"+item.img'/>
-				<button @click="prev"  class="btn btn-primary btn-lg">上一张</button>
-				<button @click="next"   class="btn btn-primary btn-lg">下一张</button>
+				 <img :src='"../admin/goods/goodsImg/"+item.img' @click="prev"/>
+				<button @click="prev"  class="btn btn-success">上一张</button>
+				<button @click="next"   class="btn btn-success">下一张</button>
 			</div>
 	
 		</div>
@@ -49,8 +49,8 @@
 		      <td>{{order.odfee}}</td>
 		    </tr>
 		    <tr>
-		      <td>地址id</td>
-		      <td>{{order.aid}}</td>
+		      <td>地址</td>
+		      <td>{{address}}</td>
 		    </tr>
 		    <tr>
 		      <td class="bot mt20 ft20 ftbc">成交金额</td>
@@ -99,7 +99,19 @@
 				height:52px
 			}
 			button{
-				width:190px
+				width:100px
+			}
+			.xiadan .jrgwc {
+			    height: 54px;
+			    width: 207px;
+			    border: none;
+			    background: FF0036;
+			    color: #fff;
+			    font-size: 25px;
+			    font-weight: bold;
+			    cursor: pointer;
+			    margin-right: 50px;
+			    border-radius:15px;
 			}
 			
 </style>
@@ -111,12 +123,18 @@
 				order:'',
 				gname:'',
 				imgList:[],
-				num:0
+				num:0,
+				tel:'',
+				address:''
 			};
 		},
 		created:function(){
 			this.getGoodsImg();
 			this.getOrder();
+			this.getUser();			
+		},
+		beforeUpdate:function(){
+			this.getAddress();
 		},
 		methods: {
 				//根据gid 返回图片
@@ -134,9 +152,6 @@
 
 					})
 				},
-				touch(){
-					alert("卖家手机号：13333333333");
-				},
 				getOrder(){
 					var self=this;
 					var odid=this.$route.params.odid;
@@ -146,6 +161,24 @@
 						}
 					}).then(function(response) {					
 						self.order=response.data;
+					})
+				},
+				getUser(){
+					var self=this;
+					var uid=1; //传过来的
+					this.$ajax.get("http://localhost:8080/users/"+uid).then(function(response) {	
+						self.tel=response.data.tel;			
+					})
+					
+				},
+				touch(){
+					alert("卖家手机号："+this.tel);
+				},
+				getAddress(){
+					var self=this;
+					var aid=self.order.aid;
+					this.$ajax.get("http://localhost:8080/addresses/"+aid).then(function(response) {	
+						self.address=response.data.ainfo;			
 					})
 				},
 				next:function(){
