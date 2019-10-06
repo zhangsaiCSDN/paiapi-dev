@@ -16,7 +16,7 @@
 					</ul>
 				</div>
 				<div class="right fr">
-					<div class="gouwuche fr"> <span @click="enterUserCenter">个人中心</span></div>
+					<div class="gouwuche fr" v-if="username!=null"> <span @click="enterUserCenter">个人中心</span></div>
 					<div class="fr">
 
 						<ul v-if="username==null">
@@ -64,9 +64,9 @@
 			enterUserCenter() {
 				this.$router.push('/userCenter');
 			},
-			logOut(){
-				this.username='';
-				
+			logOut() {
+				this.username = null;
+				this.$ajax.get('http://localhost:8080/users/logout')
 			},
 			async isLogin() {
 				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
