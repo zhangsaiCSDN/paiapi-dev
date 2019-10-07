@@ -31,7 +31,7 @@
 
 						<ul v-if="username!=null">
 							<li>
-								欢迎您&nbsp;&nbsp;,{{username}}&nbsp;
+								欢迎您&nbsp;,&nbsp;{{username}}&nbsp;
 							</li>
 							<li>|</li>
 							<li @click='logOut'>
@@ -39,9 +39,9 @@
 							</li>
 							<li>|</li>
 							<li @click="showMsg">消息通知<span id="box" v-if="msg.length>0">{{msg.length}}</span>
-								<select v-if="msg.length>0">
-									<option v-for="(v,k,i) in msg"  :key='i'>{{(k+1)+'号'+v}}</option>
-								</select>
+								<!-- <select v-if="msg.length>0">
+									<option v-for="(v,k,i) in msg" :key='i'>{{(k+1)+'号'+v}}</option>
+								</select> -->
 							</li>
 						</ul>
 					</div>
@@ -49,6 +49,14 @@
 			</div>
 		</header>
 		<router-view></router-view>
+		<!-- <Modal v-model="modal1" title="Common Modal dialog box title" @on-ok="ok" @on-cancel="cancel"> -->
+		<Modal v-model="modal1" title="您关注的以下拍品即将竞拍">
+			<div>
+				<p v-for="(v,k,i) in msg" :key='i'>{{(k+1)+'号'+v}}</p>
+			</div>
+			
+			
+		</Modal>
 	</div>
 </template>
 
@@ -60,10 +68,7 @@
 		color: #000000;
 		width: 20px;
 	}
-	select{
-		background-color: #0e0e0e;
-		border: #000000;
-	}
+	
 </style>
 
 <script>
@@ -75,6 +80,7 @@
 				path: "ws://localhost:8080/msg/",
 				socket: '',
 				msg: [],
+				modal1:false
 
 
 			};
@@ -86,7 +92,7 @@
 			logOut() {
 				this.username = null;
 				this.$ajax.get('http://localhost:8080/users/logout');
-				this.msg=[];
+				this.msg = [];
 				this.$router.push('/index');
 			},
 			async isLogin() {
@@ -117,7 +123,7 @@
 
 			},
 			showMsg() {
-
+				this.modal1=true;
 			}
 		},
 		mounted: function() {

@@ -14,7 +14,14 @@ axios.defaults.withCredentials = true
 import router from './router.js';
 import myCenter from './js/userCenter.js';
 import Router from 'vue-router';
-import VueSwiper from 'vue-awesome-swiper'
+import VueSwiper from 'vue-awesome-swiper';
+import 'iview/dist/styles/iview.css';
+
+import { Button, Table ,Modal} from 'iview';
+Vue.component('Button', Button);
+Vue.component('Table', Table);
+Vue.component('Modal', Modal);
+
 Vue.use(VueSwiper)
 
 import VDistpicker from 'v-distpicker'
