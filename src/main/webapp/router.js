@@ -37,6 +37,7 @@ import userGoods from'./vue/userGoods.vue'
 import addGoods from'./vue/addGoods.vue'
 import updateGoods from'./vue/updateGoods.vue'
 import message from'./vue/message.vue'
+import goodsUpload from'./vue/goodsUpload.vue'
 
 var router = new VueRouter({
 	routes:[
@@ -76,6 +77,7 @@ var router = new VueRouter({
 					{ path:'/userGoods', component:userGoods },
 					{ path:'/addGoods', component:addGoods },
 					{ path:'/updateGoods/:gid', component:updateGoods },
+					{ path:'/goodsUpload', component:goodsUpload },
 				]},
 				 
 			]

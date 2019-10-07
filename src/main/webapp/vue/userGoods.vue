@@ -36,6 +36,7 @@
 				<td>{{item.goodstype.gtname}}</td>
 				<td>
 					<button class="btn btn-warning" @click='edit(item.gid)' >修改</button>
+					<button class="btn btn-warning" @click='img' >添加图片</button>
 				</td>
 					
 				
@@ -90,6 +91,7 @@
 				page:[],
 				list:[],
 				vpages:[],
+				uid:''
 		
 			};
 		},
@@ -99,7 +101,7 @@
 				var self = this;
 				var t = self.pp;
 						
-				this.$ajax.get("http://localhost:8080/goods/findUserGoods?p="+p+"&uid=1"
+				this.$ajax.get("http://localhost:8080/goods/findUserGoods?p="+p+"&uid="+self.uid
 							).then(
 								function(response){
 									self.list = response.data.list;
@@ -125,6 +127,9 @@
 			},
 			edit(gid){
 				this.$router.push({path:"updateGoods/"+gid});
+			},
+			img(){
+				this.$router.push({path:"goodsUpload"});
 			}
 			
 			
@@ -132,6 +137,11 @@
 				
 		mounted:function() {
 				this.find(1);
+				var self = this;
+				this.$ajax.get('http://localhost:8080/users/isLogin').then(function(response){
+			     self.uid = response.data.user.uid;
+			    });
+				
 		}
 		
 		
