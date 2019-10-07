@@ -35,13 +35,18 @@
 				</div>
 				<div class="regist_submit">
 					<button class="submit" type="button" @click="submitValidate()">立即注册</button>
+					<!-- <button @click="info">
+						test
+					</button> -->
 				</div>
 			</div>
 		</div>
 	</form>
 </template>
 <style scoped>
-
+.regist{
+	color: black;
+}
 </style>
 
 <script>
@@ -102,9 +107,12 @@
 					tel: this.tel
 				}
 				this.$ajax.post("http://localhost:8080/users", json).then((response) => {
-					if (response.status == 200) {
+					if (response.data.status == 200) {
+						this.$Message.success('注册成功! 已为您跳转至登录页面.');
 						this.$parent.isLogin();
 						this.pageChange('/login');
+					} else {
+						this.$Message.error(response.data.message);
 					}
 				});
 			},

@@ -5,7 +5,7 @@
 				<div class="left fl">
 					<ul>
 						<li>
-							<router-link to='/index'></router-link>
+							<router-link to='/index'>商城首页</router-link>
 						</li>
 						<li>|</li>
 
@@ -52,7 +52,7 @@
 		<!-- <Modal v-model="modal1" title="Common Modal dialog box title" @on-ok="ok" @on-cancel="cancel"> -->
 		<Modal v-model="modal1" title="您关注的以下拍品即将竞拍">
 			<div>
-				<p v-for="(v,k,i) in msg" :key='i'>{{(k+1)+'号'+v}}</p>
+				<p v-for="(v,k,i) in msg" :key='i'>{{(k+1)+'号消息:'+v}}</p>
 			</div>
 			
 			

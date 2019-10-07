@@ -126,7 +126,7 @@ public class MsgWebSocket implements Runnable {
 							System.out.println("拍卖结束提醒");
 							
 							try {
-								session.getBasicRemote().sendText(String.format("广播:你收收藏的%s,距离拍卖结束不足一小时啦~", good.getGname()));
+								session.getBasicRemote().sendText(String.format("你收藏的%s,距离拍卖结束不足一小时啦~", good.getGname()));
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
@@ -135,7 +135,7 @@ public class MsgWebSocket implements Runnable {
 						if (true) {
 							System.out.println("拍卖开始提醒");
 							try {
-								session.getBasicRemote().sendText(String.format("广播:你收收藏的%s,距离拍卖开始不足一小时啦~", good.getGname()));
+								session.getBasicRemote().sendText(String.format("你收藏的%s,距离拍卖开始不足一小时啦~", good.getGname()));
 							} catch (IOException e) {
 								e.printStackTrace();
 							}

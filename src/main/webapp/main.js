@@ -17,10 +17,12 @@ import Router from 'vue-router';
 import VueSwiper from 'vue-awesome-swiper';
 import 'iview/dist/styles/iview.css';
 
-import { Button, Table ,Modal} from 'iview';
+import { Button, Table ,Modal ,Message} from 'iview';
 Vue.component('Button', Button);
 Vue.component('Table', Table);
 Vue.component('Modal', Modal);
+Vue.prototype.$Message = Message;
+
 
 Vue.use(VueSwiper)
 

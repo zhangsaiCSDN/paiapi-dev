@@ -90,6 +90,7 @@
 						this.codeRefresh();
 						this.alertMsg = response.data.message;
 					} else {
+						this.$Message.success('登录成功! 欢迎使用蜗牛拍拍!');
 						this.$parent.isLogin();
 						this.pageChange('/index');
 					}
