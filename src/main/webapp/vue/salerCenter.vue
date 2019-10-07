@@ -8,6 +8,7 @@
 			<div class="subddzx">
 				<ul>
 					<li><router-link to="/salerOrder/:1">卖家订单</router-link></li>
+					<li><router-link to="/userGoods">卖家拍品</router-link></li>
 				</ul>
 			</div>
 			<div class="ddzx">个人中心</div>

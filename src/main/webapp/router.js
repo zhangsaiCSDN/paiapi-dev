@@ -30,6 +30,10 @@ import biddingRoom from'./vue/biddingRoom.vue'
 import biddingRoomList from'./vue/biddingRoomList.vue'
 
 
+import userGoods from'./vue/userGoods.vue'
+import addGoods from'./vue/addGoods.vue'
+import updateGoods from'./vue/updateGoods.vue'
+
 var router = new VueRouter({
 	routes:[
 		{path:"/",component:indexTop,redirect:"/index"},
@@ -61,6 +65,9 @@ var router = new VueRouter({
 				{path:"/salerCenter",component:salerCenter,children:[
 					{path:"/salerOrder/:1",component:salerOrder},
 					{path:"/salerOrderOne/:gid/:odid", component: salerOrderOne},
+					{ path:'/userGoods', component:userGoods },
+					{ path:'/addGoods', component:addGoods },
+					{ path:'/updateGoods/:gid', component:updateGoods },
 				]},
 				 
 			]
