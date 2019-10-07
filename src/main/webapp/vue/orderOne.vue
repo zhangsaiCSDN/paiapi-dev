@@ -61,6 +61,7 @@
 			
 			<div class="xiadan ml20 mt20">
 					<input class="jrgwc" type="button" name="jrgwc" value="联系卖家"  @click="touch"/>
+					<input class="jrgwc" type="button" name="jrgwc" value="查看物流"  @click="logistics"/>
 					<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=307081517&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1075930808:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
 			</div>
 		</div>
@@ -172,7 +173,10 @@
 					
 				},
 				touch(){
-					alert("卖家手机号："+this.tel);
+					alert("卖家当前不在线，请联系卖家手机号："+this.tel);
+				},
+				logistics(){
+					alert("等待卖家发货");
 				},
 				getAddress(){
 					var self=this;
