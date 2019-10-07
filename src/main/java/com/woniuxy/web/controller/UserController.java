@@ -78,6 +78,7 @@ public class UserController {
 			subject.login(token);
 			map.put("status", 200);
 			map.put("username", subject.getPrincipal());
+			req.getSession().setAttribute("uid", service.findUserByUname(username).getUid());
 		} catch (AuthenticationException e) {
 			map.put("status", 500);
 			map.put("message", "登录失败，可能是用户名或密码错误");
@@ -105,7 +106,7 @@ public class UserController {
 		map.put("username", username);
 		if (username != null) {
 			User user = service.findUserByUname(username);
-			map.put("uid", user.getUid());
+			map.put("user", user);
 		}
 		return map;
 	}
