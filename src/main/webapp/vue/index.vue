@@ -58,31 +58,43 @@
 		data() {
 			return {
 				username: null,
-				uid: 1,
-				rid: 0
+				uid: '',
+				roles: [],
+				user:''
 			};
 		},
 		methods: {
 			enterUserCenter() {
-				this.$router.push('/salerCenter');
+				this.getRoleId();
+				for(var i= 0; i<this.roles.length;i++){
+				//如果有卖家身份就直接进入到卖家中心，否则就进入买家中心
+					if(this.roles[i].rname == "卖家"){
+						this.$router.push('/salerCenter');
+						return;
+					};
+				}
+				this.$router.push('/userCenter');
 			},
 			logOut() {
 				this.username = null;
-				this.$ajax.get('http://localhost:8080/users/logout')
+				this.$ajax.get('http://localhost:8080/users/logout');
+				this.$router.push("/index");
 			},
 			async isLogin() {
 				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
 				this.username = result.data.username;
+				this.uid = result.data.uid;
 			},
 			getRoleId() {
 				var uid = this.uid;
+				var self = this;
 				$.ajax({
 					type: "get",
 					url: "http://localhost:8080/users/" + uid,
+					async:false,
 					success: function(data) { //ajax请求成功后触发的方法
-						//this.rid = data.roles.rid;
-						//假定rid暂时先默认为卖家rid 22
-						this.rid = 22
+					self.roles = data.roles;
+					self.user = data;
 					}
 				});
 			}
