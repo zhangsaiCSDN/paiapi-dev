@@ -44,9 +44,9 @@
 	</form>
 </template>
 <style scoped>
-.regist{
-	color: black;
-}
+	.regist span {
+		color: black;
+	}
 </style>
 
 <script>
@@ -161,7 +161,7 @@
 					this.telMsg = '正确';
 					this.validate[3] = true;
 				} else {
-					this.telMsg = '请输入中国大陆(11位)手机号码';
+					this.telMsg = '错误:请输入中国大陆(11位)手机号码';
 					this.validate[3] = false;
 				}
 			},
