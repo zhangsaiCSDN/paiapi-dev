@@ -64,4 +64,23 @@ public class GHTestController {
 		
 		return page;
 	}
+	
+
+	@GetMapping("findByUserCenter")
+	@ResponseBody
+	public Page<Goodshistory> findByUserCenter(@RequestParam Map<String,Object> map) {
+		System.out.println(map);
+		if(map.get("p")==null ) {
+			map.put("p", 1);
+		}
+		
+		if(map.get("size")==null) {
+			map.put("size", 5);
+		}
+	
+		Page<Goodshistory> page = service.findByBuyerid(map);
+		
+		System.out.println(page);
+		return page;
+	}
 }

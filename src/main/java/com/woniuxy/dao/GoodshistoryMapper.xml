@@ -381,6 +381,71 @@
   </select>
   
   
+  <select id="rowCount"  parameterType="java.util.HashMap" resultType="java.lang.Integer">
+  	SELECT count(*) FROM goodshistory JOIN goods ON
+	goodshistory.`gid` = goods.`gid` JOIN user ON
+	goodshistory.`buyerid` = user.`uid`
+	
+		<where>
+		
+			<if test="buyerid != null">
+				and buyerid = #{buyerid}
+			</if>
+			
+		</where>
+		
+  </select>
+  
+  
+  <resultMap id="findImg_gnameRM" type="com.woniuxy.domain.Goodshistory">
+    <id column="ghid" jdbcType="INTEGER" property="ghid" />
+    <result column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="ghmoney" jdbcType="DOUBLE" property="ghmoney" />
+    <result column="ghtime" jdbcType="TIMESTAMP" property="ghtime" />
+    <result column="buyerid" jdbcType="INTEGER" property="buyerid" />
+    <result column="ghdes" jdbcType="VARCHAR" property="ghdes" />
+    <result column="ghdeadline" jdbcType="TIMESTAMP" property="ghdeadline" />
+    <result column="paystate" jdbcType="INTEGER" property="paystate" />
+ 	
+ 	<association property="goods" javaType="Goods">
+ 		<id column="gid" jdbcType="INTEGER" property="gid" />
+	    <result column="gname" jdbcType="CHAR" property="gname" />
+ 	</association>
+ 	
+ 	<association property="user" javaType="User">
+ 		<id column="uid" jdbcType="INTEGER" property="uid" />
+ 	</association>
+ 	
+ 	<association property="image" javaType="Image">
+ 		<id column="imgid" jdbcType="INTEGER" property="imgid" />
+ 		  <result column="img" jdbcType="CHAR" property="img" />
+ 	</association>
+  </resultMap>
+  
+  <select id="findByBuyerid"  parameterType="java.util.HashMap" resultMap="findImg_gnameRM">
+  	select * from goodshistory gh join goods g
+		on gh.gid=g.gid join user u
+		on buyerid=u.uid join image i 
+		on g.gid = i.gid
+
+	
+		<where>
+		
+			<if test="buyerid != null">
+				and buyerid = #{buyerid}
+			</if>
+			<if test ="search !=null">
+				and (user.uname like concat('%', #{search}, '%') or goods.gname like concat('%', #{search}, '%'))
+			</if>
+			
+			
+		</where>
+		 	
+		 	limit #{page.startLine} , #{page.size}
+	
+  </select>
+  
+  
   
   
 </mapper>
