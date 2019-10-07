@@ -1,7 +1,6 @@
 package com.woniuxy.service.impl;
 
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +54,14 @@ public class CollectServiceImpl implements ICollectService {
 	@Override
 	public Integer count() {
 		return  (int) mapper.countByExample(null);
+	}
+
+	@Override
+	public List<Collect> findAll() {
+		
+		List<Collect> list = mapper.selectByExample(null);
+		
+		return list;
 	}
 
 

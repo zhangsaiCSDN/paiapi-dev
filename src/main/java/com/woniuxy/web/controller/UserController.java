@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.User;
+import com.woniuxy.service.IUserService;
 import com.woniuxy.service.impl.UserServiceImpl;
 import com.woniuxy.util.AppUtils;
 import com.woniuxy.util.ValidateCode;
@@ -38,7 +39,7 @@ import com.woniuxy.util.ValidateCode;
 public class UserController {
 
 	@Autowired
-	private UserServiceImpl service;
+	private IUserService service;
 
 //	shiro 注册 用户增加加密
 	@PostMapping
@@ -78,7 +79,7 @@ public class UserController {
 			subject.login(token);
 			map.put("status", 200);
 			map.put("username", subject.getPrincipal());
-			req.getSession().setAttribute("uid", service.findUserByUname(username).getUid());
+			req.getSession().setAttribute("uid",service.findUserByUname(username).getUid().toString());
 		} catch (AuthenticationException e) {
 			map.put("status", 500);
 			map.put("message", "登录失败，可能是用户名或密码错误");

@@ -12,5 +12,6 @@ public interface IUserService {
 	User findOne(Integer uid);
 	List<User> find();
 	List<User> findInfo();
+	User findUserByUname(String uname);
  
 }

@@ -5,7 +5,7 @@
 				<div class="left fl">
 					<ul>
 						<li>
-							<router-link to='/index'>商城首页</router-link>
+							<router-link to='/index'></router-link>
 						</li>
 						<li>|</li>
 
@@ -38,10 +38,12 @@
 								&nbsp;退出登录&nbsp;
 							</li>
 							<li>|</li>
-							<li><a>消息通知</a></li>
+							<li @click="showMsg">消息通知<span id="box" v-if="msg.length>0">{{msg.length}}</span>
+								<select v-if="msg.length>0">
+									<option v-for="(v,k,i) in msg"  :key='i'>{{(k+1)+'号'+v}}</option>
+								</select>
+							</li>
 						</ul>
-
-
 					</div>
 				</div>
 			</div>
@@ -51,6 +53,17 @@
 </template>
 
 <style scoped>
+	#box {
+		border-radius: 10px;
+		font-size: 15px;
+		background-color: red;
+		color: #000000;
+		width: 20px;
+	}
+	select{
+		background-color: #0e0e0e;
+		border: #000000;
+	}
 </style>
 
 <script>
@@ -58,49 +71,62 @@
 		data() {
 			return {
 				username: null,
-				uid: '',
-				roles: [],
-				user:''
+				uid: null,
+				path: "ws://localhost:8080/msg/",
+				socket: '',
+				msg: [],
+
+
 			};
 		},
 		methods: {
 			enterUserCenter() {
-				this.getRoleId();
-				for(var i= 0; i<this.roles.length;i++){
-				//如果有卖家身份就直接进入到卖家中心，否则就进入买家中心
-					if(this.roles[i].rname == "卖家"){
-						this.$router.push('/salerCenter');
-						return;
-					};
-				}
-				this.$router.push('/userCenter');
+				this.$router.push('/salerCenter');
 			},
 			logOut() {
 				this.username = null;
 				this.$ajax.get('http://localhost:8080/users/logout');
-				this.$router.push("/index");
+				this.msg=[];
+				
 			},
 			async isLogin() {
 				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
-				this.username = result.data.username;
-				this.uid = result.data.uid;
+				this.username = result.data.user.uname;
+				this.uid = result.data.user.uid;
+				this.msgInit();
 			},
-			getRoleId() {
-				var uid = this.uid;
-				var self = this;
-				$.ajax({
-					type: "get",
-					url: "http://localhost:8080/users/" + uid,
-					async:false,
-					success: function(data) { //ajax请求成功后触发的方法
-					self.roles = data.roles;
-					self.user = data;
-					}
-				});
+			msgInit() {
+				if (this.uid != null) {
+					this.socket = new WebSocket(this.path + this.uid);
+					this.socket.onopen = this.msgOpen;
+					this.socket.onerror = this.msgError;
+					this.socket.onmessage = this.msgReceived;
+					this.socket.onclose = this.msgClose;
+				}
+			},
+			msgReceived(msg) {
+				this.msg.push(msg.data);
+			},
+			msgOpen() {
+
+			},
+			msgClose() {
+
+			},
+			msgError() {
+
+			},
+			showMsg() {
+
 			}
 		},
 		mounted: function() {
 			this.isLogin();
+			this.msgInit();
+
+		},
+		destoryed: function() {
+			this.msgClose();
 		}
 	}
 </script>
