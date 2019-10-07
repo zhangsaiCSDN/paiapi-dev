@@ -49,17 +49,20 @@
 				人气竞拍单品
 				<router-link to="/list"><a class="biaoqian fl">查看更多></a></router-link>
 			</div>
-			<div class="main center">
-				<div class="mingxing fl" v-for="g in goods" @click="findOne(g.gid)">
-					<div class="biaoqian">围观次数<br />{{g.gcount}}人</div>
-					<div class="sub_mingxing"><router-link to="/goodsOne"><img  :src='"image/"+g.img' width="150px"/></router-link></div>
-					<div class="pinpai"><a>{{g.gname}}</a></div>
-					<div class="youhui">起拍时间:{{g.gstart}}</div>
-					<div class="jiage">起拍价格:￥{{g.gprice}}起</div>
+			<!-- slide -->
+				<div class="main center">
+			 	<swiper-slide  >
+					<div class="mingxing fl" v-for="g in goods" @click="findOne(g.gid)" >
+						<div class="biaoqian">围观次数<br />{{g.gcount}}人</div>
+						<div class="sub_mingxing"><router-link to="/goodsOne"><img  :src='"../admin/goods/goodsImg/"+g.img' width="150px"/></router-link></div>
+						<div class="pinpai"><a>{{g.gname}}</a></div>
+						<div class="youhui">起拍时间:{{g.gstart}}</div>
+						<div class="jiage">起拍价格:￥{{g.gprice}}起</div>
+					</div>
+				</swiper-slide>
 				</div>
-	
-			</div>
 		</div>
+		<!-- end danpin -->
 	</div>
 
 </template>
@@ -78,7 +81,14 @@
 				gend:'',
 				gcount:'',
 				gprice:'',
-				img:''
+				img:'',
+				swiperOption: {
+		            autoplay: 3000,
+		            pagination: '.swiper-pagination',
+		            autoplayDisableOnInteraction: false,
+		            loop: true
+		        },
+             	swipers:[]
 			};
 		},
 		mounted: function() {
@@ -97,6 +107,11 @@
 				.then(function(response) {
 					self.goods = response.data; 
 				});
+			},
+			slide() {
+				setTimeout(() => {
+               		this.asyncCount = 5
+            	}, 1000)
 			},
 			findOne(gid){
 				this.$router.push({

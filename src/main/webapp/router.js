@@ -15,6 +15,9 @@ import login from'./vue/login.vue'
 import register from './vue/register.vue'
 import userCenter from './vue/userCenter.vue'
 import salerCenter from './vue/salerCenter.vue'
+import address from './vue/address.vue'
+import addAddress from './vue/addAddress.vue'
+import updateAddress from './vue/updateAddress.vue'
 import goodsHistory from './vue/goodsHistory.vue'
 import order from './vue/order.vue'
 import orderOne from './vue/orderOne.vue'
@@ -62,7 +65,10 @@ var router = new VueRouter({
 					{path:"/deposit",component:deposit},
 					{path:"/rooms/:gid",component:rooms},
 					{path:"/message/:gid",component:message},
-					{path:"/myRooms/:uid",component:myRooms}
+					{path:"/myRooms/:uid",component:myRooms},
+					{path:"/address",name:'address', component:address},
+					{path:"/updateAddress",component:updateAddress},
+					{path:"/addAddress",component:addAddress},
 				]},
 				{path:"/salerCenter",component:salerCenter,children:[
 					{path:"/salerOrder/:1",component:salerOrder},

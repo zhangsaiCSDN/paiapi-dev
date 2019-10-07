@@ -5,6 +5,7 @@ import userCenter from './vue/userCenter.vue'
 import $ from 'jquery'
 import "./css/login.css"
 import "./css/style.css";
+import "./css/address.css";
 import 'bootstrap3/dist/css/bootstrap.min.css';
 import Vue from 'vue';
 import ajax from 'ajax';
@@ -12,9 +13,12 @@ import axios from 'axios';
 axios.defaults.withCredentials = true
 import router from './router.js';
 import myCenter from './js/userCenter.js';
+import Router from 'vue-router';
+import VueSwiper from 'vue-awesome-swiper'
+Vue.use(VueSwiper)
 
-import Router from 'vue-router'
- 
+import VDistpicker from 'v-distpicker'
+
 const originalPush = Router.prototype.push
 Router.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)

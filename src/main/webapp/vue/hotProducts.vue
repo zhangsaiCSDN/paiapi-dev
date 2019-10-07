@@ -6,7 +6,7 @@
 			<div class="main center">
 				<div class="mingxing fl" v-for="g in goods" @click="findOne(g.gid)">
 					<div class="biaoqian">围观次数<br />{{g.gcount}}人</div>
-					<div class="sub_mingxing"><router-link to="/goodsOne"><img  :src='"image/"+g.img' width="150px"/></router-link></div>
+					<div class="sub_mingxing"><router-link to="/goodsOne"><img  :src='"../admin/goods/goodsImg/"+g.img' width="150px"/></router-link></div>
 					<div class="pinpai"><a>{{g.gname}}</a></div>
 					<div class="youhui">起拍时间:{{g.gstart}}</div>
 					<div class="jiage">起拍价格:￥{{g.gprice}}起</div>
