@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.Goodshistory;
 import com.woniuxy.domain.Page;
-import com.woniuxy.domain.Pricehistory;
 import com.woniuxy.service.IGoodsHistoryService;
 
 //拍品历史记录表
@@ -57,11 +56,32 @@ public class GHTestController {
 		}
 		
 		if(map.get("size")==null) {
-			map.put("size", 5);
+			map.put("size", 4);
 		}
 	
 		Page<Goodshistory> page = service.find(map);
 		
 		return page;
 	}
+	
+	
+	
+	@GetMapping("findByUserCenter")
+	@ResponseBody
+	public Page<Goodshistory> findByUserCenter(@RequestParam Map<String,Object> map) {
+		System.out.println(map);
+		if(map.get("p")==null ) {
+			map.put("p", 1);
+		}
+		
+		if(map.get("size")==null) {
+			map.put("size", 5);
+		}
+	
+		Page<Goodshistory> page = service.findByBuyerid(map);
+		
+		System.out.println(page);
+		return page;
+	}
+	
 }
