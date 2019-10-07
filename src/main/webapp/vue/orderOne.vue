@@ -173,7 +173,7 @@
 					
 				},
 				touch(){
-					alert("卖家当前不在线，请联系卖家手机号："+this.tel);
+					location.href="http://localhost:8080/talk/talk.html";
 				},
 				logistics(){
 					alert("等待卖家发货");
