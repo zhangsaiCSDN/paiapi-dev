@@ -6,7 +6,7 @@
 			<div class="main center">
 				<div class="mingxing fl mb20" style="border:2px solid #fff;width:230px;cursor:pointer;" onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid red'" v-for="good in goods.list">
 					<div class="sub_mingxing">
-						<a><img src="./image/liebiao_xiaomi5s.jpg" @click="goodsOne(good.gid)" alt="" /></a>
+						<a><img :src="'/image/'+good.images[0].img" @click="goodsOne(good.gid)" alt="" /></a>
 					</div>
 					<div class="pinpai"><span @click="goodsOne(good.gid)">{{good.gname}}</span></div>
 					<div class="youhui">{{good.gstart}}竞拍</div>
@@ -42,7 +42,7 @@ export default {
 		methods: {
 			findAll(p) {
 				var self = this;
-				this.$ajax.get("http://localhost:8080/goods/image?p=" + p).then(
+				this.$ajax.get("http://localhost:8080/goods/image?p="+p).then(
 					function(response) {
 						self.goods = response.data;
 
@@ -53,8 +53,8 @@ export default {
 					path: "goodsOne/" + gid
 				});
 			},
-			search() {
-				var g = document.getElementById("searchId");
+			search(g) {
+				alert(g)
 				var self = this;
 				this.$ajax.get("http://localhost:8080/goods/image", {
 					params: {

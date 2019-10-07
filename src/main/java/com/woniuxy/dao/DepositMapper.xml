@@ -278,6 +278,26 @@
   	limit #{startLine},#{size}
   </select>
   
+  
+  <select id="search" parameterType="java.util.HashMap" resultType="Deposit">
+  	SELECT  * FROM 
+  	deposit 
+  	<where>
+  	 	<if test="gid !=null">
+  	 		gid=#{gid} and uid=#{uid}
+  	 	</if>
+  	</where>
+  </select>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <resultMap type="Deposit" id="depo"> 
   	<id property="did" column="did"/>
   	<result property="dmoney" column="dmoney"/>

@@ -1,6 +1,7 @@
 package com.woniuxy.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -38,4 +39,5 @@ public interface DepositMapper {
     List<Deposit> findDepo(Page<Deposit> page);
     
     Deposit findOne(Integer did);
+    List<Deposit> search(Map<String,Object> map);
 }

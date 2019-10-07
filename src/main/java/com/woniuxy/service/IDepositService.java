@@ -16,4 +16,6 @@ public interface IDepositService {
 	List<Deposit> find(Page<Deposit> page);
 	Integer count();
 	Page<Deposit> findDepo(Integer p ,Integer size);
+	
+	List<Deposit> search(Map<String,Object> map);
 }

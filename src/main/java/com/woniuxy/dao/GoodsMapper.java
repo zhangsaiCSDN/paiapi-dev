@@ -39,8 +39,5 @@ public interface GoodsMapper {
     List<Goods> findByImages(Map<String , Object> map); //联合images 一对多
     
     List<Goods> findCount(Map<String , Object> map);
-
 	List<Goods> findHotGoods();
-	
-    List<Goods> findUserGoods(Map<String , Object> map);
 }

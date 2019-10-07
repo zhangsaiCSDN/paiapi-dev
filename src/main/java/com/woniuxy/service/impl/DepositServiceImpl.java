@@ -127,5 +127,13 @@ public class DepositServiceImpl implements IDepositService {
 		return "退款成功";
 	}
 
+	@Override
+	public List<Deposit> search(Map<String, Object> map) {
+		
+		return mapper.search(map);
+	}
+
+	
+
 	
 }
