@@ -67,7 +67,7 @@
           </trim>
         </if>
       </foreach>
-    </where>
+    </where> 
   </sql>
   <sql id="Base_Column_List">
     ghid, gid, ghmoney, ghtime, buyerid, ghdes, ghdeadline, paystate

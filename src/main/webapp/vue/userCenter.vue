@@ -9,7 +9,6 @@
 				<ul>
 					<li><router-link to="/order/:1">我的订单</router-link></li>
 					<li><router-link to="/goodsHistory">拍品记录</router-link></li>
-					<li><router-link to="">我的参与</router-link></li>
 					<li><router-link to="/myRooms/1">我的竞价室</router-link></li>
 					<li><router-link to="">我的消息</router-link></li>
 					<li><router-link to="">我的收藏</router-link></li>
@@ -18,9 +17,8 @@
 			<div class="ddzx">个人中心</div>
 			<div class="subddzx">
 				<ul>
-					<li><router-link to="">个人中心</router-link></li>
-					<li><router-link to="">我的信息</router-link></li>
-					<li><router-link to="/address">我的地址</router-link></li>
+					<li><router-link to="/userInfo">我的信息</router-link></li>
+					<li><router-link to="">我的地址</router-link></li>
 					<li><router-link to="/deposit">我的押金</router-link></li>
 				</ul>
 			</div>
@@ -44,5 +42,49 @@
 </style>
 
 <script>
-	
+	export default {
+		data() {
+			return {
+				uid:'', 
+				roles: [],
+				user:''
+			};
+		},
+		methods: {
+			async isLogin() {
+			var self = this;
+				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
+				self.username = result.data.username;
+				self.uid = result.data.user.uid;
+				self.getRoleId();
+			},
+			enterToSalerCenter(){
+			this.$router.push("/salerCenter");
+			},
+			getRoleId() {
+				var uid = this.uid;
+				var self = this;
+				$.ajax({
+					type: "get",
+					url: "http://localhost:8080/users/" + uid,
+					async:false,
+					success: function(data) { //ajax请求成功后触发的方法
+					self.roles = data.roles;
+					self.user = data;
+					for(var i=0;i<self.roles.length;i++){
+						if(self.roles[i].rname == "卖家"){
+							self.enterToSalerCenter();
+							return;
+						};
+					}
+					self.$router.push("/userCenter");
+					}
+				});
+			}
+		},
+		created: function() {
+			this.isLogin();
+		
+		}
+	}
 </script>

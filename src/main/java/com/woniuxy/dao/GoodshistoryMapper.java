@@ -14,7 +14,7 @@ public interface GoodshistoryMapper {
 
     int deleteByPrimaryKey(Integer ghid);
 
-    int insert(Goodshistory record);
+    int insert(Goodshistory record); 
 
     int insertSelective(Goodshistory record);
 

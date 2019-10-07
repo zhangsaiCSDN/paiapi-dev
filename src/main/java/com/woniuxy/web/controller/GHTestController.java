@@ -64,7 +64,6 @@ public class GHTestController {
 		
 		return page;
 	}
-	
 
 	@GetMapping("findByUserCenter")
 	@ResponseBody

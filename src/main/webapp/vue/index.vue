@@ -81,13 +81,13 @@
 		},
 		methods: {
 			enterUserCenter() {
-				this.$router.push('/salerCenter');
+				this.$router.push('/userCenter');
 			},
 			logOut() {
 				this.username = null;
 				this.$ajax.get('http://localhost:8080/users/logout');
 				this.msg=[];
-				
+				this.$router.push('/index');
 			},
 			async isLogin() {
 				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');

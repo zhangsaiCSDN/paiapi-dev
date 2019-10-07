@@ -20,7 +20,7 @@ public class GoodsHistoryServiceImpl implements IGoodsHistoryService {
 	@Autowired
 	private GoodshistoryMapper ghmapper;
 
-	@Override
+	@Override 
 	public void save(Goodshistory gh) {
 		// TODO Auto-generated method stub
 		ghmapper.insert(gh);

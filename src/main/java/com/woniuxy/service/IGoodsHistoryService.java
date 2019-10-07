@@ -14,5 +14,4 @@ public interface IGoodsHistoryService {
 	Goodshistory findOne(Integer ghid);
 	Page<Goodshistory> find(Map<String , Object> map);
 	Page<Goodshistory> findByBuyerid(Map<String , Object> map);
-
 }
