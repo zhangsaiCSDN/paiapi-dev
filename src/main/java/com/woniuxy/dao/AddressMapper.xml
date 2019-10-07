@@ -227,4 +227,22 @@
   	</association>
   </resultMap>
   
+  
+  
+  
+  
+  
+  
+  
+  
+  <select id="findByUid" parameterType="java.lang.Integer" resultType="Address">
+	select * from address where uid = #{uid}
+  </select>
+  
+  
+  
+  
+  
+  
+  
 </mapper>

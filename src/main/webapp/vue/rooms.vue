@@ -1,12 +1,15 @@
 <template>
 	<div>
-		<div class="w2 fr">
+		<div class="w2 fl">
 			<font class="sub_content1">冠军:</font>
 			<font class="sub_content1">{{name}};</font>
 			<font class="sub_content1">金额:</font>
 			<font class="sub_content1">{{money}}</font>
 		</div>
-		<div class="w2 fr">
+		<div v-if="name=name">
+			<button class='sub_content5'><router-link to="/message/2">去付款</router-link></button>
+		</div>
+		<div class="w2 fl">
 			倒计时:{{hour}}小时{{minutes}}分{{seconds}}秒,结束时间{{goods.gend}}
 		</div>
 		
@@ -17,19 +20,19 @@
 				<div class="sub_content2 fr">每次加价幅度:{{goods.ggap}},<button class="sub_content3" type="button" @click="send">竞价</button></div>
 				
 			</div>
-			<div class="clear"></div>
 		</div>
 	</div>
 </template>
 <style scoped>
 	.banner_x2 {height:500px;border:1px solid #999;overflow-y:auto;}
 	.w1{width: 978px;margin: 0 auto;}
-	.w2{width: 978px;height:50px}
+	.w2{width: 900px;height:50px}
 	.left1{width:330px;height:500px;border:1px solid #ccc;}
 	.right1{width:648px;background:rgb(248,248,248);height:500px}
 	.sub_content1{width:50px;color:red;font-size:30px;align:center}
 	.sub_content2{color:#1E90FF;font-size:20px;align:center}
 	.sub_content3{width: 80px;height: 40px;border-width: 0px;border-radius: 3px;background: #1E90FF;cursor: pointer;outline: none;font-family: Microsoft YaHei;color: white;font-size: 20px;}
+	.sub_content5{width: 78px;height: 40px;border-width: 0px;border-radius: 3px;background: #1E90FF;cursor: pointer;outline: none;font-family: Microsoft YaHei;color: white;font-size: 20px;}
 </style>
 <script>
 	export default {
@@ -43,7 +46,17 @@
 					minutes:'',
 					seconds:'',
 					name:'无',
-					money:''
+					money:0,
+					username:'',
+					uid1:'',
+					flaga:'',
+					odmoney:'',
+					buyerid:'',
+					salerid:0,
+					odfee:'',
+					odtime:'',
+					uid:''
+					
 				}
 			},
 			mounted() {
@@ -51,6 +64,7 @@
 				var self = this;
 				self.init(),
 				self.timer(),
+				
 				this.$ajax.get("http://localhost:8080/goods/findOne?gid="+this.$route.params.gid).then(
 					function(response){
 						self.goods=response.data;
@@ -63,6 +77,14 @@
 						self.seconds = time%60;
 					}
 				);
+				
+				
+				this.$ajax.get('http://localhost:8080/users/isLogin').then(function(response){
+					self.uid1 = response.data.uid;
+					
+				});
+				
+				    
 				
 				
 			},
@@ -99,7 +121,7 @@
 					this.socket.send(this.money);
 				},
 				close: function() {
-					console.log(链接关闭);
+					console.log("链接关闭");
 				},
 				destroyed() {
 					// 销毁监听
@@ -118,7 +140,6 @@
 						} else if (_this.minutes === 0 && _this.seconds === 0 && _this.hour === 0) {
 							window.clearInterval(time)
 							_this.close();
-							alert("对不起,竞价已结束!!!");
 						// 分钟数和秒数同时为0  小时数--  分钟数和秒数都变为59
 						} else if (_this.minutes === 0 && _this.seconds === 0) {
 							_this.seconds = 59
@@ -128,7 +149,8 @@
 							_this.seconds -= 1
 						}
 					}, 1000)
-				},
+				}
+				
 			}
 			
 	}

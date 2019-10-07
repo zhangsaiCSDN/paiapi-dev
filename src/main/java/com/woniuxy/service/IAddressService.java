@@ -13,4 +13,5 @@ public interface IAddressService {
 	Address findOne(Integer aid);
 	List<Address> find(Page<Address> page);
 	Integer count();
+	List<Address> findByUid(Integer uid);
 }

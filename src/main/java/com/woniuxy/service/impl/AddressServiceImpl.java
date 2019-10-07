@@ -51,4 +51,10 @@ public class AddressServiceImpl implements IAddressService {
 		return (int) mapper.countByExample(null);
 	}
 
+	@Override
+	public List<Address> findByUid(Integer uid) {
+		// TODO Auto-generated method stub
+		return mapper.findByUid(uid);
+	}
+
 }

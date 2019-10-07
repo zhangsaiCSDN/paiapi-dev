@@ -109,6 +109,9 @@ public class OrdersController {
 	public Orders findOneGG(Integer odid) {
 		return service.findOne(odid);
 	}
-	
-	
+	@ResponseBody
+	@PostMapping("pay")
+	public void pay (Orders orders) {
+		service.save(orders);
+	}
 }

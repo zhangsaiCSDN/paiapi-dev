@@ -31,4 +31,6 @@ public interface AddressMapper {
     int updateByPrimaryKey(Address record);
     
     List<Address> findAll(Page<Address> page);
+    
+    List<Address> findByUid(Integer uid);
 }

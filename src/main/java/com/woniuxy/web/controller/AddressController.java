@@ -67,4 +67,9 @@ public class AddressController {
 		page.setList(list);
  		return page;
 	}
+	@GetMapping("findByUid")
+	@ResponseBody
+	public List<Address> findByUid(Integer uid) {
+		return service.findByUid(uid);
+	}
 }

@@ -33,6 +33,7 @@ import biddingRoomList from'./vue/biddingRoomList.vue'
 import userGoods from'./vue/userGoods.vue'
 import addGoods from'./vue/addGoods.vue'
 import updateGoods from'./vue/updateGoods.vue'
+import message from'./vue/message.vue'
 
 var router = new VueRouter({
 	routes:[
@@ -60,6 +61,7 @@ var router = new VueRouter({
 					{path:"/orderOne/:gid/:odid", component: orderOne},
 					{path:"/deposit",component:deposit},
 					{path:"/rooms/:gid",component:rooms},
+					{path:"/message/:gid",component:message},
 					{path:"/myRooms/:uid",component:myRooms}
 				]},
 				{path:"/salerCenter",component:salerCenter,children:[
