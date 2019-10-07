@@ -75,5 +75,10 @@ public class GoodsServiceImpl implements IGoodsService {
 		return dao.findUserGoods(map);
 	}
 
+	@Override
+	public List<Goods> findHotGoods() {
+		return dao.findHotGoods();
+	}
+
 
 }

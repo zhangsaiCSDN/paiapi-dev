@@ -493,4 +493,47 @@
 		ORDER BY gcount DESC
 		LIMIT 0,5
   	</select>
+  	
+  	
+  	
+  	
+  	
+  	
+  	 <!-- 根据用户id查询 -->
+  <select  id="findUserGoods"  parameterType="java.util.HashMap" resultMap="fug">
+	  SELECT * FROM goods g
+			INNER JOIN goodstype gt ON g.gtid=gt.gtid
+			INNER JOIN image i ON g.gid=i.gid
+			WHERE g.salerid = #{uid}
+			GROUP BY g.gid
+			limit #{page.startLine},#{page.size}
+  </select>
+  
+   <resultMap id="fug" type="com.woniuxy.domain.Goods">
+    <id column="gid" jdbcType="INTEGER" property="gid" />
+    <result column="gname" jdbcType="CHAR" property="gname" />
+    <result column="gprice" jdbcType="DOUBLE" property="gprice" /> 
+    <result column="gstart" jdbcType="TIMESTAMP" property="gstart" />
+    <result column="gend" jdbcType="TIMESTAMP" property="gend" />
+    <result column="gcount" jdbcType="INTEGER" property="gcount" />
+    <result column="ggap" jdbcType="DOUBLE" property="ggap" />
+    <result column="gpasstime" jdbcType="TIMESTAMP" property="gpasstime" />
+    <result column="gstate" jdbcType="INTEGER" property="gstate" />
+    <result column="garea" jdbcType="VARCHAR" property="garea" />
+    <result column="ginfo" jdbcType="VARCHAR" property="ginfo" />
+    <result column="salerid" jdbcType="INTEGER" property="salerid" />
+    <result column="gtid" jdbcType="INTEGER" property="gtid" />
+
+       <association property="goodstype">
+    	<id property="gtid" column="gtid"/>
+   		<result column="gtname"  property="gtname" />
+       </association>
+       <collection property="images" ofType="Image">
+			<id property="imgid" jdbcType="INTEGER" column="imgid" />
+			<result property="gid" jdbcType="INTEGER" column="gid" />
+			<result property="img" jdbcType="VARCHAR" column="img" />
+		</collection>
+  </resultMap>
+  	
+  	
 </mapper>

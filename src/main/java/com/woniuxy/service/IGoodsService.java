@@ -17,4 +17,5 @@ public interface IGoodsService {
 	List<Goods> findByImages(Map<String,Object> map);
 	Integer count();
 	List<Goods> findHotGoods();
+	 List<Goods> findUserGoods(Map<String , Object> map);
 }

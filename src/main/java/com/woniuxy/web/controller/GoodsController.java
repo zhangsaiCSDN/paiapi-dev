@@ -126,4 +126,21 @@ public class GoodsController {
 	}
 	
 	
+	//查询卖家所有的拍品及图片
+		@GetMapping("findUserGoods")
+		@ResponseBody
+		public Page<Goods> findUserGoods(@RequestParam Map<String,Object> map) {
+			System.out.println(11111111);
+			if(map.get("p")==null)map.put("p", 1);
+			int count=service.count();
+			
+			Page<Goods> page=new Page<>(Integer.parseInt(map.get("p").toString()),count,5);
+			
+			map.put("uid",1);
+			map.put("page", page);
+			List<Goods> list=service.findUserGoods(map);
+			page.setList(list);
+			return page;
+		}
+	
 }
