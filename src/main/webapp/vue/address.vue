@@ -47,8 +47,6 @@
 				</router-link>
 		</div>
         
-		
-		
   </div>
 </template>
 
@@ -77,7 +75,7 @@
 				find(page){
 					var uid=this.$route.params.uid
 			 		var self = this;
-					this.$ajax.get("http://localhost:8080/addresses",
+					this.$ajax.get("http://localhost:8080/addresses/findByUid",
 							{params:{
 									p:page,
 									uid:uid
@@ -89,7 +87,6 @@
 						self.pages(self.address.startPage,self.address.endPage);
 					});
 				},
-				
 				
 				del(aid){
 					this.$ajax.post("http://localhost:8080/addresses",{"aid":aid,"_method":"delete"},{emulateJSON:true}).then(function(){
