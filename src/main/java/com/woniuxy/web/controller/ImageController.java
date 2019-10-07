@@ -124,5 +124,52 @@ public class ImageController {
 
 
        }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+	@PostMapping("all")
+	@ResponseBody
+	public String save(@RequestParam("file") MultipartFile[] photo, Integer gid, HttpServletRequest request) {// 支持多个文件的上传
+		// 实例化一个文件存放的目录地址
+		String dir = request.getServletContext().getRealPath("/goodsTypeImg");
+		System.out.println("文件上传...."+photo.length);
+		for (MultipartFile file : photo) {
+			System.out.println(file+"~~~~~~~~~"+gid);
+			
+			System.out.println("文件类型:" + file.getContentType());
+
+			String oldName = file.getOriginalFilename(); // 文件名
+			int lastDot = oldName.lastIndexOf(".");
+			String ext = oldName.substring(lastDot);
+			String newName = UUID.randomUUID().toString() + ext; // 存入数据库的文件名
+			// 创建要保存文件的路径
+			File dirFile = new File(dir, newName);
+			if (!dirFile.exists()) {
+				dirFile.mkdirs();
+			} 
+			try {
+				// 将文件写入创建的路径
+				file.transferTo(dirFile);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			// 存入数据库
+			Image image = new Image();
+			image.setGid(gid);
+			image.setImg(newName);
+			service.save(image);
+		}
+		return "OK";
+
+	}
 	
 }
