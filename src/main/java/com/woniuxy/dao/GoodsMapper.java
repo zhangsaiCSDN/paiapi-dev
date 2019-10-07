@@ -40,4 +40,5 @@ public interface GoodsMapper {
     
     List<Goods> findCount(Map<String , Object> map);
 	List<Goods> findHotGoods();
+	 List<Goods> findUserGoods(Map<String, Object> map);
 }
