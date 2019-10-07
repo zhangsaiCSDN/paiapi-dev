@@ -44,7 +44,7 @@ public class DepositController {
 	@ResponseBody
 	public Page<Deposit> findDepo(Integer p){
 		if(p==null)p=1;
-		Page<Deposit> page = service.findDepo(p,5);
+		Page<Deposit> page = service.findDepo(p,3);
 		return page;
 	}
 	

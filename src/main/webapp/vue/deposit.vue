@@ -9,14 +9,14 @@
 					<div class="sub_top fl " >保证金</div>
 					<div class="sub_top fl">拍品状态</div>
 					<div class="sub_top fl">押金状态</div>
-					<div class="sub_top fr" style="margin-right: 88px;">退押金</div>
+					<div class="sub_top fr" style="margin-right: 100px;">退押金</div>
 					<div class="clear"></div>
 				</div>
 				<div v-for="item in list" class="content2 center" >
 					<div class="sub_content fl ">
 						<input  type="checkbox" v-model="checkedNames" :value="item" class="quanxuan" />
 					</div>
-					<div class="sub_content fl">333</div>
+					<div class="sub_content fl"><img src="../node_modules/image/gwc_xiaomi6.jpg"></div>
 					<div class="sub_content fl ">{{item.goods.gname}}</div>
 					<div class="sub_content fl m-le" >{{item.dmoney}}元</div>
 					
@@ -75,7 +75,7 @@
 				<div class="jiesuan fr">
 					<div class="jiesuanjiage fl">批量退还押金：<span>{{countMoney}}元</span></div>
 					<div class="jsanniu fr">
-							<button @click="qx()" class="jsan btn btn-danger">
+							<button @click="qx()" class="jsan btn btn-danger" style="margin-right:130px ; width:170px;">
 								申请退押金
 							</button>
 					</div>
@@ -266,7 +266,7 @@
 .gwcxqbj .gwcxd .content2 .sub_content:nth-of-type(4){margin-left: 85px;}
 .gwcxqbj .gwcxd .content2 .sub_content:nth-of-type(5){margin-left: 140px;width: 90px;}
 .gwcxqbj .gwcxd .content2 .sub_content:nth-of-type(6){margin-left: 100px;width: 80px;color:#ff6700;}
-.gwcxqbj .gwcxd .content2 .sub_content:nth-of-type(7){margin-left: 156px;font-size: 25px;}
+.gwcxqbj .gwcxd .content2 .sub_content:nth-of-type(7){margin-left: 123px;font-size: 25px;}
 .gwcxqbj .gwcxd .content2 .sub_content .shuliang{width: 70px;height: 35px;border:2px solid #ccc;text-align: center;font-size:16px;color:#ff6700;}
 .gwcxqbj .gwcxd .content2 .sub_content a{display: block;width: 20px;height: 20px;border-radius: 10px;color:#000;}
 .gwcxqbj .gwcxd .content2 .sub_content a:hover{color:#ff6700;}

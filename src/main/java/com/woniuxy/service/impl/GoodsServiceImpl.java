@@ -68,10 +68,11 @@ public class GoodsServiceImpl implements IGoodsService {
 	public List<Goods> find(Map<String, Object> map) {
 		return dao.findCount(map);
 	}
-	
+
 	@Override
-	public List<Goods> findHotGoods() {
-		return dao.findHotGoods();
+	public List<Goods> findUserGoods(Map<String, Object> map) {
+		
+		return dao.findUserGoods(map);
 	}
 
 

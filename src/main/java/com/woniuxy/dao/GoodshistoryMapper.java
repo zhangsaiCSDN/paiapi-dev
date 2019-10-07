@@ -32,9 +32,5 @@ public interface GoodshistoryMapper {
    
     List<Goodshistory> find(Map<String , Object> map);
     
-    List<Goodshistory> findByBuyerid(Map<String , Object> map);
-    
     Integer findCount(Map<String , Object> map);
-
-	int rowCount(Map<String, Object> map);
 }

@@ -30,6 +30,4 @@ public class Goodshistory implements Serializable {
     private Goods goods;
     
     private User user;
-    
-    private Image image;
 }
