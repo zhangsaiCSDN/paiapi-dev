@@ -1,7 +1,6 @@
 <template>
 	<div>
 		
-
 			<div class="jieshao mt20 w">
 				<div class="left fl"><img src="./image/liebiao_xiaomi6.jpg"></div>
 				<div class="right fr">

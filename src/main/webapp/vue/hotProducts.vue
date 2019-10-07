@@ -19,12 +19,7 @@
 
 <style scoped>
 	div {
-		width:100%;
-		height:300px;
-		background-color:rgb(250,250,250);
-		font-size: 30px;
-		line-height: 300px;
-		text-align: center;
+		
 	}
 </style>
 
@@ -45,7 +40,7 @@
 		
 		mounted(){
 			var self = this;
-			self.$axios.get("http://localhost:8080/goods/findHotGoods")
+			self.$ajax.get("http://localhost:8080/goods/findHotGoods")
 			.then(function(response) {
 				self.goods = response.data; 
 			});
@@ -54,10 +49,7 @@
 		methods: {
 			findOne(gid){	
 				this.$router.push({
-					path:"goodsOne",
-					params:{
-						gid
-					},
+					path: "goodsOne/" + gid
 				});
 			}
 		}

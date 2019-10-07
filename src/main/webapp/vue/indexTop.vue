@@ -47,7 +47,9 @@
 						<input type="text" class="shuru" placeholder="瓷器专场">
 					</div>
 					<div class="submit fl">
-						<router-link to="/list"><input class="sousuo" value="搜索" /></router-link>
+						<router-link to="/list">
+							<input class="sousuo" type="button" value="搜索" />
+						</router-link>
 					</div>
 					<div class="clear"></div>
 				</form>
@@ -84,7 +86,9 @@
 					'第五条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
 				],
 				announces: [],
-				number: 0
+				number: 0,
+				goods:[],
+				search:'',
 			};
 		},
 		computed: {
@@ -122,7 +126,7 @@
 					}
 					this.startMove();
 				}, 2000); // 滚动不需要停顿则将2000改成动画持续时间
-			}
+			},
 		}
 	}
 </script>

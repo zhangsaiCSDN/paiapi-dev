@@ -61,7 +61,7 @@ var router = new VueRouter({
 				{path:"/salerCenter",component:salerCenter,children:[
 					{path:"/salerOrder/:1",component:salerOrder},
 					{path:"/salerOrderOne/:gid/:odid", component: salerOrderOne},
-				]}
+				]},
 				 
 			]
 		}

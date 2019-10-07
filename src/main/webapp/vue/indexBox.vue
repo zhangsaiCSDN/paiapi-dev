@@ -98,12 +98,9 @@
 					self.goods = response.data; 
 				});
 			},
-			findOne(gid){	
+			findOne(gid){
 				this.$router.push({
-					path:"goodsOne",
-					params:{
-						gid
-					},
+					path: "goodsOne/" + gid
 				});
 			}
 			
