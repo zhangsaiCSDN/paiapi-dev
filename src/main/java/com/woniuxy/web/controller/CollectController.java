@@ -66,9 +66,9 @@ public class CollectController {
 		Integer uid=null;
 		Map<String,Object> map=new HashMap<>();
 		if(collect.getUid()==null) {
-			String oldUid=(String) session.getAttribute("uid");
+			Object oldUid= session.getAttribute("uid");
 			if(oldUid!=null) {
-				uid=Integer.parseInt(oldUid);
+				uid=(Integer) oldUid;
 				collect.setUid(uid);
 				map.put("status",200);
 				service.save(collect);

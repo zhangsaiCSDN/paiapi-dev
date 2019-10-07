@@ -1,5 +1,6 @@
 <template>
 	<div>
+		
 		<!-- start header -->
 			<!-- 原来黑色的顶部导航 已移动到index.vue中 -->
 		<!--end header -->
@@ -42,14 +43,13 @@
 				</ul>
 			</div>
 			<div class="search fr">
-				<form action="" method="post">
+				<form >
 					<div class="text fl">
-						<input type="text" class="shuru" placeholder="瓷器专场">
+						<input type="text" class="shuru" placeholder="瓷器专场" id="searchId">
 					</div>
+					
 					<div class="submit fl">
-						<router-link to="/list">
-							<input class="sousuo" type="button" value="搜索" />
-						</router-link>
+						<router-link to="/list"><input class="sousuo" type="button" value="搜索" @click="search" /></router-link>
 					</div>
 					<div class="clear"></div>
 				</form>
@@ -67,7 +67,7 @@
 		<footer class="mt20 center">
 			<div>违法和不良信息举报电话：110，本网站所列数据，除特殊说明，所有数据均出自蜗牛拍拍项目组测试</div>
 		</footer>
-
+		
 	</div>
 </template>
 
@@ -86,9 +86,7 @@
 					'第五条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
 				],
 				announces: [],
-				number: 0,
-				goods:[],
-				search:'',
+				number: 0
 			};
 		},
 		computed: {
@@ -127,6 +125,11 @@
 					this.startMove();
 				}, 2000); // 滚动不需要停顿则将2000改成动画持续时间
 			},
+			search(){
+				var g = document.getElementById("searchId");
+				this.$refs.list.search(g)
+				
+			}
 		}
 	}
 </script>
