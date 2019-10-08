@@ -28,8 +28,8 @@
 							</router-link>
 	        			</button>
 	        		</th>
-	        	</tr>
-	        </tbody>
+	        	</tr>  
+	        </tbody> 
         	</table>
         	<div class="rtcont fr">
 			<div style="vertical-align: middle !important; text-align: center;" id="page">				
@@ -46,7 +46,7 @@
  					 <button class="btn btn-info" @click="find(address.maxPage)">末页</button>
 				</span>		
 			</div>
-				<router-link to="/addAddress/:1" class="btn btn-info">
+				<router-link to="/addAddress" class="btn btn-info">
 					点击 添加地址
 				</router-link>
 		</div>

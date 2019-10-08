@@ -211,10 +211,10 @@ public class MonthlyChartServiceImpl implements IMonthlyChart {
 			//当本年该商品类型交易额不为空时,将交易额取出放入list集合
 			if(charts.size()!=0) {
 				moneys= new ArrayList<>();
-				String name = null;
 				int i = 1 ; 
 				for (GoodstypeExample chart : charts) {
-					
+					String name = null;
+					System.out.println( chart.getGtname());
 					//若某个月份交易额为空,则将其设为0
 					for (; i <= 12; i++) {
 						if(Integer.parseInt(chart.getMonth()) != i) {
@@ -229,16 +229,20 @@ public class MonthlyChartServiceImpl implements IMonthlyChart {
 					}
 
 					//取出商品类型名称放入一个map集合中
-					if(!map2.containsKey(name)&&name!=null) {
+					if((!map2.containsKey(name))&&name!=null) {
 						map2.put("name", name);
 					}
 				}
 				//当一个商品类型循环结束,把循环时存储12个月分销售额的
 				//list集合放入一个map集合中,该集合与商品名称存放的map集合是一个
+				
 				map2.put("data", moneys);
+			
 			}
 			//根据highcharts返回值要求,再将map2集合放入一个list集合中
-			list.add(map2);
+			if(map2.get("name")!=null) {
+				list.add(map2);
+			}
 			
 		}
 		//此处返回map是为了携带更多的数据,上面的list已经满足highcharts返回值要求
