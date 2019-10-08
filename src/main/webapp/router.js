@@ -69,7 +69,7 @@ var router = new VueRouter({
 					{path:"/rooms/:gid",component:rooms},
 					{path:"/wushuang",component:wushuang},
 					{path:"/message/:gid",component:message},
-					{path:"/myRooms/:uid",component:myRooms},
+					{path:"/myRooms",component:myRooms},
 					{path:"/address",name:'address', component:address},
 					{path:"/updateAddress",component:updateAddress},
 					{path:"/addAddress",component:addAddress},

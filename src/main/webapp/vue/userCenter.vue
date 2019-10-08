@@ -9,7 +9,7 @@
 				<ul>
 					<li><router-link to="/order">我的订单</router-link></li>
 					<li><router-link to="/goodsHistory">拍品记录</router-link></li>
-					<li><router-link to="/myRooms/1">我的竞价室</router-link></li>
+					<li><router-link to="/myRooms">我的竞价室</router-link></li>
 					<li><router-link to="/wushuang">我的收藏</router-link></li>
 				</ul>
 			</div>
@@ -76,6 +76,7 @@
 							return;
 						};
 					}
+					
 					}
 				});
 			}
