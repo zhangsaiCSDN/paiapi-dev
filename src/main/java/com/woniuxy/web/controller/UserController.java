@@ -195,7 +195,7 @@ public class UserController {
 		System.out.println(codeMap);
 		
 		String sendResult = codeMap.get("result");
-		
+		 
 		if (sendResult.indexOf("\"errmsg\":\"OK\"")!=-1) {
 			resultMap.put("status", 200);
 		}else {
