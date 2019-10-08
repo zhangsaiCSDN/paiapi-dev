@@ -9,9 +9,7 @@
 						</li>
 						<li>|</li>
 
-						<li><a>问题反馈</a></li>
-						<li>|</li>
-						<li><a>切换商家版</a></li>
+						<li @click="modal2=true"><a>问题反馈</a></li>
 						<div class="clear"></div>
 					</ul>
 				</div>
@@ -59,6 +57,13 @@
 
 
 		</Modal>
+		<Modal v-model="modal2" title="您的反馈和建议">
+			<div class="fankui">
+				项目开发时间紧急,有很多不尽完善的地方,我们愿意倾听您的建议和意见.</br>
+				问题反馈联系:QQ 35534574 注明 蜗牛拍拍</br>
+			</div>
+
+		</Modal>
 	</div>
 </template>
 
@@ -70,7 +75,10 @@
 		color: #000000;
 		width: 20px;
 	}
-
+	.fankui{
+		font-size: 15px;
+		font-family: "微软雅黑";
+	}
 	.msgBox {
 		height: 30px;
 		margin-left: 30px;
@@ -86,7 +94,8 @@
 				path: "ws://localhost:8080/msg/",
 				socket: '',
 				msg: [],
-				modal1: false
+				modal1: false,
+				modal2: false
 
 
 			};
@@ -130,7 +139,11 @@
 			},
 			showMsg() {
 				this.modal1 = true;
+			},
+			fankui() {
+
 			}
+
 		},
 		mounted: function() {
 			this.isLogin();
