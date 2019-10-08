@@ -8,7 +8,7 @@
 					<div class="h3 ml20 mt20">{{goods.gname}}</div>
 					<div class="ft20 ml20 mt20">详情描述:<br/>{{goods.ginfo}}</div>
 					<div class="jiage ml20 mt10">开始结束时间</div>
-					<div class="xqxq mt20 ml20">
+					<div class="xqxq mt20 ml20" >
 						
 						<div class="banben fl">
 							<a>
@@ -52,7 +52,7 @@
 				</div>
 				<div class="clear"></div>
 			</div>
-		</form>
+		
 		
 	</div>
 </template>
@@ -91,7 +91,8 @@
 					function(response) {
 						var resp = response.data;
 						if(resp.status == "200") {
-							alert(resp.message);
+							
+							
 						} else if(resp.status == "500") {
 							alert(resp.message);
 						}

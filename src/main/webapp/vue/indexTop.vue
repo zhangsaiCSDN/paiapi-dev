@@ -61,10 +61,10 @@
 		<!--组件切换用-->
 
 		<div>
-			<router-view></router-view>
+			<router-view ref="xx"></router-view>
 		</div>
 
-		<footer class="mt20 center">
+		<footer class="mt20 center" style="clear:both">
 			<div>违法和不良信息举报电话：110，本网站所列数据，除特殊说明，所有数据均出自蜗牛拍拍项目组测试</div>
 		</footer>
 		
@@ -127,7 +127,7 @@
 			},
 			search(){
 				var g = document.getElementById("searchId");
-				this.$refs.list.search(g)
+				this.$refs.xx.search(g)
 				
 			}
 		}
