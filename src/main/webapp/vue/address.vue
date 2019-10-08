@@ -109,7 +109,6 @@
 				}).then(function(){
 					self.find(self.address.p);
 				});
-				alert(aid);
 			},
 			
 			
