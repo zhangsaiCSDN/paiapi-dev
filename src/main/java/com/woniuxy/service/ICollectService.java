@@ -21,5 +21,9 @@ public interface ICollectService {
 	List<Collect> find(Page<Collect> page);
 	
 	Integer count();
-
+	
+	List<Collect> find(Map<String , Object> map);
+	
+	Integer  findCount(Map<String,Object >map);
+	
 }

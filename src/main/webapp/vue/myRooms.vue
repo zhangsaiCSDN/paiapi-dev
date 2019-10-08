@@ -3,16 +3,16 @@
 			<div class="biaoti center">我的竞价室</div>
 			<div class="main center">
 					<div v-for="item in myRooms" class="mingxing fl mb20" style="border:2px solid #fff;width:230px;cursor:pointer;" onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid red'">
-						<div class="sub_mingxing"><router-link to="/rooms">11</router-link></div>
-						<div class="pinpai2"><router-link to="/rooms/2">拍品名称:{{item.goods.gname}}</router-link></div>
-						<div class="pinpai1"><router-link to="/rooms/2">起拍价格:{{item.goods.gprice}}</router-link></div>
+						<div class="sub_mingxing"><span @click="rooms(item.gid)"><img :src="'../admin/goods/goodsImg/'+item.image.img" style="width:100%;height:80%;"></span></div>
+						<div class="pinpai2"><span @click="rooms(item.gid)">拍品名称:{{item.goods.gname}}</span></div>
+						<div class="pinpai1"><span @click="rooms(item.gid)">起拍价格:{{item.goods.gprice}}</span></div>
 						<div class="pinpai1">
-							<span @click="rooms(uid)">围观次数:{{item.goods.gcount}}</span>
+							<span @click="rooms(item.gid)">围观次数:{{item.goods.gcount}}</span>
 						</div>
-						<div class="pinpai1"><router-link to="/rooms">加价幅度:{{item.goods.ggap}}</router-link></div>
-						<div class="pinpai1"><router-link to="/rooms">起拍时间:{{item.goods.gstart}}</router-link></div>
-						<div class="pinpai1"><router-link to="/rooms">起拍时间:{{item.goods.gend}}</router-link></div>
-						<div class="pinpai1"><router-link to="/goodsOne/:gid"><span class="pinpai3">拍品详情</span></router-link></div>
+						<div class="pinpai1"><span @click="rooms(item.gid)">加价幅度:{{item.goods.ggap}}</span></div>
+						<div class="pinpai1"><span @click="rooms(item.gid)">起拍时间:{{item.goods.gstart}}</span></div>
+						<div class="pinpai1"><span @click="rooms(item.gid)">起拍时间:{{item.goods.gend}}</span></div>
+						<div class="pinpai1"><span class="pinpai3"  @click="details(item.gid)">拍品详情</span></div>
 					</div>
 				<div class="clear"></div>
 			</div>
@@ -29,26 +29,32 @@
 		},
 		mounted:function(){
 			var self = this;
-			self.uid = this.$route.params.uid;
-			this.$ajax.get("http://localhost:8080/rooms/state",{
-					params:{
-						uid:self.uid
-					}
-			}).then(
-					function(response) {
-						self.myRooms = response.data;
+			this.$ajax.get('http://localhost:8080/users/isLogin').then(function(response){
+				self.uid = response.data.user.uid;
+				self.$ajax.get("http://localhost:8080/rooms/state",{
+						params:{
+							uid:self.uid
+						}
+				}).then(
+						function(response) {
+							self.myRooms = response.data;
+							console.log(self.myRooms[0].image.img);
+				});
 			});
 			
-			this.$ajax.get('http://localhost:8080/users/isLogin').then(function(response){
-				self.uid = response.data.uid;
-				
-			});
+			
+			
 			
 		},
 		methods: {
-			rooms(uid){
+			rooms(gid){
 				this.$router.push({
-					path: "/rooms/" + uid
+					path: "/rooms/" + gid
+				});
+			},
+			details(gid){
+				this.$router.push({
+					path:"goodsOne/"+gid
 				});
 			}
 		}
@@ -56,7 +62,7 @@
 </script>
 
 <style scoped>
-	.danpin .main .mingxing .pinpai1{width: 234px;height: 14px;line-height: 14px;text-align: center;margin-top: 5px;}
-	.danpin .main .mingxing .pinpai2{width: 234px;height: 14px;line-height: 14px;text-align: center;margin-top: -25px;}
-	.danpin .main .mingxing .pinpai3{color:#ff6709;}
+	.pinpai1{width: 234px;height: 14px;line-height: 14px;text-align: center;margin-top: 5px;}
+	.pinpai2{width: 234px;height: 14px;line-height: 14px;text-align: center;margin-top: -25px;}
+	.pinpai3{color:#ff6709;text-decoration:underline}
 </style>

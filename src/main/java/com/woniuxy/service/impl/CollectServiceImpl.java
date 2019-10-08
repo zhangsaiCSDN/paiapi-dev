@@ -1,6 +1,7 @@
 package com.woniuxy.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.woniuxy.dao.CollectMapper;
 import com.woniuxy.domain.Collect;
+import com.woniuxy.domain.Deposit;
 import com.woniuxy.domain.Page;
 import com.woniuxy.service.ICollectService;
 
@@ -63,6 +65,31 @@ public class CollectServiceImpl implements ICollectService {
 		
 		return list;
 	}
+
+	@Override
+	public List<Collect> find(Map<String, Object> map) {
+		
+		Integer rouCount = mapper.findCount(map);
+		Page page =(Page) map.get("page");
+		
+		page.setRowCount(rouCount);
+		
+		map.put("page",page);
+		List<Collect> list = mapper.findByUid(map);
+		
+		
+		return list;
+	}
+
+	@Override
+	public Integer findCount(Map<String, Object> map) {
+		
+		Integer findCount = mapper.findCount(map);
+		return findCount;
+	}
+
+
+
 
 
 		

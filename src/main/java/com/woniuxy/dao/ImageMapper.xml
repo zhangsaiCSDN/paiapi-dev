@@ -224,4 +224,8 @@
 		INNER JOIN goods g ON i.gid=g.gid
   	</select>
   	
+  	 <select id="findImg"  resultMap="BaseResultMap">
+		SELECT * FROM image where gid = #{gid}
+		group by gid
+  	</select>
  </mapper>

@@ -1,6 +1,7 @@
 package com.woniuxy.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -32,6 +33,14 @@ public interface CollectMapper {
     int updateByPrimaryKey(Collect record);
     
     List<Collect> findAll(Page<Collect> page);
+    
+    List<Collect> findByUid(Map<String , Object> map); 
+    
+    Integer findCount(Map<String , Object> map);//根据用户uid查询
+    
+    
+    
+    
     
     
     

@@ -34,4 +34,6 @@ public interface ImageMapper {
     List<Image> find(Page<Image> page);//分页查询goods
     
     List<Image> findAll();//查询
+    
+    Image findImg(Integer gid);
 }

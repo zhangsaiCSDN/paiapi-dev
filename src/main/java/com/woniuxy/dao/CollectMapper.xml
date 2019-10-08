@@ -198,6 +198,13 @@
   
   
   
+  <select id="find"  parameterType="Collect">
+  
+  </select>
+  
+  
+  
+  
   
   <select id="findAll"   parameterType="Page" resultMap="co">
   
@@ -225,11 +232,50 @@
   </select>
   
   
+  <select id="findByUid"  parameterType="java.util.HashMap" resultMap="co">
+  select * from collect  c
+  join user u on c.uid = u.uid
+  join goods g on c.gid =g.gid
+  
+  
+  <where>
+  <if test="uid !=null">
+  and u.uid =#{uid}
+  
+  </if>
+  </where>
+  
+  
+  
+  
+  
+  
+  
+    limit #{page.startLine},#{page.size}
+  
+  
+  
+  
+  </select>
+  
+  
+  <select id="findCount" parameterType="java.util.HashMap"  resultType="java.lang.Integer">
+
+		SELECT COUNT(*) FROM collect c
+		
+		join user u on c.uid = u.uid
+		join goods g on c.gid=g.gid
+	<where>
+		<if test="uid != null">
+			and u.uid = #{uid}
+		</if>
+	</where>
+  </select>
+  
   
   <resultMap type="Collect" id="co">
   <id property="clid" column="clid"/>
   <result property="cltime" column="cltime"/>
-  
   
   
   <association property="user" javaType="user">
@@ -239,6 +285,7 @@
   <association property="goods" javaType="goods">
   <id property="gid" column="gid"/>
   <result property="gname" column="gname"/>
+  <result property="gprice" column="gprice"/>
   
   
   </association>
@@ -253,6 +300,7 @@
   
   
   </resultMap>
+  
   
   
   

@@ -27,6 +27,7 @@ import deposit from './vue/deposit.vue'
 import rooms from './vue/rooms.vue'
 import myRooms from './vue/myRooms.vue'
 import userInfo from './vue/userInfo.vue'
+import wushuang from './vue/wushuang.vue'
 
 import list from'./vue/list.vue'
 import goodsOne from'./vue/goodsOne.vue'
@@ -66,8 +67,9 @@ var router = new VueRouter({
 					{path:"/orderOne/:gid/:odid", component: orderOne},
 					{path:"/deposit",component:deposit},
 					{path:"/rooms/:gid",component:rooms},
+					{path:"/wushuang",component:wushuang},
 					{path:"/message/:gid",component:message},
-					{path:"/myRooms/:uid",component:myRooms},
+					{path:"/myRooms",component:myRooms},
 					{path:"/address",name:'address', component:address},
 					{path:"/updateAddress",component:updateAddress},
 					{path:"/addAddress",component:addAddress},

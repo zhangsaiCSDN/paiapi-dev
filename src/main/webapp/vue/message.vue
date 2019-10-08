@@ -11,7 +11,7 @@
 			</div>
 			<div>
 				<label>商品id:</label>
-				<input type="text" class=" form-control" name="gid" v-model="goods.gid" onfocus=this.blur() />
+				<input type="text" class=" form-control" name="gid" v-model="$route.params.gid" onfocus=this.blur() />
 			</div>
 			<div>
 				<label>买家id:</label>
@@ -23,7 +23,7 @@
 			</div>
 			<div>
 				<label>成交金额:</label>
-				<input type="text" class=" form-control" name="odmoney" v-model="goods.salerid" onfocus=this.blur() />
+				<input type="text" class=" form-control" name="odmoney" v-model="$route.params.money" onfocus=this.blur() />
 			</div>
 			<div>
 				<label>成交时间:</label>
@@ -31,7 +31,7 @@
 			</div>
 			<div>
 				<label>手续费:</label>
-				<input type="text" class=" form-control" name="odfee" v-model="goods.salerid" onfocus=this.blur() />
+				<input type="text" class=" form-control" name="odfee" v-model="$route.params.money*0.01>20?$route.params.money*0.01:20.0" onfocus=this.blur() />
 			</div>
 			<label>地址id:</label>
 			<select v-model="myaid" class="form-control">
@@ -71,11 +71,10 @@
 				
 				
 				this.$ajax.get('http://localhost:8080/users/isLogin').then(function(response){
-					self.uid = response.data.uid;
+					self.uid = response.data.user.uid;
 					self.$ajax.get('http://localhost:8080/addresses/findByUid?uid='+self.uid).then(function(response){
 						self.adds = response.data;
 					});
-					
 				});
 		},
 		methods:{
