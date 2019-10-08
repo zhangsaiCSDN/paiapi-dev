@@ -103,10 +103,8 @@
 			},
 			del(aid){
 				var self=this;
-				self.$ajax.post("http://localhost:8080/addresses/delete",
-				{
-					"aid":aid
-				}).then(function(){
+				self.$ajax.post("http://localhost:8080/addresses/"+aid)
+				.then(function(){
 					self.find(self.address.p);
 				});
 			},
