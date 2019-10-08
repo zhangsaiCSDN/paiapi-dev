@@ -1,6 +1,8 @@
 <template>
 	<div>
-		帮助777
+		<h1>
+			疯狂开发中......
+		</h1>
 	</div>
 
 </template>
