@@ -26,6 +26,7 @@ import salerOrderOne from './vue/salerOrderOne.vue'
 import deposit from './vue/deposit.vue'
 import rooms from './vue/rooms.vue'
 import myRooms from './vue/myRooms.vue'
+import userInfo from './vue/userInfo.vue'
 
 import list from'./vue/list.vue'
 import goodsOne from'./vue/goodsOne.vue'
@@ -70,14 +71,17 @@ var router = new VueRouter({
 					{path:"/address",name:'address', component:address},
 					{path:"/updateAddress",component:updateAddress},
 					{path:"/addAddress",component:addAddress},
+					{path:"/userCenter/userInfo",component:userInfo}
 				]},
 				{path:"/salerCenter",component:salerCenter,children:[
-					{path:"/salerOrder/:1",component:salerOrder},
+					{path:"/salerOrder",component:salerOrder},
 					{path:"/salerOrderOne/:gid/:odid", component: salerOrderOne},
 					{ path:'/userGoods', component:userGoods },
 					{ path:'/addGoods', component:addGoods },
 					{ path:'/updateGoods/:gid', component:updateGoods },
 					{ path:'/goodsUpload', component:goodsUpload },
+					{path:"/salerCenter/userInfo",component:userInfo},
+					{path:"/salerCenter/deposit",component:deposit},
 				]},
 				 
 			]

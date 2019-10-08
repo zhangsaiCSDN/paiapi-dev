@@ -135,7 +135,7 @@ public class GoodsController {
 			if(map.get("p")==null)map.put("p", 1);
 			int count=service.count();
 			
-			Page<Goods> page=new Page<>(Integer.parseInt(map.get("p").toString()),count,5);
+			Page<Goods> page=new Page<>(Integer.parseInt(map.get("p").toString()),count,3);
 			
 			map.put("uid",1);
 			map.put("page", page);
