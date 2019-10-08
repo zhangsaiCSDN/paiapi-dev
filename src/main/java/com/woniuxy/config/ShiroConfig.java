@@ -79,7 +79,6 @@ public class ShiroConfig {
 		sf.setSecurityManager(securityManager());
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 //		filterChainDefinitionMap.put("/admin/index.html", "authc");
-		filterChainDefinitionMap.put("/admin/index.html", "authc");
 		filterChainDefinitionMap.put("/admin/index.html", "authc,roles[admin]");
 		sf.setUnauthorizedUrl("/admin/admin.html");
 		sf.setLoginUrl("/admin/admin.html");
