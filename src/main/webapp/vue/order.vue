@@ -62,16 +62,26 @@
 			return {
 				"orders":[],
 				v_pages:[],
+				uid:''
 			};
 		},
 		created:function(){
-			this.find(1);  
+			this.getUid();
 		},
 		methods: {
+				async getUid(){
+			     var self=this;
+			   	await this.$ajax.get("http://localhost:8080/users/isLogin").then(function(response) { 
+			    	 self.uid=response.data.user.uid;   
+			    	 self.find(1);  
+			     })
+			    
+			    },
 				//分页展示 uid是传入的买家id
 				find(page) { 
-					var uid=this.$route.params.uid
+					//var uid=this.$route.params.uid
 			 		var self = this;
+					var uid=self.uid;
 					this.$ajax.get("http://localhost:8080/orders/findByUid",{
 						params:{
 							p:page,
