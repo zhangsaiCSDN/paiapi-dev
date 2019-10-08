@@ -2,30 +2,34 @@
 <template>
   <div>
   	<!-- 展示已有地址-->
-		<table id="LAY-user-manage" class="table table-striped" >
-        	<tr>
-        		<th>用户ID</th>  
-        		<th>用户名</th>  
-        		<th>地址信息</th>
-        		<th>邮政编码</th>
-        		<th>手机号码</th>
-        		<th>操作</th>    
-        	</tr>
-        	<tr v-for = "item in list" >
-        		<th>{{item.aid}}</th>
-        		<th>{{item.user.uname}}</th>
-        		<th>{{item.ainfo}}</th>
-        		<th>{{item.apost}}</th>
-        		<th>{{item.aphone}}</th>
-        		<th>
-        			<button class="btn btn-danger" @click="del(item.aid)" :key="item.aid">删除</button>
-        			<button type="button" class="btn btn-success">
-	        			<router-link to="/updateAddress">
-							修改
-						</router-link>
-        			</button>
-        		</th>
-        	</tr>
+		<table class="table table-striped" >
+        	 <thead>
+	        	<tr>
+	        		<th>用户ID</th>  
+	        		<th>用户名</th>  
+	        		<th>地址信息</th>
+	        		<th>邮政编码</th>
+	        		<th>手机号码</th>
+	        		<th>操作</th>    
+	        	</tr>
+	        </thead>
+	        <tbody>
+	        	<tr v-for = "item in list" >
+	        		<th>{{item.user.uid}}</th>
+	        		<th>{{item.user.uname}}</th>
+	        		<th>{{item.ainfo}}</th>
+	        		<th>{{item.apost}}</th>
+	        		<th>{{item.aphone}}</th>
+	        		<th>
+	        			<button class="btn btn-danger" @click="del(item.aid)" :key="item.aid">删除</button>
+	        			<button type="button" class="btn btn-success">
+		        			<router-link to="/updateAddress/">
+								修改
+							</router-link>
+	        			</button>
+	        		</th>
+	        	</tr>
+	        </tbody>
         	</table>
         	<div class="rtcont fr">
 			<div style="vertical-align: middle !important; text-align: center;" id="page">				
@@ -42,7 +46,7 @@
  					 <button class="btn btn-info" @click="find(address.maxPage)">末页</button>
 				</span>		
 			</div>
-				<router-link to="/addAddress" class="btn btn-info">
+				<router-link to="/addAddress/:1" class="btn btn-info">
 					点击 添加地址
 				</router-link>
 		</div>
@@ -72,13 +76,22 @@
 				this.find(1);
 			},
 			methods:{
+			    getUid(){
+   	 				var self=this;
+					this.$ajax.get("http://localhost:8080/users/isLogin")
+					.then(function(response) { 
+     				self.uid=response.data.user.uid;   
+					});
+			 		alert(uid);
+					
+    			},
 				find(page){
-					var uid=this.$route.params.uid
 			 		var self = this;
-					this.$ajax.get("http://localhost:8080/addresses/findByUid",
+			 		asyon: false;
+					this.$ajax.get("http://localhost:8080/addresses",
 							{params:{
 									p:page,
-									uid:uid
+									uid:self.uid
 									}
 						}).then(function(response){
 						self.address = response.data;
@@ -89,8 +102,14 @@
 				},
 				
 				del(aid){
-					this.$ajax.post("http://localhost:8080/addresses",{"aid":aid,"_method":"delete"},{emulateJSON:true}).then(function(){
-						this.find(this.address.p);
+					alert(aid);
+					var self=this;
+					self.$ajax.post("http://localhost:8080/addresses",
+					{params:{
+								aid:aid
+							}
+					}).then(function(){
+						self.find(self.address.p);
 					});
 				},
 				pages(startPage,endPage){
@@ -98,6 +117,9 @@
 						this.mypage.push(i);
 					}
 					
+				},
+				edit(aid){
+					this.$router.push({path:"updateAddress/"+aid});
 				}
 				
 			}
