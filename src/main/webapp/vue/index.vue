@@ -52,10 +52,12 @@
 		<!-- <Modal v-model="modal1" title="Common Modal dialog box title" @on-ok="ok" @on-cancel="cancel"> -->
 		<Modal v-model="modal1" title="您关注的以下拍品即将竞拍">
 			<div>
-				<p v-for="(v,k,i) in msg" :key='i'>{{(k+1)+'号消息:'+v}}</p>
+				<div class="msgBox" v-for="(v,k,i) in msg" :key='i'>
+					<p>{{(k+1)+'号消息:'+v}}</p>
+				</div>
 			</div>
-			
-			
+
+
 		</Modal>
 	</div>
 </template>
@@ -68,7 +70,11 @@
 		color: #000000;
 		width: 20px;
 	}
-	
+
+	.msgBox {
+		height: 30px;
+		margin-left: 30px;
+	}
 </style>
 
 <script>
@@ -80,7 +86,7 @@
 				path: "ws://localhost:8080/msg/",
 				socket: '',
 				msg: [],
-				modal1:false
+				modal1: false
 
 
 			};
@@ -123,7 +129,7 @@
 
 			},
 			showMsg() {
-				this.modal1=true;
+				this.modal1 = true;
 			}
 		},
 		mounted: function() {

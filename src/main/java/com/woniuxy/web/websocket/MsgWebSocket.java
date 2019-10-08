@@ -36,9 +36,8 @@ public class MsgWebSocket implements Runnable {
 	private static IUserService userService;
 
 	private static IGoodsService goodsService;
-	
+
 	private static ICollectService collectsService;
-	
 
 	static {
 		MsgWebSocket msg = new MsgWebSocket();
@@ -60,13 +59,14 @@ public class MsgWebSocket implements Runnable {
 	public void setICollectService(ICollectService iCollectService) {
 		MsgWebSocket.collectsService = iCollectService;
 	}
-	
+
 	public static Map<String, Session> map = new ConcurrentHashMap<>();
 
 	@OnOpen
 	public void connect(@PathParam("uid") String uid, Session session) throws Exception {
 		System.out.println(uid + "   已连接");
 		if (!map.containsKey(uid)) {
+			session.getBasicRemote().sendText("欢迎您使用蜗牛拍拍,你所收藏的拍品即将拍卖时会在此处实时提醒您");
 			map.put(uid, session);
 		}
 	}
@@ -91,61 +91,65 @@ public class MsgWebSocket implements Runnable {
 		// 五秒一次轮播
 		Set<Entry<String, Session>> entrySet = null;
 		List<Collect> collects = null;
-		
-		
+
 		while (true) {
-			
+
 			try {
-				Thread.currentThread().sleep(5000);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			// 查找所有收藏
-			collects = collectsService.findAll();
-			entrySet = map.entrySet();
-			if (entrySet == null||collects==null||collectsService==null||userService==null||goodsService==null) {
-				System.out.println("没有用户或service为空");
-				continue;
-			}
-			//所有用户session的集合
-			Iterator<Entry<String, Session>> it = entrySet.iterator();
-			//用户循环
-			while (it.hasNext()) {
-				Entry<String, Session> next = it.next();
-				//一个用户
-				String uid = next.getKey();
-				Session session = next.getValue();
-				//所有收藏记录 收藏循环
-				for (Collect collect : collects) {
-					//是该用户的收藏
-					if (collect.getUid()==Integer.parseInt(uid)) {
-						Integer gid = collect.getGid();
-						Goods good = goodsService.findOne(gid);
-						if (good.getGpasstime().getTime()-new Date().getTime()<60*60*1000) {
-//						if (true) {
-							System.out.println("拍卖结束提醒");
-							
-							try {
-								session.getBasicRemote().sendText(String.format("你收藏的%s,距离拍卖结束不足一小时啦~", good.getGname()));
-							} catch (IOException e) {
-								e.printStackTrace();
+				try {
+					Thread.currentThread().sleep(5000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				// 查找所有收藏
+				collects = collectsService.findAll();
+				entrySet = map.entrySet();
+				if (entrySet == null || collects == null || collectsService == null || userService == null
+						|| goodsService == null) {
+					System.out.println("没有用户或service为空");
+					continue;
+				}
+				// 所有用户session的集合
+				Iterator<Entry<String, Session>> it = entrySet.iterator();
+				// 用户循环
+				while (it.hasNext()) {
+					Entry<String, Session> next = it.next();
+					// 一个用户
+					String uid = next.getKey();
+					Session session = next.getValue();
+					// 所有收藏记录 收藏循环
+					for (Collect collect : collects) {
+						// 是该用户的收藏
+						if (collect.getUid() == Integer.parseInt(uid)) {
+							Integer gid = collect.getGid();
+							Goods good = goodsService.findOne(gid);
+//						if (good.getGpasstime().getTime()-new Date().getTime()<60*60*1000) {
+							if (true && good != null) {
+								System.out.println("拍卖结束提醒");
+
+								try {
+									session.getBasicRemote()
+											.sendText(String.format("你收藏的%s,距离拍卖结束不足一小时啦~", good.getGname()));
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
 							}
-						}
-						//if (new Date().getTime()-collect.getGoods().getGstart().getTime()<60*60*1000) {
-						if (true) {
-							System.out.println("拍卖开始提醒");
-							try {
-								session.getBasicRemote().sendText(String.format("你收藏的%s,距离拍卖开始不足一小时啦~", good.getGname()));
-							} catch (IOException e) {
-								e.printStackTrace();
+							// if (new Date().getTime()-collect.getGoods().getGstart().getTime()<60*60*1000)
+							// {
+							if (true && good != null) {
+								System.out.println("拍卖开始提醒");
+								try {
+									session.getBasicRemote()
+											.sendText(String.format("你收藏的%s,距离拍卖开始不足一小时啦~", good.getGname()));
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
 							}
 						}
 					}
+					// 一个用户通知结束,移出
+					it.remove();
 				}
-				
-				
-				//一个用户通知结束,移出
-				it.remove();
+			} catch (Exception e) {
 			}
 
 		}

@@ -29,8 +29,8 @@
 						<div class="left fl">验&nbsp;&nbsp;证&nbsp;&nbsp;码:&nbsp;&nbsp;
 							<input class="yanzhengma" type="text" name="username" placeholder="验证码" v-model="code" />
 						</div>
-						<div class="right fl"><img :src="src" @click="codeRefresh()"></div>
-						<span>&nbsp;{{codeMsg}}</span>
+						<div class="right fl"><button class="btn btn-warning" @click="getTelCode" type="button">发送手机验证码</button></div>
+						<span>{{codeMsg}}</span>
 					</div>
 				</div>
 				<div class="regist_submit">
@@ -60,14 +60,13 @@
 				tel: '',
 				code: '',
 
-				unameMsg: '请不要输入汉字',
-				upwdMsg: '请输入6位以上字符',
+				unameMsg: '用户名6-32位数字字母组合,不含中文',
+				upwdMsg: '请输入6位以上数字字母',
 				upwd2Msg: '两次密码要输入一致哦',
 				telMsg: '填写下手机号吧，方便我们联系您！',
-				codeMsg: '单击验证码可以刷新哦~',
+				codeMsg: '手机号码输入正确后才可发送验证码哦~',
 				validate: [],
 
-				src: 'http://localhost:8080/users/getCode',
 
 			};
 		},
@@ -75,14 +74,13 @@
 
 		},
 		created: function() {
-			this.codeRefresh();
 		},
 		methods: {
 			pageChange(path) {
 				this.$router.push(path);
 			},
 			checkCode() {
-				this.$ajax.get('http://localhost:8080/users/checkCode?code=' + this.code).then((response) => {
+				this.$ajax.get('http://localhost:8080/users/checkTelCode?code=' + this.code).then((response) => {
 					if ((response.data.status)) {
 						this.codeMsg = '正确';
 						this.validate[4] = true;
@@ -92,12 +90,10 @@
 					}
 				})
 			},
-			codeRefresh() {
-				this.src = 'http://localhost:8080/users/getCode?aa' + new Date();
-			},
 			submitValidate() {
 				for (var i = 0; i < this.validate.length; i++) {
 					if (!this.validate[i]) {
+						this.$Message.error('注册失败:您的输入有误,请检查输入后重试');
 						return;
 					}
 				}
@@ -116,9 +112,24 @@
 					}
 				});
 			},
-			pageChange(path) {
-				this.$router.push(path);
-			},
+			getTelCode() {
+				if (this.validate[3]&&this.validate[0]) {
+					this.$ajax.get('http://localhost:8080/users/getTelCode?uname=' + this.uname + '&tel=' + this.tel).then((response) => {
+
+						if ((response.data.status) == 200) {
+							this.$Message.success('验证码以发送至您的手机,请注意查收');
+						} else {
+							this.$Message.error('验证码发送失败');
+						}
+
+
+					})
+				} else {
+					this.codeMsg = '错误:您还未输入正确的手机号码 或 用户名输入非法,请检查后重试';
+				}
+
+
+			}
 
 		},
 		watch: {
@@ -166,11 +177,11 @@
 				}
 			},
 			code(val) {
-				if (val.length == 4) {
+				if (val.length == 5) {
 					this.checkCode();
-				} else if (val.length > 4) {
-					this.codeMsg = '验证码长度为四位,请检查后再次输入';
-				} else if (val.length < 4) {
+				} else if (val.length > 5) {
+					this.codeMsg = '验证码长度为五位,请检查后再次输入';
+				} else if (val.length < 5) {
 					this.codeMsg = '';
 				}
 			}

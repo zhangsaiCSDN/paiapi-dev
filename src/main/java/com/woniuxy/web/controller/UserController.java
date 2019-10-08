@@ -32,6 +32,7 @@ import com.woniuxy.domain.User;
 import com.woniuxy.service.IUserService;
 import com.woniuxy.service.impl.UserServiceImpl;
 import com.woniuxy.util.AppUtils;
+import com.woniuxy.util.SmS;
 import com.woniuxy.util.ValidateCode;
 
 @Controller
@@ -79,7 +80,7 @@ public class UserController {
 			subject.login(token);
 			map.put("status", 200);
 			map.put("username", subject.getPrincipal());
-			req.getSession().setAttribute("uid",service.findUserByUname(username).getUid().toString());
+			req.getSession().setAttribute("uid", service.findUserByUname(username).getUid().toString());
 		} catch (AuthenticationException e) {
 			map.put("status", 500);
 			map.put("message", "登录失败，可能是用户名或密码错误");
@@ -175,6 +176,40 @@ public class UserController {
 
 		// 对比前端验证码和真实验证码 一致返回true 不一致返回false
 		if (code != null && code.equalsIgnoreCase(realCode)) {
+			map.put("status", true);
+		} else {
+			map.put("status", false);
+		}
+		return map;
+	}
+
+	// 获取验证码
+	@GetMapping(value = "getTelCode")
+	@ResponseBody
+	public Map<String, Integer> getTelCode(HttpServletRequest req, HttpServletResponse resp,String uname,String tel) throws IOException {
+		Map<String, Integer> resultMap = new HashMap<>();
+		System.out.println(uname+tel);
+		Map<String, String> codeMap = SmS.sendCode(uname, tel);
+		HttpSession session = req.getSession();
+		session.setAttribute("code", codeMap.get("code").toString());
+		System.out.println(codeMap);
+		
+		String sendResult = codeMap.get("result");
+		
+		if (sendResult.indexOf("\"errmsg\":\"OK\"")!=-1) {
+			resultMap.put("status", 200);
+		}else {
+			resultMap.put("status", 500);
+		}
+		return resultMap;
+	}
+
+	@GetMapping(value = "checkTelCode")
+	@ResponseBody
+	public Map<String, Object> checkTelCode(HttpServletRequest req, HttpServletResponse resp, String code) {
+		String realCode = (String) req.getSession().getAttribute("code");
+		Map<String, Object> map = new HashMap<>();
+		if (code != null && realCode.equals(code)) {
 			map.put("status", true);
 		} else {
 			map.put("status", false);
