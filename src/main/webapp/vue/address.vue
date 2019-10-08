@@ -28,7 +28,7 @@
 							</router-link>
 	        			</button>
 	        		</th>
-	        	</tr>
+	        	</tr>  
 	        </tbody>
         	</table>
         	<div class="rtcont fr">

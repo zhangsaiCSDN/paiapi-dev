@@ -15,7 +15,7 @@
 			详细地址:<br><input type="text" class="form-control" width="17%" placeholder="请输入详细地址" v-model="ainfo" /><br />
 			邮政编码:<br><input type="text" class="form-control" width="17%" placeholder="请输入邮编" v-model="apost" /><br />
 			手机号码:<br><input type="text" class="form-control" width="17%" placeholder="请输入手机号码" v-model="aphone" /><br />
-			
+			   
         </div>
    
         <div class="modal-footer">
