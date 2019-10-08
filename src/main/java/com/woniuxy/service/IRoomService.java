@@ -15,4 +15,5 @@ public interface IRoomService {
 	List<Room> findByPage(Page<Room> page);
 	long count();
 	List<Room> findByState(Integer uid);
+	List<Room> findBySalerid(Integer salerid);
 }

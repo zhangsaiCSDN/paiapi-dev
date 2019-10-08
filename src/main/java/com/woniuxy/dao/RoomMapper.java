@@ -34,4 +34,6 @@ public interface RoomMapper {
     List<Room> findByPage(Page page);
     
     List<Room> findByState(Integer uid);
+    
+    List<Room> findBySalerid(Integer salerid);
 }

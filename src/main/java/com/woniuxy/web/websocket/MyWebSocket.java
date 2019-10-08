@@ -14,7 +14,7 @@ import javax.websocket.server.ServerEndpoint;
 
 import org.springframework.stereotype.Component;
 
-@ServerEndpoint("/chat/{roomName}")
+@ServerEndpoint("/chat11/{roomName}")
 @Component
 public class MyWebSocket {
 	private static Map<String,Set<Session>> rooms = new HashMap<>();

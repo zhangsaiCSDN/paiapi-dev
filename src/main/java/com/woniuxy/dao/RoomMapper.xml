@@ -91,6 +91,38 @@
   
   
   
+  <select id="findBySalerid" parameterType="Integer" resultMap="fbsi">
+  		select * from room r join goods g on r.gid=g.gid join image i on r.gid=i.gid where r.salerid=#{salerid}
+  </select>
+  <resultMap type="Room" id="fbsi">
+  	<id property="rmid" column="rmid"/>
+  	<result property="gid" column="gid"/>
+  	<result property="salerid" column="salerid"/>
+  	<result property="rmtitle" column="rmtitle"/>
+  	<association property="goods" javaType="Goods">
+  		<id column="gid" jdbcType="INTEGER" property="gid" />
+	    <result column="gname" jdbcType="CHAR" property="gname" />
+	    <result column="gprice" jdbcType="DOUBLE" property="gprice" /> 
+	    <result column="gstart" jdbcType="TIMESTAMP" property="gstart" />
+	    <result column="gend" jdbcType="TIMESTAMP" property="gend" />
+	    <result column="gcount" jdbcType="INTEGER" property="gcount" />
+	    <result column="ggap" jdbcType="DOUBLE" property="ggap" />
+	    <result column="gpasstime" jdbcType="TIMESTAMP" property="gpasstime" />
+	    <result column="gstate" jdbcType="INTEGER" property="gstate" />
+	    <result column="garea" jdbcType="VARCHAR" property="garea" />
+	    <result column="ginfo" jdbcType="VARCHAR" property="ginfo" />
+	    <result column="salerid" jdbcType="INTEGER" property="salerid" />
+	    <result column="gtid" jdbcType="INTEGER" property="gtid" />
+  	</association>
+  	<association property="image" javaType="Image">
+	    <id column="imgid" jdbcType="INTEGER" property="imgid" />
+	    <result column="gid" jdbcType="INTEGER" property="gid" />
+	    <result column="img" jdbcType="VARCHAR" property="img" />
+  	</association>
+  	
+  </resultMap> 
+  
+  
   
   
   
