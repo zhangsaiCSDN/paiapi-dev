@@ -186,8 +186,8 @@ public class UserController {
 	// 获取验证码
 	@GetMapping(value = "getTelCode")
 	@ResponseBody
-	public Map<String, Integer> getTelCode(HttpServletRequest req, HttpServletResponse resp,String uname,String tel) throws IOException {
-		Map<String, Integer> resultMap = new HashMap<>();
+	public Map<String, Object> getTelCode(HttpServletRequest req, HttpServletResponse resp,String uname,String tel) throws IOException {
+		Map<String, Object> resultMap = new HashMap<>();
 		System.out.println(uname+tel);
 		Map<String, String> codeMap = SmS.sendCode(uname, tel);
 		HttpSession session = req.getSession();
@@ -200,6 +200,8 @@ public class UserController {
 			resultMap.put("status", 200);
 		}else {
 			resultMap.put("status", 500);
+			resultMap.put("message", "发送验证码失败:当前手机号在一小时内发送过多!");
+			
 		}
 		return resultMap;
 	}

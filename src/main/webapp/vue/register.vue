@@ -119,7 +119,7 @@
 						if ((response.data.status) == 200) {
 							this.$Message.success('验证码以发送至您的手机,请注意查收');
 						} else {
-							this.$Message.error('验证码发送失败');
+							this.$Message.error(response.data.message);
 						}
 
 
@@ -134,13 +134,13 @@
 		},
 		watch: {
 			uname(val) {
-				var unameReg = new RegExp("^[A-Za-z0-9]{6,32}$");
+				var unameReg = new RegExp("^[A-Za-z0-9]{6,10}$");
 				var unameT = unameReg.test(val);
 				if (unameT) {
 					this.unameMsg = '正确';
 					this.validate[0] = true;
 				} else {
-					this.unameMsg = '错误:用户名为6-32位字母数字组合';
+					this.unameMsg = '错误:用户名必须为6-10位字母数字组合';
 					this.validate[0] = false;
 				}
 			},
