@@ -63,7 +63,7 @@
 		<!--组件切换用-->
 
 		<div>
-			<router-view refs="xx"></router-view>
+			<router-view ref="xx"></router-view>
 		</div>
 
 		<footer class="mt20 center">
@@ -127,7 +127,6 @@
 				
 					// this.$router.replace("/list");
 					var path=this.$route.path;
-					alert(path)
 					var g=this.g;
 					var ga=this.ga;
 					if(path!="/list"){
