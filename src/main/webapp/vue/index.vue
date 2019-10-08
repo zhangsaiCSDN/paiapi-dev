@@ -77,7 +77,7 @@
 	}
 	.fankui{
 		font-size: 15px;
-		font-family: "微软雅黑";
+		font-family: "微软雅黑"; 
 	}
 	.msgBox {
 		height: 30px;
