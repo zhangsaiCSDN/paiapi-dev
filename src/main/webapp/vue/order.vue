@@ -82,10 +82,10 @@
 					//var uid=this.$route.params.uid
 			 		var self = this;
 					var uid=self.uid;
-					this.$ajax.get("http://localhost:8080/orders/findByUid",{
+					this.$ajax.get("http://localhost:8080/orders/findByBuyerid",{
 						params:{
 							p:page,
-							uid:uid
+							buyerid:uid
 						}
 					}).then(function(response) {
 						self.orders = response.data; 

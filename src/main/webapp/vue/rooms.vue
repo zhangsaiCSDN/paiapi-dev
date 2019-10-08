@@ -190,6 +190,19 @@
 							window.clearInterval(time)
 							_this.flag = _this.myName==_this.name;
 							alert("竞价结束,获得者为"+_this.name);
+							$.ajax({
+								type: "post",
+								url: "http://localhost:8080/ghistorys",
+								data:{
+									gid:_this.goods.gid,
+									ghmoney:_this.money,
+									gttime:_this.goods.gend,
+									buyerid:_this.uid1,
+									ghdes:_this.goods.ginfo,
+									paystate:0
+								},
+								async:false,
+							});
 							_this.socket.close();
 						// 分钟数和秒数同时为0  小时数--  分钟数和秒数都变为59
 						} else if (_this.minutes === 0 && _this.seconds === 0) {

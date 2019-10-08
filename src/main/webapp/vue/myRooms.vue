@@ -2,7 +2,7 @@
 		<div class="danpin center">
 			<div class="biaoti center">我的竞价室</div>
 			<div class="main center">
-					<div v-for="item in myRooms" class="mingxing fl mb20" style="border:2px solid #fff;width:230px;cursor:pointer;" onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid red'">
+					<div v-for="item in myRooms" class="mingxing1 fl mb20" style="border:2px solid #fff;width:230px;cursor:pointer;" onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid red'">
 						<div class="sub_mingxing"><span @click="rooms(item.gid)"><img :src="'../admin/goods/goodsImg/'+item.image.img" style="width:100%;height:80%;"></span></div>
 						<div class="pinpai2"><span @click="rooms(item.gid)">拍品名称:{{item.goods.gname}}</span></div>
 						<div class="pinpai1"><span @click="rooms(item.gid)">起拍价格:{{item.goods.gprice}}</span></div>
@@ -62,7 +62,8 @@
 </script>
 
 <style scoped>
+	.mingxing1{width: 234px;height: 400px;background: rgb(250,250,250);margin-bottom: 20px;border: 2px solid white;}
 	.pinpai1{width: 234px;height: 14px;line-height: 14px;text-align: center;margin-top: 5px;}
-	.pinpai2{width: 234px;height: 14px;line-height: 14px;text-align: center;margin-top: -25px;}
+	.pinpai2{width: 234px;height: 14px;line-height: 14px;text-align: center;margin-top: 5px;}
 	.pinpai3{color:#ff6709;text-decoration:underline}
 </style>

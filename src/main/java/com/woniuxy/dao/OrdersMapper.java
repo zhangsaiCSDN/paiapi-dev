@@ -36,6 +36,8 @@ public interface OrdersMapper {
     
     List<Orders> findByUid(Map<String , Object> map); //根据用户uid查询
     
+    List<Orders> findByBuyerid(Map<String , Object> map); //根据用户buyerid查询
+    
     Integer findCount(Map<String , Object> map);//根据用户uid查询
     
 }

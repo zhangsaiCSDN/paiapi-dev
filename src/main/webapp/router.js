@@ -40,6 +40,7 @@ import addGoods from'./vue/addGoods.vue'
 import updateGoods from'./vue/updateGoods.vue'
 import message from'./vue/message.vue'
 import goodsUpload from'./vue/goodsUpload.vue'
+import addAddress2 from './vue/addAddress2.vue'
 
 var router = new VueRouter({
 	routes:[
@@ -68,11 +69,12 @@ var router = new VueRouter({
 					{path:"/deposit",component:deposit},
 					{path:"/rooms/:gid",component:rooms},
 					{path:"/wushuang",component:wushuang},
-					{path:"/message/:gid",component:message},
+					{path:"/message/:gid/:money",component:message},
 					{path:"/myRooms",component:myRooms},
 					{path:"/address",name:'address', component:address},
 					{path:"/updateAddress",component:updateAddress},
 					{path:"/addAddress",component:addAddress},
+					{path:"/addAddress2/:gid/:money",component:addAddress2},
 					{path:"/userCenter/userInfo",component:userInfo},
 					{path:"/",component:userInfo}
 				]},

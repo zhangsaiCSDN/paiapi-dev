@@ -74,6 +74,17 @@ public class OrdersServiceImpl implements IOrdersService {
 		return findCount;
 	}
 
+	@Override
+	public List<Orders> findByBuyerid(Map<String, Object> map) {
+		Integer rowCount = mapper.findCount(map);//查出buyerid的order数量
+		Page page = (Page) map.get("page");
+		page.setRowCount(rowCount); //将数量存入
+		
+		map.put("page", page); //cho
+		List<Orders> list = mapper.findByUid(map);  //map中封装了 page 和buyerid
+		return list;
+	}
+
 
 
 

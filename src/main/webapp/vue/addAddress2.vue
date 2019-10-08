@@ -69,7 +69,9 @@
 					select: self.select,
 			
 				}).then(function(response) {
-					self.$router.push({path:"/address"});
+					self.$router.push({
+						path:"/message/"+self.$route.params.gid+"/"+self.$route.params.money
+					});
 					self.$Message.success('添加成功! 已为您跳转至地址页面.');
 				})
 			},　
