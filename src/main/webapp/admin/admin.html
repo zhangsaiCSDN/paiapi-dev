@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="style.css">
+		<script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+		<script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.min.js"></script>
+	</head>
+	<body>
+		<div id="app">
+			<form class="login-form">
+				<h3>拍拍网后台管理系统</h3>
+
+				<div class="txtb">
+					用户名:<input type="text" v-model="uname">
+				</div>
+
+				<div class="txtb">
+					密&nbsp;&nbsp;&nbsp;&nbsp;码:<input type="password" v-model="upwd">
+				</div>
+
+				<button type="button" class="logbtn" @click="login">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+
+				<div class="txtb">
+					测试账号:admin &nbsp;&nbsp;&nbsp;&nbsp;
+					密码:admin
+				</div>
+
+			</form>
+		</div>
+
+
+		<script type="text/javascript">
+			$(".txtb input").on("focus", function() {
+				$(this).addClass("focus");
+			});
+
+			$(".txtb input").on("blur", function() {
+				if ($(this).val() == "")
+					$(this).removeClass("focus");
+			});
+
+			var vue = new Vue({
+				el: '#app',
+				data: {
+					uname: '',
+					upwd: '',
+
+				},
+				methods: {
+					login() {
+						axios.post('http://localhost:8080/users/login', {
+							'uname': this.uname,
+							'upwd': this.upwd
+						}).then((response) => {
+							if (response.data.status == 500) {
+								alert('登录失败');
+							} else {
+								window.location.href='/admin/index.html';
+							}
+						})
+					}
+				}
+
+
+			});
+		</script>
+
+
+	</body>
+</html>
