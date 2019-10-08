@@ -71,7 +71,8 @@ var router = new VueRouter({
 					{path:"/address",name:'address', component:address},
 					{path:"/updateAddress",component:updateAddress},
 					{path:"/addAddress",component:addAddress},
-					{path:"/userCenter/userInfo",component:userInfo}
+					{path:"/userCenter/userInfo",component:userInfo},
+					{path:"/",component:userInfo}
 				]},
 				{path:"/salerCenter",component:salerCenter,children:[
 					{path:"/salerOrder",component:salerOrder},
@@ -81,6 +82,7 @@ var router = new VueRouter({
 					{ path:'/updateGoods/:gid', component:updateGoods },
 					{ path:'/goodsUpload', component:goodsUpload },
 					{path:"/salerCenter/userInfo",component:userInfo},
+					{path:"/",component:userInfo},
 					{path:"/salerCenter/deposit",component:deposit},
 				]},
 				 
