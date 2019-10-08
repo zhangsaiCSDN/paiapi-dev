@@ -45,7 +45,7 @@ public class AddressController {
 	
 	@DeleteMapping
 	@ResponseBody
-	public void delete(Integer aid) {
+	public void delete(Integer aid,HttpSession session) {
 		service.delete(aid);
 	}
 	
@@ -87,6 +87,9 @@ public class AddressController {
 		
 		Page<Address> page=new Page<>(p,rc,5);
 		List<Address> list=service.find(page);
+		for (Address address : list) {
+			System.out.println(address);
+		}
 		map.put("page", page);
 		List find = service.find(map);
 		page.setList(find);

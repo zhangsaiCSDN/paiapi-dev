@@ -16,7 +16,7 @@
 	        <tbody>
 	        	<tr v-for = "item in list" >
 	        		<th>{{item.aid}}</th>
-	        		<th>{{item.uid}}</th>
+	        		<th>{{uname}}</th>
 	        		<th>{{item.ainfo}}</th>
 	        		<th>{{item.apost}}</th>
 	        		<th>{{item.aphone}}</th>
@@ -65,6 +65,7 @@
 			u_ainfo:"",
 			u_apost:"",
 			u_aphone:"",
+			uname:"",
 			list:[],
 			address:"",
 			mypage:[],

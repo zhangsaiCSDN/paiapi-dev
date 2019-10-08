@@ -241,7 +241,7 @@
   
    <select id="findCount" resultType="java.lang.Integer">
 
-		SELECT COUNT(*) FROM address a
+		SELECT COUNT(*),u.uname FROM address a
 		INNER JOIN user u ON a.uid=u.uid
 	<where>
 		<if test="uid != null">
