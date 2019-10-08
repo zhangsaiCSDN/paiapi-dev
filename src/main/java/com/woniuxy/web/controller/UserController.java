@@ -46,7 +46,7 @@ public class UserController {
 	@PostMapping
 	@ResponseBody
 	public Map<String, Object> save(@RequestBody User user) {
-		System.out.println(user);
+//		System.out.println(user);
 		Map<String, Object> map = new HashMap<>();
 		try {
 			String password_salt = AppUtils.uuid();
@@ -55,7 +55,7 @@ public class UserController {
 			user.setSalt(password_salt);
 			map.put("status", 200);
 			map.put("message", "注册成功");
-			System.out.println(user);
+//			System.out.println(user);
 			service.save(user);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -188,11 +188,11 @@ public class UserController {
 	@ResponseBody
 	public Map<String, Object> getTelCode(HttpServletRequest req, HttpServletResponse resp,String uname,String tel) throws IOException {
 		Map<String, Object> resultMap = new HashMap<>();
-		System.out.println(uname+tel);
+//		System.out.println(uname+tel);
 		Map<String, String> codeMap = SmS.sendCode(uname, tel);
 		HttpSession session = req.getSession();
 		session.setAttribute("code", codeMap.get("code").toString());
-		System.out.println(codeMap);
+//		System.out.println(codeMap);
 		
 		String sendResult = codeMap.get("result");
 		 
