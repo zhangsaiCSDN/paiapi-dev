@@ -44,12 +44,13 @@
 			<div class="search fr">
 				<form action="" method="post">
 					<div class="text fl">
-						<input type="text" class="shuru" placeholder="瓷器专场">
+						<input type="text" class="shuru" placeholder="区域" id="searchId2" style="width:50%;float:left;">
+						<input type="text" class="shuru" placeholder="拍品名称" id="searchId" style="width:50%;">
 					</div>
 					<div class="submit fl">
-						<router-link to="/list">
-							<input class="sousuo" type="button" value="搜索" />
-						</router-link>
+						
+							<input class="sousuo" type="button" value="搜索" @click="searchBtn"  />
+						
 					</div>
 					<div class="clear"></div>
 				</form>
@@ -61,7 +62,7 @@
 		<!--组件切换用-->
 
 		<div>
-			<router-view></router-view>
+			<router-view ref="xx"></router-view>
 		</div>
 
 		<footer class="mt20 center">
@@ -119,6 +120,12 @@
 					this.startMove();
 				}, 5000); // 滚动不需要停顿则将2000改成动画持续时间
 			},
+			searchBtn(){
+				var g = document.getElementById("searchId");
+				var ga = document.getElementById("searchId2");
+				this.$refs.xx.search(g,ga)
+				
+			}
 		}
 	}
 </script>

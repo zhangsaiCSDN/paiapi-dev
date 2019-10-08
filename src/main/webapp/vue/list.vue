@@ -58,7 +58,7 @@ export default {
 				});
 			},
 			search(g,ga) {
-				alert( ga.value)
+				
 				var self = this;
 				this.$ajax.get("http://localhost:8080/goods/image", {
 					params: {
