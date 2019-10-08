@@ -66,4 +66,11 @@ public class RoomServiceImpl implements IRoomService {
 		return mapper.findByState(uid);
 	}
 
+	@Override
+	public List<Room> findBySalerid(Integer salerId) {
+		// TODO Auto-generated method stub
+		System.out.println("RoomServiceImpl.findBySalerid()"+salerId);
+		return mapper.findBySalerid(salerId);
+	}
+
 }

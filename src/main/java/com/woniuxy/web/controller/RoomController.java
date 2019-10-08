@@ -63,6 +63,15 @@ public class RoomController {
 	public List<Room> findbyState(Integer uid,HttpServletResponse response) {
 		return roomService.findByState(uid);
 	}
+	
+	@GetMapping("/salerid")
+	@ResponseBody
+	public List<Room> findBySalerId(Integer salerId,HttpServletResponse response) {
+		System.out.println("RoomController.findBySalerId()"+salerId);
+		return roomService.findBySalerid(salerId);
+	}
+	
+	
 	@GetMapping
 	@ResponseBody
 	public Page<Room> findByPage(Integer p){

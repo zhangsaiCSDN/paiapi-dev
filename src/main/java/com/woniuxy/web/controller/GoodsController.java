@@ -122,7 +122,6 @@ public class GoodsController {
 	@GetMapping("findOne")
 	@ResponseBody
 	public Goods findOne(Integer gid) {
-		System.out.println(gid);
 		return service.findOne(gid);
 	}
 	
@@ -135,7 +134,7 @@ public class GoodsController {
 			if(map.get("p")==null)map.put("p", 1);
 			int count=service.count();
 			
-			Page<Goods> page=new Page<>(Integer.parseInt(map.get("p").toString()),count,3);
+			Page<Goods> page=new Page<>(Integer.parseInt(map.get("p").toString()),count,5);
 			
 			map.put("uid",1);
 			map.put("page", page);
