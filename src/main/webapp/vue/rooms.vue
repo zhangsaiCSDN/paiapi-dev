@@ -21,23 +21,26 @@
 			</div>
 		</div>
 		
-		<div class="jieshao mt20 w1">
-			<div class="left1 fl"></div>
+		<div class="jieshao1 mt20 w1">
+			<div class="left1 fl"><img :src="image" style="width:100%;height:100%;"></div>
 			<div class="right1 fr">
 				<div id=message class="banner_x2 sub_content6"></div>
 			</div>
-			<div class="sub_content2 fl"><button class="sub_content3" type="button" @click="close11()">退出房间</button></div>
-			<div  class="sub_content2 fr">每次加价幅度:{{goods.ggap}}<button class="sub_content3" type="button" @click="send">竞价</button></div>
+			<div class="jieshao1">
+				<div class="sub_content2 fl"><button class="sub_content3" type="button" @click="close11()">退出房间</button></div>
+				<div  class="sub_content2 fr">每次加价幅度:{{goods.ggap}}<button class="sub_content3" type="button" @click="send">竞价</button></div>
+			</div>
 		</div>
 	</div>
 </template>
 <style scoped>
+	.jieshao1{height: 400px; }
 	.banner_x2 {height:350px;border:1px solid #999;overflow-y:auto;}
 	.w1{width: 978px;margin: 0 auto;}
 	.w2{width: 900px;height:50px}
 	.w3{width: 978px;height:50px}
 	.left1{width:330px;height:350px;border:1px solid #ccc;}
-	.right1{width:648px;background:rgb(248,248,248);height:450px}
+	.right1{width:648px;background:rgb(248,248,248);height:350px}
 	.sub_content1{width:50px;color:red;font-size:30px;align:right}
 	.sub_content4{width:50px;color:blue;font-size:30px;align:center}
 	.sub_content2{color:#1E90FF;font-size:30px;align:center}
@@ -70,7 +73,8 @@
 					odtime:'',
 					uid:'',
 					flag:false,
-					flags:''
+					flags:'',
+					image:''
 				}
 			},
 			mounted() {
@@ -104,7 +108,9 @@
 							self.minutes = parseInt((time-self.hour*60*60)/60);
 							self.seconds = time%60;
 							self.flags = self.uid1==self.goods.salerid;
-							
+							self.$ajax.get("http://localhost:8080/images/findOne?gid="+gid).then(function(response){
+								self.image ="../admin/goods/goodsImg/"+ response.data.img;
+							});
 							
 						}
 					);
