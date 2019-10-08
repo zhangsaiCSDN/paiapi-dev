@@ -42,10 +42,10 @@ public class ShiroConfig {
 		realm.setDataSource(ds());
 
 		// 认证
-		realm.setAuthenticationQuery("SELECT upwd,salt FROM USER WHERE uname=?");
+		realm.setAuthenticationQuery("SELECT upwd,salt FROM user WHERE uname=?");
 		// 根据用户名查询角色
 		realm.setUserRolesQuery(
-				"SELECT rname FROM user_role ur INNER JOIN USER u ON ur.`uid` = u.`uid` INNER JOIN role r ON ur.rid = r.rid AND uname = ?");
+				"SELECT rname FROM user_role ur INNER JOIN user u ON ur.`uid` = u.`uid` INNER JOIN role r ON ur.rid = r.rid AND uname = ?");
 		// 根据角色名查询权限
 		realm.setPermissionsQuery(
 				"SELECT pmsname FROM role_permission rp INNER JOIN role r ON rp.`rid` = r.`rid` INNER JOIN permission p ON rp.`pmsid` = p.`pmsid` AND rname = ?");
@@ -80,6 +80,7 @@ public class ShiroConfig {
 		Map<String, String> filterChainDefinitionMap = new LinkedHashMap<String, String>();
 //		filterChainDefinitionMap.put("/admin/index.html", "authc");
 		filterChainDefinitionMap.put("/admin/index.html", "authc");
+		filterChainDefinitionMap.put("/admin/index.html", "authc,roles[admin]");
 		sf.setUnauthorizedUrl("/admin/admin.html");
 		sf.setLoginUrl("/admin/admin.html");
 		sf.setFilterChainDefinitionMap(filterChainDefinitionMap);
