@@ -38,10 +38,22 @@ export default {
 		data() {
 			return {
 				goods: [],
+				
 			};
 		},
 		mounted: function() {
-			this.findAll(1);
+			var g=this.$parent.g;
+			var ga=this.$parent.ga;
+			if(g==""&ga==""){
+				this.findAll(1);
+			}else{
+				 
+				 this.goodsFind(g,ga);
+			}
+				
+				
+				
+			
 		},
 		methods: {
 			findAll(p) {
@@ -57,20 +69,22 @@ export default {
 					path: "goodsOne/" + gid
 				});
 			},
-			search(g,ga) {
+			goodsFind(g,ga){
 				
 				var self = this;
+				
 				this.$ajax.get("http://localhost:8080/goods/image", {
 					params: {
 						p: 1,
-						gname: g.value,
-						garea: ga.value
+						gname: g,
+						garea: ga
 					}
 				}).then(
 					function(response) {
 						self.goods = response.data;
-						g.value = "";
-						ga.value = "";
+						self.$parent.g="";
+						self.$parent.ga="";
+						
 					});
 			}
 		}
