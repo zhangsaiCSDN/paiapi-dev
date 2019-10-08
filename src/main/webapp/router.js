@@ -75,7 +75,6 @@ var router = new VueRouter({
 					{path:"/addAddress",component:addAddress},
 					{path:"/userCenter/userInfo",component:userInfo},
 					{path:"/",component:userInfo}
-					
 				]},
 				{path:"/salerCenter",component:salerCenter,children:[
 					{path:"/salerOrder",component:salerOrder},

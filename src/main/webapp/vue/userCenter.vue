@@ -12,7 +12,6 @@
 					<li><router-link to="/myRooms">我的竞价室</router-link></li>
 					<li><router-link to="/wushuang">我的收藏</router-link></li>
 				</ul>
-				
 			</div>
 			<div class="ddzx">个人中心</div>
 			<div class="subddzx">
