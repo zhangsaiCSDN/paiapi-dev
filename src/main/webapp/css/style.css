@@ -1,10 +1,10 @@
 *{margin: 0;padding: 0;text-decoration: none;list-style-type: none;font-family: Times New Roman;}
 
-img{border:none;}
-a{border:none;text-decoration: none;color:#000;}
+img{border:none;}    
+a{border:none;text-decoration: none;color:#000;} 
 .border{border:1px solid red;}
 .center{margin: 0 auto;}
-.w{width: 1226px;margin: 0 auto;}
+.w{width: 1226px;margin: 0 auto;} 
 .fl{float: left;}
 .fr{float: right;}
 .clear{clear:both;}
@@ -46,7 +46,7 @@ header .top .right .gouwuche:hover{color:#000;background: #666;}
 
 /*banner_x*/
 .banner_x {width: 1226px;height: 100px;}
-.banner_x .logo{background: url('../image/paipai_logo.png') no-repeat ;width: 220px;height: 100px;}
+.banner_x .logo{background: url('../image/logo.png') no-repeat ;width: 220px;height: 100px;}
 .banner_x .nav ul li{float: left;height: 100px;line-height: 100px;}
 .banner_x .nav ul li a{display:inline-block;color: #000;font-size: 18px;font-weight:500;padding: 0 14px;}
 .banner_x .nav ul li a:hover{color: rgb(255,103,0); }
@@ -96,8 +96,8 @@ header .top .right .gouwuche:hover{color:#000;background: #666;}
 .sub_banner .sidebar div{width: 78px;height: 85px;marign:0;padding: 0;background-color: rgb(250,250,250);}
 .sub_banner .sidebar div a img{opacity:0.8;}
 .sub_banner .sidebar div a img:hover{opacity:1;}
-.sub_banner .datu{width: 296px;height: 170px;margin-left: 14px;margin-bottom:20px;text-align: center;background-color: rgb(250,250,250);}
-.sub_banner .datu a img{width: 296px;height: 170px;opacity:0.8;}
+.sub_banner .datu{width: 1226px;height: 170px;margin-bottom:20px;text-align: center;background-color: rgb(250,250,250);}
+.sub_banner .datu a img{width: 1226px;height: 170px;opacity:0.8;}
 .sub_banner .datu a img:hover{opacity:1;}
 /*danpin*/
 .biaoti{width: 1226px;height: px;line-height: 58px;font-size: 
@@ -108,7 +108,7 @@ header .top .right .gouwuche:hover{color:#000;background: #666;}
 .danpin .main .mingxing:hover{border-color:lightsalmon;}
 .danpin .main .mingxing:nth-of-type(1){border-top: 1px solid orange;margin-right:14px;}
 .danpin .main .mingxing:nth-of-type(2){border-top: 1px solid green;margin-right:14px;}
-.danpin .main .mingxing:nth-of-type(3){border-top: 1px solid blue;margin-right:14px;}
+.danpin .main .mingxing:nth-of-tydape(3){border-top: 1px solid blue;margin-right:14px;}
 .danpin .main .mingxing:nth-of-type(4){border-top: 1px solid red;margin-right:14px;}
 .danpin .main .mingxing:nth-of-type(5){border-top: 1px solid teal;}
 .danpin .main .mingxing:nth-of-type(6){border-top: 1px solid orange;margin-right:14px;}
@@ -243,4 +243,4 @@ header .top .right .gouwuche:hover{color:#000;background: #666;}
 .grzxbj .selfinfo .rtcont .ddxq .ztxx ul li a{color:rgb(117,117,117);}
 .grzxbj .selfinfo .rtcont .ddxq .ztxx ul li a:hover{color:#ff6700;}
 /*footer*/
-footer{width: 100%;height: 120px;line-height: 120px;text-align: center;font-size: 14px;background: rgb(250,250,250);padding:30px 0;}
+footer{width: 100%;height: 60px;line-height: 120px;text-align: center;font-size: 14px;background: rgb(250,250,250);padding:30px 0;}

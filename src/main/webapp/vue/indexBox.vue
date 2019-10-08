@@ -1,16 +1,16 @@
 <template> 
 	<div>
-		<!-- start banner_y -->
+		<!-- start banner_y -->   
 		<div class="banner_y center" >
-			<div class="nav" >				
+			<div class="nav" >
 				<ul >
 					<li v-for="gt in goodsType">
 						<a href="">{{gt.gtname}}</a>
 						<div class="pop">
 							<div class="left fl" v-for="g in gt.goods">
 								<div class="xuangou_left fl" >
-									<a href=""> 
-										<div class="img fl"><img :src='g.images[0] ? "../admin/goods/goodsImg/"+g.images[0].img : "../image/733db5ee-2e56-41fe-8286-3a3f87193496.jpg" ' ></div>
+									<a @click="findOne(g.gid)"> 
+										<div class="img fl"><img :src='g.images[0] ? "../admin/goods/goodsImg/"+g.images[0].img : "../image/733db5ee-2e56-41fe-8286-3a3f87193496.jpg" '></div>
 										<span class="fl">{{g.gname}}</span>
 									</a>
 								</div> 
@@ -33,10 +33,10 @@
 				热门竞拍专场
 				<router-link to="/biddingRoomList"><a class="biaoqian fl">查看更多></a></router-link>
 			</div>
-			<div class="datu fl" style="margin-left: 0px"><router-link to="/biddingRoom"><img src="https://img12.360buyimg.com/paimai/s840x283_jfs/t1/55998/32/789/395304/5ce80029E474146e2/ba1497caa6e31307.jpg!q90.webp"></router-link></div>
-			<div class="datu fl"><router-link to="/biddingRoom"><img src="https://img12.360buyimg.com/paimai/s840x283_jfs/t1/55998/32/789/395304/5ce80029E474146e2/ba1497caa6e31307.jpg!q90.webp"></router-link></div>
-			<div class="datu fl"><router-link to="/biddingRoom"><img src="https://img12.360buyimg.com/paimai/s840x283_jfs/t1/55998/32/789/395304/5ce80029E474146e2/ba1497caa6e31307.jpg!q90.webp"></router-link></div>
-			<div class="datu fl"><router-link to="/biddingRoom"><img src="https://img12.360buyimg.com/paimai/s840x283_jfs/t1/55998/32/789/395304/5ce80029E474146e2/ba1497caa6e31307.jpg!q90.webp"></router-link></div>
+			<div class="datu fl" style="margin-left: 0px"><img src="http://img10.360buyimg.com/paimai/jfs/t1/50758/8/12372/24684/5d91ae88Ec99dbc3f/dd228d5a1a503563.jpg!q90.webp"></div>
+			<div class="datu fl"><img src="http://img11.360buyimg.com/paimai/jfs/t1/75481/28/11392/73340/5d8dcf13Edb37b553/f8efff40f8eeb267.jpg!q90.webp"></div>
+			<div class="datu fl"><img src="http://img11.360buyimg.com/paimai/jfs/t1/46926/3/7467/34352/5d50cf33E66a50ae4/60759c34ea4bc2ea.jpg!q90.webp"></div>
+			<div class="datu fl"><img src="http://img10.360buyimg.com/paimai/jfs/t1/34922/30/10472/78215/5ce21a7aE6c8eef61/e6bbc8213843232b.jpg!q90.webp"></div>
 		</div>
 			
 		<!-- start danpin -->
@@ -94,6 +94,11 @@ export default{
 			this.$router.push({
 				path: "goodsOne/" + gid
 			});
+		},
+		findByGoodsType(gtid){
+			this.$router.push({
+				path:"list/"+gtid
+			})
 		}
 	}
 }

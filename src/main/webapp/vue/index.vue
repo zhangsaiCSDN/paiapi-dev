@@ -8,6 +8,10 @@
 							<router-link to='/index'>商城首页</router-link>
 						</li>
 						<li>|</li>
+						<li @click="back">
+							<a>网站后台</a>
+						</li>
+						<li>|</li>
 
 						<li @click="modal2=true"><a>问题反馈</a></li>
 						<div class="clear"></div>
@@ -142,6 +146,9 @@
 			},
 			fankui() {
 
+			},
+			back(){
+				location.href='http://localhost:8080/admin/admin.html';
 			}
 
 		},
