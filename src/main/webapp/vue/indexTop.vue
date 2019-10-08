@@ -8,7 +8,7 @@
 		<!-- announce -->
 		<div class="announce">
 			<transition name="slide">
-				<p class="text" :key="text.id">{{text.val}}</p>
+				<p class="text" :key="text.id" style="color: #ec7259;">{{text.val}}</p>
 			</transition>
 		</div>
 
@@ -78,13 +78,6 @@
 	export default {
 		data() {
 			return {
-				textArr: [
-					'第一条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
-					'第二条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
-					'第三条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
-					'第四条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
-					'第五条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
-				],
 				announces: [],
 				number: 0
 			};
@@ -106,12 +99,10 @@
 			})
 		},
 		mounted: function() {
-
 			this.startMove()
 		},
 		methods: {
 			enterUserCenter() {
-				console.log("hahahahq23333");
 				this.$router.push('userCenter');
 			},
 			startMove() {
