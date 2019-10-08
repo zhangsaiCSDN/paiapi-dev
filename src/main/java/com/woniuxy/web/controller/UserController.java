@@ -48,19 +48,24 @@ public class UserController {
 	public Map<String, Object> save(@RequestBody User user) {
 //		System.out.println(user);
 		Map<String, Object> map = new HashMap<>();
-		try {
-			String password_salt = AppUtils.uuid();
-			String password = AppUtils.encrypt(user.getUpwd(), password_salt);
-			user.setUpwd(password);
-			user.setSalt(password_salt);
-			map.put("status", 200);
-			map.put("message", "注册成功");
-//			System.out.println(user);
-			service.save(user);
-		} catch (Exception e) {
-			e.printStackTrace();
+		if (user.getUname()!=null&&user.getUpwd()!=null) {
+			try {
+				String password_salt = AppUtils.uuid();
+				String password = AppUtils.encrypt(user.getUpwd(), password_salt);
+				user.setUpwd(password);
+				user.setSalt(password_salt);
+				map.put("status", 200);
+				map.put("message", "注册成功");
+//				System.out.println(user);
+				service.save(user);
+			} catch (Exception e) {
+				e.printStackTrace();
+				map.put("status", 500);
+				map.put("message", "注册失败，可能是用户名已存在");
+			}
+		}else {
 			map.put("status", 500);
-			map.put("message", "注册失败，可能是用户名已存在");
+			map.put("message", "注册失败，参数非法");
 		}
 		return map;
 	}
