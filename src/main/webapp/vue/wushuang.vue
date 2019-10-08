@@ -50,7 +50,7 @@
 					<div class="jiesuanjiage fl">共计：<span>{{countMoney}}元</span></div>
 					<div class="jsanniu fr">
 							<button @click="qx()" class="jsan btn btn-danger">
-								结账
+								支付
 							</button>
 					</div>
 					<div class="clear"></div>
@@ -74,20 +74,6 @@
 										class="btn btn-outline-primary">末页</button>
 				
 				</div>
-				
-				<div class="sub_content fl ">
-				<button class="btn btn-success btn-block">
-				 <span class="glyphicon glyphicon-home" aria-hidden="true"></span> <router-link to="/myRooms/1">进入竞价室</router-link>
-				 
-				 </button>
-				</div>
-				<div class="sub_content fl ">
-				<button class="btn btn-warning btn-block">
-				
-				 <span class="glyphicon glyphicon-usd" aria-hidden="true"><router-link to="/deposit">保证金</router-link></span>
-				 </button> 
-				</div>
-				
 				
 		</div>
 	
@@ -141,8 +127,7 @@
 					self.pages(self.collects.startPage,self.collects.endPage);
 				})
 			},
-			
-			
+				
 					/*分页页码数据  */
 				pages(startPage,endPage){
 					var self=this;
@@ -176,6 +161,16 @@
 				
 				
 			},
+				qx(){
+					var self=this
+					this.$ajax.put("http://localhost:8080/deposits/updateList",{
+							'list':self.checkedNames
+						}).then(function(response){
+							self.find(self.page.p);
+							alert(response.data);
+					})
+					
+				},
 				
 				edit(item){
 					 var self=this;
@@ -206,12 +201,10 @@
 			
 			
 			},
-			
 				
 			mounted:function(){
 				this.find(1)
 			},
-			
 			
 		}
 	
@@ -260,7 +253,12 @@
 .gwcxqbj .gwcxd .top2 .sub_top[data-v-e7bd4f56]:nth-of-type(2){margin-left:153px;}
 .gwcxqbj .gwcxd .top2 .sub_top[data-v-e7bd4f56]:nth-of-type(4){margin-left:109px;}
 .gwcxqbj .gwcxd .top2 .sub_top[data-v-e7bd4f56]:nth-of-type(5){margin-left:64px;}
-.ok{margin-left:750px;}
+.ok{margin-left:300px;}
 .11{margin-left:750px;}
 footer{width: 100%;height: 120px;line-height: 30px;text-align: center;font-size: 12px;background: rgb(250,250,250);padding:30px 0;}
+.gwcxqbj .gwcxd .content2 .sub_content[data-v-3f001def]:nth-of-type(3){width:120px;margin-left:41px;}
+.gwcxqbj .gwcxd .content2 .sub_content[data-v-3f001def]:nth-of-type(5){width:50px;margin-left:}
+.gwcxqbj .gwcxd .content2 .sub_content[data-v-3f001def]:nth-of-type(4){margin-left:108px;}
+.gwcxqbj .gwcxd .top2 .sub_top[data-v-3f001def]:nth-of-type(4){margin-left:90px;}
+.gwcxqbj .gwcxd .content2 .sub_content[data-v-3f001def]:nth-of-type(6){margin-left:135px;}
 </style>

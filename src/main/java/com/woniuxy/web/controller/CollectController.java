@@ -36,7 +36,7 @@ public class CollectController {
 		
 		if(p==null)p=1;
 		int count = service.count();
-		Page<Collect> page = new Page<>(p,count,5);
+		Page<Collect> page = new Page<>(p,count,3);
 		List<Collect> list = service.find(page);
 		page.setList(list);
 		return page;

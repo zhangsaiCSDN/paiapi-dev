@@ -11,7 +11,7 @@
 					<li><router-link to="/goodsHistory">拍品记录</router-link></li>
 					<li><router-link to="/myRooms/1">我的竞价室</router-link></li>
 					<li><router-link to="">我的消息</router-link></li>
-					<li><router-link to="">我的收藏</router-link></li>
+					<li><router-link to="/wushuang">我的收藏</router-link></li>
 				</ul>
 			</div>
 			<div class="ddzx">个人中心</div>

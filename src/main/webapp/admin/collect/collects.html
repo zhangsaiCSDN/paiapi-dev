@@ -56,60 +56,11 @@ th {
 </head>
 <body>
 
-	<div class="layui-fluid">
-		<div class="layui-card">
-			<div class="layui-form layui-card-header layuiadmin-card-header-auto">
-				<div class="layui-form-item">
-					<div class="layui-inline">
-						<label class="layui-form-label">ID</label>
-						<div class="layui-input-block">
-							<input type="text" name="apid" placeholder="请输入"
-								autocomplete="off" class="layui-input">
-						</div>
-					</div>
-					<div class="layui-inline">
-						<label class="layui-form-label">用户名</label>
-						<div class="layui-input-block">
-							<input type="text" name="username" placeholder="请输入"
-								autocomplete="off" class="layui-input">
-						</div>
-					</div>
-					<div class="layui-inline">
-						<label class="layui-form-label">邮箱</label>
-						<div class="layui-input-block">
-							<input type="text" name="email" placeholder="请输入"
-								autocomplete="off" class="layui-input">
-						</div>
-					</div>
-					<div class="layui-inline">
-						<label class="layui-form-label">性别</label>
-						<div class="layui-input-block">
-							<select name="sex">
-								<option value="0">不限</option>
-								<option value="1">男</option>
-								<option value="2">女</option>
-							</select>
-						</div>
-					</div>
-					<div class="layui-inline">
-						<button class="layui-btn layuiadmin-btn-useradmin" lay-submit
-							lay-filter="LAY-user-front-search">
-							<i class="layui-icon layui-icon-search layuiadmin-button-btn"></i>
-						</button>
-					</div>
-				</div>
-			</div>
-
-			<div class="layui-card-body">
-				<div style="padding-bottom: 10px;">
-					<button class="layui-btn layuiadmin-btn-useradmin"
-						data-type="batchdel">删除</button>
-					<button id="add" v-on:click="add"
-						class="layui-btn layuiadmin-btn-useradmin" data-type="add">添加</button>
-				</div>
 
 
 				<div id="app">
+				<input type="date"   v-model="search" />
+				<button class="btn btn-success" @click="so">搜索</button>
 					<table lay-filter="LAY-user-manage"
 						class="table table-hover table-striped table-bordered table-light">
 						<thead>
@@ -306,6 +257,7 @@ th {
 			cltime:'',
 			uid:'',
 			gid:'',
+			search:'',
 			c_clid:'',
 			c_uid:'',
 			c_gid:'',
@@ -342,6 +294,9 @@ th {
 					self.v_pages=[];
 					self.pages(self.collects.startPage,self.collects.endPage);
 				})
+			},
+			so(){
+				alert(123);
 			},
 			del(clid){
 				
@@ -406,6 +361,11 @@ th {
 					self.v_pages.push(i);
 					
 				}
+			},
+			search(){
+				
+				
+				alert("搜索");
 			}
 			
 			
