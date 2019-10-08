@@ -84,7 +84,7 @@ public class ShiroConfig {
 		sf.setLoginUrl("/admin/admin.html");
 		sf.setFilterChainDefinitionMap(filterChainDefinitionMap);
 
-		return sf;
+		return sf;  
 	}
 
 }
