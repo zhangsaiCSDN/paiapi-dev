@@ -49,7 +49,7 @@
 	.ff{width:375px;height:50px;}
 	.sub_content6{color:#6C3365;font-size:30px;align:center}
 </style>
-<script>
+<script> 
 	var bb = {
 		data() {
 				return {
