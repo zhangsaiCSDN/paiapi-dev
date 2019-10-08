@@ -1,6 +1,8 @@
 package com.woniuxy.web.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.woniuxy.domain.Address;
+import com.woniuxy.domain.Orders;
 import com.woniuxy.domain.Page;
 import com.woniuxy.service.IAddressService;
 import com.woniuxy.service.impl.UserServiceImpl;
@@ -67,9 +70,29 @@ public class AddressController {
 		page.setList(list);
  		return page;
 	}
+	
 	@GetMapping("findByUid")
 	@ResponseBody
-	public List<Address> findByUid(Integer uid) {
-		return service.findByUid(uid);
+	public Page<Address> findByUid(Integer uid,Integer p) {
+		Map map = new HashMap<String,Object>();
+		map.put("uid", uid);
+		Integer rc = service.findCount(map); //根据条件查到rc
+		
+		if(p==null)p=1;
+		int count=service.count();
+		
+		Page<Address> page=new Page<>(p,rc,5);
+		List<Address> list=service.find(page);
+		for (Address address : list) {
+			
+			System.out.println(address);
+		}
+		map.put("page", page);
+		List find = service.find(map);
+		page.setList(find);
+
+		page.setRowCount(1); //总页数
+		
+		return page;
 	}
 }

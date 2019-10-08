@@ -5,6 +5,8 @@ import com.woniuxy.domain.AddressExample;
 import com.woniuxy.domain.Page;
 
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface AddressMapper {
@@ -32,5 +34,6 @@ public interface AddressMapper {
     
     List<Address> findAll(Page<Address> page);
     
-    List<Address> findByUid(Integer uid);
+    List<Address> findByUid(Map<String , Object> map);
+    Integer findCount(Map<String , Object> map);//根据用户uid查询
 }

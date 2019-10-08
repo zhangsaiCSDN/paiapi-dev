@@ -42,9 +42,10 @@ public class DepositController {
 	
 	@GetMapping("findDepo")
 	@ResponseBody
-	public Page<Deposit> findDepo(Integer p){
+	public Page<Deposit> findDepo(Integer p,Integer uid){
+		System.out.println("收到回复借款收到回复送达回付款单黑色粉红色的萨回复大开杀戒"+uid);
 		if(p==null)p=1;
-		Page<Deposit> page = service.findDepo(p,3);
+		Page<Deposit> page = service.findDepo(p,3 , uid);
 		return page;
 	}
 	

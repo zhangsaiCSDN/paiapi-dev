@@ -1,6 +1,5 @@
-<template>
+<template> 
 	<div>
-		
 		<!-- start header -->
 			<!-- 原来黑色的顶部导航 已移动到index.vue中 -->
 		<!--end header -->
@@ -8,7 +7,7 @@
 		<!-- announce -->
 		<div class="announce">
 			<transition name="slide">
-				<p class="text" :key="text.id">{{text.val}}</p>
+				<p class="text" :key="text.id" style="color: #ec7259;">{{text.val}}</p>
 			</transition>
 		</div>
 
@@ -43,13 +42,14 @@
 				</ul>
 			</div>
 			<div class="search fr">
-				<form >
+				<form action="" method="post">
 					<div class="text fl">
-						<input type="text" class="shuru" placeholder="瓷器专场" id="searchId">
+						<input type="text" class="shuru" placeholder="瓷器专场">
 					</div>
-					
 					<div class="submit fl">
-						<router-link to="/list"><input class="sousuo" type="button" value="搜索" @click="search" /></router-link>
+						<router-link to="/list">
+							<input class="sousuo" type="button" value="搜索" />
+						</router-link>
 					</div>
 					<div class="clear"></div>
 				</form>
@@ -61,13 +61,13 @@
 		<!--组件切换用-->
 
 		<div>
-			<router-view ref="xx"></router-view>
+			<router-view></router-view>
 		</div>
 
-		<footer class="mt20 center" style="clear:both">
+		<footer class="mt20 center">
 			<div>违法和不良信息举报电话：110，本网站所列数据，除特殊说明，所有数据均出自蜗牛拍拍项目组测试</div>
 		</footer>
-		
+
 	</div>
 </template>
 
@@ -78,15 +78,10 @@
 	export default {
 		data() {
 			return {
-				textArr: [
-					'第一条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
-					'第二条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
-					'第三条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
-					'第四条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
-					'第五条公告：距离清乾隆花瓶开拍还有一个小时~~~~~~~~~~~~~~~~~~~~~~',
-				],
 				announces: [],
-				number: 0
+				number: 0,
+				goods:[],
+				search:'',
 			};
 		},
 		computed: {
@@ -111,7 +106,6 @@
 		},
 		methods: {
 			enterUserCenter() {
-				console.log("hahahahq23333");
 				this.$router.push('userCenter');
 			},
 			startMove() {
@@ -123,13 +117,8 @@
 						this.number += 1;
 					}
 					this.startMove();
-				}, 2000); // 滚动不需要停顿则将2000改成动画持续时间
+				}, 5000); // 滚动不需要停顿则将2000改成动画持续时间
 			},
-			search(){
-				var g = document.getElementById("searchId");
-				this.$refs.xx.search(g)
-				
-			}
 		}
 	}
 </script>

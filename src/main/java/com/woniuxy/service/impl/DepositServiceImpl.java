@@ -77,11 +77,11 @@ public class DepositServiceImpl implements IDepositService {
 	}
 
 	@Override
-	public Page<Deposit> findDepo(Integer p ,Integer size) {
+	public Page<Deposit> findDepo(Integer p ,Integer size ,Integer uid) {
 		// TODO Auto-generated method stub
-		int findCount = mapper.findCount();
+		int findCount = mapper.findCount(uid);
 		Page<Deposit> page = new Page<Deposit>(p, findCount, size);
-		List<Deposit> list = mapper.findDepo(page);
+		List<Deposit> list = mapper.findDepo(page,uid);
 		page.setList(list);
 		return page;
 	}

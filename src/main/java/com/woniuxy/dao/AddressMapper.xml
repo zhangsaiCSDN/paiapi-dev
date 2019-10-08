@@ -239,6 +239,16 @@
 	select * from address where uid = #{uid}
   </select>
   
+   <select id="findCount" resultType="java.lang.Integer">
+
+		SELECT COUNT(*) FROM address a
+		INNER JOIN user u ON a.uid=u.uid
+	<where>
+		<if test="uid != null">
+			and u.uid = #{uid}
+		</if>
+	</where>
+  </select>
   
   
   

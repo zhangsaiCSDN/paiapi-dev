@@ -228,7 +228,7 @@
 			},
 			methods:{
 				find(page){
-					this.$http.get("http://localhost:8080/addresses",
+					this.$ajax.get("http://localhost:8080/addresses",
 							{params:{
 									p:page
 									}
@@ -241,13 +241,13 @@
 					});
 				},
 				del(aid){
-					this.$http.post("http://localhost:8080/addresses",{"aid":aid,"_method":"delete"},{emulateJSON:true}).then(function(){
+					this.$ajax.post("http://localhost:8080/addresses",{"aid":aid,"_method":"delete"},{emulateJSON:true}).then(function(){
 						this.find(this.address.p);
 					});
 				},
 				save(){
 					var json = {"aid":null,"uid":this.uid,"ainfo":this.ainfo,"apost":this.apost,"aphone":this.aphone};
-					this.$http.post("http://localhost:8080/addresses",json).then(function(){
+					this.$ajax.post("http://localhost:8080/addresses",json).then(function(){
 						this.find(this.address.p);
 						this.uid="";
 						this.ainfo="";
@@ -270,7 +270,7 @@
 				},
 				update(){
 					var json={"aid":this.u_aid,"uid":this.u_uid,"ainfo":this.u_ainfo,"apost":this.u_apost,"aphone":this.u_aphone,"_method":"put"};
-					this.$http.post("http://localhost:8080/addresses",json,{emulateJSON:true}).then(function(){
+					this.$ajax.post("http://localhost:8080/addresses",json,{emulateJSON:true}).then(function(){
 						this.find(1);
 						
 					});

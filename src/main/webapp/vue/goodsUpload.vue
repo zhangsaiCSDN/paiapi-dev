@@ -6,7 +6,6 @@
 						<input type="file"  id="file"  multiple="multiple" />
 						图片<br>
 						
-						
 			        </div>
 			   
 			        <!-- 模态框底部 -->
@@ -34,8 +33,9 @@
 				var photo = document.getElementById("file").files;
 				
 				filess.append("gid",1);
-				filess.append("photo",photo);
-				
+				for( var i in photo){
+					filess.append("photo",photo[i]);
+				}
 				console.log(photo);
 				
 				var self = this; 

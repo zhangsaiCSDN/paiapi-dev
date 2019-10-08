@@ -15,7 +15,7 @@ public interface IDepositService {
 	Deposit findOne(Integer did);
 	List<Deposit> find(Page<Deposit> page);
 	Integer count();
-	Page<Deposit> findDepo(Integer p ,Integer size);
+	Page<Deposit> findDepo(Integer p ,Integer size , Integer uid);
 	
 	List<Deposit> search(Map<String,Object> map);
 }

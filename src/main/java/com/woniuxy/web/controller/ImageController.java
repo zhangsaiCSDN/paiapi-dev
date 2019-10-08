@@ -138,14 +138,11 @@ public class ImageController {
     
 	@PostMapping("all")
 	@ResponseBody
-	public String save(@RequestParam("file") MultipartFile[] photo, Integer gid, HttpServletRequest request) {// 支持多个文件的上传
+	public String save(@RequestParam("photo") MultipartFile[] photo, Integer gid, HttpServletRequest request) {// 支持多个文件的上传
 		// 实例化一个文件存放的目录地址
 		String dir = request.getServletContext().getRealPath("/goodsTypeImg");
-		System.out.println("文件上传...."+photo.length);
 		for (MultipartFile file : photo) {
-			System.out.println(file+"~~~~~~~~~"+gid);
 			
-			System.out.println("文件类型:" + file.getContentType());
 
 			String oldName = file.getOriginalFilename(); // 文件名
 			int lastDot = oldName.lastIndexOf(".");
