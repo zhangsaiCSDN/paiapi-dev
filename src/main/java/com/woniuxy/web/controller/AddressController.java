@@ -50,13 +50,13 @@ public class AddressController {
 	}
 	
 //	前台删除
-	@PostMapping("delete")
+	@PostMapping(value="/{aid}")
 	@ResponseBody
-	public void del(Integer aid) {
+	public void del(@PathVariable Integer aid) {
 		System.out.println(aid+"------------------------");
 		service.delete(aid);
-	}
-	
+	} 	 
+	 
 	@PutMapping
 	@ResponseBody
 	public void update(Address address) {
