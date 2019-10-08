@@ -52,13 +52,6 @@
 	    }
 	  },
 		methods: {
-			async isLogin() {
-			var self = this;
-				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
-				self.name = result.data.name;
-				self.uid = result.data.user.uid;
-				self.save();
-			},
 			reset(){
 				this.ainfo="";
 				this.apost="";
@@ -68,17 +61,16 @@
 			
 			save(){
 				var self = this; 
-				alert(self.uid);
+				
 				this.$ajax.post("http://localhost:8080/addresses", {
 					ainfo: self.ainfo,
 					apost: self.apost,
 					aphone: self.aphone,
-					uid: self.uid,
 					select: self.select,
 			
 				}).then(function(response) {
 					self.$router.push({path:"/address"});
-					alert('添加成功!');
+					this.$Message.success('添加成功! 已为您跳转至地址页面.');
 				})
 			},　
 			onSelected: function (data) {

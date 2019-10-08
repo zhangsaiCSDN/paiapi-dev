@@ -16,7 +16,7 @@
 					<div class="sub_content fl ">
 						<input  type="checkbox" v-model="checkedNames" :value="item" class="quanxuan" />
 					</div>
-					<div class="sub_content fl"><img src="../node_modules/image/gwc_xiaomi6.jpg"></div>
+					<div class="sub_content fl"></div>
 					<div class="sub_content fl ">{{item.goods.gname}}</div>
 					<div class="sub_content fl m-le" >{{item.dmoney}}元</div>
 					
@@ -85,7 +85,7 @@
 			</div>
 			
 			
-			<div>
+			<div class="jiesuandan mt20 center">
 				<div colspan="5" style="vertical-align: middle !important; text-align: center;">
 					{{page.p}}/{{page.maxPage}}
 					<button @click='find(1)' class="btn btn-outline-info">
@@ -138,7 +138,8 @@
 			methods:{
 				find(p,uid){
 					var self = this;
-					this.$ajax.get("http://localhost:8080/deposits/findDepo?p="+p+"&uid="+uid).then(
+					var id = self.uid;
+					this.$ajax.get("http://localhost:8080/deposits/findDepo?p="+p+"&uid="+id).then(
 							function(response){
 								self.list = response.data.list;
 								self.page = response.data;
@@ -227,8 +228,8 @@
 			mounted:function(){
 			 var self = this;
 				this.$ajax.get('http://localhost:8080/users/isLogin').then(function(response){
-			    	var uid = response.data.user.uid;
-			     	self.find(1,uid)
+			    	self.uid = response.data.user.uid;
+			     	self.find(1)
 			    });
 			    
 				
@@ -262,8 +263,8 @@
 .gwcxqbj .gwcxd .top2 .sub_top:nth-of-type(4){margin-left: 100px;}
 .gwcxqbj .gwcxd .top2 .sub_top:nth-of-type(5){margin-left: 79px;}
 .gwcxqbj .gwcxd .top2 .sub_top .quanxuan{width:18px;height:18px;border:1px solid #ccc;background: none;}
-.gwcxqbj .gwcxd .content2{width:1226px;height: 120px;border-top: 1px solid #ccc;}
-.gwcxqbj .gwcxd .content2 .sub_content{width:50px;height: 120px;line-height:120px;margin-right: 0px;}
+.gwcxqbj .gwcxd .content2{width:1226px;height: 70px;border-top: 1px solid #ccc;}
+.gwcxqbj .gwcxd .content2 .sub_content{width:50px;height: 70px;line-height:70px;margin-right: 0px;}
 .gwcxqbj .gwcxd .sub_content .quanxuan{width:18px;height:18px;border:1px solid #ccc;background: none;}
 .gwcxqbj .gwcxd .content2 .sub_content img{vertical-align: middle;}
 .gwcxqbj .gwcxd .content2 .sub_content:nth-of-type(1){margin-left: 30px;} 
