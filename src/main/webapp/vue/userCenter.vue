@@ -76,7 +76,6 @@
 							return;
 						};
 					}
-					self.$router.push("/userCenter");
 					}
 				});
 			}
