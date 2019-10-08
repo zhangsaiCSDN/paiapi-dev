@@ -7,7 +7,7 @@
 	        	<tr>
 	        		<th>地址ID</th>  
 	        		<th>用户名</th>  
-	        		<th>地址信息</th>
+	        		<th>收件信息</th>
 	        		<th>邮政编码</th>
 	        		<th>手机号码</th>
 	        		<th>操作</th>    
@@ -17,7 +17,7 @@
 	        	<tr v-for = "item in list" >
 	        		<th>{{item.aid}}</th>
 	        		<th>{{uname}}</th>
-	        		<th>{{item.ainfo}}</th>
+	        		<th>地址:{{item.ainfo}}</th>
 	        		<th>{{item.apost}}</th>
 	        		<th>{{item.aphone}}</th>
 	        		<th>

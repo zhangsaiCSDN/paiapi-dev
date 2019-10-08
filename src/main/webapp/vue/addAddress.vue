@@ -2,7 +2,7 @@
 
 	<div>
         <div class="modal-header">
-          <h4 class="modal-title">增加地址{{uid}}</h4>
+          <h4 class="modal-title">增加地址</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
      
@@ -62,9 +62,8 @@
 			
 			save(){
 				var self = this; 
-				
 				this.$ajax.post("http://localhost:8080/addresses", {
-					ainfo: self.ainfo+self.name,
+					ainfo: self.select.province+self.select.city+self.select.area+self.ainfo+",收件人:"+self.name,
 					apost: self.apost,
 					aphone: self.aphone,
 					select: self.select,
