@@ -109,7 +109,7 @@
 				});
 			},
 			
-			
+			 
 			pages(startPage,endPage){
 				for(var i = startPage;i<=endPage;i++){
 					this.mypage.push(i);
