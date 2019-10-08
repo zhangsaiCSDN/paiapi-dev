@@ -75,4 +75,9 @@ public class ImageServiceImpl implements IImageService {
 		// TODO Auto-generated method stub
 		return dao.findAll();
 	}
+
+	@Override
+	public Image findImg(Integer gid) {
+		return dao.findImg(gid);
+	}
 }

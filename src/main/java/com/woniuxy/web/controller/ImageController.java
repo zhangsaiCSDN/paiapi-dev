@@ -51,6 +51,15 @@ public class ImageController {
 	public List<Image> find() {
 		return service.find();
 	}
+	
+	//查询图片
+	@GetMapping("findOne")
+	@ResponseBody
+	public Image findOne(Integer gid) {
+	
+		return service.findImg(gid);
+	}
+
 
 	@DeleteMapping
 	@ResponseBody

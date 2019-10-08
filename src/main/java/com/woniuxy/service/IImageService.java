@@ -15,5 +15,6 @@ public interface IImageService {
 	Image findOne(Integer imgid);
 	void updImg(Integer imgid,String img);
 	Integer count();
+	Image findImg(Integer gid);
 }
  
