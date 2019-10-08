@@ -32,11 +32,11 @@ public interface DepositMapper {
 
     int updateByPrimaryKey(Deposit record);
     
-    int findCount();
+    int findCount(Integer uid);
     
     List<Deposit> findAll(Page<Deposit> page);
     
-    List<Deposit> findDepo(Page<Deposit> page);
+    List<Deposit> findDepo(Page<Deposit> page , Integer uid);
     
     Deposit findOne(Integer did);
     List<Deposit> search(Map<String,Object> map);

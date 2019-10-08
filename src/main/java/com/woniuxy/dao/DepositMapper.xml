@@ -262,6 +262,7 @@
   	 JOIN user u 
   	ON d.uid=u.uid
   	where g.`gstate` in (3,5,6,7)
+  	and d.uid = #{uid}
   </select>
   
   
@@ -275,7 +276,8 @@
   	 JOIN user u 
   	ON d.uid=u.uid
   	where g.`gstate` in (3,5,6,7)
-  	limit #{startLine},#{size}
+  	and d.uid = #{uid}
+  	limit #{page.startLine},#{page.size}
   </select>
   
   

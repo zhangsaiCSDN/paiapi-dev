@@ -130,15 +130,15 @@
 					checkedNames:[],
 					checked:false,
 					count:'',
-					countMoney:0
+					countMoney:0,
+					uid:''
 					
 				};
 			},
 			methods:{
-				find(p){
+				find(p,uid){
 					var self = this;
-					this.$ajax.get("http://localhost:8080/deposits/findDepo?p="+p
-						).then(
+					this.$ajax.get("http://localhost:8080/deposits/findDepo?p="+p+"&uid="+uid).then(
 							function(response){
 								self.list = response.data.list;
 								self.page = response.data;
@@ -225,7 +225,13 @@
 			},
 				
 			mounted:function(){
-				this.find(1)
+			 var self = this;
+				this.$ajax.get('http://localhost:8080/users/isLogin').then(function(response){
+			    	var uid = response.data.user.uid;
+			     	self.find(1,uid)
+			    });
+			    
+				
 			},
 			
 		}
