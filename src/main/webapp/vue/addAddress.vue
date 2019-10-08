@@ -14,6 +14,7 @@
 			</v-distpicker>
 			详细地址:<br><input type="text" class="form-control" width="17%" placeholder="请输入详细地址" v-model="ainfo" /><br />
 			邮政编码:<br><input type="text" class="form-control" width="17%" placeholder="请输入邮编" v-model="apost" /><br />
+			收件人:<br><input type="text" class="form-control" width="17%" placeholder="请输入收件人姓名" v-model="name" /><br />
 			手机号码:<br><input type="text" class="form-control" width="17%" placeholder="请输入手机号码" v-model="aphone" /><br />
 			   
         </div>
@@ -63,7 +64,7 @@
 				var self = this; 
 				
 				this.$ajax.post("http://localhost:8080/addresses", {
-					ainfo: self.ainfo,
+					ainfo: self.ainfo+self.name,
 					apost: self.apost,
 					aphone: self.aphone,
 					select: self.select,

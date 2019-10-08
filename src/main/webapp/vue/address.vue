@@ -21,8 +21,8 @@
 	        		<th>{{item.apost}}</th>
 	        		<th>{{item.aphone}}</th>
 	        		<th>
-	        			<button class="btn btn-danger" @click="del(item.aid)" :key="item.aid">删除</button>
-	        			<button type="button" class="btn btn-success">
+	        			<button class="btn" @click="del(item.aid)" :key="item.aid">删除</button>
+	        			<button type="button" class="btn">
 		        			<router-link to="/updateAddress/">
 								修改
 							</router-link>
@@ -60,6 +60,7 @@
 	  data() {
 	    return {
 	      	uid:"",
+	      	aid:"",
 			u_aid:"",
 			u_user:"",
 			u_ainfo:"",
@@ -100,18 +101,17 @@
 					self.pages(self.address.startPage,self.address.endPage);
 				});
 			},
-			
 			del(aid){
-				alert(aid);
 				var self=this;
-				self.$ajax.post("http://localhost:8080/addresses",
-				{params:{
-							aid:aid
-						}
+				self.$ajax.post("http://localhost:8080/addresses/delete",
+				{
+					"aid":aid
 				}).then(function(){
 					self.find(self.address.p);
 				});
+				alert(aid);
 			},
+			
 			
 			pages(startPage,endPage){
 				for(var i = startPage;i<=endPage;i++){
