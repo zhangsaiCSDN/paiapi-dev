@@ -30,7 +30,7 @@ import org.springframework.stereotype.Component;
 
 
 
-@ServerEndpoint("/chat")  
+@ServerEndpoint("/talk")  
 @Component
 public class TalkWebSocket {
 
