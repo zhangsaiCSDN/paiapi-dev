@@ -81,9 +81,9 @@ public class RoomController {
 		Map<String,Object> map=new HashMap<>();
 		Map<String,Object> map2=new HashMap<>();
 		Integer uid=null;
-		Object oldUid=session.getAttribute("uid");
+		String oldUid=(String)session.getAttribute("uid");
 		if(oldUid!=null) {
-			uid=(Integer) oldUid;
+			uid=Integer.parseInt(oldUid);
 			map2.put("gid", gid);
 			map2.put("uid", uid);
 			if(depositService.search(map2).size()!=0) {

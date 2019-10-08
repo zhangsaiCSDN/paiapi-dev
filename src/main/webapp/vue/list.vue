@@ -4,22 +4,26 @@
 			<div class="biaoti center">商品列表</div>
 			<hr/>
 			<div class="main center">
-				<div class="mingxing fl mb20" style="border:2px solid #fff;width:230px;cursor:pointer;" onmouseout="this.style.border='2px solid #fff'" onmousemove="this.style.border='2px solid red'" v-for="good in goods.list">
+			<swiper-slide  >
+				<div class="mingxing fl"  v-for="good in goods.list">
+					
 					<div class="sub_mingxing">
-						<a><img :src="'/image/'+good.images[0].img" @click="goodsOne(good.gid)" alt="" /></a>
+						<a><img :src="'../admin/goods/goodsImg/'+good.images[0].img" @click="goodsOne(good.gid)" alt="" /></a>
 					</div>
+					<div class="biaoqian">&nbsp;浏览次数:{{good.gcount}}人</div>
 					<div class="pinpai"><span @click="goodsOne(good.gid)">{{good.gname}}</span></div>
 					<div class="youhui">{{good.gstart}}竞拍</div>
-					<div class="jiage">{{good.gprice}}元</div>
+					<div style="font-size: 16px;text-align: center;color:#ff6709;">{{good.gprice}}元</div>
 				</div>
+				</swiper-slide  >
 			</div>
 		</div>
 		<div class="danpin center" style="clear: both;text-align: center">
 			{{goods.p}}/{{goods.maxPage}}
-			<span @click="finAll(1)">首页</span>
-			<span @click="findAll(goods.prev)">上一页</span>
-			<span @click="findAll(goods.next)">下一页</span>
-			<span @click="finAll(goods.maxPage)">末页</span>
+			<span @click="findAll(1)" style="cursor:pointer;">首页</span>
+			<span @click="findAll(goods.prev)"  style="cursor:pointer;">上一页</span>
+			<span @click="findAll(goods.next)"  style="cursor:pointer;">下一页</span>
+			<span @click="findAll(goods.maxPage)"  style="cursor:pointer;">末页</span>
 		</div>
 	</div>
 </template>
@@ -53,18 +57,20 @@ export default {
 					path: "goodsOne/" + gid
 				});
 			},
-			search(g) {
-				
+			search(g,ga) {
+				alert( ga.value)
 				var self = this;
 				this.$ajax.get("http://localhost:8080/goods/image", {
 					params: {
-						p: this.goods.p,
-						gname: g.value
+						p: 1,
+						gname: g.value,
+						garea: ga.value
 					}
 				}).then(
 					function(response) {
 						self.goods = response.data;
 						g.value = "";
+						ga.value = "";
 					});
 			}
 		}

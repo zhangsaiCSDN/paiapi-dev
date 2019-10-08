@@ -438,6 +438,9 @@
 			<if test="gname !=null">
 				and g.gname like concat('%',#{gname},'%')
 			</if>
+			<if test="garea !=null">
+				and g.garea like concat('%',#{garea},'%')
+			</if>
 		</where>
 			<if test="page!=null">
 				group by g.gid limit #{page.startLine}, #{page.size}

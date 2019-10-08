@@ -101,7 +101,7 @@ public class GoodsController {
 	
 	@GetMapping("image")
 	@ResponseBody
-	public Page<Goods> findImage(HttpServletResponse resp,Integer gid,Integer p,String gname) {
+	public Page<Goods> findImage(HttpServletResponse resp,Integer gid,Integer p,String gname,String garea) {
 		Integer p1=p;
 		if(p==null)p=1;
 		int count=service.count();
@@ -109,6 +109,7 @@ public class GoodsController {
 		Map<String,Object> map= new HashMap<>();
 		map.put("gid", gid);
 		if(gname!=null)map.put("gname", gname);
+		if(garea!=null)map.put("garea", garea);
 		if(p1!=null) {
 			map.put("page", page);
 		}else {

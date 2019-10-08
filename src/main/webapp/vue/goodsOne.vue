@@ -3,7 +3,7 @@
 		
 
 			<div class="jieshao mt20 w">
-				<div class="left fl"><img src="./image/liebiao_xiaomi6.jpg"></div>
+				<div class="left fl"><img :src="'../admin/goods/goodsImg/'+goods.images[0].img" style="width:100%;height:100%;"></div>
 				<div class="right fr">
 					<div class="h3 ml20 mt20">{{goods.gname}}</div>
 					<div class="ft20 ml20 mt20">详情描述:<br/>{{goods.ginfo}}</div>
@@ -73,28 +73,31 @@
 		},
 		methods: {
 			myCollect(gid) {
+			 var self=this;
 				this.$ajax.post("http://localhost:8080/collects", {
 					gid: gid
 				}).then(
 					function(response) {
 						var resp = response.data;
 						if(resp.status == "200") {
-							alert(resp.message);
+							self.$Message.success(resp.message);
 						} else if(resp.status == "500") {
-							alert(resp.message);
+							self.$Message.error(resp.message);
 						}
 					});
 			},
 			joinRoom(gid) {
-		
+				var self=this;
 				this.$ajax.get("http://localhost:8080/rooms/search?gid="+gid).then(
 					function(response) {
 						var resp = response.data;
 						if(resp.status == "200") {
-							
+							self.$router.push({
+								path: "/rooms/" + gid
+							});
 							
 						} else if(resp.status == "500") {
-							alert(resp.message);
+							self.$Message.error(resp.message);
 						}
 					});
 			}
