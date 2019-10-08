@@ -5,7 +5,7 @@
           <h4 class="modal-title">增加地址{{uid}}</h4>
           <button type="button" class="close" data-dismiss="modal">&times;</button>
         </div>
-   
+     
         <div class="modal-body" text-aligh="center">
 			<input type="hidden" width="17%" />
 			请输入个人id:<br><input type="text" class="form-control" width="17%" v-model="uid" /><br />
