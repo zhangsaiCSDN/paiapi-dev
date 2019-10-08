@@ -5,7 +5,7 @@
 		<table class="table table-striped" >
         	 <thead>
 	        	<tr>
-	        		<th>用户ID</th>  
+	        		<th>地址ID</th>  
 	        		<th>用户名</th>  
 	        		<th>地址信息</th>
 	        		<th>邮政编码</th>
@@ -15,8 +15,8 @@
 	        </thead>
 	        <tbody>
 	        	<tr v-for = "item in list" >
-	        		<th>{{item.user.uid}}</th>
-	        		<th>{{item.user.uname}}</th>
+	        		<th>{{item.aid}}</th>
+	        		<th>{{item.uid}}</th>
 	        		<th>{{item.ainfo}}</th>
 	        		<th>{{item.apost}}</th>
 	        		<th>{{item.aphone}}</th>
@@ -28,7 +28,7 @@
 							</router-link>
 	        			</button>
 	        		</th>
-	        	</tr>  
+	        	</tr>    
 	        </tbody> 
         	</table>
         	<div class="rtcont fr">
@@ -70,59 +70,59 @@
 			mypage:[],
 	    }
 	  },
-	  mounted: function() {
+	created(){
+			this.getUid();
 		},
-		created(){
-				this.find(1);
+		methods:{
+		    getUid(){
+			    var self=this;
+			   	this.$ajax.get("http://localhost:8080/users/isLogin").then(function(response) { 
+			    	 self.uid=response.data.user.uid;
+			    	 self.uname=response.data.user.uname;     
+			    	 self.find(1);  
+			     })
+			    
+			  },
+			
+			find(page){
+		 		var self = this;
+		 		var uid = self.uid;
+				this.$ajax.get("http://localhost:8080/addresses/findByUid",
+						{params:{
+								p:page,
+								uid:uid
+								}
+					}).then(function(response){
+					self.address = response.data;
+					self.list = response.data.list;
+					self.mypage = [];
+					self.pages(self.address.startPage,self.address.endPage);
+				});
 			},
-			methods:{
-			    getUid(){
-   	 				var self=this;
-					this.$ajax.get("http://localhost:8080/users/isLogin")
-					.then(function(response) { 
-     				self.uid=response.data.user.uid;   
-					});
-			 		alert(uid);
-					
-    			},
-				find(page){
-			 		var self = this;
-			 		asyon: false;
-					this.$ajax.get("http://localhost:8080/addresses",
-							{params:{
-									p:page,
-									uid:self.uid
-									}
-						}).then(function(response){
-						self.address = response.data;
-						self.list = response.data.list;
-						self.mypage = [];
-						self.pages(self.address.startPage,self.address.endPage);
-					});
-				},
-				
-				del(aid){
-					alert(aid);
-					var self=this;
-					self.$ajax.post("http://localhost:8080/addresses",
-					{params:{
-								aid:aid
-							}
-					}).then(function(){
-						self.find(self.address.p);
-					});
-				},
-				pages(startPage,endPage){
-					for(var i = startPage;i<=endPage;i++){
-						this.mypage.push(i);
-					}
-					
-				},
-				edit(aid){
-					this.$router.push({path:"updateAddress/"+aid});
+			
+			del(aid){
+				alert(aid);
+				var self=this;
+				self.$ajax.post("http://localhost:8080/addresses",
+				{params:{
+							aid:aid
+						}
+				}).then(function(){
+					self.find(self.address.p);
+				});
+			},
+			
+			pages(startPage,endPage){
+				for(var i = startPage;i<=endPage;i++){
+					this.mypage.push(i);
 				}
 				
+			},
+			edit(aid){
+				this.$router.push({path:"updateAddress/"+aid});
 			}
+			
+		}
 	
 	
 	}

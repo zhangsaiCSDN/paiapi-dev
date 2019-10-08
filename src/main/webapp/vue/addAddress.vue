@@ -8,7 +8,7 @@
      
         <div class="modal-body" text-aligh="center">
 			<input type="hidden" width="17%" />
-			请输入个人id:<br><input type="text" class="form-control" width="17%" v-model="uid" /><br />
+			<input type="hidden" class="form-control" width="17%" v-model="uid" /><br />
 			请选择地址:
 			<v-distpicker @selected="onSelected" :province="select.province" :city="select.city" :area="select.area" v-model="select">
 			</v-distpicker>
@@ -52,6 +52,13 @@
 	    }
 	  },
 		methods: {
+			async isLogin() {
+			var self = this;
+				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
+				self.name = result.data.name;
+				self.uid = result.data.user.uid;
+				self.save();
+			},
 			reset(){
 				this.ainfo="";
 				this.apost="";
@@ -61,12 +68,11 @@
 			
 			save(){
 				var self = this; 
-				var uid=this.$route.params.uid
+				alert(self.uid);
 				this.$ajax.post("http://localhost:8080/addresses", {
 					ainfo: self.ainfo,
 					apost: self.apost,
 					aphone: self.aphone,
-					name: self.name,
 					uid: self.uid,
 					select: self.select,
 			

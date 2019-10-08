@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,8 +36,10 @@ public class AddressController {
 	
 	@PostMapping
 	@ResponseBody
-	public void save(@RequestBody Address address) {
-		address.setUser(userService.findOne(address.getUid()));
+	public void save(@RequestBody Address address,HttpSession session) {
+		Integer uid=Integer.parseInt((String)session.getAttribute("uid"));
+		address.setUid(uid);
+		address.setUser(userService.findOne(uid));
 		service.save(address);
 	}
 	
@@ -83,10 +87,6 @@ public class AddressController {
 		
 		Page<Address> page=new Page<>(p,rc,5);
 		List<Address> list=service.find(page);
-		for (Address address : list) {
-			
-			System.out.println(address);
-		}
 		map.put("page", page);
 		List find = service.find(map);
 		page.setList(find);
