@@ -64,7 +64,7 @@
 				v_pages:[],
 				uid:''
 			};
-		},
+		}, 
 		created:function(){
 			this.getUid();
 		},

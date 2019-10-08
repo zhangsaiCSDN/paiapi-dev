@@ -75,7 +75,7 @@
 			    	 self.uid=response.data.user.uid;   
 			    	self.find(1);  
 			     })
-			    
+			     
 			    },
 				//分页展示 uid是传入的买家id
 				find(page) { 
