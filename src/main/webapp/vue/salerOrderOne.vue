@@ -68,7 +68,7 @@
 					<Modal id="Modal" v-model="modal1" title="与买家在线交流"  class=".modal-lg" fullscreen>
 						<div>
 							<iframe width="100%" height="700px" src="http://localhost:8080/talk/salerTalk.html"></iframe>
-						</div>
+						</div> 
 			
 	
 			</Modal>

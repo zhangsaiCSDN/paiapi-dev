@@ -65,7 +65,7 @@
 					<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin=307081517&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:1075930808:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
 			<!-- <Modal v-model="modal1" title="Common Modal dialog box title" @on-ok="ok" @on-cancel="cancel"> -->
 			<Modal id="Modal" v-model="modal1" title="与卖家在线交流"  class=".modal-lg" fullscreen>
-				<div>
+				<div> 
 					<iframe width="100%" height="700px" src="http://localhost:8080/talk/talk.html"></iframe>
 				</div>
 	
