@@ -18,7 +18,7 @@
 			<div class="subddzx">
 				<ul>
 					<li><router-link to="/userInfo">我的信息</router-link></li>
-					<li><router-link to="">我的地址</router-link></li>
+					<li><router-link to="/address">我的地址</router-link></li>
 					<li><router-link to="/deposit">我的押金</router-link></li>
 				</ul>
 			</div>
