@@ -100,7 +100,7 @@
 					self.mypage = [];
 					self.pages(self.address.startPage,self.address.endPage);
 				});
-			},
+			}, 
 			del(aid){
 				var self=this;
 				self.$ajax.post("http://localhost:8080/addresses/"+aid)
