@@ -49,9 +49,7 @@
 				<div class="jiesuan fr">
 					<div class="jiesuanjiage fl">共计：<span>{{countMoney}}元</span></div>
 					<div class="jsanniu fr">
-							<button @click="qx()" class="jsan btn btn-danger">
-								支付
-							</button>
+							
 					</div>
 					<div class="clear"></div>
 				</div>
@@ -60,6 +58,18 @@
 			
 			
 			
+				<div class="sub_content fl  clear ">
+				<button class="btn btn-success btn-block">
+				 <span class="glyphicon glyphicon-home" aria-hidden="true"></span> <router-link to="/userCenter">进入竞价室</router-link>
+				 
+				 </button>
+				</div>
+				<div class="sub_content fl ">
+				<button class="btn btn-warning btn-block">
+				
+				 <span class="glyphicon glyphicon-usd" aria-hidden="true"><router-link to="/deposit">保证金</router-link></span>
+				 </button> 
+				</div>
 			
 			<div class="ok">
 			
@@ -74,6 +84,8 @@
 										class="btn btn-outline-primary">末页</button>
 				
 				</div>
+				
+				
 				
 		</div>
 	
@@ -90,8 +102,8 @@
 					checkedNames:[],
 					checked:false,
 					count:'',
-					countMoney:0
-					
+					countMoney:0,
+					uid:''
 				};
 			},
 			watch: {
@@ -114,20 +126,23 @@
 				}
 			},
 			methods:{
-				
-			find(page){
-				var self=this;
-				this.$ajax.get("http://localhost:8080/collects",{
-					params:{
-						p:page
-					}
-				}).then(function(response){
-					self.collects =response.data;
-					self.v_pages=[];
-					self.pages(self.collects.startPage,self.collects.endPage);
-				})
-			},
-				
+					
+				find(page){
+					var self=this;
+					var uid=self.uid;
+					this.$ajax.get("http://localhost:8080/collects/findByUid",{
+						params:{
+							p:page,
+							uid:uid
+						}
+					}).then(function(response){
+						self.collects =response.data;
+						self.v_pages=[];
+						self.pages(self.collects.startPage,self.collects.endPage);
+					})
+				},
+			
+			
 					/*分页页码数据  */
 				pages(startPage,endPage){
 					var self=this;
@@ -157,22 +172,9 @@
 					self.find(self.collects.p)
 				})
 				
-				
-				
-				
 			},
-				qx(){
-					var self=this
-					this.$ajax.put("http://localhost:8080/deposits/updateList",{
-							'list':self.checkedNames
-						}).then(function(response){
-							self.find(self.page.p);
-							alert(response.data);
-					})
-					
-				},
 				
-				edit(item){
+			edit(item){
 					 var self=this;
 					
 					 this.$ajax.put("http://localhost:8080/deposits",{
@@ -187,24 +189,28 @@
 					 		self.find(self.page.p);
 					 		alert(response.data);
 					 })
+				},
+				
+			del(clid){
+					var self=this;
+					this.$ajax.delete("http://localhost:8080/collects?clid=" + clid).then(function(response){
+						alert('删除成功!'); 
+						self.find(self.collects.p)
+					})
 				}
 				
 				
+				
 			},	
-			del(clid){
-			var self=this;
-				this.$ajax.delete("http://localhost:8080/collects?clid=" + clid).then(function(response){
-					alert('删除成功!'); 
-					self.find(self.collects.p)
-				})
-			
-			
-			
-			},
 				
 			mounted:function(){
-				this.find(1)
-			},
+				var self =this;
+				this.$ajax.get("http://localhost:8080/users/isLogin").then(function(response){
+					self.uid=response.data.user.uid;
+					self.find(1);
+					});
+			}
+			
 			
 		}
 	

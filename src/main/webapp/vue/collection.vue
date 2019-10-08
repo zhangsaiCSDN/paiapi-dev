@@ -49,9 +49,7 @@
 				<div class="jiesuan fr">
 					<div class="jiesuanjiage fl">共计：<span>{{countMoney}}元</span></div>
 					<div class="jsanniu fr">
-							<button @click="qx()" class="jsan btn btn-danger">
-								结账
-							</button>
+							
 					</div>
 					<div class="clear"></div>
 				</div>
@@ -60,6 +58,18 @@
 			
 			
 			
+				<div class="sub_content fl  clear ">
+				<button class="btn btn-success btn-block">
+				 <span class="glyphicon glyphicon-home" aria-hidden="true"></span> <router-link to="/userCenter">进入竞价室</router-link>
+				 
+				 </button>
+				</div>
+				<div class="sub_content fl ">
+				<button class="btn btn-warning btn-block">
+				
+				 <span class="glyphicon glyphicon-usd" aria-hidden="true"><router-link to="/deposit">保证金</router-link></span>
+				 </button> 
+				</div>
 			
 			<div class="ok">
 			
@@ -75,18 +85,6 @@
 				
 				</div>
 				
-				<div class="sub_content fl ">
-				<button class="btn btn-success btn-block">
-				 <span class="glyphicon glyphicon-home" aria-hidden="true"></span> <router-link to="/myRooms/1">进入竞价室</router-link>
-				 
-				 </button>
-				</div>
-				<div class="sub_content fl ">
-				<button class="btn btn-warning btn-block">
-				
-				 <span class="glyphicon glyphicon-usd" aria-hidden="true"><router-link to="/deposit">保证金</router-link></span>
-				 </button> 
-				</div>
 				
 				
 		</div>
@@ -104,8 +102,8 @@
 					checkedNames:[],
 					checked:false,
 					count:'',
-					countMoney:0
-					
+					countMoney:0,
+					uid:''
 				};
 			},
 			watch: {
@@ -128,19 +126,21 @@
 				}
 			},
 			methods:{
-				
-			find(page){
-				var self=this;
-				this.$ajax.get("http://localhost:8080/collects",{
-					params:{
-						p:page
-					}
-				}).then(function(response){
-					self.collects =response.data;
-					self.v_pages=[];
-					self.pages(self.collects.startPage,self.collects.endPage);
-				})
-			},
+					
+				find(page){
+					var self=this;
+					var uid=self.uid;
+					this.$ajax.get("http://localhost:8080/collects/findByUid",{
+						params:{
+							p:page,
+							uid:uid
+						}
+					}).then(function(response){
+						self.collects =response.data;
+						self.v_pages=[];
+						self.pages(self.collects.startPage,self.collects.endPage);
+					})
+				},
 			
 			
 					/*分页页码数据  */
@@ -172,12 +172,9 @@
 					self.find(self.collects.p)
 				})
 				
-				
-				
-				
 			},
 				
-				edit(item){
+			edit(item){
 					 var self=this;
 					
 					 this.$ajax.put("http://localhost:8080/deposits",{
@@ -192,25 +189,27 @@
 					 		self.find(self.page.p);
 					 		alert(response.data);
 					 })
+				},
+				
+			del(clid){
+					var self=this;
+					this.$ajax.delete("http://localhost:8080/collects?clid=" + clid).then(function(response){
+						alert('删除成功!'); 
+						self.find(self.collects.p)
+					})
 				}
 				
 				
+				
 			},	
-			del(clid){
-			var self=this;
-				this.$ajax.delete("http://localhost:8080/collects?clid=" + clid).then(function(response){
-					alert('删除成功!'); 
-					self.find(self.collects.p)
-				})
-			
-			
-			
-			},
-			
 				
 			mounted:function(){
-				this.find(1)
-			},
+				var self =this;
+				this.$ajax.get("http://localhost:8080/users/isLogin").then(function(response){
+					self.uid=response.data.user.uid;
+					self.find(1);
+					});
+			}
 			
 			
 		}
@@ -241,8 +240,8 @@
 .gwcxqbj .gwcxd .top2 .sub_top:nth-of-type(4){margin-left: 100px;}
 .gwcxqbj .gwcxd .top2 .sub_top:nth-of-type(5){margin-left: 79px;}
 .gwcxqbj .gwcxd .top2 .sub_top .quanxuan{width:18px;height:18px;border:1px solid #ccc;background: none;}
-.gwcxqbj .gwcxd .content2{width:1226px;height: 120px;border-top: 1px solid #ccc;}
-.gwcxqbj .gwcxd .content2 .sub_content{width:50px;height: 120px;line-height:120px;margin-right: 0px;}
+.gwcxqbj .gwcxd .content2{width:1226px;height: 70px;border-top: 1px solid #ccc;}
+.gwcxqbj .gwcxd .content2 .sub_content{width:50px;height: 70px;line-height:70px;margin-right: 0px;}
 .gwcxqbj .gwcxd .sub_content .quanxuan{width:18px;height:18px;border:1px solid #ccc;background: none;}
 .gwcxqbj .gwcxd .content2 .sub_content img{vertical-align: middle;}
 .gwcxqbj .gwcxd .content2 .sub_content:nth-of-type(1){margin-left: 30px;} 
@@ -256,10 +255,11 @@
 .gwcxqbj .gwcxd .content2 .sub_content a{display: block;width: 20px;height: 20px;border-radius: 10px;color:#000;}
 .gwcxqbj .gwcxd .content2 .sub_content a:hover{color:#ff6700;}
 .gwcxqbj .gwcxd .content2 .sub_content[data-v-e7bd4f56]:nth-of-type(3){width:150px;}
-.gwcxqbj .gwcxd .content2 .sub_content[data-v-e7bd4f56]{width:60px;}
+.gwcxqbj .gwcxd .content2 .sub_content[data-v-e7bd4f56]{width:60px;line-height:70px;}
 .gwcxqbj .gwcxd .top2 .sub_top[data-v-e7bd4f56]:nth-of-type(2){margin-left:153px;}
 .gwcxqbj .gwcxd .top2 .sub_top[data-v-e7bd4f56]:nth-of-type(4){margin-left:109px;}
 .gwcxqbj .gwcxd .top2 .sub_top[data-v-e7bd4f56]:nth-of-type(5){margin-left:64px;}
+.gwcxqbj .gwcxd .content2[data-v-e7bd4f56]{line-height:70px;}
 .ok{margin-left:750px;}
 .11{margin-left:750px;}
 footer{width: 100%;height: 120px;line-height: 30px;text-align: center;font-size: 12px;background: rgb(250,250,250);padding:30px 0;}
