@@ -9,13 +9,12 @@
 				<ul>
 					<li><router-link to="/salerOrder">卖家订单</router-link></li>
 					<li><router-link to="/userGoods">卖家拍品</router-link></li>
-					<li><router-link to="">我的竞价室</router-link></li>
 				</ul>
 			</div>
 			<div class="ddzx">个人中心</div>
 			<div class="subddzx">
 				<ul>
-					<li><router-link to="/salerCenter/userInfo">个人中心</router-link></li>
+					<li><router-link to="/salerCenter/userInfo">我的信息</router-link></li>
 					<li><router-link to="/salerCenter/deposit">我的押金</router-link></li>
 				</ul>
 			</div>
