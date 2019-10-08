@@ -18,16 +18,29 @@
 			</router-link>
 			<div class="nav fl">
 				<ul>
-					<li>
-						<router-link to="/hotProducts">热门拍品</router-link>
-					</li>
-					<li>
-						<router-link to="/collection">我的收藏</router-link>
-					</li>
-					<li>
-						<router-link to="/help">帮助</router-link>
-					</li>
-				</ul>
+     <li>
+      <router-link to="/hotProducts">热门拍品</router-link>
+     </li>
+     <li>
+      <router-link to="/collection">我的收藏</router-link>
+     </li>
+     <li>
+      <router-link to="/global">全球拍</router-link>
+     </li>
+     <li>
+      <router-link to="/limiteTime">限时拍</router-link>
+     </li>
+     <li>
+      <router-link to="/beforeSell">预展</router-link>
+     </li>
+     <li>
+      <router-link to="/follow">一降到底</router-link>
+     </li>
+     <li>
+      <router-link to="/help">帮助</router-link>
+     </li>
+     
+    </ul>
 			</div>
 			<div class="search fr">
 				<form >
@@ -50,7 +63,7 @@
 		<!--组件切换用-->
 
 		<div>
-			<router-view></router-view>
+			<router-view refs="xx"></router-view>
 		</div>
 
 		<footer class="mt20 center">
@@ -71,6 +84,8 @@
 				number: 0,
 				goods:[],
 				search:'',
+				g:"",
+				ga:""
 			};
 		},
 		computed: {
@@ -110,12 +125,22 @@
 			},
 			searchBtn(){
 				
+					// this.$router.replace("/list");
+					var path=this.$route.path;
+					alert(path)
+					var g=this.g;
+					var ga=this.ga;
+					if(path!="/list"){
+						
+						this.$router.replace("/list");
+					}else{
+					
+						this.$refs.xx.goodsFind(g,ga);
+					}
 				
-				this.$router.replace("/list");
 				
 				
 				
-				// this.$refs.xx.goodsFind(g,ga);
 			}
 		}
 	}

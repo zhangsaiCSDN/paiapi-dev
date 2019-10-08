@@ -1,6 +1,6 @@
 <template>
 	<div>
-		即将开拍222
+		<img src="../image/qidai.png" style="width: 600px;">
 	</div>
 
 </template>
@@ -8,7 +8,7 @@
 <style scoped>
 	div {
 		width:100%;
-		height:300px;
+		height:375px;
 		background-color:rgb(250,250,250);
 		font-size: 30px;
 		line-height: 300px;
