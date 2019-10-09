@@ -8,7 +8,7 @@
 				<div class="mingxing fl"  v-for="good in goods.list">
 					
 					<div class="sub_mingxing">
-						<a><img :src="'../admin/goods/goodsImg/'+good.images[0].img" @click="goodsOne(good.gid)" alt="" /></a>
+						<a><img :src="'admin/goods/goodsImg/'+good.images[0].img" @click="goodsOne(good.gid)" alt="" /></a>
 					</div>
 					<div class="biaoqian">&nbsp;浏览次数:{{good.gcount}}人</div>
 					<div class="pinpai"><span @click="goodsOne(good.gid)">{{good.gname}}</span></div>

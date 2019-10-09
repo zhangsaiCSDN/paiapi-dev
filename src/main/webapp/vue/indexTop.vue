@@ -18,29 +18,29 @@
 			</router-link>
 			<div class="nav fl">
 				<ul>
-     <li>
-      <router-link to="/hotProducts">热门拍品</router-link>
-     </li>
-     <li>
-      <router-link to="/collection">我的收藏</router-link>
-     </li>
-     <li>
-      <router-link to="/global">全球拍</router-link>
-     </li>
-     <li>
-      <router-link to="/limiteTime">限时拍</router-link>
-     </li>
-     <li>
-      <router-link to="/beforeSell">预展</router-link>
-     </li>
-     <li>
-      <router-link to="/follow">一降到底</router-link>
-     </li>
-     <li>
-      <router-link to="/help">帮助</router-link>
-     </li>
+					 <li>
+					  <router-link to="/hotProducts">热门拍品</router-link>
+					 </li>
+					 <li>
+					  <router-link to="/collection">我的收藏</router-link>
+					 </li>
+					 <li>
+					  <router-link to="/global">全球拍</router-link>
+					 </li>
+					 <li>
+					  <router-link to="/limiteTime">限时拍</router-link>
+					 </li>
+					 <li>
+					  <router-link to="/beforeSell">预展</router-link>
+					 </li>
+					 <li>
+					  <router-link to="/follow">一降到底</router-link>
+					 </li>
+					 <li>
+					  <router-link to="/help">帮助</router-link>
+					 </li>
      
-    </ul>
+				</ul>
 			</div>
 			<div class="search fr">
 				<form >
@@ -125,7 +125,7 @@
 			},
 			searchBtn(){
 				
-					// this.$router.replace("/list");
+					
 					var path=this.$route.path;
 					var g=this.g;
 					var ga=this.ga;
