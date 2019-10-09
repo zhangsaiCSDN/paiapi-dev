@@ -151,7 +151,7 @@ public class MsgWebSocket implements Runnable {
 								} catch (IOException e) {
 									e.printStackTrace();
 								}
-							}
+							} 
 							if (good != null&&startTime<60*60*1000&&startTime>0&&status) {
 								System.out.println("拍卖开始提醒" + startTime);
 								try {
