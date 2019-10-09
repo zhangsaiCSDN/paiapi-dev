@@ -120,7 +120,7 @@
 				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
 				if (result.data.status == 200) {
 					this.username = result.data.user.uname;
-					this.uid = result.data.user.uid;
+					this.uid = result.data.user.uid;  
 				}
 				this.msgInit();
 			},
