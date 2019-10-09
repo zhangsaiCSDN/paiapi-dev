@@ -34,6 +34,13 @@ public class GHTestController {
 		service.save(gh);
 	}
 	
+	@PostMapping("add")
+	@ResponseBody
+	public void add(Goodshistory gh) {
+		System.out.println("GHTestController.add()"+gh);
+		service.save(gh);
+	}
+	
 	
 	@DeleteMapping
 	@ResponseBody

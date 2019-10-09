@@ -1,7 +1,11 @@
 
 <template>
   <div>
-  	<!-- 展示已有地址-->
+  	<div v-if="list.length==0">
+		</br><h3 class="tips">抱歉,您暂未添加地址.</h3>
+	</div>
+	<div v-else="list.length!=0">
+		<!-- 展示已有地址-->
 		<table class="table table-striped" >
         	 <thead>
 	        	<tr>
@@ -46,11 +50,16 @@
  					 <button class="btn btn-info" @click="find(address.maxPage)">末页</button>
 				</span>		
 			</div>
-				<router-link to="/addAddress" class="btn btn-info">
+			<router-link to="/addAddress" class="btn btn-info">
 					点击 添加地址
-				</router-link>
+			</router-link>
+	</div>
+  	
+				
 		</div>
-        
+        </br><router-link to="/addAddress" class="btn btn-info">
+					点击 添加地址
+		</router-link>
   </div>
 </template>
 
@@ -129,5 +138,8 @@
 <style scoped>
 #page{
 		position:relative;
+	}
+	.tips{
+		text-align: center;
 	}
 </style>

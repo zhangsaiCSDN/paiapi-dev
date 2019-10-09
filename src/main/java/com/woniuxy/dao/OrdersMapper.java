@@ -40,4 +40,6 @@ public interface OrdersMapper {
     
     Integer findCount(Map<String , Object> map);//根据用户uid查询
     
+    Integer findCountById(Map<String , Object> map);
+    
 }

@@ -14,17 +14,31 @@ import limiteTime from './vue/limiteTime.vue'
 import login from'./vue/login.vue'
 import register from './vue/register.vue'
 import userCenter from './vue/userCenter.vue'
+import salerCenter from './vue/salerCenter.vue'
+import address from './vue/address.vue'
+import addAddress from './vue/addAddress.vue'
+import updateAddress from './vue/updateAddress.vue'
 import goodsHistory from './vue/goodsHistory.vue'
 import order from './vue/order.vue'
 import orderOne from './vue/orderOne.vue'
+import salerOrder from './vue/salerOrder.vue'
+import salerOrderOne from './vue/salerOrderOne.vue'
 import deposit from './vue/deposit.vue'
 import rooms from './vue/rooms.vue'
 import myRooms from './vue/myRooms.vue'
+import userInfo from './vue/userInfo.vue'
 
 import list from'./vue/list.vue'
+import goodsOne from'./vue/goodsOne.vue'
 import biddingRoom from'./vue/biddingRoom.vue'
 import biddingRoomList from'./vue/biddingRoomList.vue'
 
+
+import userGoods from'./vue/userGoods.vue'
+import addGoods from'./vue/addGoods.vue'
+import updateGoods from'./vue/updateGoods.vue'
+import message from'./vue/message.vue'
+import goodsUpload from'./vue/goodsUpload.vue'
 
 var router = new VueRouter({
 	routes:[
@@ -43,16 +57,32 @@ var router = new VueRouter({
 				{path:"/global",component:global},
 				{path:"/help",component:help},
 				{path:"/list",component:list},
+				{path:"/goodsOne/:gid",component:goodsOne},
 				{path:"/biddingRoom",component:biddingRoom},
 				{path:"/biddingRoomList",component:biddingRoomList},
 				{path:"/userCenter",component:userCenter,children:[
 					{path:"/goodsHistory",component:goodsHistory},
-					{path:"/order",component:order},
-					{path:"/orderOne",component:orderOne},
+					{path:"/order/:1",component:order},
+					{path:"/orderOne/:gid/:odid", component: orderOne},
 					{path:"/deposit",component:deposit},
-					{path:"/rooms/:2",component:rooms},
-					{path:"/myRooms/:1",component:myRooms}
-				]}
+					{path:"/rooms/:gid",component:rooms},
+					{path:"/message/:gid",component:message},
+					{path:"/myRooms/:uid",component:myRooms},
+					{path:"/address",name:'address', component:address},
+					{path:"/updateAddress",component:updateAddress},
+					{path:"/addAddress",component:addAddress},
+					{path:"/userCenter/userInfo",component:userInfo}
+				]},
+				{path:"/salerCenter",component:salerCenter,children:[
+					{path:"/salerOrder",component:salerOrder},
+					{path:"/salerOrderOne/:gid/:odid", component: salerOrderOne},
+					{ path:'/userGoods', component:userGoods },
+					{ path:'/addGoods', component:addGoods },
+					{ path:'/updateGoods/:gid', component:updateGoods },
+					{ path:'/goodsUpload', component:goodsUpload },
+					{path:"/salerCenter/userInfo",component:userInfo},
+					{path:"/salerCenter/deposit",component:deposit},
+				]},
 				 
 			]
 		}

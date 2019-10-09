@@ -92,26 +92,26 @@ public class OrdersController {
 	}
 	@GetMapping("findByBuyerid")
 	@ResponseBody
-	public Page<Orders> findByBuyerid(Integer p,Integer buyid){
+	public Page<Orders> findByBuyerid(Integer p,Integer buyerid){
 		//测试参数uid 接口留着接参数
 //		int uid =562;
 //		int uid =1;
-		System.out.println("OrdersController.findByBuyerid()"+buyid);
+		System.out.println("OrdersController.findByBuyerid()~~~~~~~~~~"+buyerid);
 		Map map = new HashMap<String,Object>();
-		map.put("uid", buyid);
-		Integer rc = service.findCount(map); //根据条件查到rc
+		map.put("buyerid", buyerid);
+		Integer rc = service.findCountById(map); //根据条件查到rc
 		
 		if(p==null)p=1;
-		int count=service.count();
+		//int count=service.count();
 		
 		Page<Orders> page=new Page<>(p,rc,5);
-		List<Orders> list=service.find(page);
+		//List<Orders> list=service.find(page);
 		
 		map.put("page", page);
 		List find = service.findByBuyerid(map);
 		page.setList(find);
 
-		page.setRowCount(1); //总页数
+		//page.setRowCount(1); //总页数
 		
 		return page;
 	}

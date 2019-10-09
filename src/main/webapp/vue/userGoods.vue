@@ -108,7 +108,7 @@
 									self.page = response.data;
 									for(var i in self.list){
 										for(var j in self.list[i].images){
-											self.list[i].images[j].img = "../image/"+self.list[i].images[j].img;
+											self.list[i].images[j].img = "image/"+self.list[i].images[j].img;
 											self.vpages=[];
 											self.pages(self.page.startPage , self.page.endPage);
 											

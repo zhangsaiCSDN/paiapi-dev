@@ -52,10 +52,10 @@
 		</header>
 		<router-view></router-view>
 		<!-- <Modal v-model="modal1" title="Common Modal dialog box title" @on-ok="ok" @on-cancel="cancel"> -->
-		<Modal v-model="modal1" title="您关注的以下拍品即将竞拍">
+		<Modal v-model="modal1" title="消息列表">
 			<div>
 				<div class="msgBox" v-for="(v,k,i) in msg" :key='i'>
-					<p>{{(k+1)+'号消息:'+v}}</p>
+					<p>{{v}}</p>
 				</div>
 			</div>
 
@@ -65,6 +65,14 @@
 			<div class="fankui">
 				项目开发时间紧急,有很多不尽完善的地方,我们愿意倾听您的建议和意见.</br>
 				问题反馈联系:QQ 35534574 注明 蜗牛拍拍</br>
+			</div>
+
+		</Modal>
+		<Modal v-model="modal3" title="您关注的以下下拍品有竞拍活动">
+			<div class="fankui">
+				<div class="msgBox" v-for="(v,k,i) in msgAlert" :key='i'>
+					<p>{{(k+1)+'号消息:'+v}}</p>
+				</div>
 			</div>
 
 		</Modal>
@@ -79,13 +87,17 @@
 		color: #000000;
 		width: 20px;
 	}
-	.fankui{
+
+	.fankui {
 		font-size: 15px;
-		font-family: "微软雅黑"; 
+		font-family: "微软雅黑";
 	}
+
 	.msgBox {
 		height: 30px;
 		margin-left: 30px;
+		font-size: 15px;
+		font-family: "微软雅黑";
 	}
 </style>
 
@@ -98,10 +110,10 @@
 				path: "ws://localhost:8080/msg/",
 				socket: '',
 				msg: [],
+				msgAlert:[],
 				modal1: false,
-				modal2: false
-
-
+				modal2: false,
+				modal3: false
 			};
 		},
 		methods: {
@@ -116,8 +128,10 @@
 			},
 			async isLogin() {
 				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
-				this.username = result.data.user.uname;
-				this.uid = result.data.user.uid;
+				if (result.data.status == 200) {
+					this.username = result.data.user.uname;
+					this.uid = result.data.user.uid;
+				}
 				this.msgInit();
 			},
 			msgInit() {
@@ -130,7 +144,15 @@
 				}
 			},
 			msgReceived(msg) {
-				this.msg.push(msg.data);
+				var message = msg.data;
+				var msgArray = message.split("###")
+				if (msgArray[0] == 'alert') {
+					this.msgAlert.push(msgArray[1]);
+					this.msg.push(msgArray[1]);
+					this.modal3=true;
+				} else {
+					this.msg.push(msg.data);
+				}
 			},
 			msgOpen() {
 
@@ -147,8 +169,8 @@
 			fankui() {
 
 			},
-			back(){
-				location.href='http://localhost:8080/admin/admin.html';
+			back() {
+				location.href = 'http://localhost:8080/admin/admin.html';
 			}
 
 		},
