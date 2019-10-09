@@ -79,10 +79,12 @@
 		color: #000000;
 		width: 20px;
 	}
-	.fankui{
+
+	.fankui {
 		font-size: 15px;
-		font-family: "微软雅黑"; 
+		font-family: "微软雅黑";
 	}
+
 	.msgBox {
 		height: 30px;
 		margin-left: 30px;
@@ -116,8 +118,10 @@
 			},
 			async isLogin() {
 				var result = await this.$ajax.get('http://localhost:8080/users/isLogin');
-				this.username = result.data.user.uname;
-				this.uid = result.data.user.uid;
+				if (result.data.status == 200) {
+					this.username = result.data.user.uname;
+					this.uid = result.data.user.uid;  
+				}
 				this.msgInit();
 			},
 			msgInit() {
@@ -147,8 +151,8 @@
 			fankui() {
 
 			},
-			back(){
-				location.href='http://localhost:8080/admin/admin.html';
+			back() {
+				location.href = 'http://localhost:8080/admin/admin.html';
 			}
 
 		},
