@@ -385,14 +385,31 @@
   </select>
   <!-- 根据用户uid 查询出订单的数量~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~  -->
 
-  <select id="findByBuyid" parameterType="java.util.HashMap"  resultMap="fd">
+
+
+
+
+ <select id="findCountById" parameterType="java.util.HashMap"  resultType="java.lang.Integer">
+
+		SELECT COUNT(*) FROM orders o
+		INNER JOIN user u ON o.uid=u.uid
+		INNER JOIN goods g ON o.gid=g.gid
+		INNER JOIN address a ON o.aid=a.aid
+	<where>
+		<if test="buyerid != null">
+			and o.buyerid = #{buyerid}
+		</if>
+	</where>
+  </select>
+
+  <select id="findByBuyerid" parameterType="java.util.HashMap"  resultMap="fd">
 		SELECT * FROM orders o
 		INNER JOIN user u ON o.uid=u.uid
 		INNER JOIN goods g ON o.gid=g.gid
 		INNER JOIN address a ON o.aid=a.aid
 
 	<where>
-		<if test="uid != null">
+		<if test="buyerid != null">
 			and o.buyerid = #{buyerid}
 		</if>
 	</where>
