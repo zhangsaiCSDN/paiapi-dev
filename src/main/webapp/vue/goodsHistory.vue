@@ -7,14 +7,14 @@
 			
 			<!--循环获取数据-->
 			<div class="ddxq" v-for="item in ghistoryList">
-				<div class="ddspt fl"><img src="" ></div>
-				<div class="ddbh fl">《{{item.goods.gname}}》{{item.ghdeadline}}</div>
+				
+				<div class="ddbh fl">《{{item.goods.gname}}》{{item.ghdes}}</div>
 				<div class="ztxx fr">
 					<ul>
 						<li>{{item.paystate==0?"待付款":"已付款"}}</li>
 						<li>¥{{item.ghmoney}}</li>
-						<li>{{item.ghdes}}</li>
-						<li>订单详情></li>
+						<li>{{item.ghdeadline.substring(5)}}</li>
+						<li><router-link :to='"goodsOne/"+item.gid'>订单详情></router-link></li>
 						<div class="clear"></div>
 					</ul>
 				</div>
@@ -82,7 +82,6 @@
 			}).then(function(response) {
 				self.ghistoryList = response.data.list;
 				self.v_page = response.data;
-				// alert(self.ghistoryList[1].image.img);
 			})
 		}
 	}
