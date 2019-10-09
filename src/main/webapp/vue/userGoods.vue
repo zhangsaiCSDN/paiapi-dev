@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div> 
 		<table class="table table-hover table-striped table-bordered table-dark">
 			<tr>
 				<td>拍品id</td>
