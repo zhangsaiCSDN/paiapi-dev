@@ -23,10 +23,12 @@
 					<div class="sub_content fl" >{{collect.user.uname}}</div>
 						<div class="sub_content fl" >{{collect.goods.gname}}</div>
 					
-					<div class="sub_content fl">
-						<button type="button" @click="del(collect.clid)" class="btn btn-warning">
-							删除
-						</button>
+					<div  style="margin:auto; text-align:center  ">
+							<span @click="del(collect.clid)" style="cursor:pointer;">删除</span>|
+							<span  @click="jj(collect.goods)"  style="cursor:pointer;" >缴纳保证金</span>
+						
+						
+						
 					</div>
 					
 					<div class="clear"></div>
@@ -58,13 +60,12 @@
 			
 			
 			
-				<div class="sub_content fl  clear ">
+				<div class="ll">
 				<button class="btn btn-success btn-block">
 				 <span class="glyphicon glyphicon-home" aria-hidden="true"></span> <router-link to="/userCenter">进入竞价室</router-link>
-				 
 				 </button>
 				</div>
-				<div class="sub_content fl ">
+				<div class="ll">
 				<button class="btn btn-warning btn-block">
 				
 				 <span class="glyphicon glyphicon-usd" aria-hidden="true"><router-link to="/deposit">保证金</router-link></span>
@@ -126,6 +127,22 @@
 				}
 			},
 			methods:{
+			
+			jj(a){
+					var self=this;
+					 this.$ajax.post("http://localhost:8080/deposits",{
+							gid:a.gid,
+					 		uid:a.uid,
+					 		dmoney:a.money*0.2,
+					 		gstate:2
+					 		
+					 	
+					 	}).then(function(){
+					 		self.$Message.success("缴纳成功!");
+					 })
+			
+			
+			},
 					
 				find(page){
 					var self=this;
@@ -261,6 +278,6 @@
 .gwcxqbj .gwcxd .top2 .sub_top[data-v-e7bd4f56]:nth-of-type(5){margin-left:64px;}
 .gwcxqbj .gwcxd .content2[data-v-e7bd4f56]{line-height:70px;}
 .ok{margin-left:750px;}
-.11{margin-left:750px;}
+.11{width:300px;}
 footer{width: 100%;height: 120px;line-height: 30px;text-align: center;font-size: 12px;background: rgb(250,250,250);padding:30px 0;}
 </style>
