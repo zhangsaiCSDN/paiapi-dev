@@ -68,7 +68,8 @@ public class MonthlyChartServiceImpl implements IMonthlyChart {
 		 
 		 //净利润收入
 		 Double mon  = findGoodsMoney*0.2;
-		 map.put("mon", mon);
+		 Long mon2 = (long) (mon*100);
+		 map.put("mon", (double)(mon2/100));
 		return map;
 	}
 

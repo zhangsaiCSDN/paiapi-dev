@@ -52,7 +52,7 @@ public class ImageController {
 		return service.find();
 	}
 	
-	//查询图片
+	//查询竞价室一张图片
 	@GetMapping("findOne")
 	@ResponseBody
 	public Image findOne(Integer gid) {
