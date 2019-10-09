@@ -31,7 +31,6 @@
 		<div class="sub_banner center">
 			<div class="biaoti center">
 				热门竞拍专场
-				<router-link to="/biddingRoomList"><a class="biaoqian fl">查看更多></a></router-link>
 			</div>
 			<div class="datu fl" style="margin-left: 0px"><img src="http://img10.360buyimg.com/paimai/jfs/t1/50758/8/12372/24684/5d91ae88Ec99dbc3f/dd228d5a1a503563.jpg!q90.webp"></div>
 			<div class="datu fl"><img src="http://img11.360buyimg.com/paimai/jfs/t1/75481/28/11392/73340/5d8dcf13Edb37b553/f8efff40f8eeb267.jpg!q90.webp"></div>

@@ -1,7 +1,6 @@
 <template>
 	<div>
 		<div class="w2 fl">
-			<div class="sub_content1 ff fl">我的id:{{myName}}</div>
 			<div>
 				<font class="sub_content1">获得者:</font>
 				<font class="sub_content1">{{name}};</font>
