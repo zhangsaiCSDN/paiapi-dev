@@ -10,7 +10,7 @@
 							<div class="left fl" v-for="g in gt.goods">
 								<div class="xuangou_left fl" >
 									<a @click="findOne(g.gid)"> 
-										<div class="img fl"><img :src='g.images[0] ? "../admin/goods/goodsImg/"+g.images[0].img : "../image/733db5ee-2e56-41fe-8286-3a3f87193496.jpg" '></div>
+										<div class="img fl"><img :src='g.images[0] ? "admin/goods/goodsImg/"+g.images[0].img : "image/733db5ee-2e56-41fe-8286-3a3f87193496.jpg" '></div>
 										<span class="fl">{{g.gname}}</span>
 									</a>
 								</div> 
@@ -18,7 +18,7 @@
 							<br />
 							<div class="right fl">
 								<div class="xuangou_left fl">
-									<div class="img fl" style="margin-left: 20px;"><img :src='"../admin/goods/goodsTypeImg/"+gt.img' alt=""></div>
+									<div class="img fl" style="margin-left: 20px;"><img :src='"admin/goods/goodsTypeImg/"+gt.img' alt=""></div>
 								</div>
 							</div>
 						</div>
@@ -49,7 +49,7 @@
 				<div class="main center">
 			 	<swiper-slide  >
 					<div class="mingxing fl" v-for="g in goods.slice(0,10)" @click="findOne(g.gid)" >
-						<div class="sub_mingxing"><router-link to="/goodsOne"><img  :src='"../admin/goods/goodsImg/"+g.images[0].img' width="150px"/></router-link></div>
+						<div class="sub_mingxing"><router-link to="/goodsOne"><img  :src='"admin/goods/goodsImg/"+g.images[0].img' width="150px"/></router-link></div>
 						<div class="biaoqian">&nbsp;浏览次数:{{g.gcount}}人</div>
 						<div class="pinpai">{{g.gname}}</div>
 						<div class="youhui">起拍时间:{{g.gstart}}</div>

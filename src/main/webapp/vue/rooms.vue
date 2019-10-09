@@ -192,7 +192,7 @@
 							alert("竞价结束,获得者为"+_this.name);
 							$.ajax({
 								type: "post",
-								url: "http://localhost:8080/ghistorys",
+								url: "http://localhost:8080/ghistorys/add",
 								data:{
 									gid:_this.goods.gid,
 									ghmoney:_this.money,
@@ -201,7 +201,7 @@
 									ghdes:_this.goods.ginfo,
 									paystate:0
 								},
-								async:false,
+								async:false
 							});
 							_this.socket.close();
 						// 分钟数和秒数同时为0  小时数--  分钟数和秒数都变为59

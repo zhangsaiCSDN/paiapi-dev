@@ -18,4 +18,5 @@ public interface IOrdersService {
 	List<Orders> find(Map<String , Object> map); //前端查询 Map中封装 uid 和 page
 	List<Orders> findByBuyerid(Map<String , Object> map); //前端查询 Map中封装 buyerid 和 page
 	Integer findCount(Map<String , Object> map); //前端根据uid 查询数量
+	Integer findCountById(Map<String , Object> map); //前端根据buyerid 查询数量
 }
