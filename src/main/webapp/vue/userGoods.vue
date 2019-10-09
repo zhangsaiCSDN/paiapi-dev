@@ -95,7 +95,7 @@
 		
 			};
 		},
-		
+		 
 		methods:{
 			find(p){
 				var self = this;
