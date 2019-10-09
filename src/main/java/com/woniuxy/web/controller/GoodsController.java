@@ -122,7 +122,12 @@ public class GoodsController {
 	@GetMapping("findOne")
 	@ResponseBody
 	public Goods findOne(Integer gid) {
-		return service.findOne(gid);
+		Goods goods=service.findOne(gid);
+		Integer count=goods.getGcount()+1;
+		Goods goods2=goods;
+		goods2.setGcount(count);
+		update(goods2);
+		return goods;
 	}
 	
 	
@@ -133,9 +138,7 @@ public class GoodsController {
 			System.out.println(11111111);
 			if(map.get("p")==null)map.put("p", 1);
 			int count=service.count();
-			
 			Page<Goods> page=new Page<>(Integer.parseInt(map.get("p").toString()),count,5);
-			
 			map.put("uid",1);
 			map.put("page", page);
 			List<Goods> list=service.findUserGoods(map);

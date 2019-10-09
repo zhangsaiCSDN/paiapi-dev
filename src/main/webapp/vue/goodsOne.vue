@@ -62,6 +62,10 @@
 			this.$ajax.get("http://localhost:8080/goods/image?gid=" + this.$route.params.gid).then(
 				function(response) {
 					self.goods = response.data.list[0];
+					self.$ajax.get("http://localhost:8080/goods/findOne?gid=" + self.$route.params.gid).then(
+					function(response1){
+						
+					}); 
 				});
 		},
 		methods: {
