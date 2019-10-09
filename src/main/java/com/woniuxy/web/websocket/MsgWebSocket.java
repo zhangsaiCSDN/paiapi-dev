@@ -38,6 +38,10 @@ public class MsgWebSocket implements Runnable {
 	private static IGoodsService goodsService;
 
 	private static ICollectService collectsService;
+	
+	public static Map<String, Session> map = new ConcurrentHashMap<>();
+	//通知过的用户 key uid value 通知过的收藏商品
+	public static Map<String, HashSet> noticedMap = new ConcurrentHashMap<>();
 
 	static {
 		MsgWebSocket msg = new MsgWebSocket();
@@ -60,14 +64,19 @@ public class MsgWebSocket implements Runnable {
 		MsgWebSocket.collectsService = iCollectService;
 	}
 
-	public static Map<String, Session> map = new ConcurrentHashMap<>();
+
+	
+	
 
 	@OnOpen
 	public void connect(@PathParam("uid") String uid, Session session) throws Exception {
 		System.out.println(uid + "   已连接");
 		if (!map.containsKey(uid)) {
-			session.getBasicRemote().sendText("欢迎您使用蜗牛拍拍,你所收藏的拍品即将拍卖时会在此处实时提醒您");
+			session.getBasicRemote().sendText("系统消息:您收藏的拍品在结束拍卖前一小时会弹框提醒");
 			map.put(uid, session);
+		}
+		if (noticedMap.containsKey(uid)) {
+			noticedMap.remove(uid);
 		}
 	}
 
@@ -93,7 +102,8 @@ public class MsgWebSocket implements Runnable {
 		List<Collect> collects = null;
 
 		while (true) {
-
+			//究极暴力try catch
+			System.out.println("轮播查询"+new Date());
 			try {
 				try {
 					Thread.currentThread().sleep(5000);
@@ -116,40 +126,46 @@ public class MsgWebSocket implements Runnable {
 					// 一个用户
 					String uid = next.getKey();
 					Session session = next.getValue();
+					if (!noticedMap.containsKey(uid)) {
+						noticedMap.put(uid, new HashSet<Goods>());
+					}
 					// 所有收藏记录 收藏循环
 					for (Collect collect : collects) {
 						// 是该用户的收藏
 						if (collect.getUid() == Integer.parseInt(uid)) {
 							Integer gid = collect.getGid();
 							Goods good = goodsService.findOne(gid);
-//						if (good.getGpasstime().getTime()-new Date().getTime()<60*60*1000) {
-							if (true && good != null) {
-								System.out.println("拍卖结束提醒");
-
+							//结束时间 减去现在时间
+							long endTime =  good.getGend().getTime()-new Date().getTime();
+							long startTime =  good.getGstart().getTime()-new Date().getTime();
+							System.out.println(uid+"#"+good.getGname()+"#"+endTime);
+							//用户的收藏集合
+							HashSet<Goods> userGoodsSet = noticedMap.get(uid);
+							//没有通知就通知一下  通知完成后就加入 noticedGoods集合中 下次无法加入就不会通知
+							boolean status = userGoodsSet.add(good);
+							if (good != null&&endTime<60*60*1000&&endTime>0&&status) {
+								System.out.println("拍卖结束提醒" + endTime);
 								try {
 									session.getBasicRemote()
-											.sendText(String.format("你收藏的%s,距离拍卖结束不足一小时啦~", good.getGname()));
+											.sendText(String.format("alert###你收藏的%s,距离拍卖 结束 还有%d分钟", good.getGname(),endTime/1000/60));
 								} catch (IOException e) {
 									e.printStackTrace();
 								}
 							}
-							// if (new Date().getTime()-collect.getGoods().getGstart().getTime()<60*60*1000)
-							// {
-							if (true && good != null) {
-								System.out.println("拍卖开始提醒");
+							if (good != null&&startTime<60*60*1000&&startTime>0&&status) {
+								System.out.println("拍卖开始提醒" + startTime);
 								try {
 									session.getBasicRemote()
-											.sendText(String.format("你收藏的%s,距离拍卖开始不足一小时啦~", good.getGname()));
+											.sendText(String.format("alert###你收藏的%s,距离拍卖 开始 还有%d分钟", good.getGname(),startTime/1000/60));
 								} catch (IOException e) {
 									e.printStackTrace();
 								}
 							}
 						}
 					}
-					// 一个用户通知结束,移出
-					it.remove();
 				}
 			} catch (Exception e) {
+				//究极暴力try catch
 			}
 
 		}
