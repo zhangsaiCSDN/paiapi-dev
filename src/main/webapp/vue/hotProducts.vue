@@ -6,7 +6,7 @@
 			<div class="main center">
 			 	<swiper-slide  >
 					<div class="mingxing fl" v-for="g in goods.slice(0,10)" @click="findOne(g.gid)" >
-						<div class="sub_mingxing"><router-link to="/goodsOne"><img  :src='"../admin/goods/goodsImg/"+g.images[0].img' width="150px"/></router-link></div>
+						<div class="sub_mingxing"><router-link to="/goodsOne"><img  :src='"admin/goods/goodsImg/"+g.images[0].img' width="150px"/></router-link></div>
 						<div class="biaoqian">&nbsp;浏览次数:{{g.gcount}}人</div>
 						<div class="pinpai">{{g.gname}}</div>
 						<div class="youhui">起拍时间:{{g.gstart}}</div>
