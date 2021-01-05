@@ -6,7 +6,7 @@
   "dependencies": {
     "ajax": "0.0.4",
     "area-data": "^5.0.6",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bootstrap3": "^3.3.5",
     "iview": "^3.5.1",
     "jquery": "^3.4.1",
